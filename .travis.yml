@@ -2,4 +2,8 @@ language: objective-c
 osx_image: xcode8.3
 xcode_project: "Bachelor Project Mac.xcodeproj"
 xcode_scheme: "Bachelor Project Mac"
-xcode_sdk: macosx10.12
+
+before_install:
+- brew update
+- if brew outdated | grep -qx carthage; then brew upgrade carthage; fi
+- travis_wait 35 carthage bootstrap --platform macOS
