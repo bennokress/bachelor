@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+enum WorkstationState {
+    case busy       // when working on a docked robot
+    case idle       // when waiting for the next robot
+}
+
+struct Workstation {
+    
+}

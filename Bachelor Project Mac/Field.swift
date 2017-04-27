@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+enum FieldType {
+    case wall
+    case entrance
+    case exit
+    case workstation(object: Workstation)
+    case robot(object: Robot)
+    case empty
+}
+
+struct Field {
+    
+    
+    
+}
