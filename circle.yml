@@ -7,7 +7,7 @@ test:
         PROVISIONING_PROFILE=
         -sdk macosx
         -destination 'platform=OS X,arch=x86_64'
-        -workspace "Bachelor Project Mac.xcworkspace"
+        -project "Bachelor Project Mac.xcodeproj"
         -scheme "Bachelor Project Mac"
         clean build test |
       tee $CIRCLE_ARTIFACTS/xcode_raw.log |
