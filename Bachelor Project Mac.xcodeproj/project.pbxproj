@@ -14,6 +14,14 @@
 		D39734321EB1E6D400DAAC8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D39734301EB1E6D400DAAC8A /* Main.storyboard */; };
 		D397343D1EB1E6D400DAAC8A /* Bachelor_Project_MacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397343C1EB1E6D400DAAC8A /* Bachelor_Project_MacTests.swift */; };
 		D39734481EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734471EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift */; };
+		D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734571EB1EEFF00DAAC8A /* Extensions.swift */; };
+		D397345B1EB1EF2E00DAAC8A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397345A1EB1EF2E00DAAC8A /* Product.swift */; };
+		D397345D1EB1EF4100DAAC8A /* Robot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397345C1EB1EF4100DAAC8A /* Robot.swift */; };
+		D397345F1EB1EF5E00DAAC8A /* Workstation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397345E1EB1EF5E00DAAC8A /* Workstation.swift */; };
+		D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734601EB1EF6B00DAAC8A /* Field.swift */; };
+		D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734621EB1EF7600DAAC8A /* FactoryLayout.swift */; };
+		D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734641EB1FEBF00DAAC8A /* Position.swift */; };
+		D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734661EB1FECE00DAAC8A /* Factory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +55,14 @@
 		D39734431EB1E6D400DAAC8A /* Bachelor Project MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bachelor Project MacUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D39734471EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bachelor_Project_MacUITests.swift; sourceTree = "<group>"; };
 		D39734491EB1E6D400DAAC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D39734571EB1EEFF00DAAC8A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D397345A1EB1EF2E00DAAC8A /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		D397345C1EB1EF4100DAAC8A /* Robot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Robot.swift; sourceTree = "<group>"; };
+		D397345E1EB1EF5E00DAAC8A /* Workstation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workstation.swift; sourceTree = "<group>"; };
+		D39734601EB1EF6B00DAAC8A /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		D39734621EB1EF7600DAAC8A /* FactoryLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryLayout.swift; sourceTree = "<group>"; };
+		D39734641EB1FEBF00DAAC8A /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		D39734661EB1FECE00DAAC8A /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +113,9 @@
 		D39734261EB1E6D300DAAC8A /* Bachelor Project Mac */ = {
 			isa = PBXGroup;
 			children = (
-				D39734271EB1E6D300DAAC8A /* AppDelegate.swift */,
-				D39734291EB1E6D300DAAC8A /* ViewController.swift */,
-				D397342E1EB1E6D300DAAC8A /* Assets.xcassets */,
-				D39734301EB1E6D400DAAC8A /* Main.storyboard */,
-				D39734331EB1E6D400DAAC8A /* Info.plist */,
-				D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */,
+				D39734591EB1EF1000DAAC8A /* Models */,
+				D39734551EB1EECE00DAAC8A /* View */,
+				D39734561EB1EED400DAAC8A /* Helpers */,
 			);
 			path = "Bachelor Project Mac";
 			sourceTree = "<group>";
@@ -123,6 +136,41 @@
 				D39734491EB1E6D400DAAC8A /* Info.plist */,
 			);
 			path = "Bachelor Project MacUITests";
+			sourceTree = "<group>";
+		};
+		D39734551EB1EECE00DAAC8A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D397342E1EB1E6D300DAAC8A /* Assets.xcassets */,
+				D39734291EB1E6D300DAAC8A /* ViewController.swift */,
+				D39734301EB1E6D400DAAC8A /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D39734561EB1EED400DAAC8A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D39734331EB1E6D400DAAC8A /* Info.plist */,
+				D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */,
+				D39734271EB1E6D300DAAC8A /* AppDelegate.swift */,
+				D39734571EB1EEFF00DAAC8A /* Extensions.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		D39734591EB1EF1000DAAC8A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D397345A1EB1EF2E00DAAC8A /* Product.swift */,
+				D39734621EB1EF7600DAAC8A /* FactoryLayout.swift */,
+				D39734641EB1FEBF00DAAC8A /* Position.swift */,
+				D397345C1EB1EF4100DAAC8A /* Robot.swift */,
+				D397345E1EB1EF5E00DAAC8A /* Workstation.swift */,
+				D39734661EB1FECE00DAAC8A /* Factory.swift */,
+				D39734601EB1EF6B00DAAC8A /* Field.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +311,15 @@
 			files = (
 				D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */,
 				D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */,
+				D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */,
+				D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */,
+				D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */,
+				D397345B1EB1EF2E00DAAC8A /* Product.swift in Sources */,
 				D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */,
+				D397345D1EB1EF4100DAAC8A /* Robot.swift in Sources */,
+				D397345F1EB1EF5E00DAAC8A /* Workstation.swift in Sources */,
+				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
+				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
