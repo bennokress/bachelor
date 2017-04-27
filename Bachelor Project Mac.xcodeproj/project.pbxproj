@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734271EB1E6D300DAAC8A /* AppDelegate.swift */; };
+		D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734291EB1E6D300DAAC8A /* ViewController.swift */; };
+		D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */; };
+		D397342F1EB1E6D300DAAC8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D397342E1EB1E6D300DAAC8A /* Assets.xcassets */; };
+		D39734321EB1E6D400DAAC8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D39734301EB1E6D400DAAC8A /* Main.storyboard */; };
+		D397343D1EB1E6D400DAAC8A /* Bachelor_Project_MacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397343C1EB1E6D400DAAC8A /* Bachelor_Project_MacTests.swift */; };
+		D39734481EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734471EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D39734391EB1E6D400DAAC8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D397341C1EB1E6D300DAAC8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D39734231EB1E6D300DAAC8A;
+			remoteInfo = "Bachelor Project Mac";
+		};
+		D39734441EB1E6D400DAAC8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D397341C1EB1E6D300DAAC8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D39734231EB1E6D300DAAC8A;
+			remoteInfo = "Bachelor Project Mac";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D39734241EB1E6D300DAAC8A /* Bachelor Project Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bachelor Project Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D39734271EB1E6D300DAAC8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D39734291EB1E6D300DAAC8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D397342C1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bachelor_Project_Mac.xcdatamodel; sourceTree = "<group>"; };
+		D397342E1EB1E6D300DAAC8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D39734311EB1E6D400DAAC8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D39734331EB1E6D400DAAC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D39734381EB1E6D400DAAC8A /* Bachelor Project MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bachelor Project MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D397343C1EB1E6D400DAAC8A /* Bachelor_Project_MacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bachelor_Project_MacTests.swift; sourceTree = "<group>"; };
+		D397343E1EB1E6D400DAAC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D39734431EB1E6D400DAAC8A /* Bachelor Project MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bachelor Project MacUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D39734471EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bachelor_Project_MacUITests.swift; sourceTree = "<group>"; };
+		D39734491EB1E6D400DAAC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D39734211EB1E6D300DAAC8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D39734351EB1E6D400DAAC8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D39734401EB1E6D400DAAC8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D397341B1EB1E6D300DAAC8A = {
+			isa = PBXGroup;
+			children = (
+				D39734261EB1E6D300DAAC8A /* Bachelor Project Mac */,
+				D397343B1EB1E6D400DAAC8A /* Bachelor Project MacTests */,
+				D39734461EB1E6D400DAAC8A /* Bachelor Project MacUITests */,
+				D39734251EB1E6D300DAAC8A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D39734251EB1E6D300DAAC8A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D39734241EB1E6D300DAAC8A /* Bachelor Project Mac.app */,
+				D39734381EB1E6D400DAAC8A /* Bachelor Project MacTests.xctest */,
+				D39734431EB1E6D400DAAC8A /* Bachelor Project MacUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D39734261EB1E6D300DAAC8A /* Bachelor Project Mac */ = {
+			isa = PBXGroup;
+			children = (
+				D39734271EB1E6D300DAAC8A /* AppDelegate.swift */,
+				D39734291EB1E6D300DAAC8A /* ViewController.swift */,
+				D397342E1EB1E6D300DAAC8A /* Assets.xcassets */,
+				D39734301EB1E6D400DAAC8A /* Main.storyboard */,
+				D39734331EB1E6D400DAAC8A /* Info.plist */,
+				D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */,
+			);
+			path = "Bachelor Project Mac";
+			sourceTree = "<group>";
+		};
+		D397343B1EB1E6D400DAAC8A /* Bachelor Project MacTests */ = {
+			isa = PBXGroup;
+			children = (
+				D397343C1EB1E6D400DAAC8A /* Bachelor_Project_MacTests.swift */,
+				D397343E1EB1E6D400DAAC8A /* Info.plist */,
+			);
+			path = "Bachelor Project MacTests";
+			sourceTree = "<group>";
+		};
+		D39734461EB1E6D400DAAC8A /* Bachelor Project MacUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D39734471EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift */,
+				D39734491EB1E6D400DAAC8A /* Info.plist */,
+			);
+			path = "Bachelor Project MacUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D39734231EB1E6D300DAAC8A /* Bachelor Project Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D397344C1EB1E6D400DAAC8A /* Build configuration list for PBXNativeTarget "Bachelor Project Mac" */;
+			buildPhases = (
+				D39734201EB1E6D300DAAC8A /* Sources */,
+				D39734211EB1E6D300DAAC8A /* Frameworks */,
+				D39734221EB1E6D300DAAC8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Bachelor Project Mac";
+			productName = "Bachelor Project Mac";
+			productReference = D39734241EB1E6D300DAAC8A /* Bachelor Project Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D39734371EB1E6D400DAAC8A /* Bachelor Project MacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D397344F1EB1E6D400DAAC8A /* Build configuration list for PBXNativeTarget "Bachelor Project MacTests" */;
+			buildPhases = (
+				D39734341EB1E6D400DAAC8A /* Sources */,
+				D39734351EB1E6D400DAAC8A /* Frameworks */,
+				D39734361EB1E6D400DAAC8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D397343A1EB1E6D400DAAC8A /* PBXTargetDependency */,
+			);
+			name = "Bachelor Project MacTests";
+			productName = "Bachelor Project MacTests";
+			productReference = D39734381EB1E6D400DAAC8A /* Bachelor Project MacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D39734421EB1E6D400DAAC8A /* Bachelor Project MacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D39734521EB1E6D400DAAC8A /* Build configuration list for PBXNativeTarget "Bachelor Project MacUITests" */;
+			buildPhases = (
+				D397343F1EB1E6D400DAAC8A /* Sources */,
+				D39734401EB1E6D400DAAC8A /* Frameworks */,
+				D39734411EB1E6D400DAAC8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D39734451EB1E6D400DAAC8A /* PBXTargetDependency */,
+			);
+			name = "Bachelor Project MacUITests";
+			productName = "Bachelor Project MacUITests";
+			productReference = D39734431EB1E6D400DAAC8A /* Bachelor Project MacUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D397341C1EB1E6D300DAAC8A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "it-economics";
+				TargetAttributes = {
+					D39734231EB1E6D300DAAC8A = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = EM47M4JQ9E;
+						ProvisioningStyle = Automatic;
+					};
+					D39734371EB1E6D400DAAC8A = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = EM47M4JQ9E;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D39734231EB1E6D300DAAC8A;
+					};
+					D39734421EB1E6D400DAAC8A = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = EM47M4JQ9E;
+						ProvisioningStyle = Automatic;
+						TestTargetID = D39734231EB1E6D300DAAC8A;
+					};
+				};
+			};
+			buildConfigurationList = D397341F1EB1E6D300DAAC8A /* Build configuration list for PBXProject "Bachelor Project Mac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D397341B1EB1E6D300DAAC8A;
+			productRefGroup = D39734251EB1E6D300DAAC8A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D39734231EB1E6D300DAAC8A /* Bachelor Project Mac */,
+				D39734371EB1E6D400DAAC8A /* Bachelor Project MacTests */,
+				D39734421EB1E6D400DAAC8A /* Bachelor Project MacUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D39734221EB1E6D300DAAC8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D397342F1EB1E6D300DAAC8A /* Assets.xcassets in Resources */,
+				D39734321EB1E6D400DAAC8A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D39734361EB1E6D400DAAC8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D39734411EB1E6D400DAAC8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D39734201EB1E6D300DAAC8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */,
+				D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */,
+				D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D39734341EB1E6D400DAAC8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D397343D1EB1E6D400DAAC8A /* Bachelor_Project_MacTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D397343F1EB1E6D400DAAC8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D39734481EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D397343A1EB1E6D400DAAC8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D39734231EB1E6D300DAAC8A /* Bachelor Project Mac */;
+			targetProxy = D39734391EB1E6D400DAAC8A /* PBXContainerItemProxy */;
+		};
+		D39734451EB1E6D400DAAC8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D39734231EB1E6D300DAAC8A /* Bachelor Project Mac */;
+			targetProxy = D39734441EB1E6D400DAAC8A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D39734301EB1E6D400DAAC8A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D39734311EB1E6D400DAAC8A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D397344A1EB1E6D400DAAC8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D397344B1EB1E6D400DAAC8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		D397344D1EB1E6D400DAAC8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				INFOPLIST_FILE = "Bachelor Project Mac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		D397344E1EB1E6D400DAAC8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				INFOPLIST_FILE = "Bachelor Project Mac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-Mac";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		D39734501EB1E6D400DAAC8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				INFOPLIST_FILE = "Bachelor Project MacTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-MacTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bachelor Project Mac.app/Contents/MacOS/Bachelor Project Mac";
+			};
+			name = Debug;
+		};
+		D39734511EB1E6D400DAAC8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				INFOPLIST_FILE = "Bachelor Project MacTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-MacTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bachelor Project Mac.app/Contents/MacOS/Bachelor Project Mac";
+			};
+			name = Release;
+		};
+		D39734531EB1E6D400DAAC8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				INFOPLIST_FILE = "Bachelor Project MacUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-MacUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "Bachelor Project Mac";
+			};
+			name = Debug;
+		};
+		D39734541EB1E6D400DAAC8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				INFOPLIST_FILE = "Bachelor Project MacUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-MacUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "Bachelor Project Mac";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D397341F1EB1E6D300DAAC8A /* Build configuration list for PBXProject "Bachelor Project Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D397344A1EB1E6D400DAAC8A /* Debug */,
+				D397344B1EB1E6D400DAAC8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D397344C1EB1E6D400DAAC8A /* Build configuration list for PBXNativeTarget "Bachelor Project Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D397344D1EB1E6D400DAAC8A /* Debug */,
+				D397344E1EB1E6D400DAAC8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D397344F1EB1E6D400DAAC8A /* Build configuration list for PBXNativeTarget "Bachelor Project MacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D39734501EB1E6D400DAAC8A /* Debug */,
+				D39734511EB1E6D400DAAC8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D39734521EB1E6D400DAAC8A /* Build configuration list for PBXNativeTarget "Bachelor Project MacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D39734531EB1E6D400DAAC8A /* Debug */,
+				D39734541EB1E6D400DAAC8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D397342C1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodel */,
+			);
+			currentVersion = D397342C1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodel */;
+			path = Bachelor_Project_Mac.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D397341C1EB1E6D300DAAC8A /* Project object */;
+}
