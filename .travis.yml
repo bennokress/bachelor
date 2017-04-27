@@ -1,3 +1,5 @@
 language: objective-c 
 osx_image: xcode8.3
 xcode_project: "Bachelor Project Mac.xcodeproj"
+xcode_scheme: "Bachelor Project Mac"
+os: "osx"
