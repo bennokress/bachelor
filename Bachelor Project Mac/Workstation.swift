@@ -16,3 +16,12 @@ enum WorkstationState {
 struct Workstation {
     
 }
+
+extension Workstation: Equatable {
+    
+    static func == (lhs: Workstation, rhs: Workstation) -> Bool {
+        // FIXME: Implement this
+        return false
+    }
+    
+}

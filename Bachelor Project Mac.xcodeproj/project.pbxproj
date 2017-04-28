@@ -23,6 +23,8 @@
 		D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734641EB1FEBF00DAAC8A /* Position.swift */; };
 		D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734661EB1FECE00DAAC8A /* Factory.swift */; };
 		D39734691EB2095700DAAC8A /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734681EB2095700DAAC8A /* PositionTests.swift */; };
+		D397346C1EB3205A00DAAC8A /* FieldTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346B1EB3205A00DAAC8A /* FieldTest.swift */; };
+		D397346E1EB3208800DAAC8A /* FactoryLayoutTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346D1EB3208800DAAC8A /* FactoryLayoutTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		D39734641EB1FEBF00DAAC8A /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		D39734661EB1FECE00DAAC8A /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		D39734681EB2095700DAAC8A /* PositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTests.swift; sourceTree = "<group>"; };
+		D397346B1EB3205A00DAAC8A /* FieldTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldTest.swift; sourceTree = "<group>"; };
+		D397346D1EB3208800DAAC8A /* FactoryLayoutTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryLayoutTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +129,8 @@
 		D397343B1EB1E6D400DAAC8A /* Bachelor Project MacTests */ = {
 			isa = PBXGroup;
 			children = (
+				D397346A1EB3202500DAAC8A /* Model Tests */,
 				D397343C1EB1E6D400DAAC8A /* PerformanceTests.swift */,
-				D39734681EB2095700DAAC8A /* PositionTests.swift */,
 				D397343E1EB1E6D400DAAC8A /* Info.plist */,
 			);
 			path = "Bachelor Project MacTests";
@@ -174,6 +178,16 @@
 				D39734601EB1EF6B00DAAC8A /* Field.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		D397346A1EB3202500DAAC8A /* Model Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D39734681EB2095700DAAC8A /* PositionTests.swift */,
+				D397346B1EB3205A00DAAC8A /* FieldTest.swift */,
+				D397346D1EB3208800DAAC8A /* FactoryLayoutTest.swift */,
+			);
+			name = "Model Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,8 +344,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D397346E1EB3208800DAAC8A /* FactoryLayoutTest.swift in Sources */,
 				D39734691EB2095700DAAC8A /* PositionTests.swift in Sources */,
 				D397343D1EB1E6D400DAAC8A /* PerformanceTests.swift in Sources */,
+				D397346C1EB3205A00DAAC8A /* FieldTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

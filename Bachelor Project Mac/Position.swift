@@ -17,19 +17,23 @@ struct Position {
         self.y = y
     }
     
-    init?(fromFieldnumber fieldnumber: Int, in factorylayout: FactoryLayout) {
+    init?(fromFieldnumber fieldnumber: Int, withFactoryWidth width: Int, andFactoryHeight height: Int) {
         
-        guard fieldnumber < factorylayout.width * factorylayout.height else {
-            print("Invalid fieldnumber \(fieldnumber) for a factory of size \(factorylayout.width) x \(factorylayout.height)")
+        guard fieldnumber < width * height else {
+            print("Invalid fieldnumber \(fieldnumber) for a factory of size \(width) x \(height)")
             return nil
         }
         
-        let xValue = fieldnumber % factorylayout.width
-        let yValue = (fieldnumber - xValue) / factorylayout.height
+        let xValue = fieldnumber % width
+        let yValue = (fieldnumber - xValue) / height
         
         self.x = xValue
         self.y = yValue
         
+    }
+    
+    init?(fromFieldnumber fieldnumber: Int, in factorylayout: FactoryLayout) {
+        self.init(fromFieldnumber: fieldnumber, withFactoryWidth: factorylayout.width, andFactoryHeight: factorylayout.height)
     }
     
     func getFieldnumber(in factorylayout: FactoryLayout) -> Int? {

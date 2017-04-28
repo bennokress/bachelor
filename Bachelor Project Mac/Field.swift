@@ -17,8 +17,30 @@ enum FieldType {
     case empty
 }
 
+extension FieldType: Equatable {
+
+    static func == (lhs: FieldType, rhs: FieldType) -> Bool {
+        switch (lhs, rhs) {
+        case (.wall, .wall), (.entrance, .entrance), (.exit, .exit), (.empty, .empty):
+            return true
+        case (.workstation(let lhsObject), .workstation(let rhsObject)):
+            return lhsObject == rhsObject
+        case (.robot(let lhsObject), .robot(let rhsObject)):
+            return lhsObject == rhsObject
+        default:
+            return false
+        }
+    }
+}
+
 struct Field {
     
+    let position: Position
+    var state: FieldType
     
+    init(at position: Position, type: FieldType = .empty) {
+        self.position = position
+        self.state = type
+    }
     
 }

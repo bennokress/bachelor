@@ -19,3 +19,12 @@ enum RobotState {
 struct Robot {
     
 }
+
+extension Robot: Equatable {
+    
+    static func == (lhs: Robot, rhs: Robot) -> Bool {
+        // FIXME: Implement this
+        return false
+    }
+    
+}
