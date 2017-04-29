@@ -8,18 +8,13 @@
 
 import Foundation
 
-enum ProductType {
-    case pA
-    case pB
-    case pC
-    case pD
-    case pE
-    case pF
-}
-
 struct Product {
     
     let type: ProductType
+    
+    var neededWorkstations: [WorkstationType] {
+        return self.type.route
+    }
     
     init(type: ProductType) {
         self.type = type

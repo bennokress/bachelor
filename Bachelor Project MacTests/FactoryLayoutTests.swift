@@ -35,4 +35,23 @@ class FactoryLayoutTests: XCTestCase {
         XCTAssert(returnedFieldTypes == expectedFieldTypes, "We expected an empty field surrounded only by walls in an empty 3x3 FactoryLayout")
     }
     
+    func testAddingWorkstationIsRepresentedInFieldsOfFactoryLayout() {
+        var layout = FactoryLayout(width: 3, length: 3)
+        
+        let testWorkstation = Workstation(type: .testWorkstation, at: Position(fromFieldnumber: 4, in: layout)!)
+        layout.addWorkstation(testWorkstation)
+        let grid = layout.fields
+        
+        var returnedFieldTypes: [FieldType] = []
+        for field in grid {
+            returnedFieldTypes.append(field.state)
+        }
+        
+        dump(returnedFieldTypes)
+        
+        let expectedFieldTypes: [FieldType] = [.wall, .wall, .wall, .wall, .workstation(object: testWorkstation), .wall, .wall, .wall, .wall]
+        
+        XCTAssert(returnedFieldTypes[4] == expectedFieldTypes[4], "We expected a workstation at fieldnumber 4 of the factory layout")
+    }
+    
 }

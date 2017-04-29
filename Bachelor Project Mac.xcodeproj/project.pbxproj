@@ -34,6 +34,10 @@
 		D3D84DCA1EB486560038710B /* FactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC91EB486560038710B /* FactoryTests.swift */; };
 		D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DCB1EB486800038710B /* SimulationSettings.swift */; };
 		D3D84DCE1EB4902E0038710B /* SimulationSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DCD1EB4902E0038710B /* SimulationSettingsTests.swift */; };
+		D3D84DD21EB4E1BE0038710B /* SwifterSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3D84DD11EB4E1BE0038710B /* SwifterSwift.framework */; };
+		D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD51EB4EBC30038710B /* ProductType.swift */; };
+		D3D84DD81EB4EBEC0038710B /* WorkstationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */; };
+		D3D84DDA1EB4EC590038710B /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD91EB4EC590038710B /* Routing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +91,10 @@
 		D3D84DC91EB486560038710B /* FactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryTests.swift; sourceTree = "<group>"; };
 		D3D84DCB1EB486800038710B /* SimulationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulationSettings.swift; sourceTree = "<group>"; };
 		D3D84DCD1EB4902E0038710B /* SimulationSettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulationSettingsTests.swift; sourceTree = "<group>"; };
+		D3D84DD11EB4E1BE0038710B /* SwifterSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwifterSwift.framework; path = Carthage/Build/Mac/SwifterSwift.framework; sourceTree = "<group>"; };
+		D3D84DD51EB4EBC30038710B /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
+		D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationType.swift; sourceTree = "<group>"; };
+		D3D84DD91EB4EC590038710B /* Routing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3D84DD21EB4E1BE0038710B /* SwifterSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +130,7 @@
 				D397343B1EB1E6D400DAAC8A /* Bachelor Project MacTests */,
 				D39734461EB1E6D400DAAC8A /* Bachelor Project MacUITests */,
 				D39734251EB1E6D300DAAC8A /* Products */,
+				D3D84DD01EB4E1BD0038710B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,7 +147,7 @@
 		D39734261EB1E6D300DAAC8A /* Bachelor Project Mac */ = {
 			isa = PBXGroup;
 			children = (
-				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
+				D3D84DD41EB4EBB20038710B /* Settings */,
 				D39734591EB1EF1000DAAC8A /* Models */,
 				D3D84DCF1EB4DC120038710B /* Genetic Algorithm */,
 				D3D84DBC1EB477EF0038710B /* Presenter */,
@@ -233,6 +243,25 @@
 			name = "Genetic Algorithm";
 			sourceTree = "<group>";
 		};
+		D3D84DD01EB4E1BD0038710B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3D84DD11EB4E1BE0038710B /* SwifterSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3D84DD41EB4EBB20038710B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
+				D3D84DD51EB4EBC30038710B /* ProductType.swift */,
+				D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */,
+				D3D84DD91EB4EC590038710B /* Routing.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -243,6 +272,7 @@
 				D39734201EB1E6D300DAAC8A /* Sources */,
 				D39734211EB1E6D300DAAC8A /* Frameworks */,
 				D39734221EB1E6D300DAAC8A /* Resources */,
+				D3D84DD31EB4E1C30038710B /* Carthage Integration */,
 			);
 			buildRules = (
 			);
@@ -364,6 +394,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D3D84DD31EB4E1C30038710B /* Carthage Integration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/SwifterSwift.framework",
+			);
+			name = "Carthage Integration";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D39734201EB1E6D300DAAC8A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -378,12 +426,15 @@
 				D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */,
 				D3D84DC21EB479760038710B /* Simulator.swift in Sources */,
 				D397345B1EB1EF2E00DAAC8A /* Product.swift in Sources */,
+				D3D84DD81EB4EBEC0038710B /* WorkstationType.swift in Sources */,
 				D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */,
 				D397345D1EB1EF4100DAAC8A /* Robot.swift in Sources */,
 				D397345F1EB1EF5E00DAAC8A /* Workstation.swift in Sources */,
 				D3D84DC01EB4781A0038710B /* Presenter.swift in Sources */,
+				D3D84DDA1EB4EC590038710B /* Routing.swift in Sources */,
 				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
+				D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +588,10 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "Bachelor Project Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-Mac";
@@ -553,6 +608,10 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EM47M4JQ9E;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "Bachelor Project Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-Mac";

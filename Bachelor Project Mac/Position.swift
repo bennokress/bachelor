@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwifterSwift
 
 struct Position {
     
@@ -46,6 +47,10 @@ struct Position {
         }
         
         return fieldnumber
+    }
+    
+    func getDistance(to otherPosition: Position) -> Int {
+        return abs(self.x - otherPosition.x) + abs(self.y - otherPosition.y)
     }
     
 }

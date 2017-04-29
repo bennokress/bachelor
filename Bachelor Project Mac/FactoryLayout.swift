@@ -15,6 +15,43 @@ struct FactoryLayout {
     
     var fields: [Field]
     
+    var entrancePosition: Position? {
+        for field in self.fields {
+            switch field.state {
+            case .entrance:
+                return field.position
+            default:
+                continue
+            }
+        }
+        return nil
+    }
+    
+    var exitPosition: Position? {
+        for field in self.fields {
+            switch field.state {
+            case .exit:
+                return field.position
+            default:
+                continue
+            }
+        }
+        return nil
+    }
+    
+    var workstations: [Workstation] {
+        var workstationObjects: [Workstation] = []
+        for field in self.fields {
+            switch field.state {
+            case .workstation(let foundWorkstation):
+                workstationObjects.append(foundWorkstation)
+            default:
+                continue
+            }
+        }
+        return workstationObjects
+    }
+    
     init(width: Int, length: Int) {
         self.width = width
         self.length = length
@@ -31,6 +68,13 @@ struct FactoryLayout {
         
         self.fields[entranceFieldNumber].state = .entrance(robots: [])
         self.fields[exitFieldNumber].state = .exit(robots: [])
+    }
+    
+    mutating func addWorkstation(_ workstation: Workstation) {
+        guard let index = workstation.position.getFieldnumber(in: self) else {
+            fatalError("Workstation position is outside of factory layout")
+        }
+        fields[index].state = .workstation(object: workstation)
     }
     
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
