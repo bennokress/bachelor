@@ -20,5 +20,12 @@ class WorkstationTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    func testTwoWorkstationsWithIdenticalTypeAndPositionAreEqual() {
+        let workstation1 = Workstation(type: .wsA, at: Position(x: 1, y: 2))
+        let workstation2 = Workstation(type: .wsA, at: Position(x: 1, y: 2))
+        
+        XCTAssert(workstation1 == workstation2)
+    }
 
 }

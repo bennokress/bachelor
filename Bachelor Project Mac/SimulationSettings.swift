@@ -27,8 +27,8 @@ class SimulationSettings {
     
     // MARK: Products
     var products = [
-        Product(),
-        Product()
+        Product(type: .pA),
+        Product(type: .pB)
     ]
     
 }

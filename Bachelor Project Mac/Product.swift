@@ -8,15 +8,29 @@
 
 import Foundation
 
+enum ProductType {
+    case pA
+    case pB
+    case pC
+    case pD
+    case pE
+    case pF
+}
+
 struct Product {
+    
+    let type: ProductType
+    
+    init(type: ProductType) {
+        self.type = type
+    }
     
 }
 
 extension Product: Equatable {
     
     static func == (lhs: Product, rhs: Product) -> Bool {
-        // FIXME: Implement this
-        return false
+        return lhs.type == rhs.type
     }
     
 }

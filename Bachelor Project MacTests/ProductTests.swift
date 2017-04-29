@@ -21,9 +21,11 @@ class ProductTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testTwoProductsWithIdenticalTypeAreEqual() {
+        let product1 = Product(type: .pA)
+        let product2 = Product(type: .pA)
+        
+        XCTAssert(product1 == product2)
     }
 
 }
