@@ -70,15 +70,38 @@ struct FactoryLayout {
         self.fields[exitFieldNumber].state = .exit(robots: [])
     }
     
+}
+
+// MARK: Mutating functions
+extension FactoryLayout {
+    
     mutating func addWorkstation(_ workstation: Workstation) {
         guard let index = workstation.position.getFieldnumber(in: self) else {
             fatalError("Workstation position is outside of factory layout")
         }
+        // TODO: guard that target field is empty
         fields[index].state = .workstation(object: workstation)
     }
     
+    mutating func addRobot(_ robot: Robot) {
+        guard let index = robot.position.getFieldnumber(in: self) else {
+            fatalError("Robot position is outside of factory layout")
+        }
+        // TODO: guard that target field is entrance, exit or empty
+        fields[index].state = .robot(object: robot)
+    }
+    
+    mutating func moveRobot(_ robot: Robot, to position: Position) {
+        // TODO: implement this method
+    }
+    
+}
+
+// MARK: Static functions
+extension FactoryLayout {
+    
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
-    static private func getEmptyGrid(with width: Int, and length: Int) -> [Field] {
+    static fileprivate func getEmptyGrid(with width: Int, and length: Int) -> [Field] {
         
         let size = width * length
         let xMax = width - 1
@@ -93,7 +116,7 @@ struct FactoryLayout {
             
             var field = Field(at: fieldPosition)
             
-            // TODO: Add settings file and set positions of entrance and exit
+            // TODO: Add entrance and exit according to settings
             if field.position.x == 0 || field.position.y == 0 || field.position.x == xMax || field.position.y == yMax {
                 field.state = .wall
             }
