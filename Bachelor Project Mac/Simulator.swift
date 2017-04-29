@@ -15,30 +15,9 @@ class Simulator {
     static var shared = Simulator()
     private init() { }
     
-    func startSimulation() {
-//        var factoryLayout = createEmptyFactoryGrid()
-//        let products = settings.products
-//        ...
-    }
-    
-}
-
-// MARK: Simulation Steps
-extension Simulator {
-    
-    fileprivate func createEmptyFactoryGrid() -> FactoryLayout {
-        let grid = FactoryLayout(width: settings.factoryWidth, length: settings.factoryLength)
-        debugPrint(infoMessage: "Factory Layout created: \(grid.width) x \(grid.length)")
-        return grid
-    }
-    
-}
-
-// MARK: Debugging
-extension Simulator {
-    
-    fileprivate func debugPrint(infoMessage message: String) {
-        print(message)
+    func start() {
+        let generation = settings.getInitialGeneration()
+        dump(generation)
     }
     
 }

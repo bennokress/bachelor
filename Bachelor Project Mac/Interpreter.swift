@@ -20,7 +20,7 @@ class Interpreter {
     }
     
     func startButtonPressed() {
-        simulator.startSimulation()
+        simulator.start()
     }
     
 }
