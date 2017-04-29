@@ -11,28 +11,28 @@ import Foundation
 struct FactoryLayout {
     
     let width: Int
-    let height: Int
+    let length: Int
     
     var fields: [Field]
     
-    init(width: Int, height: Int) {
+    init(width: Int, length: Int) {
         self.width = width
-        self.height = height
+        self.length = length
         
-        self.fields = FactoryLayout.getEmptyGrid(with: width, and: height)
+        self.fields = FactoryLayout.getEmptyGrid(with: width, and: length)
     }
     
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
-    static private func getEmptyGrid(with width: Int, and height: Int) -> [Field] {
+    static private func getEmptyGrid(with width: Int, and length: Int) -> [Field] {
         
-        let size = width * height
+        let size = width * length
         let xMax = width - 1
-        let yMax = height - 1
+        let yMax = length - 1
         
         var grid: [Field] = []
         
         for i in 0..<size {
-            guard let fieldPosition = Position(fromFieldnumber: i, withFactoryWidth: width, andFactoryHeight: height) else {
+            guard let fieldPosition = Position(fromFieldnumber: i, withFactoryWidth: width, andFactoryLength: length) else {
                 fatalError("FieldPosition out of range!")
             }
             
@@ -55,7 +55,7 @@ struct FactoryLayout {
 extension FactoryLayout: Equatable {
     
     static func == (lhs: FactoryLayout, rhs: FactoryLayout) -> Bool {
-        return (lhs.width == rhs.width) && (lhs.height == rhs.height) && (lhs.fields == rhs.fields)
+        return (lhs.width == rhs.width) && (lhs.length == rhs.length) && (lhs.fields == rhs.fields)
     }
     
 }

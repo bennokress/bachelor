@@ -22,7 +22,7 @@ class FactoryLayoutTest: XCTestCase {
     }
     
     func testInitializationGeneratesExpectedFactoryLayoutFieldTypes() {
-        let layout = FactoryLayout(width: 3, height: 3)
+        let layout = FactoryLayout(width: 3, length: 3)
         let grid = layout.fields
         
         var returnedFieldTypes: [FieldType] = []

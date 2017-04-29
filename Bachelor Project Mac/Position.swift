@@ -17,15 +17,15 @@ struct Position {
         self.y = y
     }
     
-    init?(fromFieldnumber fieldnumber: Int, withFactoryWidth width: Int, andFactoryHeight height: Int) {
+    init?(fromFieldnumber fieldnumber: Int, withFactoryWidth width: Int, andFactoryLength length: Int) {
         
-        guard fieldnumber < width * height else {
-            print("Invalid fieldnumber \(fieldnumber) for a factory of size \(width) x \(height)")
+        guard fieldnumber < width * length else {
+            print("Invalid fieldnumber \(fieldnumber) for a factory of size \(width) x \(length)")
             return nil
         }
         
         let xValue = fieldnumber % width
-        let yValue = (fieldnumber - xValue) / height
+        let yValue = (fieldnumber - xValue) / length
         
         self.x = xValue
         self.y = yValue
@@ -33,15 +33,15 @@ struct Position {
     }
     
     init?(fromFieldnumber fieldnumber: Int, in factorylayout: FactoryLayout) {
-        self.init(fromFieldnumber: fieldnumber, withFactoryWidth: factorylayout.width, andFactoryHeight: factorylayout.height)
+        self.init(fromFieldnumber: fieldnumber, withFactoryWidth: factorylayout.width, andFactoryLength: factorylayout.length)
     }
     
     func getFieldnumber(in factorylayout: FactoryLayout) -> Int? {
         
         let fieldnumber = y * factorylayout.width + x
         
-        guard fieldnumber < factorylayout.width * factorylayout.height else {
-            print("Invalid fieldnumber \(fieldnumber) for a factory of size \(factorylayout.width) x \(factorylayout.height)")
+        guard fieldnumber < factorylayout.width * factorylayout.length else {
+            print("Invalid fieldnumber \(fieldnumber) for a factory of size \(factorylayout.width) x \(factorylayout.length)")
             return nil
         }
         
