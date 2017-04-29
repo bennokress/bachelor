@@ -14,25 +14,32 @@ enum WorkstationState {
 }
 
 enum WorkstationType {
-    case a
-    case b
-    case c
-    case d
-    case e
-    case f
+    case wsA
+    case wsB
+    case wsC
+    case wsD
+    case wsE
+    case wsF
 }
 
 struct Workstation {
     
     var state: WorkstationState
+    let type: WorkstationType
+    let position: Position
+    
+    init(type: WorkstationType, at position: Position) {
+        self.state = .idle
+        self.type = type
+        self.position = position
+    }
     
 }
 
 extension Workstation: Equatable {
     
     static func == (lhs: Workstation, rhs: Workstation) -> Bool {
-        // FIXME: Implement this
-        return false
+        return (lhs.position == rhs.position) && (lhs.type == rhs.type)
     }
     
 }
