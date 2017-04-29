@@ -31,6 +31,7 @@ extension FieldType: Equatable {
             return false
         }
     }
+    
 }
 
 struct Field {
@@ -41,6 +42,14 @@ struct Field {
     init(at position: Position, type: FieldType = .empty) {
         self.position = position
         self.state = type
+    }
+    
+}
+
+extension Field: Equatable {
+    
+    static func == (lhs: Field, rhs: Field) -> Bool {
+        return (lhs.position == rhs.position) && (lhs.state == rhs.state)
     }
     
 }

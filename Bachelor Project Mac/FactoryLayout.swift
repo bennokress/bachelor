@@ -51,3 +51,11 @@ struct FactoryLayout {
     }
     
 }
+
+extension FactoryLayout: Equatable {
+    
+    static func == (lhs: FactoryLayout, rhs: FactoryLayout) -> Bool {
+        return (lhs.width == rhs.width) && (lhs.height == rhs.height) && (lhs.fields == rhs.fields)
+    }
+    
+}

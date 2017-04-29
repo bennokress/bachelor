@@ -11,3 +11,12 @@ import Foundation
 struct Factory {
     
 }
+
+extension Factory: Equatable {
+    
+    static func == (lhs: Factory, rhs: Factory) -> Bool {
+        // FIXME: Implement this
+        return false
+    }
+    
+}
