@@ -138,8 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
-				D3D84DC11EB479760038710B /* Simulator.swift */,
 				D39734591EB1EF1000DAAC8A /* Models */,
+				D3D84DCF1EB4DC120038710B /* Genetic Algorithm */,
 				D3D84DBC1EB477EF0038710B /* Presenter */,
 				D39734551EB1EECE00DAAC8A /* View */,
 				D39734561EB1EED400DAAC8A /* Helpers */,
@@ -223,6 +223,14 @@
 				D3D84DBF1EB4781A0038710B /* Presenter.swift */,
 			);
 			name = Presenter;
+			sourceTree = "<group>";
+		};
+		D3D84DCF1EB4DC120038710B /* Genetic Algorithm */ = {
+			isa = PBXGroup;
+			children = (
+				D3D84DC11EB479760038710B /* Simulator.swift */,
+			);
+			name = "Genetic Algorithm";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

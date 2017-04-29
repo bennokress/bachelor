@@ -14,7 +14,7 @@ class SimulationSettings {
     private init() { }
     
     // MARK: Quantities
-    
+    var generationSize = 10
     
     // MARK: Factory Layout
     var factoryWidth = 10

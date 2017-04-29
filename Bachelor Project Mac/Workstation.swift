@@ -13,7 +13,18 @@ enum WorkstationState {
     case idle       // when waiting for the next robot
 }
 
+enum WorkstationType {
+    case a
+    case b
+    case c
+    case d
+    case e
+    case f
+}
+
 struct Workstation {
+    
+    var state: WorkstationState
     
 }
 

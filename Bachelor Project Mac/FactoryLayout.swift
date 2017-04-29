@@ -29,8 +29,8 @@ struct FactoryLayout {
             fatalError("Entrance or Exit outside of Factory Layout!")
         }
         
-        self.fields[entranceFieldNumber].state = .entrance
-        self.fields[exitFieldNumber].state = .exit
+        self.fields[entranceFieldNumber].state = .entrance(robots: [])
+        self.fields[exitFieldNumber].state = .exit(robots: [])
     }
     
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall

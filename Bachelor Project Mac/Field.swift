@@ -10,11 +10,24 @@ import Foundation
 
 enum FieldType {
     case wall
-    case entrance
-    case exit
+    case entrance(robots: [Robot])
+    case exit(robots: [Robot])
     case workstation(object: Workstation)
     case robot(object: Robot)
     case empty
+    
+    var remainingCapacity: Int {
+        switch self {
+        case .entrance, .exit:
+            return Int.max
+        case .wall, .robot:
+            return 0
+        case .workstation(let workstation):
+            return workstation.state == .busy ? 0 : 1
+        case .empty:
+            return 1
+        }
+    }
 }
 
 extension FieldType: Equatable {
