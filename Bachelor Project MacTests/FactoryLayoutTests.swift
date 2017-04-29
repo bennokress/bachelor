@@ -1,5 +1,5 @@
 //
-//  FactoryLayoutTest.swift
+//  FactoryLayoutTests.swift
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 28.04.17.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Bachelor_Project_Mac
 
-class FactoryLayoutTest: XCTestCase {
+class FactoryLayoutTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

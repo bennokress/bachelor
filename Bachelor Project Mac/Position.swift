@@ -25,7 +25,7 @@ struct Position {
         }
         
         let xValue = fieldnumber % width
-        let yValue = (fieldnumber - xValue) / length
+        let yValue = (fieldnumber - xValue) / width
         
         self.x = xValue
         self.y = yValue

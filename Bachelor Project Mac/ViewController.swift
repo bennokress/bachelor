@@ -9,6 +9,10 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    @IBOutlet weak var startButton: NSButton!
+    
+    var interpreter = Interpreter.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,10 @@ class ViewController: NSViewController {
         }
     }
 
+    @IBAction func startButtonPressed(_ sender: Any) {
+        interpreter.startButtonPressed()
+        // TODO: Disable Start Button until simulation is finished
+    }
 
 }
 

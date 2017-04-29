@@ -12,7 +12,7 @@ import XCTest
 class PositionTests: XCTestCase {
     
     let position = Position(x: 6, y: 4)
-    let factorylayout = FactoryLayout(width: 10, length: 10)
+    let factorylayout = FactoryLayout(width: 10, length: 5)
     
     override func setUp() {
         super.setUp()
@@ -30,16 +30,16 @@ class PositionTests: XCTestCase {
     }
     
     func testPositionInitializationFromFieldnumber() {
-        guard let testPosition = Position(fromFieldnumber: 89, in: factorylayout) else {
+        guard let testPosition = Position(fromFieldnumber: 25, in: factorylayout) else {
             XCTFail("Given fieldnumber is outside of valid fieldnumbers!")
             return
         }
-        XCTAssert(testPosition.x == 9)
-        XCTAssert(testPosition.y == 8)
+        XCTAssert(testPosition.x == 5, "x-coordinate for field number 25 should be 5, but is \(testPosition.x)")
+        XCTAssert(testPosition.y == 2, "y-coordinate for field number 25 should be 2, but is \(testPosition.y)")
     }
     
     func testPositionInitializationFromInvalidFieldnumberFails() {
-        let invalidPosition = Position(fromFieldnumber: 120, in: factorylayout)
+        let invalidPosition = Position(fromFieldnumber: 89, in: factorylayout)
         XCTAssert(invalidPosition == nil)
     }
     

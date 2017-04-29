@@ -22,6 +22,17 @@ struct FactoryLayout {
         self.fields = FactoryLayout.getEmptyGrid(with: width, and: length)
     }
     
+    init(width: Int, length: Int, entrancePosition: Position, exitPosition: Position) {
+        self.init(width: width, length: length)
+        
+        guard let entranceFieldNumber = entrancePosition.getFieldnumber(in: self), let exitFieldNumber = exitPosition.getFieldnumber(in: self) else {
+            fatalError("Entrance or Exit outside of Factory Layout!")
+        }
+        
+        self.fields[entranceFieldNumber].state = .entrance
+        self.fields[exitFieldNumber].state = .exit
+    }
+    
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
     static private func getEmptyGrid(with width: Int, and length: Int) -> [Field] {
         
