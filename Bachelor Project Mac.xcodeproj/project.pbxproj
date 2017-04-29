@@ -27,7 +27,7 @@
 		D397346E1EB3208800DAAC8A /* FactoryLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */; };
 		D3D84DBE1EB478130038710B /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DBD1EB478130038710B /* Interpreter.swift */; };
 		D3D84DC01EB4781A0038710B /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DBF1EB4781A0038710B /* Presenter.swift */; };
-		D3D84DC21EB479760038710B /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC11EB479760038710B /* Coordinator.swift */; };
+		D3D84DC21EB479760038710B /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC11EB479760038710B /* Simulator.swift */; };
 		D3D84DC41EB4861A0038710B /* ProductTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC31EB4861A0038710B /* ProductTests.swift */; };
 		D3D84DC61EB4863B0038710B /* RobotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC51EB4863B0038710B /* RobotTests.swift */; };
 		D3D84DC81EB486490038710B /* WorkstationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC71EB486490038710B /* WorkstationTests.swift */; };
@@ -80,7 +80,7 @@
 		D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryLayoutTests.swift; sourceTree = "<group>"; };
 		D3D84DBD1EB478130038710B /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		D3D84DBF1EB4781A0038710B /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
-		D3D84DC11EB479760038710B /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D3D84DC11EB479760038710B /* Simulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
 		D3D84DC31EB4861A0038710B /* ProductTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTests.swift; sourceTree = "<group>"; };
 		D3D84DC51EB4863B0038710B /* RobotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotTests.swift; sourceTree = "<group>"; };
 		D3D84DC71EB486490038710B /* WorkstationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationTests.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
-				D3D84DC11EB479760038710B /* Coordinator.swift */,
+				D3D84DC11EB479760038710B /* Simulator.swift */,
 				D39734591EB1EF1000DAAC8A /* Models */,
 				D3D84DBC1EB477EF0038710B /* Presenter */,
 				D39734551EB1EECE00DAAC8A /* View */,
@@ -368,7 +368,7 @@
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,
 				D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */,
 				D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */,
-				D3D84DC21EB479760038710B /* Coordinator.swift in Sources */,
+				D3D84DC21EB479760038710B /* Simulator.swift in Sources */,
 				D397345B1EB1EF2E00DAAC8A /* Product.swift in Sources */,
 				D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */,
 				D397345D1EB1EF4100DAAC8A /* Robot.swift in Sources */,

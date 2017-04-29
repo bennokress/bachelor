@@ -11,7 +11,7 @@ import Foundation
 class Interpreter {
     
     var presenter = Presenter.shared
-    var coordinator = Coordinator.shared
+    var simulator = Simulator.shared
     
     static var shared = Interpreter()
     
@@ -20,7 +20,7 @@ class Interpreter {
     }
     
     func startButtonPressed() {
-        coordinator.startSimulation()
+        simulator.startSimulation()
     }
     
 }

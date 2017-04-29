@@ -1,5 +1,5 @@
 //
-//  Coordinator.swift
+//  Simulator.swift
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 29.04.17.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Coordinator {
+class Simulator {
     
     let settings = SimulationSettings.shared
     
-    static var shared = Coordinator()
+    static var shared = Simulator()
     private init() { }
     
     func startSimulation() {
@@ -24,7 +24,7 @@ class Coordinator {
 }
 
 // MARK: Simulation Steps
-extension Coordinator {
+extension Simulator {
     
     fileprivate func createEmptyFactoryGrid() -> FactoryLayout {
         let grid = FactoryLayout(width: settings.factoryWidth, length: settings.factoryLength)
@@ -35,7 +35,7 @@ extension Coordinator {
 }
 
 // MARK: Debugging
-extension Coordinator {
+extension Simulator {
     
     fileprivate func debugPrint(infoMessage message: String) {
         print(message)
