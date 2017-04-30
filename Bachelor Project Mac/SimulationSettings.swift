@@ -22,7 +22,10 @@ class SimulationSettings {
     var entrance: Position { return Position(x: 2, y: 0) }
     var exit: Position {
         let thirdLastFieldNumber = factoryWidth * factoryLength - 3
-        return Position(fromFieldnumber: thirdLastFieldNumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength)!
+        guard let exitPosition = Position(fromFieldnumber: thirdLastFieldNumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
+            fatalError("Exit is outside of Factory Layout!")
+        }
+        return exitPosition
     }
     
     // MARK: Products

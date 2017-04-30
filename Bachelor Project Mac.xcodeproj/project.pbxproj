@@ -38,6 +38,7 @@
 		D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD51EB4EBC30038710B /* ProductType.swift */; };
 		D3D84DD81EB4EBEC0038710B /* WorkstationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */; };
 		D3D84DDA1EB4EC590038710B /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD91EB4EC590038710B /* Routing.swift */; };
+		D3D84DDC1EB5F9390038710B /* FieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDB1EB5F9390038710B /* FieldType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		D3D84DD51EB4EBC30038710B /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationType.swift; sourceTree = "<group>"; };
 		D3D84DD91EB4EC590038710B /* Routing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
+		D3D84DDB1EB5F9390038710B /* FieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 				D397345E1EB1EF5E00DAAC8A /* Workstation.swift */,
 				D39734661EB1FECE00DAAC8A /* Factory.swift */,
 				D39734601EB1EF6B00DAAC8A /* Field.swift */,
+				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 			files = (
 				D3D84DBE1EB478130038710B /* Interpreter.swift in Sources */,
 				D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */,
+				D3D84DDC1EB5F9390038710B /* FieldType.swift in Sources */,
 				D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */,
 				D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */,
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,

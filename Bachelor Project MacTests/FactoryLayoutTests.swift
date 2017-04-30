@@ -22,21 +22,37 @@ class FactoryLayoutTests: XCTestCase {
     }
     
     func testInitializationGeneratesExpectedFactoryLayoutFieldTypes() {
-        let layout = FactoryLayout(width: 3, length: 3)
+        
+        let wall = FieldType.wall
+        let entrance = FieldType.entrance(robots: [])
+        let exit = FieldType.exit(robots: [])
+        let empty = FieldType.empty
+        
+        let factoryWidth = 3
+        let factoryLength = 3
+        let entrancePosition = Position(fromFieldnumber: 1, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength)!
+        let exitPosition = Position(fromFieldnumber: 7, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength)!
+        
+        let layout = FactoryLayout(width: 3, length: 3, entrance: entrancePosition, exit: exitPosition)
         let grid = layout.fields
         
-        var returnedFieldTypes: [FieldType] = []
-        for field in grid {
-            returnedFieldTypes.append(field.state)
+        func count(fieldType type: FieldType, in grid: [Field]) -> Int {
+            var count = 0
+            for element in grid {
+                if element.state == type { count += 1 }
+            }
+            return count
         }
         
-        let expectedFieldTypes: [FieldType] = [.wall, .wall, .wall, .wall, .empty, .wall, .wall, .wall, .wall]
+        XCTAssert(count(fieldType: wall, in: grid) == 6, "The fresh grid is supposed to have 6 wall fields, but has \(count(fieldType: wall, in: grid))")
+        XCTAssert(count(fieldType: entrance, in: grid) == 1, "The fresh grid is supposed to have 1 entrance, but has \(count(fieldType: entrance, in: grid))")
+        XCTAssert(count(fieldType: exit, in: grid) == 1, "The fresh grid is supposed to have 1 exit, but has \(count(fieldType: exit, in: grid))")
+        XCTAssert(count(fieldType: empty, in: grid) == 1, "The fresh 3x3 grid is supposed to have 1 empty field in the middle, but has \(count(fieldType: empty, in: grid))")
         
-        XCTAssert(returnedFieldTypes == expectedFieldTypes, "We expected an empty field surrounded only by walls in an empty 3x3 FactoryLayout")
     }
     
     func testAddingWorkstationIsRepresentedInFieldsOfFactoryLayout() {
-        var layout = FactoryLayout(width: 3, length: 3)
+        var layout = FactoryLayout(width: 3, length: 3, entrance: Position(x: 1, y: 0), exit: Position(x: 1, y: 2))
         
         let testWorkstation = Workstation(type: .testWorkstation, at: Position(fromFieldnumber: 4, in: layout)!)
         layout.addWorkstation(testWorkstation)

@@ -38,15 +38,15 @@ struct Position {
     }
     
     func getFieldnumber(in factorylayout: FactoryLayout) -> Int? {
-        
-        let fieldnumber = y * factorylayout.width + x
-        
-        guard fieldnumber < factorylayout.width * factorylayout.length else {
-            print("Invalid fieldnumber \(fieldnumber) for a factory of size \(factorylayout.width) x \(factorylayout.length)")
-            return nil
-        }
-        
-        return fieldnumber
+        return getFieldNumberInFactory(withWidth: factorylayout.width, andLength: factorylayout.length)
+    }
+    
+    func getFieldNumberInFactory(withWidth width: Int, andLength length: Int) -> Int? {
+        return self.isInFactory(withWidth: width, andLength: length) ? (y * width + x) : nil
+    }
+    
+    func isInFactory(withWidth width: Int, andLength length: Int) -> Bool {
+        return (y * width + x) < (width * length)
     }
     
     func getDistance(to otherPosition: Position) -> Int {

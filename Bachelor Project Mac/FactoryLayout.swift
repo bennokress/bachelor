@@ -52,22 +52,19 @@ struct FactoryLayout {
         return workstationObjects
     }
     
-    init(width: Int, length: Int) {
-        self.width = width
-        self.length = length
+    init(width: Int = SimulationSettings.shared.factoryWidth,
+        length: Int = SimulationSettings.shared.factoryLength,
+        entrance: Position = SimulationSettings.shared.entrance,
+        exit: Position = SimulationSettings.shared.exit) {
         
-        self.fields = FactoryLayout.getEmptyGrid(with: width, and: length)
-    }
-    
-    init(width: Int, length: Int, entrancePosition: Position, exitPosition: Position) {
-        self.init(width: width, length: length)
-        
-        guard let entranceFieldNumber = entrancePosition.getFieldnumber(in: self), let exitFieldNumber = exitPosition.getFieldnumber(in: self) else {
+        guard entrance.isInFactory(withWidth: width, andLength: length), exit.isInFactory(withWidth: width, andLength: length) else {
             fatalError("Entrance or Exit outside of Factory Layout!")
         }
         
-        self.fields[entranceFieldNumber].state = .entrance(robots: [])
-        self.fields[exitFieldNumber].state = .exit(robots: [])
+        self.width = width
+        self.length = length
+        self.fields = FactoryLayout.getBasicLayout(width: width, length: length, entrance: entrance, exit: exit)
+        
     }
     
 }
@@ -101,7 +98,11 @@ extension FactoryLayout {
 extension FactoryLayout {
     
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
-    static fileprivate func getEmptyGrid(with width: Int, and length: Int) -> [Field] {
+    static fileprivate func getBasicLayout(
+        width: Int = SimulationSettings.shared.factoryWidth,
+        length: Int = SimulationSettings.shared.factoryLength,
+        entrance: Position = SimulationSettings.shared.entrance,
+        exit: Position = SimulationSettings.shared.exit) -> [Field] {
         
         let size = width * length
         let xMax = width - 1
@@ -116,8 +117,11 @@ extension FactoryLayout {
             
             var field = Field(at: fieldPosition)
             
-            // TODO: Add entrance and exit according to settings
-            if field.position.x == 0 || field.position.y == 0 || field.position.x == xMax || field.position.y == yMax {
+            if field.position == entrance {
+                field.state = .entrance(robots: [])
+            } else if field.position == exit {
+                field.state = .exit(robots: [])
+            } else if field.position.x == 0 || field.position.y == 0 || field.position.x == xMax || field.position.y == yMax {
                 field.state = .wall
             }
             
