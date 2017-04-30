@@ -17,28 +17,30 @@ struct FactoryLayout {
     
     // MARK: Computed Properties
     
-    var entrancePosition: Position? {
+    var entranceField: Field? {
         for field in self.fields {
-            switch field.state {
-            case .entrance:
-                return field.position
-            default:
-                continue
+            if case .entrance = field.state {
+                return field
             }
         }
         return nil
     }
     
-    var exitPosition: Position? {
+    var exitField: Field? {
         for field in self.fields {
-            switch field.state {
-            case .exit:
-                return field.position
-            default:
-                continue
+            if case .exit = field.state {
+                return field
             }
         }
         return nil
+    }
+    
+    var entrancePosition: Position? {
+        return entranceField?.position
+    }
+    
+    var exitPosition: Position? {
+        return exitField?.position
     }
     
     var workstations: [Workstation] {
@@ -77,26 +79,25 @@ struct FactoryLayout {
 extension FactoryLayout {
     
     mutating func addWorkstation(_ workstation: Workstation) {
-        guard let index = workstation.position.getFieldnumber(in: self) else {
+        guard let fieldnumber = workstation.position.getFieldnumber(in: self) else {
             fatalError("Workstation position is outside of factory layout")
         }
-        // TODO: guard that target field is empty
-        fields[index].state = .workstation(object: workstation)
+        fields[fieldnumber].addWorkstation(workstation)
     }
     
-    mutating func addRobot(_ robot: Robot) {
-        guard let index = robot.position.getFieldnumber(in: self) else {
-            fatalError("Robot position is outside of factory layout")
-        }
-        // TODO: guard that target field has enough remaining capacity
-        fields[index].state = .robot(object: robot)
+    /// Adds a new robot to the entrance of the factory layout
+    mutating func addRobot(_ robot: inout Robot) {
+        guard var entrance = entranceField else { fatalError("No entrance found!") }
+        entrance.addRobot(&robot)
     }
     
-    mutating func moveRobot(_ robot: Robot, to position: Position) {
-        // TODO: implement this method
-        // 1 - change old field.state to empty
-        // 2 - robot.position = position
-        // 3 - addRobot(robot)
+    /// Moves an existing robot from one field of the factory layout to another
+    mutating func moveRobot(_ robot: inout Robot, to newPosition: Position) {
+        guard let oldFieldnumber = robot.position.getFieldnumber(in: self) else { fatalError("Robot was already outside factory layout!") }
+        fields[oldFieldnumber].removeRobot(robot)
+        
+        guard let newFieldnumber = newPosition.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
+        fields[newFieldnumber].addRobot(&robot)
     }
     
 }

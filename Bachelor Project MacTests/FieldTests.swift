@@ -10,6 +10,42 @@ import XCTest
 @testable import Bachelor_Project_Mac
 
 class FieldTests: XCTestCase {
+    
+    // MARK: Standard implementations to start with in each test, if needed
+    
+    var standardPosition1: Position {
+        return Position(x: 3, y: 2)
+    }
+    
+    var standardPosition2: Position {
+        return Position(x: 6, y: 2)
+    }
+    
+    var standardField1: Field {
+        return Field(at: standardPosition1)
+    }
+    
+    var standardField2: Field {
+        return Field(at: standardPosition2)
+    }
+    
+    var standardEmptyFactoryLayout: FactoryLayout {
+        let entrance = Position(x: 2, y: 0)
+        let exit = Position(x: 7, y: 4)
+        return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
+    }
+    
+    var standardProduct: Product {
+        return Product(type: .testProduct)
+    }
+    
+    var standardWorkstation: Workstation {
+        return Workstation(type: .testWorkstation, at: standardPosition2)
+    }
+    
+    var standardRobot: Robot {
+        return Robot(product: standardProduct, in: standardEmptyFactoryLayout)
+    }
 
     override func setUp() {
         super.setUp()
@@ -22,63 +58,86 @@ class FieldTests: XCTestCase {
     }
     
     func testInitializationWithPositionOnlyGeneratesAnEmptyField() {
-        let position = Position(x: 0, y: 0)
-        let field = Field(at: position)
+        XCTAssert(standardField1.isEmpty)
+    }
+    
+    func testAddsWorkstationToEmptyField() {
+        let testWorkstation = standardWorkstation
         
-        XCTAssert(field.isEmpty)
+        var testField = standardField2
+        testField.addWorkstation(testWorkstation)
+        XCTAssert(testField.workstation == testWorkstation, "The field should have a workstation. It also has the wrong type if this test fails!")
+    }
+    
+    func testAddsAndRemovesRobot() {
+        var testRobot = standardRobot
+        
+        var testField = standardField1
+        testField.addRobot(&testRobot)
+        XCTAssert(testField.robot == testRobot, "The field should have a robot. It also has the wrong type if this test fails!")
+        
+        testField.removeRobot(testRobot)
+        XCTAssert(testField.isEmpty)
     }
     
     func testFieldTypeCapacity() {
-        let position = Position(x: 0, y: 0)
-        var field = Field(at: position)
+        var testField = standardField1
         
-        XCTAssert(field.hasRemainingCapacity, "An empty field should always have remaining capacity!")
+        XCTAssert(testField.hasRemainingCapacity, "An empty field should always have remaining capacity!")
         
-        field.state = .entrance(robots: [])
-        XCTAssert(field.hasRemainingCapacity, "The entrance should always have remaining capacity!")
+        testField.state = .entrance(robots: [])
+        XCTAssert(testField.hasRemainingCapacity, "The entrance should always have remaining capacity!")
         
-        field.state = .exit(robots: [])
-        XCTAssert(field.hasRemainingCapacity, "The exit should always have remaining capacity!")
+        testField.state = .exit(robots: [])
+        XCTAssert(testField.hasRemainingCapacity, "The exit should always have remaining capacity!")
         
-        field.state = .wall
-        XCTAssert(!(field.hasRemainingCapacity), "A wall should never have remaining capacity!")
+        testField.state = .wall
+        XCTAssert(!(testField.hasRemainingCapacity), "A wall should never have remaining capacity!")
         
-        var workstation = Workstation(type: .testWorkstation, at: position)
-        workstation.state = .idle
-        field.state = .workstation(object: workstation)
-        XCTAssert(field.hasRemainingCapacity, "An idle workstation should always have remaining capacity!")
+        var testRobot = standardRobot
         
-        workstation.state = .busy
-        field.state = .workstation(object: workstation)
-        XCTAssert(!(field.hasRemainingCapacity), "A busy workstation should never have remaining capacity!")
+        testField.clear()
+        testField.addRobot(&testRobot)
+        XCTAssert(!(testField.hasRemainingCapacity), "A field occupied by a robot should never have remaining capacity!")
         
-        let robot = Robot(product: Product(type: .testProduct), in: FactoryLayout())
-        field.state = .robot(object: robot)
-        XCTAssert(!(field.hasRemainingCapacity), "A field occupied by a robot should never have remaining capacity!")
-    }
-    
-    func testKnowsRobotIfApplicable() {
-        let position = Position(x: 0, y: 0)
-        var field = Field(at: position)
-        let robot = Robot(product: Product(type: .testProduct), in: FactoryLayout())
-        field.state = .robot(object: robot)
+        var testWorkstation = standardWorkstation
+        testWorkstation.state = .idle
         
-        XCTAssert(field.robot == robot)
+        testField.removeRobot(testRobot)
+        testField.addWorkstation(testWorkstation)
+        XCTAssert(testField.hasRemainingCapacity, "An idle workstation should always have remaining capacity!")
         
-        field.state = .empty
-        XCTAssert(field.robot == nil)
+        testField.addRobot(&testRobot)
+        XCTAssert(!(testField.hasRemainingCapacity), "A busy workstation should never have remaining capacity!")
     }
     
     func testKnowsWorkstationIfApplicable() {
-        let position = Position(x: 0, y: 0)
-        var field = Field(at: position)
-        let workstation = Workstation(type: .testWorkstation, at: position)
-        field.state = .workstation(object: workstation)
+        let testWorkstation = standardWorkstation
         
-        XCTAssert(field.workstation == workstation)
+        var testField = standardField1
+        testField.addWorkstation(testWorkstation)
         
-        field.state = .empty
-        XCTAssert(field.robot == nil)
+        XCTAssert(testField.workstation == testWorkstation)
+        
+        testField.clear()
+        XCTAssert(testField.workstation == nil)
+    }
+    
+    func testKnowsRobotIfApplicable() {
+        var testRobot = standardRobot
+        let testWorkstation = standardWorkstation
+        
+        var testField = standardField1
+        testField.addRobot(&testRobot)
+        
+        XCTAssert(testField.robot == testRobot)
+        
+        testField.clear()
+        testField.addWorkstation(testWorkstation)
+        XCTAssert(testField.robot == nil)
+        
+        testField.addRobot(&testRobot)
+        XCTAssert((testField.workstation == testWorkstation) && (testField.robot == testRobot), "A field with a busy workstation should know both the robot and the workstation!")
     }
 
 }

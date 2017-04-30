@@ -38,7 +38,8 @@ class WorkstationTests: XCTestCase {
         var workstation = Workstation(type: .testWorkstation, at: Position(x: 1, y: 2))
         XCTAssert(workstation.isIdle)
         
-        workstation.state = .busy
+        let robot = Robot(product: Product(type: .testProduct), in: FactoryLayout())
+        workstation.state = .busy(robot: robot)
         XCTAssert(!(workstation.isIdle))
     }
 

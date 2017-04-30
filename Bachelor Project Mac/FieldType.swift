@@ -23,7 +23,7 @@ enum FieldType {
         case .wall, .robot:
             return 0
         case .workstation(let workstation):
-            return workstation.state == .busy ? 0 : 1
+            return workstation.state == .idle ? 1 : 0
         case .empty:
             return 1
         }

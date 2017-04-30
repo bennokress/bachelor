@@ -212,7 +212,6 @@
 				D3D84DDF1EB6291A0038710B /* WorkstationState.swift */,
 				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
-				D39734601EB1EF6B00DAAC8A /* Field.swift */,
 			);
 			name = "Static Models";
 			sourceTree = "<group>";
@@ -271,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				D39734621EB1EF7600DAAC8A /* FactoryLayout.swift */,
+				D39734601EB1EF6B00DAAC8A /* Field.swift */,
 				D397345A1EB1EF2E00DAAC8A /* Product.swift */,
 				D397345C1EB1EF4100DAAC8A /* Robot.swift */,
 				D397345E1EB1EF5E00DAAC8A /* Workstation.swift */,
