@@ -14,6 +14,8 @@ struct Workstation {
     let type: WorkstationType
     let position: Position
     
+    var isIdle: Bool { return state == .idle }
+    
     init(type: WorkstationType, at position: Position) {
         self.state = .idle
         self.type = type

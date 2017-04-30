@@ -12,9 +12,7 @@ struct Product {
     
     let type: ProductType
     
-    var neededWorkstations: [WorkstationType] {
-        return self.type.route
-    }
+    var neededWorkstations: [WorkstationType] { return self.type.route }
     
     init(type: ProductType) {
         self.type = type

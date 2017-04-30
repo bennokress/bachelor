@@ -12,7 +12,7 @@ import XCTest
 class PositionTests: XCTestCase {
     
     let position = Position(x: 6, y: 4)
-    let factorylayout = FactoryLayout(width: 10, length: 5, entrance: Position(x: 2, y: 0), exit: Position(x: 3, y: 3))
+    let factorylayout = FactoryLayout(width: 10, length: 5, entrance: Position(x: 2, y: 0), exit: Position(x: 3, y: 4))
     
     override func setUp() {
         super.setUp()
@@ -52,7 +52,8 @@ class PositionTests: XCTestCase {
     }
     
     func testPositionFieldnumberConversionInInvalidFactoryLayoutFails() {
-        let tooSmallFactoryLayout = FactoryLayout(width: 2, length: 2, entrance: Position(x: 1, y: 0), exit: Position(x: 0, y: 1)) // Invalid FactoryLayout for Position(x: 6, y: 4)
+        // Invalid FactoryLayout for Position(x: 6, y: 4)
+        let tooSmallFactoryLayout = FactoryLayout(width: 2, length: 2, entrance: Position(x: 1, y: 0), exit: Position(x: 0, y: 1))
         let invalidFieldnumber = position.getFieldnumber(in: tooSmallFactoryLayout)
         XCTAssert(invalidFieldnumber == nil)
     }
@@ -67,6 +68,14 @@ class PositionTests: XCTestCase {
         XCTAssert(pos1.getDistance(to: pos2) == 2, "Distance should be 2, but is \(pos1.getDistance(to: pos2))")
         XCTAssert(pos1.getDistance(to: pos3) == 2, "Distance should be 2, but is \(pos1.getDistance(to: pos3))")
         XCTAssert(pos1.getDistance(to: pos4) == 4, "Distance should be 4, but is \(pos1.getDistance(to: pos4))")
+    }
+    
+    func testKnowsIfInsideOrOutsideFactoryLayout() {
+        let insidePosition = Position(x: 2, y: 2)
+        let outsidePosition = Position(x: 89, y: 89)
+        
+        XCTAssert(insidePosition.isInFactory(withLayout: factorylayout))
+        XCTAssert(!(outsidePosition.isInFactory(withLayout: factorylayout)))
     }
     
 }

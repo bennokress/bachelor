@@ -49,6 +49,10 @@ struct Position {
         return abs(self.x - otherPosition.x) + abs(self.y - otherPosition.y)
     }
     
+    func isInFactory(withLayout factoryLayout: FactoryLayout) -> Bool {
+        return isInFactory(withWidth: factoryLayout.width, andLength: factoryLayout.length)
+    }
+    
     func isInFactory(withWidth width: Int, andLength length: Int) -> Bool {
         return (y * width + x) < (width * length)
     }

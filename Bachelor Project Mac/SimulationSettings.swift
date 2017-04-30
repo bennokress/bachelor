@@ -42,12 +42,12 @@ extension SimulationSettings {
     func getInitialGeneration() -> [Factory] {
         
         // 1 - create empty factory layout
-        // for each factory
-            // 2 - generate workstations with positions in factory
-            // 3 - update factory layout from step 1 with the generated workstations
-            // 4 - generate products
-            // 5 - generate robots with each one owning a product
-            // 6 - place robots at the entrance of the factory layout
+        // 2 - generate products
+        // 3 - generate robots with each one owning a product
+        // 4 - place robots at the entrance of the factory layout
+        // for each needed individual (factory layout)
+            // 5 - generate workstations with positions in factory
+            // 6 - update factory layout from step 4 with the generated workstations
             // 7 - generate factory
             // 8 - append factory to initial generation
         

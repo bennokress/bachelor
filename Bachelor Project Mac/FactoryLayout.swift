@@ -15,6 +15,8 @@ struct FactoryLayout {
     
     var fields: [Field]
     
+    // MARK: Computed Properties
+    
     var entrancePosition: Position? {
         for field in self.fields {
             switch field.state {
@@ -51,6 +53,8 @@ struct FactoryLayout {
         }
         return workstationObjects
     }
+    
+    // MARK: Initializer
     
     init(width: Int = SimulationSettings.shared.factoryWidth,
         length: Int = SimulationSettings.shared.factoryLength,

@@ -154,7 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				D3D84DD41EB4EBB20038710B /* Settings */,
-				D39734591EB1EF1000DAAC8A /* Models */,
+				D39734591EB1EF1000DAAC8A /* Static Models */,
+				D3D84DE11EB62ADE0038710B /* Dynamic Models */,
 				D3D84DCF1EB4DC120038710B /* Genetic Algorithm */,
 				D3D84DBC1EB477EF0038710B /* Presenter */,
 				D39734551EB1EECE00DAAC8A /* View */,
@@ -204,33 +205,28 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		D39734591EB1EF1000DAAC8A /* Models */ = {
+		D39734591EB1EF1000DAAC8A /* Static Models */ = {
 			isa = PBXGroup;
 			children = (
-				D397345A1EB1EF2E00DAAC8A /* Product.swift */,
-				D39734621EB1EF7600DAAC8A /* FactoryLayout.swift */,
-				D39734641EB1FEBF00DAAC8A /* Position.swift */,
-				D397345C1EB1EF4100DAAC8A /* Robot.swift */,
 				D3D84DDD1EB629050038710B /* RobotState.swift */,
-				D397345E1EB1EF5E00DAAC8A /* Workstation.swift */,
 				D3D84DDF1EB6291A0038710B /* WorkstationState.swift */,
-				D39734661EB1FECE00DAAC8A /* Factory.swift */,
-				D39734601EB1EF6B00DAAC8A /* Field.swift */,
 				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
+				D39734641EB1FEBF00DAAC8A /* Position.swift */,
+				D39734601EB1EF6B00DAAC8A /* Field.swift */,
 			);
-			name = Models;
+			name = "Static Models";
 			sourceTree = "<group>";
 		};
 		D397346A1EB3202500DAAC8A /* Model Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D3D84DC31EB4861A0038710B /* ProductTests.swift */,
-				D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */,
 				D39734681EB2095700DAAC8A /* PositionTests.swift */,
+				D397346B1EB3205A00DAAC8A /* FieldTests.swift */,
+				D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */,
+				D3D84DC31EB4861A0038710B /* ProductTests.swift */,
 				D3D84DC51EB4863B0038710B /* RobotTests.swift */,
 				D3D84DC71EB486490038710B /* WorkstationTests.swift */,
 				D3D84DC91EB486560038710B /* FactoryTests.swift */,
-				D397346B1EB3205A00DAAC8A /* FieldTests.swift */,
 			);
 			name = "Model Tests";
 			sourceTree = "<group>";
@@ -269,6 +265,18 @@
 				D3D84DD91EB4EC590038710B /* Routing.swift */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		D3D84DE11EB62ADE0038710B /* Dynamic Models */ = {
+			isa = PBXGroup;
+			children = (
+				D39734621EB1EF7600DAAC8A /* FactoryLayout.swift */,
+				D397345A1EB1EF2E00DAAC8A /* Product.swift */,
+				D397345C1EB1EF4100DAAC8A /* Robot.swift */,
+				D397345E1EB1EF5E00DAAC8A /* Workstation.swift */,
+				D39734661EB1FECE00DAAC8A /* Factory.swift */,
+			);
+			name = "Dynamic Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -16,6 +16,22 @@ struct Field {
     var isEmpty: Bool { return state == .empty }
     var hasRemainingCapacity: Bool { return state.remainingCapacity > 0 }
     
+    var robot: Robot? {
+        if case .robot(let object) = state {
+            return object
+        } else {
+            return nil
+        }
+    }
+    
+    var workstation: Workstation? {
+        if case .workstation(let object) = state {
+            return object
+        } else {
+            return nil
+        }
+    }
+    
     init(at position: Position, type: FieldType = .empty) {
         self.position = position
         self.state = type
