@@ -25,7 +25,36 @@ class FieldTests: XCTestCase {
         let position = Position(x: 0, y: 0)
         let field = Field(at: position)
         
-        XCTAssert(field.state == .empty)
+        XCTAssert(field.isEmpty)
+    }
+    
+    func testFieldTypeCapacity() {
+        let position = Position(x: 0, y: 0)
+        var field = Field(at: position)
+        
+        XCTAssert(field.hasRemainingCapacity, "An empty field should always have remaining capacity!")
+        
+        field.state = .entrance(robots: [])
+        XCTAssert(field.hasRemainingCapacity, "The entrance should always have remaining capacity!")
+        
+        field.state = .exit(robots: [])
+        XCTAssert(field.hasRemainingCapacity, "The exit should always have remaining capacity!")
+        
+        field.state = .wall
+        XCTAssert(!(field.hasRemainingCapacity), "A wall should never have remaining capacity!")
+        
+        var workstation = Workstation(type: .testWorkstation, at: position)
+        workstation.state = .idle
+        field.state = .workstation(object: workstation)
+        XCTAssert(field.hasRemainingCapacity, "An idle workstation should always have remaining capacity!")
+        
+        workstation.state = .busy
+        field.state = .workstation(object: workstation)
+        XCTAssert(!(field.hasRemainingCapacity), "A busy workstation should never have remaining capacity!")
+        
+        let robot = Robot(product: Product(type: .testProduct), in: FactoryLayout())
+        field.state = .robot(object: robot)
+        XCTAssert(!(field.hasRemainingCapacity), "A field occupied by a robot should never have remaining capacity!")
     }
 
 }

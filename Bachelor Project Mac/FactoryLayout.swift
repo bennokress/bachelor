@@ -84,12 +84,15 @@ extension FactoryLayout {
         guard let index = robot.position.getFieldnumber(in: self) else {
             fatalError("Robot position is outside of factory layout")
         }
-        // TODO: guard that target field is entrance, exit or empty
+        // TODO: guard that target field has enough remaining capacity
         fields[index].state = .robot(object: robot)
     }
     
     mutating func moveRobot(_ robot: Robot, to position: Position) {
         // TODO: implement this method
+        // 1 - change old field.state to empty
+        // 2 - robot.position = position
+        // 3 - addRobot(robot)
     }
     
 }

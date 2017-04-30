@@ -13,6 +13,9 @@ struct Field {
     let position: Position
     var state: FieldType
     
+    var isEmpty: Bool { return state == .empty }
+    var hasRemainingCapacity: Bool { return state.remainingCapacity > 0 }
+    
     init(at position: Position, type: FieldType = .empty) {
         self.position = position
         self.state = type
