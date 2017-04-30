@@ -46,6 +46,8 @@ class FieldTests: XCTestCase {
     var standardRobot: Robot {
         return Robot(product: standardProduct, in: standardEmptyFactoryLayout)
     }
+    
+    // MARK: General Functions
 
     override func setUp() {
         super.setUp()
@@ -56,6 +58,8 @@ class FieldTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    // MARK: Tests
     
     func testInitializationWithPositionOnlyGeneratesAnEmptyField() {
         XCTAssert(standardField1.isEmpty)

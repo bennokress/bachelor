@@ -64,10 +64,10 @@ class PositionTests: XCTestCase {
         let pos3 = Position(x: +1, y: -1)
         let pos4 = Position(x: +1, y: +1)
         
-        XCTAssert(pos1.getDistance(to: pos1) == 0, "Distance should be 0, but is \(pos1.getDistance(to: pos1))")
-        XCTAssert(pos1.getDistance(to: pos2) == 2, "Distance should be 2, but is \(pos1.getDistance(to: pos2))")
-        XCTAssert(pos1.getDistance(to: pos3) == 2, "Distance should be 2, but is \(pos1.getDistance(to: pos3))")
-        XCTAssert(pos1.getDistance(to: pos4) == 4, "Distance should be 4, but is \(pos1.getDistance(to: pos4))")
+        XCTAssert(pos1.distance(to: pos1) == 0, "Distance should be 0, but is \(pos1.distance(to: pos1))")
+        XCTAssert(pos1.distance(to: pos2) == 2, "Distance should be 2, but is \(pos1.distance(to: pos2))")
+        XCTAssert(pos1.distance(to: pos3) == 2, "Distance should be 2, but is \(pos1.distance(to: pos3))")
+        XCTAssert(pos1.distance(to: pos4) == 4, "Distance should be 4, but is \(pos1.distance(to: pos4))")
     }
     
     func testKnowsIfInsideOrOutsideFactoryLayout() {

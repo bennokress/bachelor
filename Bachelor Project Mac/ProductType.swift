@@ -15,7 +15,8 @@ enum ProductType {
     case pD
     case pE
     case pF
-    case testProduct // needed in unit tests only
+    case testProduct    // needed in unit tests only
+    case emptyProduct   // needed in unit tests only
     
     var route: [WorkstationType] {
         switch self {
@@ -26,6 +27,7 @@ enum ProductType {
         case .pE: return [.wsC, .wsD, .wsB, .wsE, .wsA, .wsF]
         case .pF: return [.wsC, .wsD, .wsC, .wsD, .wsC, .wsE]
         case .testProduct: return [.testWorkstation]
+        case .emptyProduct: return []
         }
     }
 }

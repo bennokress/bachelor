@@ -18,17 +18,12 @@ struct Robot {
     let routing = Routing.shared
     
     init(product: Product, in factoryLayout: FactoryLayout = FactoryLayout()) {
-        guard let entrance = factoryLayout.entrancePosition else {
-            fatalError("No entrance found in factory layout!")
-        }
-        guard let routeForProduct = routing.getShortestRoute(containing: product.neededWorkstations, in: factoryLayout) else {
-            fatalError("Factory layout does not contain all needed stations for the product!")
-        }
+        guard let entrance = factoryLayout.entrancePosition else { fatalError("No entrance found in factory layout!") }
         
         self.product = product
         self.state = .starting
         self.position = entrance
-        self.remainingRoute = routeForProduct
+        self.remainingRoute = routing.getShortestRoute(containing: product.neededWorkstations, in: factoryLayout)
     }
     
     mutating func move(to newPosition: Position) {

@@ -41,6 +41,7 @@
 		D3D84DDC1EB5F9390038710B /* FieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDB1EB5F9390038710B /* FieldType.swift */; };
 		D3D84DDE1EB629050038710B /* RobotState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDD1EB629050038710B /* RobotState.swift */; };
 		D3D84DE01EB6291A0038710B /* WorkstationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDF1EB6291A0038710B /* WorkstationState.swift */; };
+		D3D84DE41EB653330038710B /* RoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DE31EB653330038710B /* RoutingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		D3D84DDB1EB5F9390038710B /* FieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldType.swift; sourceTree = "<group>"; };
 		D3D84DDD1EB629050038710B /* RobotState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotState.swift; sourceTree = "<group>"; };
 		D3D84DDF1EB6291A0038710B /* WorkstationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationState.swift; sourceTree = "<group>"; };
+		D3D84DE31EB653330038710B /* RoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +169,7 @@
 		D397343B1EB1E6D400DAAC8A /* Bachelor Project MacTests */ = {
 			isa = PBXGroup;
 			children = (
-				D3D84DCD1EB4902E0038710B /* SimulationSettingsTests.swift */,
+				D3D84DE21EB653210038710B /* Settings Tests */,
 				D397346A1EB3202500DAAC8A /* Model Tests */,
 				D397343C1EB1E6D400DAAC8A /* PerformanceTests.swift */,
 				D397343E1EB1E6D400DAAC8A /* Info.plist */,
@@ -277,6 +279,15 @@
 				D39734661EB1FECE00DAAC8A /* Factory.swift */,
 			);
 			name = "Dynamic Models";
+			sourceTree = "<group>";
+		};
+		D3D84DE21EB653210038710B /* Settings Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D3D84DCD1EB4902E0038710B /* SimulationSettingsTests.swift */,
+				D3D84DE31EB653330038710B /* RoutingTests.swift */,
+			);
+			name = "Settings Tests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -468,6 +479,7 @@
 				D3D84DC81EB486490038710B /* WorkstationTests.swift in Sources */,
 				D397343D1EB1E6D400DAAC8A /* PerformanceTests.swift in Sources */,
 				D397346C1EB3205A00DAAC8A /* FieldTests.swift in Sources */,
+				D3D84DE41EB653330038710B /* RoutingTests.swift in Sources */,
 				D3D84DC61EB4863B0038710B /* RobotTests.swift in Sources */,
 				D3D84DCE1EB4902E0038710B /* SimulationSettingsTests.swift in Sources */,
 				D3D84DC41EB4861A0038710B /* ProductTests.swift in Sources */,

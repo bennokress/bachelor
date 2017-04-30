@@ -28,8 +28,6 @@ class SimulationSettingsTests: XCTestCase {
         settings.factoryWidth = 5
         settings.factoryLength = 10
         
-        dump(settings.exit)
-        
         XCTAssert(settings.exit == Position(x: 2, y: 9), "Exit should be at third last field in the factory layout unless changed in SimulationSettings.")
     }
 

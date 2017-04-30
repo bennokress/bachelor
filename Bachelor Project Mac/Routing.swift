@@ -13,19 +13,21 @@ class Routing {
     static var shared = Routing()
     private init() {}
     
-    func getShortestRoute(containing workstationTypes: [WorkstationType], in factoryLayout: FactoryLayout) -> [Position]? {
-        guard let exit = factoryLayout.exitPosition else { return nil }
+    func getShortestRoute(containing workstationTypes: [WorkstationType], in factoryLayout: FactoryLayout) -> [Position] {
+        guard let entrance = factoryLayout.entrancePosition, let exit = factoryLayout.exitPosition else { fatalError("Factory Layout has no entrance or exit!") }
         
         var shortestRoute: [Position] = []
         
-        // TODO: Implement
-        
-        // 1 - Set currentPosition to factoryLayout.entrancePosition
-        // For workstation type in workstation types
-            // 2 - filter factoryLayout.workstations for workstation type
-            // 3 - from filtered workstations get the one with the shortest distance to the currentPosition
-            // 4 - add the workstation position to shortestRoute
-            // 5 - update currentPositiong to the workstation position
+        var currentPosition = entrance
+        for desiredType in workstationTypes {
+            var filteredWorkstations = factoryLayout.workstations.filter() { $0.type == desiredType }
+            filteredWorkstations.sort(by: { $0.position.distance(to: currentPosition) < $1.position.distance(to: currentPosition) })
+            guard let nearestWorkstation = filteredWorkstations.first else {
+                fatalError("No workstation found with desired type!")
+            }
+            shortestRoute.append(nearestWorkstation.position)
+            currentPosition = nearestWorkstation.position
+        }
         
         shortestRoute.append(exit)
         

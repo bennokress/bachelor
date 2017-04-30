@@ -45,7 +45,7 @@ struct Position {
         return self.isInFactory(withWidth: width, andLength: length) ? (y * width + x) : nil
     }
     
-    func getDistance(to otherPosition: Position) -> Int {
+    func distance(to otherPosition: Position) -> Int {
         return abs(self.x - otherPosition.x) + abs(self.y - otherPosition.y)
     }
     
