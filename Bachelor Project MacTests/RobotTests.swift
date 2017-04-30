@@ -38,6 +38,7 @@ class RobotTests: XCTestCase {
         let testProduct = getTestProduct
         let testRobot = Robot(product: testProduct, in: testFactoryLayout)
         XCTAssert(testRobot.position == testFactoryLayout.entrancePosition)
+        XCTAssert(testRobot.state == .starting)
     }
     
     func testRobotRouteIncludesTestWorkstationAndExit() {

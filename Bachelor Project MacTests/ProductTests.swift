@@ -22,10 +22,16 @@ class ProductTests: XCTestCase {
     }
 
     func testTwoProductsWithIdenticalTypeAreEqual() {
-        let product1 = Product(type: .pA)
-        let product2 = Product(type: .pA)
+        let product1 = Product(type: .testProduct)
+        let product2 = Product(type: .testProduct)
         
         XCTAssert(product1 == product2)
+    }
+    
+    func testProductKnowsCorrectRoute() {
+        let product = Product(type: .testProduct)
+        
+        XCTAssert(product.neededWorkstations == [.testWorkstation])
     }
 
 }
