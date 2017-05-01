@@ -9,11 +9,11 @@ Basic models are implemented in order to create a factory layout that can be use
 * y
 
 ### Product
-* type (/contains a route of workstation types/)
+* type (*contains a route of workstation types*)
 
 ### Field
 * position
-* type/state (wall, entrance, exit, *workstation*, *robot*, empty)
+* type/state (wall, entrance, exit, **workstation**, **robot**, empty)
 
 ### Robot
 * product
