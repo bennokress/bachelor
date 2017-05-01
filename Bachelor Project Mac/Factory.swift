@@ -10,13 +10,17 @@ import Foundation
 
 struct Factory {
     
+    // Factory Layout (-> with workstations and robots => computed properties)
+    // State (running, finished)
+    // Fitness
+    
 }
 
 extension Factory: Equatable {
     
     static func == (lhs: Factory, rhs: Factory) -> Bool {
         // FIXME: Implement this
-        return false
+        return false // equal if factory layouts are equal
     }
     
 }
