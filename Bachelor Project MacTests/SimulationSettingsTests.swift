@@ -11,7 +11,7 @@ import XCTest
 
 class SimulationSettingsTests: XCTestCase {
     
-    let settings = SimulationSettings.shared
+    let settings = SimulationSettings()
 
     override func setUp() {
         super.setUp()
@@ -21,14 +21,6 @@ class SimulationSettingsTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-    }
-
-    func testExitIsAtThirdLastFieldInFactoryLayout() {
-        
-        settings.factoryWidth = 5
-        settings.factoryLength = 10
-        
-        XCTAssert(settings.exit == Position(x: 2, y: 9), "Exit should be at third last field in the factory layout unless changed in SimulationSettings.")
     }
 
 }

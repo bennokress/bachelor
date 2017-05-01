@@ -30,9 +30,23 @@ struct SimulationSettings {
     }
     
     // MARK: Products
-    var products = [
-        Product(type: .pA),
-        Product(type: .pB)
+    let productAmount: [ProductType : Int] = [
+        .pA: 1,
+        .pB: 0,
+        .pC: 0,
+        .pD: 0,
+        .pE: 0,
+        .pF: 0
+    ]
+    
+    // MARK: Workstations
+    let workstationAmount: [WorkstationType : Int] = [
+        .wsA: 1,
+        .wsB: 1,
+        .wsC: 1,
+        .wsD: 1,
+        .wsE: 1,
+        .wsF: 1
     ]
     
 }
@@ -42,17 +56,31 @@ extension SimulationSettings {
 
     func getInitialGeneration() -> [Factory] {
         
-        var initialGeneration: [Factory] = []
-        
         // 1 - create empty factory layout
+        var factoryLayout = createEmptyFactoryGrid()
+        
         // 2 - generate products
-        // 3 - generate robots with each one owning a product
-        // 4 - place robots at the entrance of the factory layout
-        // for each needed individual (factory layout)
+        var products: [Product] = []
+        for (productType, n) in productAmount {
+            n.times { products.append(Product(type: productType)) }
+        }
+        
+        // 3 - generate robots with each one owning a product and place it at the entrance
+        for product in products {
+            var robot = Robot(product: product)
+            factoryLayout.addRobot(&robot)
+        }
+        
+        // loop - for each needed individual (factory layout)
+        var initialGeneration: [Factory] = []
+        generationSize.times {
+            // FIXME: Finish this loop implementation
             // 5 - generate workstations with positions in factory
             // 6 - update factory layout from step 4 with the generated workstations
             // 7 - generate factory
             // 8 - append factory to initial generation
+            initialGeneration.append(Factory())
+        }
         
         return initialGeneration
         

@@ -11,8 +11,46 @@ import XCTest
 
 class PositionTests: XCTestCase {
     
-    let position = Position(x: 6, y: 4)
-    let factorylayout = FactoryLayout(width: 10, length: 5, entrance: Position(x: 2, y: 0), exit: Position(x: 3, y: 4))
+//    let position = Position(x: 6, y: 4)
+//    let factorylayout = FactoryLayout(width: 10, length: 5, entrance: Position(x: 2, y: 0), exit: Position(x: 3, y: 4))
+    
+    // MARK: Standard implementations to start with in each test, if needed
+    
+    var standardPosition1: Position {
+        return Position(x: 3, y: 2)
+    }
+    
+    var standardPosition2: Position {
+        return Position(x: 6, y: 2)
+    }
+    
+    var standardField1: Field {
+        return Field(at: standardPosition1)
+    }
+    
+    var standardField2: Field {
+        return Field(at: standardPosition2)
+    }
+    
+    var standardEmptyFactoryLayout: FactoryLayout {
+        let entrance = Position(x: 2, y: 0)
+        let exit = Position(x: 7, y: 4)
+        return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
+    }
+    
+    var standardProduct: Product {
+        return Product(type: .testProduct)
+    }
+    
+    var standardWorkstation: Workstation {
+        return Workstation(type: .testWorkstation, at: standardPosition2)
+    }
+    
+    var standardRobot: Robot {
+        return Robot(product: standardProduct, in: standardEmptyFactoryLayout)
+    }
+    
+    // MARK: General Functions
     
     override func setUp() {
         super.setUp()
@@ -24,13 +62,17 @@ class PositionTests: XCTestCase {
         super.tearDown()
     }
     
+    // MARK: Tests
+    
     func testPositionDefaultInitialization() {
-        XCTAssert(position.x == 6)
-        XCTAssert(position.y == 4)
+        XCTAssert(standardPosition1.x == 3)
+        XCTAssert(standardPosition1.y == 2)
+        XCTAssert(standardPosition2.x == 6)
+        XCTAssert(standardPosition2.y == 2)
     }
     
     func testPositionInitializationFromFieldnumber() {
-        guard let testPosition = Position(fromFieldnumber: 25, in: factorylayout) else {
+        guard let testPosition = Position(fromFieldnumber: 25, in: standardEmptyFactoryLayout) else {
             XCTFail("Given fieldnumber is outside of valid fieldnumbers!")
             return
         }
@@ -39,22 +81,22 @@ class PositionTests: XCTestCase {
     }
     
     func testPositionInitializationFromInvalidFieldnumberFails() {
-        let invalidPosition = Position(fromFieldnumber: 89, in: factorylayout)
+        let invalidPosition = Position(fromFieldnumber: 89, in: standardEmptyFactoryLayout)
         XCTAssert(invalidPosition == nil)
     }
     
     func testPositionConvertionToFieldnumber() {
-        guard let fieldnumber = position.getFieldnumber(in: factorylayout) else {
+        guard let fieldnumber = standardPosition1.getFieldnumber(in: standardEmptyFactoryLayout) else {
             XCTFail("Fieldnumber was not computed!")
             return
         }
-        XCTAssert(fieldnumber == 46)
+        XCTAssert(fieldnumber == 23)
     }
     
     func testPositionFieldnumberConversionInInvalidFactoryLayoutFails() {
         // Invalid FactoryLayout for Position(x: 6, y: 4)
         let tooSmallFactoryLayout = FactoryLayout(width: 2, length: 2, entrance: Position(x: 1, y: 0), exit: Position(x: 0, y: 1))
-        let invalidFieldnumber = position.getFieldnumber(in: tooSmallFactoryLayout)
+        let invalidFieldnumber = standardPosition1.getFieldnumber(in: tooSmallFactoryLayout)
         XCTAssert(invalidFieldnumber == nil)
     }
     
@@ -74,8 +116,20 @@ class PositionTests: XCTestCase {
         let insidePosition = Position(x: 2, y: 2)
         let outsidePosition = Position(x: 89, y: 89)
         
-        XCTAssert(insidePosition.isInFactory(withLayout: factorylayout))
-        XCTAssert(!(outsidePosition.isInFactory(withLayout: factorylayout)))
+        XCTAssert(insidePosition.isInFactory(withLayout: standardEmptyFactoryLayout))
+        XCTAssert(!(outsidePosition.isInFactory(withLayout: standardEmptyFactoryLayout)))
+    }
+    
+    func testRandomEmptyFieldIsIndeedEmpty() {
+        let factoryLayout = standardEmptyFactoryLayout
+        let randomEmptyFieldPosition = Position.ofRandomEmptyField(in: factoryLayout)
+        
+        guard let fieldnumber = randomEmptyFieldPosition.getFieldnumber(in: factoryLayout) else {
+            XCTFail("Random position was outside of factory!")
+            return
+        }
+        
+        XCTAssert(factoryLayout.fields[fieldnumber].isEmpty, "Random position was not empty!")
     }
     
 }

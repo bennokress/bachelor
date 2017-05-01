@@ -57,6 +57,12 @@ struct Position {
         return (y * width + x) < (width * length)
     }
     
+    static func ofRandomEmptyField(in factoryLayout: FactoryLayout) -> Position {
+        let emptyFields = factoryLayout.fields.filter { $0.isEmpty }
+        let randomField = emptyFields[Int.random(between: 1, and: emptyFields.count) - 1]
+        return randomField.position
+    }
+    
 }
 
 extension Position: Equatable {

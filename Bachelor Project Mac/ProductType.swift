@@ -30,4 +30,5 @@ enum ProductType {
         case .emptyProduct: return []
         }
     }
+    
 }
