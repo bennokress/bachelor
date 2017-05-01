@@ -11,9 +11,6 @@ import XCTest
 
 class PositionTests: XCTestCase {
     
-//    let position = Position(x: 6, y: 4)
-//    let factorylayout = FactoryLayout(width: 10, length: 5, entrance: Position(x: 2, y: 0), exit: Position(x: 3, y: 4))
-    
     // MARK: Standard implementations to start with in each test, if needed
     
     var standardPosition1: Position {
@@ -38,6 +35,12 @@ class PositionTests: XCTestCase {
         return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
     }
     
+    var standardFactoryLayout: FactoryLayout {
+        var factoryLayout = standardEmptyFactoryLayout
+        factoryLayout.addWorkstation(standardWorkstation)
+        return factoryLayout
+    }
+    
     var standardProduct: Product {
         return Product(type: .testProduct)
     }
@@ -47,7 +50,7 @@ class PositionTests: XCTestCase {
     }
     
     var standardRobot: Robot {
-        return Robot(product: standardProduct, in: standardEmptyFactoryLayout)
+        return Robot(product: standardProduct, in: standardFactoryLayout)
     }
     
     // MARK: General Functions
@@ -71,8 +74,19 @@ class PositionTests: XCTestCase {
         XCTAssert(standardPosition2.y == 2)
     }
     
+    func testEmptyFieldsAreIdentifiedCorrectly() {
+        let factoryLayout = standardFactoryLayout
+        
+        var emptyFieldCount = 0
+        for field in factoryLayout.fields {
+            if field.isEmpty { emptyFieldCount += 1 }
+        }
+        
+        XCTAssert(emptyFieldCount == 23, "50 total fields -  24 walls - 1 entrance - 1 exit - 1 workstation = 23 empty fields -> \(emptyFieldCount) were counted!")
+    }
+    
     func testPositionInitializationFromFieldnumber() {
-        guard let testPosition = Position(fromFieldnumber: 25, in: standardEmptyFactoryLayout) else {
+        guard let testPosition = Position(fromFieldnumber: 25, in: standardFactoryLayout) else {
             XCTFail("Given fieldnumber is outside of valid fieldnumbers!")
             return
         }
@@ -81,12 +95,12 @@ class PositionTests: XCTestCase {
     }
     
     func testPositionInitializationFromInvalidFieldnumberFails() {
-        let invalidPosition = Position(fromFieldnumber: 89, in: standardEmptyFactoryLayout)
+        let invalidPosition = Position(fromFieldnumber: 89, in: standardFactoryLayout)
         XCTAssert(invalidPosition == nil)
     }
     
     func testPositionConvertionToFieldnumber() {
-        guard let fieldnumber = standardPosition1.getFieldnumber(in: standardEmptyFactoryLayout) else {
+        guard let fieldnumber = standardPosition1.getFieldnumber(in: standardFactoryLayout) else {
             XCTFail("Fieldnumber was not computed!")
             return
         }
@@ -116,12 +130,12 @@ class PositionTests: XCTestCase {
         let insidePosition = Position(x: 2, y: 2)
         let outsidePosition = Position(x: 89, y: 89)
         
-        XCTAssert(insidePosition.isInFactory(withLayout: standardEmptyFactoryLayout))
-        XCTAssert(!(outsidePosition.isInFactory(withLayout: standardEmptyFactoryLayout)))
+        XCTAssert(insidePosition.isInFactory(withLayout: standardFactoryLayout))
+        XCTAssert(!(outsidePosition.isInFactory(withLayout: standardFactoryLayout)))
     }
     
     func testRandomEmptyFieldIsIndeedEmpty() {
-        let factoryLayout = standardEmptyFactoryLayout
+        let factoryLayout = standardFactoryLayout
         let randomEmptyFieldPosition = Position.ofRandomEmptyField(in: factoryLayout)
         
         guard let fieldnumber = randomEmptyFieldPosition.getFieldnumber(in: factoryLayout) else {

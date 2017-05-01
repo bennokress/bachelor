@@ -35,6 +35,12 @@ class FieldTests: XCTestCase {
         return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
     }
     
+    var standardFactoryLayout: FactoryLayout {
+        var factoryLayout = standardEmptyFactoryLayout
+        factoryLayout.addWorkstation(standardWorkstation)
+        return factoryLayout
+    }
+    
     var standardProduct: Product {
         return Product(type: .testProduct)
     }
@@ -44,7 +50,7 @@ class FieldTests: XCTestCase {
     }
     
     var standardRobot: Robot {
-        return Robot(product: standardProduct, in: standardEmptyFactoryLayout)
+        return Robot(product: standardProduct, in: standardFactoryLayout)
     }
     
     // MARK: General Functions

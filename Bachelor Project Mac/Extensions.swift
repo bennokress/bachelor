@@ -7,6 +7,27 @@
 //
 
 import Foundation
+import SwifterSwift
+
+extension Array {
+    
+    var randomElement: Element? {
+        return self[safe: Int.random(between: startIndex, and: endIndex-1)]
+    }
+    
+}
+
+extension Collection {
+    
+    subscript(safe index: Index) -> Iterator.Element? {
+        return self.contains(index: index) ? self[index] : nil
+    }
+    
+    func contains(index: Index) -> Bool {
+        return (self.startIndex ..< self.endIndex).contains(index)
+    }
+    
+}
 
 extension Int {
     

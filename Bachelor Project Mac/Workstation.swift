@@ -22,6 +22,14 @@ struct Workstation {
         self.position = position
     }
     
+    mutating func work(on robot: Robot) {
+        self.state = .busy(robot: robot)
+    }
+    
+    mutating func finishWorking() {
+        self.state = .idle
+    }
+    
 }
 
 extension Workstation: Equatable {

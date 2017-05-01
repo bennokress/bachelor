@@ -10,7 +10,51 @@ import XCTest
 @testable import Bachelor_Project_Mac
 
 class WorkstationTests: XCTestCase {
-
+    
+    // MARK: Standard implementations to start with in each test, if needed
+    
+    var standardPosition1: Position {
+        return Position(x: 3, y: 2)
+    }
+    
+    var standardPosition2: Position {
+        return Position(x: 6, y: 2)
+    }
+    
+    var standardField1: Field {
+        return Field(at: standardPosition1)
+    }
+    
+    var standardField2: Field {
+        return Field(at: standardPosition2)
+    }
+    
+    var standardEmptyFactoryLayout: FactoryLayout {
+        let entrance = Position(x: 2, y: 0)
+        let exit = Position(x: 7, y: 4)
+        return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
+    }
+    
+    var standardFactoryLayout: FactoryLayout {
+        var factoryLayout = standardEmptyFactoryLayout
+        factoryLayout.addWorkstation(standardWorkstation)
+        return factoryLayout
+    }
+    
+    var standardProduct: Product {
+        return Product(type: .testProduct)
+    }
+    
+    var standardWorkstation: Workstation {
+        return Workstation(type: .testWorkstation, at: standardPosition2)
+    }
+    
+    var standardRobot: Robot {
+        return Robot(product: standardProduct, in: standardFactoryLayout)
+    }
+    
+    // MARK: General Functions
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,26 +65,34 @@ class WorkstationTests: XCTestCase {
         super.tearDown()
     }
     
+    // MARK: Tests
+    
     func testTwoWorkstationsWithIdenticalTypeAndPositionAreEqual() {
-        let workstation1 = Workstation(type: .testWorkstation, at: Position(x: 1, y: 2))
-        let workstation2 = Workstation(type: .testWorkstation, at: Position(x: 1, y: 2))
+        let workstation1 = Workstation(type: .testWorkstation, at: standardPosition1)
+        let workstation2 = Workstation(type: .testWorkstation, at: standardPosition1)
         
         XCTAssert(workstation1 == workstation2)
         
-        let workstation3 = Workstation(type: .wsA, at: Position(x: 1, y: 2))
-        let workstation4 = Workstation(type: .testWorkstation, at: Position(x: 2, y: 2))
+        let workstation3 = Workstation(type: .wsA, at: standardPosition1)
+        let workstation4 = Workstation(type: .testWorkstation, at: standardPosition2)
         
         XCTAssert(workstation1 != workstation3)
         XCTAssert(workstation1 != workstation4)
     }
     
     func testWorkstationKnowsIfIdle() {
-        var workstation = Workstation(type: .testWorkstation, at: Position(x: 1, y: 2))
-        XCTAssert(workstation.isIdle)
+        var workstation = standardWorkstation
         
-        let robot = Robot(product: Product(type: .testProduct), in: FactoryLayout())
-        workstation.state = .busy(robot: robot)
+        workstation.work(on: standardRobot)
         XCTAssert(!(workstation.isIdle))
+        
+        workstation.finishWorking()
+        XCTAssert(workstation.isIdle)
+    }
+    
+    func testWorkstationStartsIdle() {
+        let workstation = standardWorkstation
+        XCTAssert(workstation.isIdle)
     }
 
 }

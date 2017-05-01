@@ -87,8 +87,9 @@ extension FactoryLayout {
     
     /// Adds a new robot to the entrance of the factory layout
     mutating func addRobot(_ robot: inout Robot) {
-        guard var entrance = entranceField else { fatalError("No entrance found!") }
+        guard var entrance = entranceField, let entranceFieldnumber = entrance.position.getFieldnumber(in: self) else { fatalError("No entrance found!") }
         entrance.addRobot(&robot)
+        updateField(at: entranceFieldnumber, to: entrance)
     }
     
     /// Moves an existing robot from one field of the factory layout to another
@@ -98,6 +99,11 @@ extension FactoryLayout {
         
         guard let newFieldnumber = newPosition.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
         fields[newFieldnumber].addRobot(&robot)
+    }
+    
+    private mutating func updateField(at fieldnumber: Int, to newField: Field) {
+        guard fields.contains(index: fieldnumber) else { fatalError("Fieldnumber is outside factory layout!") }
+        fields[fieldnumber] = newField
     }
     
 }
@@ -118,7 +124,7 @@ extension FactoryLayout {
         
         var grid: [Field] = []
         
-        for i in 0..<size {
+        for i in 0 ..< size {
             guard let fieldPosition = Position(fromFieldnumber: i, withFactoryWidth: width, andFactoryLength: length) else {
                 fatalError("FieldPosition out of range!")
             }

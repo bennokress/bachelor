@@ -16,33 +16,22 @@ struct SimulationSettings {
     // MARK: Factory Layout
     let factoryWidth = 10
     let factoryLength = 10
-    
-    var entrance: Position {
-        return Position(x: 2, y: 0)
-    }
-    
-    var exit: Position {
-        let thirdLastFieldNumber = factoryWidth * factoryLength - 3
-        guard let exitPosition = Position(fromFieldnumber: thirdLastFieldNumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
-            fatalError("Exit is outside of Factory Layout!")
-        }
-        return exitPosition
-    }
+    let distanceFromEntranceAndExitToLayoutCorner = 3
     
     // MARK: Products
     let productAmount: [ProductType : Int] = [
-        .pA: 1,
-        .pB: 0,
-        .pC: 0,
-        .pD: 0,
-        .pE: 0,
-        .pF: 0
+        .pA: 2,
+        .pB: 1,
+        .pC: 1,
+        .pD: 1,
+        .pE: 1,
+        .pF: 1
     ]
     
     // MARK: Workstations
     let workstationAmount: [WorkstationType : Int] = [
         .wsA: 1,
-        .wsB: 1,
+        .wsB: 2,
         .wsC: 1,
         .wsD: 1,
         .wsE: 1,
@@ -51,34 +40,67 @@ struct SimulationSettings {
     
 }
 
+// MARK: Computed Properties
+extension SimulationSettings {
+    
+    var entrance: Position {
+        let entranceFieldnumber = distanceFromEntranceAndExitToLayoutCorner - 1
+        guard let entrancePosition = Position(fromFieldnumber: entranceFieldnumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
+            fatalError("Entrance is outside of Factory Layout!")
+        }
+        return entrancePosition
+    }
+    
+    var exit: Position {
+        let exitFieldnumber = factoryWidth * factoryLength - distanceFromEntranceAndExitToLayoutCorner
+        guard let exitPosition = Position(fromFieldnumber: exitFieldnumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
+            fatalError("Exit is outside of Factory Layout!")
+        }
+        return exitPosition
+    }
+    
+}
+
 // MARK: Initial Generation Calculation
 extension SimulationSettings {
 
     func getInitialGeneration() -> [Factory] {
         
-        // 1 - create empty factory layout
-        var factoryLayout = createEmptyFactoryGrid()
-        
-        // 2 - generate products
-        var products: [Product] = []
-        for (productType, n) in productAmount {
-            n.times { products.append(Product(type: productType)) }
-        }
-        
-        // 3 - generate robots with each one owning a product and place it at the entrance
-        for product in products {
-            var robot = Robot(product: product)
-            factoryLayout.addRobot(&robot)
-        }
-        
-        // loop - for each needed individual (factory layout)
         var initialGeneration: [Factory] = []
+        
         generationSize.times {
-            // FIXME: Finish this loop implementation
-            // 5 - generate workstations with positions in factory
-            // 6 - update factory layout from step 4 with the generated workstations
-            // 7 - generate factory
-            // 8 - append factory to initial generation
+            
+            // 1 - create empty factory layout
+            var factoryLayout = createEmptyFactoryGrid()
+            
+//            dump(factoryLayout)
+            
+            // 2 - generate workstations at empty fields in factory layout
+            for (workstationType, n) in workstationAmount {
+                n.times {
+                    let workstation = Workstation(type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
+                    factoryLayout.addWorkstation(workstation)
+//                    print("NEXT STEP: New Workstation")
+//                    dump(factoryLayout)
+                }
+            }
+            
+            // 3 - generate robots for each product and place them at the entrance
+            for (productType, n) in productAmount {
+                n.times {
+                    let product = Product(type: productType)
+                    var robot = Robot(product: product, in: factoryLayout)
+                    factoryLayout.addRobot(&robot)
+//                    print("NEXT STEP: New Robot")
+//                    dump(factoryLayout)
+                }
+            }
+            
+            factoryLayout.entranceField?.printInfo()
+            
+            // 4 - generate factory
+            
+            // 5 - append factory to initial generation
             initialGeneration.append(Factory())
         }
         
@@ -93,17 +115,7 @@ extension SimulationSettings {
     
     fileprivate func createEmptyFactoryGrid() -> FactoryLayout {
         let grid = FactoryLayout(width: factoryWidth, length: factoryLength)
-        debugPrint(infoMessage: "Factory Layout created: \(grid.width) x \(grid.length)")
         return grid
-    }
-    
-}
-
-// MARK: Debugging
-extension SimulationSettings {
-    
-    fileprivate func debugPrint(infoMessage message: String) {
-        print(message)
     }
     
 }
