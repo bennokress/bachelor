@@ -8,10 +8,7 @@
 
 import Foundation
 
-class Routing {
-    
-    static var shared = Routing()
-    private init() {}
+struct Routing {
     
     func getShortestRoute(containing workstationTypes: [WorkstationType], in factoryLayout: FactoryLayout) -> [Position] {
         guard let entrance = factoryLayout.entrancePosition, let exit = factoryLayout.exitPosition else { fatalError("Factory Layout has no entrance or exit!") }

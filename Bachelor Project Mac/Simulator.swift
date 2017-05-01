@@ -8,12 +8,9 @@
 
 import Foundation
 
-class Simulator {
+struct Simulator {
     
-    let settings = SimulationSettings.shared
-    
-    static var shared = Simulator()
-    private init() { }
+    let settings = SimulationSettings()
     
     func start() {
         let generation = settings.getInitialGeneration()

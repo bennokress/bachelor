@@ -8,18 +8,19 @@
 
 import Foundation
 
-class SimulationSettings {
-    
-    static var shared = SimulationSettings()
-    private init() { }
+struct SimulationSettings {
     
     // MARK: Quantities
-    var generationSize = 10
+    let generationSize = 10
     
     // MARK: Factory Layout
-    var factoryWidth = 10
-    var factoryLength = 10
-    var entrance: Position { return Position(x: 2, y: 0) }
+    let factoryWidth = 10
+    let factoryLength = 10
+    
+    var entrance: Position {
+        return Position(x: 2, y: 0)
+    }
+    
     var exit: Position {
         let thirdLastFieldNumber = factoryWidth * factoryLength - 3
         guard let exitPosition = Position(fromFieldnumber: thirdLastFieldNumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
@@ -41,6 +42,8 @@ extension SimulationSettings {
 
     func getInitialGeneration() -> [Factory] {
         
+        var initialGeneration: [Factory] = []
+        
         // 1 - create empty factory layout
         // 2 - generate products
         // 3 - generate robots with each one owning a product
@@ -50,8 +53,6 @@ extension SimulationSettings {
             // 6 - update factory layout from step 4 with the generated workstations
             // 7 - generate factory
             // 8 - append factory to initial generation
-        
-        let initialGeneration: [Factory] = []
         
         return initialGeneration
         

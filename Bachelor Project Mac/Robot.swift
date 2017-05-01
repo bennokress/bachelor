@@ -15,7 +15,7 @@ struct Robot {
     var remainingRoute: [Position]
     var state: RobotState
     
-    let routing = Routing.shared
+    let routing = Routing()
     
     init(product: Product, in factoryLayout: FactoryLayout = FactoryLayout()) {
         guard let entrance = factoryLayout.entrancePosition else { fatalError("No entrance found in factory layout!") }

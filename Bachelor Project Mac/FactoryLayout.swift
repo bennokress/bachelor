@@ -58,10 +58,10 @@ struct FactoryLayout {
     
     // MARK: Initializer
     
-    init(width: Int = SimulationSettings.shared.factoryWidth,
-        length: Int = SimulationSettings.shared.factoryLength,
-        entrance: Position = SimulationSettings.shared.entrance,
-        exit: Position = SimulationSettings.shared.exit) {
+    init(width: Int = SimulationSettings().factoryWidth,
+        length: Int = SimulationSettings().factoryLength,
+        entrance: Position = SimulationSettings().entrance,
+        exit: Position = SimulationSettings().exit) {
         
         guard entrance.isInFactory(withWidth: width, andLength: length), exit.isInFactory(withWidth: width, andLength: length) else {
             fatalError("Entrance or Exit outside of Factory Layout!")
@@ -107,10 +107,10 @@ extension FactoryLayout {
     
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
     static fileprivate func getBasicLayout(
-        width: Int = SimulationSettings.shared.factoryWidth,
-        length: Int = SimulationSettings.shared.factoryLength,
-        entrance: Position = SimulationSettings.shared.entrance,
-        exit: Position = SimulationSettings.shared.exit) -> [Field] {
+        width: Int = SimulationSettings().factoryWidth,
+        length: Int = SimulationSettings().factoryLength,
+        entrance: Position = SimulationSettings().entrance,
+        exit: Position = SimulationSettings().exit) -> [Field] {
         
         let size = width * length
         let xMax = width - 1

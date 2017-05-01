@@ -11,13 +11,10 @@ import Foundation
 class Interpreter {
     
     var presenter = Presenter.shared
-    var simulator = Simulator.shared
+    var simulator = Simulator()
     
     static var shared = Interpreter()
-    
-    private init() {
-        
-    }
+    private init() { }
     
     func startButtonPressed() {
         simulator.start()
