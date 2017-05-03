@@ -32,6 +32,7 @@ enum FieldType {
 
 extension FieldType: Equatable {
     
+    /// Field Types are considered equal, if their types and eventual objects match
     static func == (lhs: FieldType, rhs: FieldType) -> Bool {
         switch (lhs, rhs) {
         case (.wall, .wall), (.entrance, .entrance), (.exit, .exit), (.empty, .empty):
@@ -50,6 +51,19 @@ extension FieldType: Equatable {
 extension FieldType: CustomStringConvertible {
     
     var description: String {
+        switch self {
+        case .wall: return "a wall"
+        case .entrance(let robots):
+            return "the entrance with \(robots.count) robots"
+        case .exit(let robots):
+            return "the exit with \(robots.count) robots"
+        case .workstation: return "a workstation"
+        case .robot: return "a robot"
+        case .empty: return "empty"
+        }
+    }
+    
+    var shortInfo: String {
         switch self {
         case .wall:
             return "  X  "

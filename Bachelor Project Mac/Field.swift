@@ -107,6 +107,7 @@ struct Field: CustomPrintable {
 
 extension Field: Equatable {
     
+    /// Fields are considered equal, if their position and state are equal
     static func == (lhs: Field, rhs: Field) -> Bool {
         return (lhs.position == rhs.position) && (lhs.state == rhs.state)
     }
@@ -116,8 +117,7 @@ extension Field: Equatable {
 extension Field: CustomStringConvertible {
     
     var description: String {
-        // TODO: Implement return value to be able to print something meaningful
-        return ""
+        return "Field at \(position) is \(state)"
     }
     
 }

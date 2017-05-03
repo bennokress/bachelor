@@ -12,3 +12,16 @@ enum FactoryState: String {
     case running
     case finished
 }
+
+extension FactoryState: Equatable {
+    
+    static func == (lhs: FactoryState, rhs: FactoryState) -> Bool {
+        switch (lhs, rhs) {
+        case (.running, .running), (.finished, .finished):
+            return true
+        default:
+            return false
+        }
+    }
+    
+}

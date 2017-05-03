@@ -34,6 +34,7 @@ struct Workstation: CustomPrintable {
 
 extension Workstation: Equatable {
     
+    /// Workstation are cosidered equal, if position and type are equal
     static func == (lhs: Workstation, rhs: Workstation) -> Bool {
         return (lhs.position == rhs.position) && (lhs.type == rhs.type)
     }

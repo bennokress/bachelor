@@ -13,6 +13,8 @@ struct Factory: CustomPrintable {
     var layout: FactoryLayout
     var state: FactoryState // TODO: Is this really neccessary?
     
+    // MARK: Computed Properties
+    
     var robots: [Robot] {
         var robots: [Robot] = []
         for field in layout.fields {
@@ -52,9 +54,9 @@ extension Factory {
 
 extension Factory: Equatable {
     
+    /// Factories are cosidered equal, if their empty layout and all workstations (type, position) are equal
     static func == (lhs: Factory, rhs: Factory) -> Bool {
-        // FIXME: Implement this
-        return false // equal if factory layouts are equal
+        return (lhs.workstations == rhs.workstations) && (lhs.layout == rhs.layout)
     }
     
 }

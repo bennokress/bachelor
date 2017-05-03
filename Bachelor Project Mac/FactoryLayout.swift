@@ -154,8 +154,9 @@ extension FactoryLayout {
 
 extension FactoryLayout: Equatable {
     
+    /// Factory Layouts are considered equal, if their empty layouts are equal (dimensions, entrance and exit position)
     static func == (lhs: FactoryLayout, rhs: FactoryLayout) -> Bool {
-        return (lhs.width == rhs.width) && (lhs.length == rhs.length) && (lhs.fields == rhs.fields)
+        return (lhs.width == rhs.width) && (lhs.length == rhs.length) && (lhs.entrancePosition == rhs.entrancePosition) && (lhs.exitPosition == rhs.exitPosition)
     }
     
 }
@@ -165,7 +166,7 @@ extension FactoryLayout: CustomStringConvertible {
     var description: String {
         var layout: String = "\n"
         for field in fields {
-            layout.append(field.state.description)
+            layout.append(field.state.shortInfo)
             if field.position.x == xMax { layout.append("\n\n") }
         }
         return layout

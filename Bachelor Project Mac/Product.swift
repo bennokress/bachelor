@@ -22,6 +22,7 @@ struct Product: CustomPrintable {
 
 extension Product: Equatable {
     
+    /// Products are considered equal, if their types are equal
     static func == (lhs: Product, rhs: Product) -> Bool {
         return lhs.type == rhs.type
     }

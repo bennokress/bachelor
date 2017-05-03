@@ -34,6 +34,7 @@ struct Robot: CustomPrintable {
 
 extension Robot: Equatable {
     
+    /// Robots are considered equal, if their position and the product they produce are equal
     static func == (lhs: Robot, rhs: Robot) -> Bool {
         return (lhs.product == rhs.product) && (lhs.position == rhs.position)
     }

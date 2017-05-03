@@ -67,6 +67,7 @@ struct Position {
 
 extension Position: Equatable {
     
+    /// Positions are considered equal, if their x and y coordinates are equal
     static func == (lhs: Position, rhs: Position) -> Bool {
         return (lhs.x == rhs.x) && (lhs.y == rhs.y)
     }
