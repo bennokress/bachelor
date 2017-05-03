@@ -25,3 +25,14 @@ extension WorkstationState: Equatable {
     }
     
 }
+
+extension WorkstationState: CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .busy: return "busy"
+        case .idle: return "idle"
+        }
+    }
+    
+}

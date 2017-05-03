@@ -10,6 +10,9 @@ import Foundation
 
 struct SimulationSettings {
     
+    // MARK: General
+    let debugLevel = DebugLevel.extensive
+    
     // MARK: Quantities
     let generationSize = 10
     

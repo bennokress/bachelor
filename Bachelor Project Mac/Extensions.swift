@@ -47,4 +47,16 @@ extension Int {
         }
     }
     
+    var twoDigitRepresentation: String {
+        if self > 99 {
+            return "++"
+        } else if self > 9 {
+            return "\(self)"
+        } else if self > -1 {
+            return "0\(self)"
+        } else {
+            return "--"
+        }
+    }
+    
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Robot {
+struct Robot: CustomPrintable {
     
     let product: Product
     var position: Position
@@ -36,6 +36,14 @@ extension Robot: Equatable {
     
     static func == (lhs: Robot, rhs: Robot) -> Bool {
         return (lhs.product == rhs.product) && (lhs.position == rhs.position)
+    }
+    
+}
+
+extension Robot: CustomStringConvertible {
+    
+    var description: String {
+        return "Robot (\(state.rawValue)) at \(position) with Product Type \(product.type.rawValue) - Remaining stations: \(remainingRoute.count)"
     }
     
 }

@@ -9,7 +9,7 @@
 import Foundation
 import SwifterSwift
 
-struct Field {
+struct Field: CustomPrintable {
     
     let position: Position
     var state: FieldType
@@ -28,6 +28,16 @@ struct Field {
             }
         } else {
             return nil
+        }
+    }
+    
+    var robots: [Robot]? {
+        if case .entrance(let robots) = state {
+            return robots
+        } else if case .exit(let robots) = state {
+            return robots
+        } else {
+            return robot != nil ? [robot!] : nil
         }
     }
     
@@ -95,30 +105,19 @@ struct Field {
     
 }
 
-// MARK: Debugging
-extension Field {
-    
-    func printInfo() {
-        if case .entrance(let robots) = state {
-            print("")
-            print("-------------------------------------------------------------------------------")
-            print("-------------------------------- Entrance Info --------------------------------")
-            print("-------------------------------------------------------------------------------")
-            for (i, robot) in robots.enumerated() {
-                print("")
-                print("Robot \(i + 1):")
-                dump(robot)
-                print("-------------------------------------------------------------------------------")
-            }
-        }
-    }
-    
-}
-
 extension Field: Equatable {
     
     static func == (lhs: Field, rhs: Field) -> Bool {
         return (lhs.position == rhs.position) && (lhs.state == rhs.state)
+    }
+    
+}
+
+extension Field: CustomStringConvertible {
+    
+    var description: String {
+        // TODO: Implement return value to be able to print something meaningful
+        return ""
     }
     
 }

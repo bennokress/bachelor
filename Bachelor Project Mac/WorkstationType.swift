@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum WorkstationType {
-    case wsA
-    case wsB
-    case wsC
-    case wsD
-    case wsE
-    case wsF
-    case testWorkstation // needed in unit tests only
+enum WorkstationType: String {
+    case wsA = "A"
+    case wsB = "B"
+    case wsC = "C"
+    case wsD = "D"
+    case wsE = "E"
+    case wsF = "F"
+    case testWorkstation = "T" // needed in unit tests only
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Product {
+struct Product: CustomPrintable {
     
     let type: ProductType
     
@@ -24,6 +24,15 @@ extension Product: Equatable {
     
     static func == (lhs: Product, rhs: Product) -> Bool {
         return lhs.type == rhs.type
+    }
+    
+}
+
+extension Product: CustomStringConvertible {
+    
+    var description: String {
+        let workstationNames = neededWorkstations.map { $0.rawValue }.joined(separator: " - ")
+        return "Product of Type \(type.rawValue) - Route of Workstations: \(workstationNames)"
     }
     
 }

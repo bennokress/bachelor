@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */; };
+		D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */; };
+		D34A73081EB9DC5000FBE2F7 /* DebugPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73071EB9DC5000FBE2F7 /* DebugPrintable.swift */; };
 		D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734271EB1E6D300DAAC8A /* AppDelegate.swift */; };
 		D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734291EB1E6D300DAAC8A /* ViewController.swift */; };
 		D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */; };
@@ -64,6 +66,8 @@
 
 /* Begin PBXFileReference section */
 		D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryState.swift; sourceTree = "<group>"; };
+		D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLevel.swift; sourceTree = "<group>"; };
+		D34A73071EB9DC5000FBE2F7 /* DebugPrintable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugPrintable.swift; sourceTree = "<group>"; };
 		D39734241EB1E6D300DAAC8A /* Bachelor Project Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bachelor Project Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D39734271EB1E6D300DAAC8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D39734291EB1E6D300DAAC8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 				D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */,
 				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
+				D34A73071EB9DC5000FBE2F7 /* DebugPrintable.swift */,
 			);
 			name = "Static Models";
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
+				D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */,
 				D3D84DD51EB4EBC30038710B /* ProductType.swift */,
 				D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */,
 				D3D84DD91EB4EC590038710B /* Routing.swift */,
@@ -455,6 +461,7 @@
 				D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */,
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,
 				D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */,
+				D34A73081EB9DC5000FBE2F7 /* DebugPrintable.swift in Sources */,
 				D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */,
 				D3D84DC21EB479760038710B /* Simulator.swift in Sources */,
 				D397345B1EB1EF2E00DAAC8A /* Product.swift in Sources */,
@@ -467,6 +474,7 @@
 				D3D84DC01EB4781A0038710B /* Presenter.swift in Sources */,
 				D3D84DDA1EB4EC590038710B /* Routing.swift in Sources */,
 				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
+				D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */,
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
 				D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */,
 				D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */,

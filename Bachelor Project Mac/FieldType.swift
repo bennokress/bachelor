@@ -46,3 +46,22 @@ extension FieldType: Equatable {
     }
     
 }
+
+extension FieldType: CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .wall:
+            return "  X  "
+        case .entrance(let robots), .exit(let robots):
+            return " E\(robots.count.twoDigitRepresentation) "
+        case .workstation(let workstation):
+            return workstation.isIdle ? " \(workstation.type.rawValue)-0 " : " \(workstation.type.rawValue)-1 "
+        case .robot:
+            return "  R  "
+        case .empty:
+            return "     "
+        }
+    }
+    
+}

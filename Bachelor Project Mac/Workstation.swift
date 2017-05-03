@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Workstation {
+struct Workstation: CustomPrintable {
     
     var state: WorkstationState
     let type: WorkstationType
@@ -36,6 +36,14 @@ extension Workstation: Equatable {
     
     static func == (lhs: Workstation, rhs: Workstation) -> Bool {
         return (lhs.position == rhs.position) && (lhs.type == rhs.type)
+    }
+    
+}
+
+extension Workstation: CustomStringConvertible {
+    
+    var description: String {
+        return "Workstation (\(state)) of type \(type.rawValue) at \(position)"
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  FactoryState.swift
+//  DebugLevel.swift
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 03.05.17.
@@ -8,7 +8,9 @@
 
 import Foundation
 
-enum FactoryState: String {
-    case running
-    case finished
+enum DebugLevel {
+    case fast
+    case readable
+    case extensive
+    case off
 }

@@ -8,10 +8,30 @@
 
 import Foundation
 
-struct Factory {
+struct Factory: CustomPrintable {
     
     var layout: FactoryLayout
-    var state: FactoryState
+    var state: FactoryState // TODO: Is this really neccessary?
+    
+    var robots: [Robot] {
+        var robots: [Robot] = []
+        for field in layout.fields {
+            if let fieldRobots = field.robots {
+                robots.append(contentsOf: fieldRobots)
+            }
+        }
+        return robots
+    }
+    
+    var workstations: [Workstation] {
+        var workstations: [Workstation] = []
+        for field in layout.fields {
+            if let fieldWorkstation = field.workstation {
+                workstations.append(fieldWorkstation)
+            }
+        }
+        return workstations
+    }
     
     var fitness: Int {
         return run()
@@ -35,6 +55,24 @@ extension Factory: Equatable {
     static func == (lhs: Factory, rhs: Factory) -> Bool {
         // FIXME: Implement this
         return false // equal if factory layouts are equal
+    }
+    
+}
+
+extension Factory: CustomStringConvertible {
+    
+    var description: String {
+        return "Factory with fitness \(fitness):\n\n\(layout.description)\n\n"
+    }
+    
+    func extensivePrint() {
+        print(self)
+        print("\(robots.count) Robots:")
+        for robot in robots { print(robot) }
+        print("\n\n")
+        print("\(workstations.count) Workstations:")
+        for workstation in workstations { print(workstation) }
+        print("\n\n------------------------------------------------------------------------")
     }
     
 }

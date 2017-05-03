@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FactoryLayout {
+struct FactoryLayout: CustomPrintable {
     
     let width: Int
     let length: Int
@@ -16,6 +16,10 @@ struct FactoryLayout {
     var fields: [Field]
     
     // MARK: Computed Properties
+    
+    var xMax: Int { return width - 1 }
+    var yMax: Int { return length - 1 }
+    var size: Int { return width * length }
     
     var entranceField: Field? {
         for field in self.fields {
@@ -152,6 +156,19 @@ extension FactoryLayout: Equatable {
     
     static func == (lhs: FactoryLayout, rhs: FactoryLayout) -> Bool {
         return (lhs.width == rhs.width) && (lhs.length == rhs.length) && (lhs.fields == rhs.fields)
+    }
+    
+}
+
+extension FactoryLayout: CustomStringConvertible {
+    
+    var description: String {
+        var layout: String = "\n"
+        for field in fields {
+            layout.append(field.state.description)
+            if field.position.x == xMax { layout.append("\n\n") }
+        }
+        return layout
     }
     
 }

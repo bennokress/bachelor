@@ -18,7 +18,7 @@ struct Simulator {
     }
     
     func runSimulation(on generation: [Factory]) {
-        dump(generation)
+        for factory in generation { factory.debug() }
 //        let rounds = settings.simulationRounds
     }
     

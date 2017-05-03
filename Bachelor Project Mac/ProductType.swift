@@ -8,15 +8,15 @@
 
 import Foundation
 
-enum ProductType {
-    case pA
-    case pB
-    case pC
-    case pD
-    case pE
-    case pF
-    case testProduct    // needed in unit tests only
-    case emptyProduct   // needed in unit tests only
+enum ProductType: String {
+    case pA = "A"
+    case pB = "B"
+    case pC = "C"
+    case pD = "D"
+    case pE = "E"
+    case pF = "F"
+    case testProduct = "T"    // needed in unit tests only
+    case emptyProduct = ""   // needed in unit tests only
     
     var route: [WorkstationType] {
         switch self {
