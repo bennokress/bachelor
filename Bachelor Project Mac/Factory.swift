@@ -10,9 +10,23 @@ import Foundation
 
 struct Factory {
     
-    // Factory Layout (-> with workstations and robots => computed properties)
-    // State (running, finished)
-    // Fitness
+    var layout: FactoryLayout
+    var state: FactoryState
+    
+    var fitness: Int {
+        return run()
+    }
+    
+}
+
+// MARK: Genetic Algorithm
+extension Factory {
+    
+    /// Runs the simulation until all robots are either blocked or finished. Returns the steps needed (fitness).
+    fileprivate func run() -> Int {
+        // FIXME: Implement this
+        return 0
+    }
     
 }
 

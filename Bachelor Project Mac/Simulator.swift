@@ -14,7 +14,12 @@ struct Simulator {
     
     func start() {
         let generation = settings.getInitialGeneration()
+        runSimulation(on: generation)
+    }
+    
+    func runSimulation(on generation: [Factory]) {
         dump(generation)
+//        let rounds = settings.simulationRounds
     }
     
 }

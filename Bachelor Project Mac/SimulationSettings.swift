@@ -38,6 +38,9 @@ struct SimulationSettings {
         .wsF: 1
     ]
     
+    // MARK: Genetic Algorithm
+    let simulationRounds = 1
+    
 }
 
 // MARK: Computed Properties
@@ -73,15 +76,11 @@ extension SimulationSettings {
             // 1 - create empty factory layout
             var factoryLayout = createEmptyFactoryGrid()
             
-//            dump(factoryLayout)
-            
             // 2 - generate workstations at empty fields in factory layout
             for (workstationType, n) in workstationAmount {
                 n.times {
                     let workstation = Workstation(type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
                     factoryLayout.addWorkstation(workstation)
-//                    print("NEXT STEP: New Workstation")
-//                    dump(factoryLayout)
                 }
             }
             
@@ -91,17 +90,14 @@ extension SimulationSettings {
                     let product = Product(type: productType)
                     var robot = Robot(product: product, in: factoryLayout)
                     factoryLayout.addRobot(&robot)
-//                    print("NEXT STEP: New Robot")
-//                    dump(factoryLayout)
                 }
             }
             
-            factoryLayout.entranceField?.printInfo()
-            
             // 4 - generate factory
+            let factory = Factory(layout: factoryLayout, state: .running)
             
             // 5 - append factory to initial generation
-            initialGeneration.append(Factory())
+            initialGeneration.append(factory)
         }
         
         return initialGeneration

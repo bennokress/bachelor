@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */; };
 		D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734271EB1E6D300DAAC8A /* AppDelegate.swift */; };
 		D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734291EB1E6D300DAAC8A /* ViewController.swift */; };
 		D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryState.swift; sourceTree = "<group>"; };
 		D39734241EB1E6D300DAAC8A /* Bachelor Project Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bachelor Project Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D39734271EB1E6D300DAAC8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D39734291EB1E6D300DAAC8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			children = (
 				D3D84DDD1EB629050038710B /* RobotState.swift */,
 				D3D84DDF1EB6291A0038710B /* WorkstationState.swift */,
+				D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */,
 				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
 			);
@@ -465,6 +468,7 @@
 				D3D84DDA1EB4EC590038710B /* Routing.swift in Sources */,
 				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
+				D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */,
 				D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
