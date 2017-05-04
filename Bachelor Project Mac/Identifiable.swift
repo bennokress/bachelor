@@ -8,17 +8,22 @@
 
 import Foundation
 
-protocol Identifiable: Hashable {
+protocol Identifiable: Equatable, Hashable {
     
     var id: Int { get }
     
 }
 
-// MARK: Default Implementation for Hashable Conformance
 extension Identifiable {
     
+    // Default Implementation for Hashable Conformance
     var hashValue: Int {
         return id
+    }
+    
+    // Default Implementation for Equatable Conformance
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
     }
     
 }

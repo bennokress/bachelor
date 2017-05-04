@@ -17,10 +17,8 @@ enum RobotState: String {
     case finished   // when all waypoints of the route have been visited
 }
 
-extension RobotState: Equatable {
+extension RobotState: Identifiable {
     
-    static func == (lhs: RobotState, rhs: RobotState) -> Bool {
-        return lhs.hashValue == rhs.hashValue
-    }
+    var id: Int { return self.hashValue }
     
 }

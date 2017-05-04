@@ -34,14 +34,6 @@ struct Workstation: Identifiable, CustomPrintable {
     
 }
 
-extension Workstation: Equatable {
-    
-    static func == (lhs: Workstation, rhs: Workstation) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-}
-
 extension Workstation: CustomStringConvertible {
     
     var description: String {

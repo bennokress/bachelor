@@ -13,15 +13,10 @@ enum WorkstationState {
     case idle                   // when waiting for the next robot
 }
 
-extension WorkstationState: Equatable {
+extension WorkstationState: Identifiable {
     
-    static func == (lhs: WorkstationState, rhs: WorkstationState) -> Bool {
-        switch (lhs, rhs) {
-        case (.busy, .busy), (.idle, .idle):
-            return true
-        default:
-            return false
-        }
+    var id: Int {
+        if case .busy = self { return 1 } else { return 2 }
     }
     
 }

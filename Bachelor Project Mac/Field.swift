@@ -31,7 +31,7 @@ struct Field: CustomPrintable {
         }
     }
     
-    var robots: [Robot]? {
+    var robots: Set<Robot>? {
         if case .entrance(let robots) = state {
             return robots
         } else if case .exit(let robots) = state {
@@ -69,10 +69,10 @@ struct Field: CustomPrintable {
     mutating func addRobot(_ robot: inout Robot) {
         robot.move(to: self.position)
         if case .entrance(var robots) = state {
-            robots.append(robot)
+            robots.insert(robot)
             state = .entrance(robots: robots)
         } else if case .exit(var robots) = state {
-            robots.append(robot)
+            robots.insert(robot)
             state = .exit(robots: robots)
         } else if case .workstation(var workstation) = state {
             workstation.state = .busy(robot: robot)

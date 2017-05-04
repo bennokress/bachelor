@@ -34,14 +34,6 @@ struct Robot: Identifiable, CustomPrintable {
     
 }
 
-extension Robot: Equatable {
-    
-    static func == (lhs: Robot, rhs: Robot) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-}
-
 extension Robot: CustomStringConvertible {
     
     var description: String {

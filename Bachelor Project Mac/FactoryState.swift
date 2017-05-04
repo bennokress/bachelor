@@ -13,15 +13,8 @@ enum FactoryState: String {
     case finished
 }
 
-extension FactoryState: Equatable {
+extension FactoryState: Identifiable {
     
-    static func == (lhs: FactoryState, rhs: FactoryState) -> Bool {
-        switch (lhs, rhs) {
-        case (.running, .running), (.finished, .finished):
-            return true
-        default:
-            return false
-        }
-    }
+    var id: Int { return self.hashValue }
     
 }

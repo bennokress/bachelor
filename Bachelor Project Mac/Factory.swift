@@ -16,21 +16,21 @@ struct Factory: Identifiable, CustomPrintable {
     
     // MARK: Computed Properties
     
-    var robots: [Robot] {
-        var robots: [Robot] = []
+    var robots: Set<Robot> {
+        var robots: Set<Robot> = []
         for field in layout.fields {
             if let fieldRobots = field.robots {
-                robots.append(contentsOf: fieldRobots)
+                robots.formUnion(fieldRobots)
             }
         }
         return robots
     }
     
-    var workstations: [Workstation] {
-        var workstations: [Workstation] = []
+    var workstations: Set<Workstation> {
+        var workstations: Set<Workstation> = []
         for field in layout.fields {
             if let fieldWorkstation = field.workstation {
-                workstations.append(fieldWorkstation)
+                workstations.insert(fieldWorkstation)
             }
         }
         return workstations
@@ -51,6 +51,12 @@ extension Factory {
         return true
     }
     
+    func hasEqualLayout(as otherFactory: Factory) -> Bool {
+        // FIXME: Implement!
+        // All workstations have the same position and type (at that position) -> true
+        return false
+    }
+    
     /// Runs the simulation until all robots are either blocked or finished. Returns the rounds needed (fitness).
     fileprivate func run() -> Int {
         repeat {
@@ -61,15 +67,6 @@ extension Factory {
     
     private func simulateRound() {
         
-    }
-    
-}
-
-extension Factory: Equatable {
-    
-    /// Factories are cosidered equal, if their empty layout and all workstations (type, position) are equal
-    static func == (lhs: Factory, rhs: Factory) -> Bool {
-        return (lhs.workstations == rhs.workstations) && (lhs.layout == rhs.layout)
     }
     
 }

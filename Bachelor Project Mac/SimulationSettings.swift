@@ -70,9 +70,9 @@ extension SimulationSettings {
 // MARK: Initial Generation Calculation
 extension SimulationSettings {
 
-    func getInitialGeneration() -> [Factory] {
+    func getInitialGeneration() -> Set<Factory> {
         
-        var initialGeneration: [Factory] = []
+        var initialGeneration: Set<Factory> = []
         
         var nextFactoryID: Int = 1
         generationSize.times {
@@ -105,8 +105,9 @@ extension SimulationSettings {
             let factory = Factory(id: nextFactoryID, layout: factoryLayout, state: .running)
             nextFactoryID += 1
             
+            
             // 5 - append factory to initial generation
-            initialGeneration.append(factory)
+            initialGeneration.insert(factory)
         }
         
         return initialGeneration

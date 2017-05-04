@@ -17,7 +17,7 @@ struct Simulator {
         runSimulation(on: generation)
     }
     
-    func runSimulation(on generation: [Factory]) {
+    func runSimulation(on generation: Set<Factory>) {
         for factory in generation { factory.debug() }
 //        let rounds = settings.simulationRounds
     }

@@ -47,12 +47,12 @@ struct FactoryLayout: CustomPrintable {
         return exitField?.position
     }
     
-    var workstations: [Workstation] {
-        var workstationObjects: [Workstation] = []
+    var workstations: Set<Workstation> {
+        var workstationObjects: Set<Workstation> = []
         for field in self.fields {
             switch field.state {
             case .workstation(let foundWorkstation):
-                workstationObjects.append(foundWorkstation)
+                workstationObjects.insert(foundWorkstation)
             default:
                 continue
             }

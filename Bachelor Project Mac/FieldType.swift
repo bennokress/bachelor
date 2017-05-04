@@ -10,8 +10,8 @@ import Foundation
 
 enum FieldType {
     case wall
-    case entrance(robots: [Robot])
-    case exit(robots: [Robot])
+    case entrance(robots: Set<Robot>)
+    case exit(robots: Set<Robot>)
     case workstation(object: Workstation)
     case robot(object: Robot)
     case empty
