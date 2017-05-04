@@ -11,47 +11,7 @@ import XCTest
 
 class FactoryLayoutTests: XCTestCase {
     
-    // MARK: Standard implementations to start with in each test, if needed
-    
-    var standardPosition1: Position {
-        return Position(x: 3, y: 2)
-    }
-    
-    var standardPosition2: Position {
-        return Position(x: 6, y: 2)
-    }
-    
-    var standardField1: Field {
-        return Field(at: standardPosition1)
-    }
-    
-    var standardField2: Field {
-        return Field(at: standardPosition2)
-    }
-    
-    var standardEmptyFactoryLayout: FactoryLayout {
-        let entrance = Position(x: 2, y: 0)
-        let exit = Position(x: 7, y: 4)
-        return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
-    }
-    
-    var standardFactoryLayout: FactoryLayout {
-        var factoryLayout = standardEmptyFactoryLayout
-        factoryLayout.addWorkstation(standardWorkstation)
-        return factoryLayout
-    }
-    
-    var standardProduct: Product {
-        return Product(type: .testProduct)
-    }
-    
-    var standardWorkstation: Workstation {
-        return Workstation(type: .testWorkstation, at: standardPosition2)
-    }
-    
-    var standardRobot: Robot {
-        return Robot(product: standardProduct, in: standardFactoryLayout)
-    }
+    let standard = StandardImplementation()
     
     // MARK: General Functions
     
@@ -74,7 +34,7 @@ class FactoryLayoutTests: XCTestCase {
         let exit = FieldType.exit(robots: [])
         let empty = FieldType.empty
         
-        let layout = standardEmptyFactoryLayout
+        let layout = standard.emptyFactoryLayout
         let grid = layout.fields
         
         func count(fieldType type: FieldType, in grid: [Field]) -> Int {
@@ -94,8 +54,8 @@ class FactoryLayoutTests: XCTestCase {
     
     func testAddingWorkstationIsRepresentedInFieldsOfFactoryLayout() {
         
-        let expectedWorkstation: FieldType = .workstation(object: standardWorkstation)
-        let factoryLayout = standardFactoryLayout
+        let expectedWorkstation: FieldType = .workstation(object: standard.workstation)
+        let factoryLayout = standard.factoryLayout
         
         XCTAssert(factoryLayout.fields[26].state == expectedWorkstation, "We expected a workstation at fieldnumber 26 of the factory layout")
     }

@@ -41,13 +41,23 @@ struct Factory: CustomPrintable {
     
 }
 
-// MARK: Genetic Algorithm
+// MARK: Simulation
 extension Factory {
     
-    /// Runs the simulation until all robots are either blocked or finished. Returns the steps needed (fitness).
+    var allRobotsFinishedOrBlocked: Bool {
+        return robots.map { ($0.state != .finished) || ($0.state != .blocked) }.count == 0
+    }
+    
+    /// Runs the simulation until all robots are either blocked or finished. Returns the rounds needed (fitness).
     fileprivate func run() -> Int {
-        // FIXME: Implement this
+        repeat {
+            simulateRound()
+        } while !allRobotsFinishedOrBlocked
         return 0
+    }
+    
+    private func simulateRound() {
+        
     }
     
 }

@@ -11,41 +11,7 @@ import XCTest
 
 class RoutingTests: XCTestCase {
     
-    // MARK: Standard implementations to start with in each test, if needed
-    
-    var standardPosition1: Position {
-        return Position(x: 3, y: 2)
-    }
-    
-    var standardPosition2: Position {
-        return Position(x: 6, y: 2)
-    }
-    
-    var standardField1: Field {
-        return Field(at: standardPosition1)
-    }
-    
-    var standardField2: Field {
-        return Field(at: standardPosition2)
-    }
-    
-    var standardEmptyFactoryLayout: FactoryLayout {
-        let entrance = Position(x: 2, y: 0)
-        let exit = Position(x: 7, y: 4)
-        return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
-    }
-    
-    var standardProduct: Product {
-        return Product(type: .testProduct)
-    }
-    
-    var standardWorkstation: Workstation {
-        return Workstation(type: .testWorkstation, at: standardPosition2)
-    }
-    
-    var standardRobot: Robot {
-        return Robot(product: standardProduct, in: standardEmptyFactoryLayout)
-    }
+    let standard = StandardImplementation()
     
     // MARK: General Functions
     
@@ -62,41 +28,41 @@ class RoutingTests: XCTestCase {
     // MARK: Tests
     
     func testRobotOfProductWithNoWorkstationsGetsRouteDirectlyToExit() {
-        let factoryLayout = standardEmptyFactoryLayout
+        let factoryLayout = standard.emptyFactoryLayout
         
         guard let exit = factoryLayout.exitPosition else {
             fatalError("No exit found in factory layout!")
         }
         
-        let robot = Robot(product: Product(type: .emptyProduct), in: factoryLayout)
+        let robot = Robot(id: 0, product: Product(type: .emptyProduct), in: factoryLayout)
         XCTAssert(robot.remainingRoute == [exit])
     }
     
     func testRobotGetsCorrectRoute() {
-        var factoryLayout = standardEmptyFactoryLayout
-        let testWorkstation = standardWorkstation
+        var factoryLayout = standard.emptyFactoryLayout
+        let testWorkstation = standard.workstation
         factoryLayout.addWorkstation(testWorkstation)
         
         guard let exit = factoryLayout.exitPosition else {
             fatalError("No exit found in factory layout!")
         }
         
-        let robot = Robot(product: Product(type: .testProduct), in: factoryLayout)
+        let robot = Robot(id: 0, product: Product(type: .testProduct), in: factoryLayout)
         XCTAssert(robot.remainingRoute == [factoryLayout.workstations[0].position, exit])
     }
     
     func testShortestRouteIsChosen() {
-        var factoryLayout = standardEmptyFactoryLayout
-        let nearWorkstation = Workstation(type: .testWorkstation, at: standardPosition1)
+        var factoryLayout = standard.emptyFactoryLayout
+        let nearWorkstation = Workstation(type: .testWorkstation, at: standard.position1)
         factoryLayout.addWorkstation(nearWorkstation)
-        let farWorkstation = standardWorkstation
+        let farWorkstation = standard.workstation
         factoryLayout.addWorkstation(farWorkstation)
         
         guard let exit = factoryLayout.exitPosition else {
             fatalError("No exit found in factory layout!")
         }
         
-        let robot = Robot(product: Product(type: .testProduct), in: factoryLayout)
+        let robot = Robot(id: 0, product: Product(type: .testProduct), in: factoryLayout)
         XCTAssert(robot.remainingRoute == [nearWorkstation.position, exit])
     }
     

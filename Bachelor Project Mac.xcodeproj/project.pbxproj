@@ -45,6 +45,7 @@
 		D3D84DDE1EB629050038710B /* RobotState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDD1EB629050038710B /* RobotState.swift */; };
 		D3D84DE01EB6291A0038710B /* WorkstationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDF1EB6291A0038710B /* WorkstationState.swift */; };
 		D3D84DE41EB653330038710B /* RoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DE31EB653330038710B /* RoutingTests.swift */; };
+		D3E257011EBB74C6005949A9 /* StandardImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E257001EBB74C6005949A9 /* StandardImplementation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		D3D84DDD1EB629050038710B /* RobotState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotState.swift; sourceTree = "<group>"; };
 		D3D84DDF1EB6291A0038710B /* WorkstationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationState.swift; sourceTree = "<group>"; };
 		D3D84DE31EB653330038710B /* RoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingTests.swift; sourceTree = "<group>"; };
+		D3E257001EBB74C6005949A9 /* StandardImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardImplementation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 		D397343B1EB1E6D400DAAC8A /* Bachelor Project MacTests */ = {
 			isa = PBXGroup;
 			children = (
+				D3E257001EBB74C6005949A9 /* StandardImplementation.swift */,
 				D3D84DE21EB653210038710B /* Settings Tests */,
 				D397346A1EB3202500DAAC8A /* Model Tests */,
 				D397343C1EB1E6D400DAAC8A /* PerformanceTests.swift */,
@@ -487,6 +490,7 @@
 			files = (
 				D3D84DCA1EB486560038710B /* FactoryTests.swift in Sources */,
 				D397346E1EB3208800DAAC8A /* FactoryLayoutTests.swift in Sources */,
+				D3E257011EBB74C6005949A9 /* StandardImplementation.swift in Sources */,
 				D39734691EB2095700DAAC8A /* PositionTests.swift in Sources */,
 				D3D84DC81EB486490038710B /* WorkstationTests.swift in Sources */,
 				D397343D1EB1E6D400DAAC8A /* PerformanceTests.swift in Sources */,

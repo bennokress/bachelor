@@ -11,47 +11,7 @@ import XCTest
 
 class WorkstationTests: XCTestCase {
     
-    // MARK: Standard implementations to start with in each test, if needed
-    
-    var standardPosition1: Position {
-        return Position(x: 3, y: 2)
-    }
-    
-    var standardPosition2: Position {
-        return Position(x: 6, y: 2)
-    }
-    
-    var standardField1: Field {
-        return Field(at: standardPosition1)
-    }
-    
-    var standardField2: Field {
-        return Field(at: standardPosition2)
-    }
-    
-    var standardEmptyFactoryLayout: FactoryLayout {
-        let entrance = Position(x: 2, y: 0)
-        let exit = Position(x: 7, y: 4)
-        return FactoryLayout(width: 10, length: 5, entrance: entrance, exit: exit)
-    }
-    
-    var standardFactoryLayout: FactoryLayout {
-        var factoryLayout = standardEmptyFactoryLayout
-        factoryLayout.addWorkstation(standardWorkstation)
-        return factoryLayout
-    }
-    
-    var standardProduct: Product {
-        return Product(type: .testProduct)
-    }
-    
-    var standardWorkstation: Workstation {
-        return Workstation(type: .testWorkstation, at: standardPosition2)
-    }
-    
-    var standardRobot: Robot {
-        return Robot(product: standardProduct, in: standardFactoryLayout)
-    }
+    let standard = StandardImplementation()
     
     // MARK: General Functions
     
@@ -68,22 +28,22 @@ class WorkstationTests: XCTestCase {
     // MARK: Tests
     
     func testTwoWorkstationsWithIdenticalTypeAndPositionAreEqual() {
-        let workstation1 = Workstation(type: .testWorkstation, at: standardPosition1)
-        let workstation2 = Workstation(type: .testWorkstation, at: standardPosition1)
+        let workstation1 = Workstation(type: .testWorkstation, at: standard.position1)
+        let workstation2 = Workstation(type: .testWorkstation, at: standard.position1)
         
         XCTAssert(workstation1 == workstation2)
         
-        let workstation3 = Workstation(type: .wsA, at: standardPosition1)
-        let workstation4 = Workstation(type: .testWorkstation, at: standardPosition2)
+        let workstation3 = Workstation(type: .wsA, at: standard.position1)
+        let workstation4 = Workstation(type: .testWorkstation, at: standard.position2)
         
         XCTAssert(workstation1 != workstation3)
         XCTAssert(workstation1 != workstation4)
     }
     
     func testWorkstationKnowsIfIdle() {
-        var workstation = standardWorkstation
+        var workstation = standard.workstation
         
-        workstation.work(on: standardRobot)
+        workstation.work(on: standard.robot)
         XCTAssert(!(workstation.isIdle))
         
         workstation.finishWorking()
@@ -91,7 +51,7 @@ class WorkstationTests: XCTestCase {
     }
     
     func testWorkstationStartsIdle() {
-        let workstation = standardWorkstation
+        let workstation = standard.workstation
         XCTAssert(workstation.isIdle)
     }
 

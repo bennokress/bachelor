@@ -15,6 +15,7 @@ struct SimulationSettings {
     
     // MARK: Quantities
     let generationSize = 10
+    let generations = 1
     
     // MARK: Factory Layout
     let factoryWidth = 10
@@ -42,7 +43,6 @@ struct SimulationSettings {
     ]
     
     // MARK: Genetic Algorithm
-    let simulationRounds = 1
     
 }
 
@@ -89,10 +89,12 @@ extension SimulationSettings {
             
             // 3 - generate robots for each product and place them at the entrance
             for (productType, n) in productAmount {
+                var nextRobotID = 1
                 n.times {
                     let product = Product(type: productType)
-                    var robot = Robot(product: product, in: factoryLayout)
+                    var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
                     factoryLayout.addRobot(&robot)
+                    nextRobotID += 1
                 }
             }
             

@@ -12,6 +12,7 @@ enum RobotState: String {
     case starting   // when waiting at the entrance
     case moving     // when moving towards the next position on the route
     case idle       // when waiting for the next field to be cleared
+    case blocked    // TODO: when ??? 
     case docked     // when sitting in a workstation
     case finished   // when all waypoints of the route have been visited
 }

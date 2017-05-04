@@ -11,6 +11,7 @@ import XCTest
 
 class SimulationSettingsTests: XCTestCase {
     
+    let standard = StandardImplementation()
     let settings = SimulationSettings()
 
     override func setUp() {

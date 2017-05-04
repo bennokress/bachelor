@@ -10,6 +10,7 @@ import Foundation
 
 struct Robot: CustomPrintable {
     
+    let id: Int
     let product: Product
     var position: Position
     var remainingRoute: [Position]
@@ -17,9 +18,10 @@ struct Robot: CustomPrintable {
     
     let routing = Routing()
     
-    init(product: Product, in factoryLayout: FactoryLayout) {
+    init(id: Int, product: Product, in factoryLayout: FactoryLayout) {
         guard let entrance = factoryLayout.entrancePosition else { fatalError("No entrance found in factory layout!") }
         
+        self.id = id
         self.product = product
         self.state = .starting
         self.position = entrance
@@ -36,7 +38,7 @@ extension Robot: Equatable {
     
     /// Robots are considered equal, if their position and the product they produce are equal
     static func == (lhs: Robot, rhs: Robot) -> Bool {
-        return (lhs.product == rhs.product) && (lhs.position == rhs.position)
+        return lhs.id == rhs.id
     }
     
 }
@@ -44,7 +46,7 @@ extension Robot: Equatable {
 extension Robot: CustomStringConvertible {
     
     var description: String {
-        return "Robot (\(state.rawValue)) at \(position) with Product Type \(product.type.rawValue) - Remaining stations: \(remainingRoute.count)"
+        return "Robot #\(id) (\(state.rawValue)) at \(position) with Product Type \(product.type.rawValue) - Remaining stations: \(remainingRoute.count)"
     }
     
 }
