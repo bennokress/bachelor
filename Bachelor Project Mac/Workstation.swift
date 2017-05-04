@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Workstation: CustomPrintable {
+struct Workstation: Identifiable, CustomPrintable {
     
     let id: Int
     var state: WorkstationState
@@ -38,14 +38,6 @@ extension Workstation: Equatable {
     
     static func == (lhs: Workstation, rhs: Workstation) -> Bool {
         return lhs.id == rhs.id
-    }
-    
-}
-
-extension Workstation: Hashable {
-    
-    var hashValue: Int {
-        return id
     }
     
 }

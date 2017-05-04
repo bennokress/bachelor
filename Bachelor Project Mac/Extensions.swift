@@ -29,6 +29,14 @@ extension Collection {
     
 }
 
+//extension Collection where Iterator: Robot {
+//    
+//    var finished: Set<Robot> {
+//        return Set(self)
+//    }
+//    
+//}
+
 extension Int {
     
     func times(f: () -> ()) {

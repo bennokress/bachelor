@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Robot: CustomPrintable {
+struct Robot: Identifiable, CustomPrintable {
     
     let id: Int
     let product: Product
@@ -38,14 +38,6 @@ extension Robot: Equatable {
     
     static func == (lhs: Robot, rhs: Robot) -> Bool {
         return lhs.id == rhs.id
-    }
-    
-}
-
-extension Robot: Hashable {
-    
-    var hashValue: Int {
-        return id
     }
     
 }

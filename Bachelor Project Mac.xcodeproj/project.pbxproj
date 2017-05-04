@@ -46,6 +46,7 @@
 		D3D84DE01EB6291A0038710B /* WorkstationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDF1EB6291A0038710B /* WorkstationState.swift */; };
 		D3D84DE41EB653330038710B /* RoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DE31EB653330038710B /* RoutingTests.swift */; };
 		D3E257011EBB74C6005949A9 /* StandardImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E257001EBB74C6005949A9 /* StandardImplementation.swift */; };
+		D3E257031EBB8584005949A9 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E257021EBB8584005949A9 /* Identifiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		D3D84DDF1EB6291A0038710B /* WorkstationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationState.swift; sourceTree = "<group>"; };
 		D3D84DE31EB653330038710B /* RoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingTests.swift; sourceTree = "<group>"; };
 		D3E257001EBB74C6005949A9 /* StandardImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardImplementation.swift; sourceTree = "<group>"; };
+		D3E257021EBB8584005949A9 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
 				D34A73071EB9DC5000FBE2F7 /* DebugPrintable.swift */,
+				D3E257021EBB8584005949A9 /* Identifiable.swift */,
 			);
 			name = "Static Models";
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,
 				D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */,
 				D34A73081EB9DC5000FBE2F7 /* DebugPrintable.swift in Sources */,
+				D3E257031EBB8584005949A9 /* Identifiable.swift in Sources */,
 				D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */,
 				D3D84DC21EB479760038710B /* Simulator.swift in Sources */,
 				D397345B1EB1EF2E00DAAC8A /* Product.swift in Sources */,

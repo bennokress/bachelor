@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Factory: CustomPrintable {
+struct Factory: Identifiable, CustomPrintable {
     
     let id: Int
     var layout: FactoryLayout
