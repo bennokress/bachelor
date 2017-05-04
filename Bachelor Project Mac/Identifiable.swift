@@ -14,7 +14,7 @@ protocol Identifiable: Hashable {
     
 }
 
-// MARK: Default Implementation for Hashable Conformance (Equatable has to be implemented separately)
+// MARK: Default Implementation for Hashable Conformance
 extension Identifiable {
     
     var hashValue: Int {
