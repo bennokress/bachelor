@@ -10,13 +10,15 @@ import Foundation
 
 struct Workstation: CustomPrintable {
     
+    let id: Int
     var state: WorkstationState
     let type: WorkstationType
     let position: Position
     
     var isIdle: Bool { return state == .idle }
     
-    init(type: WorkstationType, at position: Position) {
+    init(id: Int, type: WorkstationType, at position: Position) {
+        self.id = id
         self.state = .idle
         self.type = type
         self.position = position
@@ -34,9 +36,16 @@ struct Workstation: CustomPrintable {
 
 extension Workstation: Equatable {
     
-    /// Workstation are cosidered equal, if position and type are equal
     static func == (lhs: Workstation, rhs: Workstation) -> Bool {
-        return (lhs.position == rhs.position) && (lhs.type == rhs.type)
+        return lhs.id == rhs.id
+    }
+    
+}
+
+extension Workstation: Hashable {
+    
+    var hashValue: Int {
+        return id
     }
     
 }
@@ -44,7 +53,7 @@ extension Workstation: Equatable {
 extension Workstation: CustomStringConvertible {
     
     var description: String {
-        return "Workstation (\(state)) of type \(type.rawValue) at \(position)"
+        return "Workstation #\(id) (\(state)) of type \(type.rawValue) at \(position)"
     }
     
 }

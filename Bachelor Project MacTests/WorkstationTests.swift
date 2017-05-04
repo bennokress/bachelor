@@ -27,19 +27,6 @@ class WorkstationTests: XCTestCase {
     
     // MARK: Tests
     
-    func testTwoWorkstationsWithIdenticalTypeAndPositionAreEqual() {
-        let workstation1 = Workstation(type: .testWorkstation, at: standard.position1)
-        let workstation2 = Workstation(type: .testWorkstation, at: standard.position1)
-        
-        XCTAssert(workstation1 == workstation2)
-        
-        let workstation3 = Workstation(type: .wsA, at: standard.position1)
-        let workstation4 = Workstation(type: .testWorkstation, at: standard.position2)
-        
-        XCTAssert(workstation1 != workstation3)
-        XCTAssert(workstation1 != workstation4)
-    }
-    
     func testWorkstationKnowsIfIdle() {
         var workstation = standard.workstation
         

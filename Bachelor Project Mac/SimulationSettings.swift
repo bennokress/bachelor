@@ -74,22 +74,25 @@ extension SimulationSettings {
         
         var initialGeneration: [Factory] = []
         
+        var nextFactoryID: Int = 1
         generationSize.times {
             
             // 1 - create empty factory layout
             var factoryLayout = createEmptyFactoryGrid()
             
             // 2 - generate workstations at empty fields in factory layout
+            var nextWorkstationID = 1
             for (workstationType, n) in workstationAmount {
                 n.times {
-                    let workstation = Workstation(type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
+                    let workstation = Workstation(id: nextWorkstationID, type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
                     factoryLayout.addWorkstation(workstation)
+                    nextWorkstationID += 1
                 }
             }
             
             // 3 - generate robots for each product and place them at the entrance
+            var nextRobotID = 1
             for (productType, n) in productAmount {
-                var nextRobotID = 1
                 n.times {
                     let product = Product(type: productType)
                     var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
@@ -99,7 +102,8 @@ extension SimulationSettings {
             }
             
             // 4 - generate factory
-            let factory = Factory(layout: factoryLayout, state: .running)
+            let factory = Factory(id: nextFactoryID, layout: factoryLayout, state: .running)
+            nextFactoryID += 1
             
             // 5 - append factory to initial generation
             initialGeneration.append(factory)

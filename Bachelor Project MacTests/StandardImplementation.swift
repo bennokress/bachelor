@@ -44,7 +44,7 @@ struct StandardImplementation {
     }
     
     var workstation: Workstation {
-        return Workstation(type: .testWorkstation, at: position2)
+        return Workstation(id: 0, type: .testWorkstation, at: position2)
     }
     
     var robot: Robot {

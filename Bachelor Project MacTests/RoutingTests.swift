@@ -53,7 +53,7 @@ class RoutingTests: XCTestCase {
     
     func testShortestRouteIsChosen() {
         var factoryLayout = standard.emptyFactoryLayout
-        let nearWorkstation = Workstation(type: .testWorkstation, at: standard.position1)
+        let nearWorkstation = Workstation(id: 1, type: .testWorkstation, at: standard.position1)
         factoryLayout.addWorkstation(nearWorkstation)
         let farWorkstation = standard.workstation
         factoryLayout.addWorkstation(farWorkstation)

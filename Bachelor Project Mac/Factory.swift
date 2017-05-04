@@ -10,6 +10,7 @@ import Foundation
 
 struct Factory: CustomPrintable {
     
+    let id: Int
     var layout: FactoryLayout
     var state: FactoryState // TODO: Is this really neccessary?
     
@@ -45,7 +46,9 @@ struct Factory: CustomPrintable {
 extension Factory {
     
     var allRobotsFinishedOrBlocked: Bool {
-        return robots.map { ($0.state != .finished) || ($0.state != .blocked) }.count == 0
+        // FIXME: Implement!
+//        return robots.map { ($0.state != .finished) || ($0.state != .blocked) }.count == 0
+        return true
     }
     
     /// Runs the simulation until all robots are either blocked or finished. Returns the rounds needed (fitness).
@@ -74,7 +77,7 @@ extension Factory: Equatable {
 extension Factory: CustomStringConvertible {
     
     var description: String {
-        return "Factory with fitness \(fitness):\n\n\(layout.description)\n\n"
+        return "Factory #\(id) with fitness \(fitness):\n\n\(layout.description)\n\n"
     }
     
     func extensivePrint() {
