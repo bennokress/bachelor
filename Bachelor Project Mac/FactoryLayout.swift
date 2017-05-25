@@ -77,6 +77,17 @@ struct FactoryLayout: CustomPrintable {
         
     }
     
+    func potentialTargetFields(around position: Position) -> [Field] {
+        guard position.x >= 0, position.x <= xMax, position.y >= 0, position.y <= yMax else { return [] }
+        var targetFields: [Field] = []
+        for position in position.surroundingPositions {
+            if let fieldnumber = position.getFieldnumber(in: self), fields[fieldnumber].hasRemainingCapacity {
+                targetFields.append(fields[fieldnumber])
+            }
+        }
+        return targetFields
+    }
+    
 }
 
 // MARK: Mutating functions
@@ -95,15 +106,6 @@ extension FactoryLayout {
         entrance.addRobot(robot)
         updateField(at: entranceFieldnumber, to: entrance)
     }
-    
-    /// Moves an existing robot from one field of the factory layout to another
-//    mutating func moveRobot(_ robot: inout Robot, to newPosition: Position) {
-//        guard let oldFieldnumber = robot.position.getFieldnumber(in: self) else { fatalError("Robot was already outside factory layout!") }
-//        fields[oldFieldnumber].removeRobot(robot)
-//        
-//        guard let newFieldnumber = newPosition.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
-//        fields[newFieldnumber].addRobot(&robot)
-//    }
     
     /// Modifies an existing robot in place - to move it use moveRobot()
     mutating func modifyRobot(_ robot: Robot, to modifiedRobot: inout Robot) {

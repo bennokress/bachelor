@@ -37,6 +37,14 @@ struct Position {
         self.init(fromFieldnumber: fieldnumber, withFactoryWidth: factorylayout.width, andFactoryLength: factorylayout.length)
     }
     
+    var surroundingPositions: [Position] {
+        let up = Position(x: self.x, y: self.y - 1)
+        let down = Position(x: self.x, y: self.y + 1)
+        let left = Position(x: self.x - 1, y: self.y)
+        let right = Position(x: self.x + 1, y: self.y)
+        return [up, down, left, right]
+    }
+    
     func getFieldnumber(in factorylayout: FactoryLayout) -> Int? {
         return getFieldNumberInFactory(withWidth: factorylayout.width, andLength: factorylayout.length)
     }
@@ -54,6 +62,7 @@ struct Position {
     }
     
     func isInFactory(withWidth width: Int, andLength length: Int) -> Bool {
+        guard x >= 0 && y >= 0 else { return false }
         return (y * width + x) < (width * length)
     }
     

@@ -29,6 +29,9 @@ struct Robot: Identifiable, CustomPrintable {
     }
     
     mutating func performStep(in factoryLayout: FactoryLayout) -> Robot {
+        let potentialTargetFields = factoryLayout.potentialTargetFields(around: self.position)
+        print(potentialTargetFields)
+        // check current state
         return self
     }
     
