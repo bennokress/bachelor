@@ -30,8 +30,59 @@ struct Robot: Identifiable, CustomPrintable {
     
     mutating func performStep(in factoryLayout: FactoryLayout) -> Robot {
         let potentialTargetFields = factoryLayout.potentialTargetFields(around: self.position)
-        print(potentialTargetFields)
-        // check current state
+        
+        // finished and blocked robots don't do anything
+        if case .finished = state, case .blocked = state {
+            return self
+        }
+        
+        // docked robots always change their state to moving and stay in position
+        if case .docked = state {
+            self.state = .moving
+            return self
+        }
+        
+        // all others try to move first
+        if potentialTargetFields.count > 0 {
+            guard let nextTargetPosition = remainingRoute.first,
+                let targetField = potentialTargetFields.sorted(by: { $0.position.distance(to: nextTargetPosition) < $1.position.distance(to: nextTargetPosition) }).first  else { return self }
+            position = targetField.position
+            switch targetField.state {
+            // moving into a workstation
+            case .workstation:
+                if targetField.position == remainingRoute.first {
+                    remainingRoute.remove(at: 0)
+                    state = .docked
+                } else {
+                    state = .moving
+                }
+            // moving into the exit
+            case .exit:
+                if targetField.position == remainingRoute.first {
+                    remainingRoute.remove(at: 0)
+                    state = .finished
+                } else {
+                    state = .moving
+                }
+            // moving to an empty field or into the entrance
+            default:
+                state = .moving
+            }
+        } else {
+            // moving not possible
+            switch state {
+            // if still starting, then do nothing
+            case .starting:
+                break
+            // if already idle, then increase idle rounds counter or switch to blocked state if counter already at 4
+            case .idle(let idleRounds):
+                state = idleRounds <= 3 ? .idle(since: idleRounds + 1) : .blocked
+            // else change state to idle
+            default:
+                state = .idle(since: 1)
+            }
+        }
+        
         return self
     }
     

@@ -73,8 +73,9 @@ extension Factory {
         repeat {
             factoryCopy.simulateNextStep()
             stepCounter += 1
-            break // FIXME: delete as soon as simulateNextStep() is implemented ... this only avoids an endless loop for now
-        } while !(allRobotsFinished || atLeastOneRobotBlocked )
+//            print(factoryCopy.layout)
+//            if stepCounter > 200 { break } // FIXME: delete as soon as simulateNextStep() is implemented ... this only avoids an endless loop for now
+        } while !(factoryCopy.allRobotsFinished || factoryCopy.atLeastOneRobotBlocked )
         return atLeastOneRobotBlocked ? Int.max : stepCounter
     }
     
