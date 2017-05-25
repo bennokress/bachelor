@@ -45,10 +45,19 @@ struct Factory: Identifiable, CustomPrintable {
 // MARK: Simulation
 extension Factory {
     
-    var allRobotsFinishedOrBlocked: Bool {
-        // FIXME: Implement!
-//        return robots.map { ($0.state != .finished) || ($0.state != .blocked) }.count == 0
-        return true
+    var allRobotsFinished: Bool {
+        let unfinishedRobots = robots.filter { ($0.state != .finished) }
+//        if (unfinishedRobots.count == 0) { print("All robots are finished!") }
+        return unfinishedRobots.count == 0
+    }
+    
+    var atLeastOneRobotBlocked: Bool {
+        let blockedRobots = robots.filter { ($0.state == .blocked) }
+//        if (blockedRobots.count > 0) {
+//            print("One or more robots are blocked")
+//            dump(blockedRobots)
+//        }
+        return blockedRobots.count > 0
     }
     
     func hasEqualLayout(as otherFactory: Factory) -> Bool {
@@ -62,7 +71,8 @@ extension Factory {
         var factoryCopy = self
         repeat {
             factoryCopy.simulateNextStep()
-        } while !allRobotsFinishedOrBlocked
+            break // FIXME: delete as soon as simulateNextStep() is implemented ... this only avoids an endless loop for now
+        } while !(allRobotsFinished || atLeastOneRobotBlocked )
         return 0
     }
     
