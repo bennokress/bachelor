@@ -17,7 +17,7 @@ enum RobotState: String {
     case finished   // when all waypoints of the route have been visited
 }
 
-extension RobotState: Identifiable {
+extension RobotState: IdentifiableEnum {
     
     var id: Int { return self.hashValue }
     

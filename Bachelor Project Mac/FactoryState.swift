@@ -13,8 +13,8 @@ enum FactoryState: String {
     case finished
 }
 
-extension FactoryState: Identifiable {
+extension FactoryState: IdentifiableEnum {
     
-    var id: Int { return self.hashValue }
+    var id: Int { return hashValue }
     
 }
