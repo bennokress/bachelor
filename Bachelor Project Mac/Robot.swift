@@ -37,7 +37,7 @@ struct Robot: Identifiable, CustomPrintable {
 extension Robot: CustomStringConvertible {
     
     var description: String {
-        return "Robot #\(id) (\(state.rawValue)) at \(position) with Product Type \(product.type.rawValue) - Remaining stations: \(remainingRoute.count)"
+        return "Robot #\(id) (\(state)) at \(position) with Product Type \(product.type.rawValue) - Remaining stations: \(remainingRoute.count)"
     }
     
 }
