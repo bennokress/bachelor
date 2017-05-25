@@ -10,8 +10,6 @@ import Foundation
 
 struct Factory: Identifiable, CustomPrintable {
     
-    let routing = Routing()
-    
     let id: Int
     var layout: FactoryLayout
     var state: FactoryState // TODO: Is this really neccessary?
@@ -61,16 +59,18 @@ extension Factory {
     
     /// Runs the simulation until all robots are either blocked or finished. Returns the rounds needed (fitness).
     fileprivate func run() -> Int {
+        var factoryCopy = self
         repeat {
-            simulateNextStep()
+            factoryCopy.simulateNextStep()
         } while !allRobotsFinishedOrBlocked
         return 0
     }
     
-    private func simulateNextStep() {
+    private mutating func simulateNextStep() {
         for robot in robots {
-            
-//            let newPosition = routing.calculateNextPosition(for: robot, in: layout)
+            var modifiableRobot = robot
+            var modifiedRobot = modifiableRobot.performStep(in: layout)
+            layout.modifyRobot(robot, to: &modifiedRobot)
         }
     }
     

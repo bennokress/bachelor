@@ -28,8 +28,8 @@ struct Robot: Identifiable, CustomPrintable {
         self.remainingRoute = routing.getShortestRoute(containing: product.neededWorkstations, in: factoryLayout)
     }
     
-    mutating func move(to newPosition: Position) {
-        position = newPosition
+    mutating func performStep(in factoryLayout: FactoryLayout) -> Robot {
+        return self
     }
     
 }

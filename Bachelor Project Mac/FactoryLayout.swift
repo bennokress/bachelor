@@ -92,17 +92,26 @@ extension FactoryLayout {
     /// Adds a new robot to the entrance of the factory layout
     mutating func addRobot(_ robot: inout Robot) {
         guard var entrance = entranceField, let entranceFieldnumber = entrance.position.getFieldnumber(in: self) else { fatalError("No entrance found!") }
-        entrance.addRobot(&robot)
+        entrance.addRobot(robot)
         updateField(at: entranceFieldnumber, to: entrance)
     }
     
     /// Moves an existing robot from one field of the factory layout to another
-    mutating func moveRobot(_ robot: inout Robot, to newPosition: Position) {
+//    mutating func moveRobot(_ robot: inout Robot, to newPosition: Position) {
+//        guard let oldFieldnumber = robot.position.getFieldnumber(in: self) else { fatalError("Robot was already outside factory layout!") }
+//        fields[oldFieldnumber].removeRobot(robot)
+//        
+//        guard let newFieldnumber = newPosition.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
+//        fields[newFieldnumber].addRobot(&robot)
+//    }
+    
+    /// Modifies an existing robot in place - to move it use moveRobot()
+    mutating func modifyRobot(_ robot: Robot, to modifiedRobot: inout Robot) {
         guard let oldFieldnumber = robot.position.getFieldnumber(in: self) else { fatalError("Robot was already outside factory layout!") }
         fields[oldFieldnumber].removeRobot(robot)
         
-        guard let newFieldnumber = newPosition.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
-        fields[newFieldnumber].addRobot(&robot)
+        guard let newFieldnumber = modifiedRobot.position.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
+        fields[newFieldnumber].addRobot(modifiedRobot)
     }
     
     private mutating func updateField(at fieldnumber: Int, to newField: Field) {

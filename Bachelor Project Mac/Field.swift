@@ -66,8 +66,7 @@ struct Field: CustomPrintable {
         }
     }
     
-    mutating func addRobot(_ robot: inout Robot) {
-        robot.move(to: self.position)
+    mutating func addRobot(_ robot: Robot) {
         if case .entrance(var robots) = state {
             robots.insert(robot)
             state = .entrance(robots: robots)
