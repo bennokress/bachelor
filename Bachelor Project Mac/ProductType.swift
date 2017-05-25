@@ -33,8 +33,8 @@ enum ProductType: String {
     
 }
 
-extension ProductType: Identifiable {
+extension ProductType: IdentifiableEnum {
     
-    var id: Int { return self.hashValue }
+    var id: Int { return hashValue }
     
 }

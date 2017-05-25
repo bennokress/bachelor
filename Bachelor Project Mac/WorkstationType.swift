@@ -18,8 +18,8 @@ enum WorkstationType: String {
     case testWorkstation = "T" // needed in unit tests only
 }
 
-extension WorkstationType: Identifiable {
+extension WorkstationType: IdentifiableEnum {
     
-    var id: Int { return self.hashValue }
+    var id: Int { return hashValue }
     
 }
