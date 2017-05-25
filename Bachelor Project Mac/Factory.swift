@@ -69,11 +69,13 @@ extension Factory {
     /// Runs the simulation until all robots are either blocked or finished. Returns the rounds needed (fitness).
     fileprivate func run() -> Int {
         var factoryCopy = self
+        var stepCounter = 0
         repeat {
             factoryCopy.simulateNextStep()
+            stepCounter += 1
             break // FIXME: delete as soon as simulateNextStep() is implemented ... this only avoids an endless loop for now
         } while !(allRobotsFinished || atLeastOneRobotBlocked )
-        return 0
+        return atLeastOneRobotBlocked ? Int.max : stepCounter
     }
     
     private mutating func simulateNextStep() {
