@@ -28,6 +28,8 @@
 		D39734691EB2095700DAAC8A /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734681EB2095700DAAC8A /* PositionTests.swift */; };
 		D397346C1EB3205A00DAAC8A /* FieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346B1EB3205A00DAAC8A /* FieldTests.swift */; };
 		D397346E1EB3208800DAAC8A /* FactoryLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */; };
+		D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F021EEAB68A00CEB83B /* Modificator.swift */; };
+		D3CD5F051EEAB77300CEB83B /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F041EEAB77300CEB83B /* Selection.swift */; };
 		D3D84DBE1EB478130038710B /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DBD1EB478130038710B /* Interpreter.swift */; };
 		D3D84DC01EB4781A0038710B /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DBF1EB4781A0038710B /* Presenter.swift */; };
 		D3D84DC21EB479760038710B /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC11EB479760038710B /* Simulator.swift */; };
@@ -94,6 +96,8 @@
 		D39734681EB2095700DAAC8A /* PositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTests.swift; sourceTree = "<group>"; };
 		D397346B1EB3205A00DAAC8A /* FieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldTests.swift; sourceTree = "<group>"; };
 		D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryLayoutTests.swift; sourceTree = "<group>"; };
+		D3CD5F021EEAB68A00CEB83B /* Modificator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modificator.swift; sourceTree = "<group>"; };
+		D3CD5F041EEAB77300CEB83B /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		D3D84DBD1EB478130038710B /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		D3D84DBF1EB4781A0038710B /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		D3D84DC11EB479760038710B /* Simulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 			isa = PBXGroup;
 			children = (
 				D3D84DC11EB479760038710B /* Simulator.swift */,
+				D3CD5F021EEAB68A00CEB83B /* Modificator.swift */,
+				D3CD5F041EEAB77300CEB83B /* Selection.swift */,
 			);
 			name = "Genetic Algorithm";
 			sourceTree = "<group>";
@@ -483,6 +489,8 @@
 				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
 				D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */,
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
+				D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */,
+				D3CD5F051EEAB77300CEB83B /* Selection.swift in Sources */,
 				D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */,
 				D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */,
 			);

@@ -15,6 +15,14 @@ extension Array {
         return self[safe: Int.random(between: startIndex, and: endIndex-1)]
     }
     
+    var halfLength: Int {
+        return self.count / 2
+    }
+    
+    var firstHalf: [Element] {
+        return self.count > 0 ? Array(self.prefix(halfLength)) : []
+    }
+    
 }
 
 extension Collection {
@@ -39,13 +47,13 @@ extension Int {
         }
     }
     
-    func times(f: @autoclosure () -> ()) {
-        if self > 0 {
-            for _ in 0 ..< self {
-                f()
-            }
-        }
-    }
+//    func times(f: @autoclosure () -> ()) {
+//        if self > 0 {
+//            for _ in 0 ..< self {
+//                f()
+//            }
+//        }
+//    }
     
     var twoDigitRepresentation: String {
         if self > 99 {

@@ -11,7 +11,7 @@ import Foundation
 struct SimulationSettings {
     
     // MARK: General
-    let debugLevel = DebugLevel.extensive
+    let debugLevel = DebugLevel.readable
     
     // MARK: Quantities
     let generationSize = 10
@@ -43,6 +43,8 @@ struct SimulationSettings {
     ]
     
     // MARK: Genetic Algorithm
+    let simulationRounds = 2
+    let modificators: [Modificator] = [Selection()]
     
 }
 

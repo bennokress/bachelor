@@ -13,13 +13,23 @@ struct Simulator {
     let settings = SimulationSettings()
     
     func start() {
-        let generation = settings.getInitialGeneration()
-        runSimulation(on: generation)
+        var generation = settings.getInitialGeneration()
+        runSimulation(on: &generation)
     }
     
-    func runSimulation(on generation: Set<Factory>) {
+    private func runSimulation(on generation: inout Set<Factory>) {
         for factory in generation { factory.debug() }
-//        let rounds = settings.simulationRounds
+        settings.simulationRounds.times {
+            runSingleRoundOfGeneticAlgorithm(on: &generation)
+            print("------------------------------------------------------")
+            for factory in generation { factory.debug() }
+        }
+    }
+    
+    private func runSingleRoundOfGeneticAlgorithm(on generation: inout Set<Factory>) {
+        for modificator in settings.modificators {
+            modificator.execute(on: &generation)
+        }
     }
     
 }
