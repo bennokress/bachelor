@@ -48,8 +48,8 @@ class SimulationSettings {
     
     // MARK: Genetic Algorithm
     let simulationRounds = 2
-    let modificators: [Modificator] = [Crossover()]
-//    let modificators: [Modificator] = [Selection(), Crossover()]
+//    let modificators: [Modificator] = [Crossover()]
+    let modificators: [Modificator] = [Selection(), Crossover()]
     let crossoverProbability = 50
     
 }

@@ -18,11 +18,17 @@ struct Simulator {
     }
     
     private func runSimulation(on generation: inout Set<Factory>) {
-        for factory in generation { factory.debug() }
+        for factory in generation {
+            factory.debug()
+            print("Factory #\(factory.id) has fitness \(factory.fitness)")
+        }
         settings.simulationRounds.times {
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             print("------------------------------------------------------")
-            for factory in generation { factory.debug() }
+            for factory in generation {
+                factory.debug()
+                print("Factory #\(factory.id) has fitness \(factory.fitness)")
+            }
         }
     }
     

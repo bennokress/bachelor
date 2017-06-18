@@ -17,14 +17,12 @@ struct Crossover: Modificator {
         let individuals = Array(generation)
         for i in 0..<individuals.count {
             
-            print("--- CROSSOVER #\(i+1) ---")
-            
             // 1 - Take two neighboring factories
             let factory1 = individuals[i]
             let factory2 = (i-1) < 0 ? individuals[individuals.count - 1] : individuals[i-1]
             
-            print(factory1)
-            print(factory2)
+//            print(factory1)
+//            print(factory2)
             
             // 2 - Take the workstations from each of the factories separated and sorted by workstation type
             let newWorkstations = factory1.workstations.sorted { $0.type.rawValue <= $1.type.rawValue }
@@ -48,11 +46,8 @@ struct Crossover: Modificator {
                     // Copy original workstation ID to new workstation
                     let newWorkstation = Workstation(id: originalWorkstation.id, type: workstation.type, at: workstation.position)
                     
-                    // Delete original workstation
-                    crossoverFactoryLayout.deleteWorkstation(originalWorkstation)
-                    
-                    // Add new workstation to factory layout
-                    crossoverFactoryLayout.addWorkstation(newWorkstation)
+                    // Delete original workstation and add new workstation to factory layout
+                    crossoverFactoryLayout.swap(originalWorkstation, for: newWorkstation)
                 }
             }
             
@@ -60,7 +55,10 @@ struct Crossover: Modificator {
             let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout)
             generation.insert(crossoverFactory)
             
-            print(crossoverFactory)
+//            print(crossoverFactory)
+            
+            
+            print("--- CROSSOVER #\(i+1): Factory #\(factory1.id) + Factory #\(factory2.id) --> Factory #\(crossoverFactory.id) ---")
             
         }
         

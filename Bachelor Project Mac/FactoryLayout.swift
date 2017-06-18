@@ -105,11 +105,9 @@ extension FactoryLayout {
         fields[fieldnumber].addWorkstation(workstation)
     }
     
-    mutating func deleteWorkstation(_ workstation: Workstation) {
-        guard let fieldnumber = workstation.position.getFieldnumber(in: self), fields[fieldnumber].workstation != nil else {
-            fatalError("Workstation not found in factory layout")
-        }
-        updateField(at: fieldnumber, to: Field(at: workstation.position, type: .empty))
+    mutating func swap(_ oldWorkstation: Workstation, for newWorkstation: Workstation) {
+        deleteWorkstation(oldWorkstation)
+        addWorkstation(newWorkstation)
     }
     
     /// Adds a new robot to the entrance of the factory layout
@@ -126,6 +124,13 @@ extension FactoryLayout {
         
         guard let newFieldnumber = modifiedRobot.position.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
         fields[newFieldnumber].addRobot(modifiedRobot)
+    }
+    
+    private mutating func deleteWorkstation(_ workstation: Workstation) {
+        guard let fieldnumber = workstation.position.getFieldnumber(in: self), fields[fieldnumber].workstation != nil else {
+            fatalError("Workstation not found in factory layout")
+        }
+        updateField(at: fieldnumber, to: Field(at: workstation.position, type: .empty))
     }
     
     private mutating func updateField(at fieldnumber: Int, to newField: Field) {
