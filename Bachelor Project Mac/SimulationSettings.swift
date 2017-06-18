@@ -19,7 +19,7 @@ class SimulationSettings {
     
     // MARK: Quantities
     let generationSize = 10
-    let generations = 1
+    let generations = 5
     
     // MARK: Factory Layout
     let factoryWidth = 10
@@ -47,8 +47,6 @@ class SimulationSettings {
     ]
     
     // MARK: Genetic Algorithm
-    let simulationRounds = 2
-//    let modificators: [Modificator] = [Crossover()]
     let modificators: [Modificator] = [Selection(), Crossover()]
     let crossoverProbability = 50
     
