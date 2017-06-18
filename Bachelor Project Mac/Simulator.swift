@@ -18,17 +18,11 @@ struct Simulator {
     }
     
     private func runSimulation(on generation: inout Set<Factory>) {
-        for factory in generation {
-            factory.debug()
-            print("Factory #\(factory.id) has fitness \(factory.fitness)")
-        }
-        settings.simulationRounds.times {
+        printStatistics(for: generation)
+        settings.generations.times {
+            print("----------------------------------------------------------------------------------------")
             runSingleRoundOfGeneticAlgorithm(on: &generation)
-            print("------------------------------------------------------")
-            for factory in generation {
-                factory.debug()
-                print("Factory #\(factory.id) has fitness \(factory.fitness)")
-            }
+            printStatistics(for: generation)
         }
     }
     
@@ -36,6 +30,22 @@ struct Simulator {
         for modificator in settings.modificators {
             modificator.execute(on: &generation)
         }
+    }
+    
+    private func printStatistics(for generation: Set<Factory>) {
+        var bestFactory: Factory? = nil
+        var bestFitness = Int.max
+        for factory in generation {
+            factory.debug()
+            let fitness = factory.fitness
+            if fitness < bestFitness {
+                bestFactory = factory
+                bestFitness = fitness
+            }
+            print("Factory #\(factory.id) has fitness \(fitness)")
+        }
+        print("\n--- BEST FACTORY SO FAR ---")
+        print(bestFactory ?? "")
     }
     
 }
