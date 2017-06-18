@@ -10,9 +10,9 @@ import Foundation
 
 struct Simulator {
     
-    let settings = SimulationSettings()
+    var settings = SimulationSettings.shared
     
-    func start() {
+    mutating func start() {
         var generation = settings.getInitialGeneration()
         runSimulation(on: &generation)
     }

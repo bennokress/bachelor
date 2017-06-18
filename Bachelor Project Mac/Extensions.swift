@@ -25,6 +25,14 @@ extension Array {
     
 }
 
+extension Bool {
+    
+    static func random(trueProbability: Int = 50) -> Bool {
+        return Int.random(between: 1, and: 100) <= trueProbability ? true : false
+    }
+    
+}
+
 extension Collection {
     
     subscript(safe index: Index) -> Iterator.Element? {
@@ -38,6 +46,10 @@ extension Collection {
 }
 
 extension Int {
+    
+    static func random(between min: Int, and max: Int) -> Int {
+        return min + Int(arc4random_uniform(UInt32(max - min + 1)))
+    }
     
     func times(f: () -> ()) {
         if self > 0 {

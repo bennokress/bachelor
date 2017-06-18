@@ -8,10 +8,14 @@
 
 import Foundation
 
-struct SimulationSettings {
+class SimulationSettings {
+    
+    private init() { }
+    static var shared = SimulationSettings()
     
     // MARK: General
-    let debugLevel = DebugLevel.readable
+    let debugLevel = DebugLevel.off
+    var nextFactoryID: Int = 1
     
     // MARK: Quantities
     let generationSize = 10
@@ -44,7 +48,9 @@ struct SimulationSettings {
     
     // MARK: Genetic Algorithm
     let simulationRounds = 2
-    let modificators: [Modificator] = [Selection()]
+    let modificators: [Modificator] = [Crossover()]
+//    let modificators: [Modificator] = [Selection(), Crossover()]
+    let crossoverProbability = 50
     
 }
 
@@ -76,11 +82,10 @@ extension SimulationSettings {
         
         var initialGeneration: Set<Factory> = []
         
-        var nextFactoryID: Int = 1
         generationSize.times {
             
             // 1 - create empty factory layout
-            var factoryLayout = createEmptyFactoryGrid()
+            var factoryLayout = getEmptyFactoryGrid
             
             // 2 - generate workstations at empty fields in factory layout
             var nextWorkstationID = 1
@@ -92,23 +97,10 @@ extension SimulationSettings {
                 }
             }
             
-            // 3 - generate robots for each product and place them at the entrance
-            var nextRobotID = 1
-            for (productType, n) in productAmount {
-                n.times {
-                    let product = Product(type: productType)
-                    var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
-                    factoryLayout.addRobot(&robot)
-                    nextRobotID += 1
-                }
-            }
+            // 3 - generate factory with robots at the entrance
+            let factory = generateFactory(from: &factoryLayout)
             
-            // 4 - generate factory
-            let factory = Factory(id: nextFactoryID, layout: factoryLayout, state: .running)
-            nextFactoryID += 1
-            
-            
-            // 5 - append factory to initial generation
+            // 4 - append factory to initial generation
             initialGeneration.insert(factory)
         }
         
@@ -121,9 +113,30 @@ extension SimulationSettings {
 // MARK: Simulation Steps
 extension SimulationSettings {
     
-    fileprivate func createEmptyFactoryGrid() -> FactoryLayout {
+    var getEmptyFactoryGrid: FactoryLayout {
         let grid = FactoryLayout(width: factoryWidth, length: factoryLength)
         return grid
+    }
+    
+    func generateFactory(from factoryLayout: inout FactoryLayout) -> Factory {
+        
+        // 1 - generate robots for each product and place them at the entrance
+        var nextRobotID = 1
+        for (productType, n) in productAmount {
+            n.times {
+                let product = Product(type: productType)
+                var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
+                factoryLayout.addRobot(&robot)
+                nextRobotID += 1
+            }
+        }
+        
+        // 2 - generate factory
+        let factory = Factory(id: nextFactoryID, layout: factoryLayout, state: .running)
+        nextFactoryID += 1
+        
+        return factory
+        
     }
     
 }

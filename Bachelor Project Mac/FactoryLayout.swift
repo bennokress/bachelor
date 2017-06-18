@@ -62,10 +62,10 @@ struct FactoryLayout: CustomPrintable {
     
     // MARK: Initializer
     
-    init(width: Int = SimulationSettings().factoryWidth,
-        length: Int = SimulationSettings().factoryLength,
-        entrance: Position = SimulationSettings().entrance,
-        exit: Position = SimulationSettings().exit) {
+    init(width: Int = SimulationSettings.shared.factoryWidth,
+        length: Int = SimulationSettings.shared.factoryLength,
+        entrance: Position = SimulationSettings.shared.entrance,
+        exit: Position = SimulationSettings.shared.exit) {
         
         guard entrance.isInFactory(withWidth: width, andLength: length), exit.isInFactory(withWidth: width, andLength: length) else {
             fatalError("Entrance or Exit outside of Factory Layout!")
@@ -88,6 +88,11 @@ struct FactoryLayout: CustomPrintable {
         return targetFields
     }
     
+    func isEmptyField(at position: Position) -> Bool {
+        guard let fieldnumber = position.getFieldnumber(in: self) else { fatalError("Position is outside of factory layout") }
+        return fields[fieldnumber].isEmpty
+    }
+    
 }
 
 // MARK: Mutating functions
@@ -98,6 +103,13 @@ extension FactoryLayout {
             fatalError("Workstation position is outside of factory layout")
         }
         fields[fieldnumber].addWorkstation(workstation)
+    }
+    
+    mutating func deleteWorkstation(_ workstation: Workstation) {
+        guard let fieldnumber = workstation.position.getFieldnumber(in: self), fields[fieldnumber].workstation != nil else {
+            fatalError("Workstation not found in factory layout")
+        }
+        updateField(at: fieldnumber, to: Field(at: workstation.position, type: .empty))
     }
     
     /// Adds a new robot to the entrance of the factory layout
@@ -128,10 +140,10 @@ extension FactoryLayout {
     
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
     static fileprivate func getBasicLayout(
-        width: Int = SimulationSettings().factoryWidth,
-        length: Int = SimulationSettings().factoryLength,
-        entrance: Position = SimulationSettings().entrance,
-        exit: Position = SimulationSettings().exit) -> [Field] {
+        width: Int = SimulationSettings.shared.factoryWidth,
+        length: Int = SimulationSettings.shared.factoryLength,
+        entrance: Position = SimulationSettings.shared.entrance,
+        exit: Position = SimulationSettings.shared.exit) -> [Field] {
         
         let size = width * length
         let xMax = width - 1

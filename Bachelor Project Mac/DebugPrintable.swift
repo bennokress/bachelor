@@ -18,7 +18,7 @@ protocol CustomPrintable {
 extension CustomPrintable {
     
     func debug() {
-        switch SimulationSettings().debugLevel {
+        switch SimulationSettings.shared.debugLevel {
         case .fast:
             dump(self)
         case .readable:
