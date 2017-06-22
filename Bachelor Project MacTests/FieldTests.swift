@@ -40,10 +40,10 @@ class FieldTests: XCTestCase {
     }
     
     func testAddsAndRemovesRobot() {
-        var testRobot = standard.robot
+        let testRobot = standard.robot
         
         var testField = standard.field1
-        testField.addRobot(&testRobot)
+        testField.addRobot(testRobot)
         XCTAssert(testField.robot == testRobot, "The field should have a robot. It also has the wrong type if this test fails!")
         
         testField.removeRobot(testRobot)
@@ -64,10 +64,10 @@ class FieldTests: XCTestCase {
         testField.state = .wall
         XCTAssert(!(testField.hasRemainingCapacity), "A wall should never have remaining capacity!")
         
-        var testRobot = standard.robot
+        let testRobot = standard.robot
         
         testField.clear()
-        testField.addRobot(&testRobot)
+        testField.addRobot(testRobot)
         XCTAssert(!(testField.hasRemainingCapacity), "A field occupied by a robot should never have remaining capacity!")
         
         var testWorkstation = standard.workstation
@@ -77,7 +77,7 @@ class FieldTests: XCTestCase {
         testField.addWorkstation(testWorkstation)
         XCTAssert(testField.hasRemainingCapacity, "An idle workstation should always have remaining capacity!")
         
-        testField.addRobot(&testRobot)
+        testField.addRobot(testRobot)
         XCTAssert(!(testField.hasRemainingCapacity), "A busy workstation should never have remaining capacity!")
     }
     
@@ -94,11 +94,11 @@ class FieldTests: XCTestCase {
     }
     
     func testKnowsRobotIfApplicable() {
-        var testRobot = standard.robot
+        let testRobot = standard.robot
         let testWorkstation = standard.workstation
         
         var testField = standard.field1
-        testField.addRobot(&testRobot)
+        testField.addRobot(testRobot)
         
         XCTAssert(testField.robot == testRobot)
         
@@ -106,7 +106,7 @@ class FieldTests: XCTestCase {
         testField.addWorkstation(testWorkstation)
         XCTAssert(testField.robot == nil)
         
-        testField.addRobot(&testRobot)
+        testField.addRobot(testRobot)
         XCTAssert((testField.workstation == testWorkstation) && (testField.robot == testRobot), "A field with a busy workstation should know both the robot and the workstation!")
     }
 

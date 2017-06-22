@@ -75,9 +75,6 @@ extension Factory {
             stepCounter += 1
 //            print(factoryCopy.layout)
         } while !(factoryCopy.allRobotsFinished || factoryCopy.atLeastOneRobotBlocked)
-        if factoryCopy.atLeastOneRobotBlocked {
-            print(factoryCopy.layout)
-        }
         return factoryCopy.atLeastOneRobotBlocked ? Int.max : stepCounter
     }
     

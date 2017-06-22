@@ -25,6 +25,10 @@ struct Robot: Identifiable, CustomPrintable {
         }
     }
     
+    var isFinished: Bool { return state == .finished }
+    var isBlocked: Bool { return state == .blocked }
+    var isDocked: Bool { return state == .docked }
+    
     let routing = Routing()
     
     init(id: Int, product: Product, in factoryLayout: FactoryLayout) {
@@ -40,19 +44,13 @@ struct Robot: Identifiable, CustomPrintable {
     mutating func performStep(in factoryLayout: FactoryLayout) -> Robot {
         let potentialTargetFields = factoryLayout.potentialTargetFields(around: self.position)
         
-//        print("Robot \(self.id) is \(self.state.description) at position \(self.position.x)/\(self.position.y). \(remainingRoute.count) remaining target positions:")
-//        for target in self.remainingRoute { print("    \(target.x)/\(target.y)") }
-//        print("Moves are possible to:")
-//        if potentialTargetFields.count > 0 { for field in potentialTargetFields { print("    \(field.position.x)/\(field.position.y)") } }
-//        print("---------------------------------------------------------------------")
-        
         // finished and blocked robots don't do anything
-        if case .finished = state, case .blocked = state {
+        if self.isFinished || self.isBlocked {
             return self
         }
         
         // docked robots always change their state to moving and stay in position
-        else if case .docked = state {
+        else if self.isDocked {
             self.state = .moving
             return self
         }
