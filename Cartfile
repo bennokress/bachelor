@@ -1,2 +1,2 @@
-    github "omaralbeik/SwifterSwift"                            # useful Swift Extensions
-    github "danielgindi/Charts"                                 # Charts for beautiful statistics
+    github "omaralbeik/SwifterSwift" "swift4"                   # useful Swift Extensions
+#   github "danielgindi/Charts"                                 # Charts for beautiful statistics

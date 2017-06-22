@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Identifiable: Equatable, Hashable {
+protocol Identifiable: Hashable {
     
     var id: Int { get }
     
@@ -28,7 +28,7 @@ extension Identifiable {
     
 }
 
-protocol IdentifiableEnum: Equatable, Hashable {
+protocol IdentifiableEnum: Hashable {
     
     var id: Int { get }
     

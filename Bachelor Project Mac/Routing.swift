@@ -17,8 +17,8 @@ struct Routing {
         
         var currentPosition = entrance
         for desiredType in workstationTypes {
-            var filteredWorkstations = factoryLayout.workstations.filter() { $0.type == desiredType }
-            filteredWorkstations.sort(by: { $0.position.distance(to: currentPosition) < $1.position.distance(to: currentPosition) })
+            let filteredUnsortedWorkstations = factoryLayout.workstations.filter() { $0.type == desiredType }
+            let filteredWorkstations = filteredUnsortedWorkstations.sorted(by: { $0.position.distance(to: currentPosition) < $1.position.distance(to: currentPosition) })
             guard let nearestWorkstation = filteredWorkstations.first else {
                 fatalError("No workstation found with desired type!")
             }
