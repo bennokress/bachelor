@@ -47,7 +47,6 @@ extension Factory {
     
     var allRobotsFinished: Bool {
         let unfinishedRobots = robots.filter { ($0.state != .finished) }
-//        if (unfinishedRobots.count == 0) { print("All robots are finished!") }
         return unfinishedRobots.count == 0
     }
     
@@ -61,9 +60,7 @@ extension Factory {
     }
     
     func hasEqualLayout(as otherFactory: Factory) -> Bool {
-        // FIXME: Implement!
-        // All workstations have the same position and type (at that position) -> true
-        return false
+        return self.layout == otherFactory.layout
     }
     
     /// Runs the simulation until all robots are either blocked or finished. Returns the rounds needed (fitness).

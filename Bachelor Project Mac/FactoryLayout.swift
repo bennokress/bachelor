@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CryptoSwift
 
 struct FactoryLayout: CustomPrintable {
     
@@ -58,6 +59,20 @@ struct FactoryLayout: CustomPrintable {
             }
         }
         return workstationObjects
+    }
+    
+    var sortedWorkstations: [Workstation] {
+        return workstations.sorted(by: { (ws1, ws2) -> Bool in
+            if ws1.type.hashValue < ws2.type.hashValue {
+                return true
+            } else if ws1.position.x < ws2.position.x {
+                return true
+            } else if ws1.position.y < ws2.position.y {
+                return true
+            } else {
+                return false
+            }
+        })
     }
     
     // MARK: Initializer
@@ -182,9 +197,19 @@ extension FactoryLayout {
 
 extension FactoryLayout: Equatable {
     
-    /// Factory Layouts are considered equal, if their empty layouts are equal (dimensions, entrance and exit position)
+    var hash: String {
+        var workstationLayoutDescription: String {
+            var wsLayout = "workstations"
+            for ws in sortedWorkstations { wsLayout.append(" |\(ws.type.rawValue):\(ws.position.x),\(ws.position.y)") }
+            return wsLayout
+        }
+        let layoutString = "\(width),\(length),\(workstationLayoutDescription)"
+        return layoutString.md5()
+    }
+    
+    /// Factory Layouts are considered equal, if their empty layouts are equal (dimensions, entrance and exit position) and the workstations are positioned equally
     static func == (lhs: FactoryLayout, rhs: FactoryLayout) -> Bool {
-        return (lhs.width == rhs.width) && (lhs.length == rhs.length) && (lhs.entrancePosition == rhs.entrancePosition) && (lhs.exitPosition == rhs.exitPosition)
+        return lhs.hash == rhs.hash
     }
     
 }

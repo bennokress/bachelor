@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D334E8BD1EFD3FF5002DF760 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */; };
 		D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */; };
 		D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */; };
 		D34A73081EB9DC5000FBE2F7 /* DebugPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73071EB9DC5000FBE2F7 /* DebugPrintable.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/Mac/CryptoSwift.framework; sourceTree = "<group>"; };
 		D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryState.swift; sourceTree = "<group>"; };
 		D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLevel.swift; sourceTree = "<group>"; };
 		D34A73071EB9DC5000FBE2F7 /* DebugPrintable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugPrintable.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D334E8BD1EFD3FF5002DF760 /* CryptoSwift.framework in Frameworks */,
 				D3D84DD21EB4E1BE0038710B /* SwifterSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +278,7 @@
 		D3D84DD01EB4E1BD0038710B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */,
 				D3D84DD11EB4E1BE0038710B /* SwifterSwift.framework */,
 			);
 			name = Frameworks;
@@ -457,6 +461,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/Mac/SwifterSwift.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/CryptoSwift.framework",
 			);
 			name = "Carthage Integration";
 			outputPaths = (

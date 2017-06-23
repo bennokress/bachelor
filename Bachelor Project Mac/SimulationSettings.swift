@@ -20,7 +20,7 @@ class SimulationSettings {
     
     // MARK: Quantities
     let generationSize = 10
-    let generations = 5
+    let generations = 100
     
     // MARK: Factory Layout
     let factoryWidth = 10
