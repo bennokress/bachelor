@@ -48,8 +48,10 @@ class SimulationSettings {
     ]
     
     // MARK: Genetic Algorithm
-    let modificators: [Modificator] = [ParentSelection(), Crossover(), SurvivorSelection()]
-    let crossoverProbability = 50
+    let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), SurvivorSelection()]
+    let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
+    let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated
+    let mutationDistance = 2 // Radius inside of which a workstation positions radius can mutate
     
 }
 

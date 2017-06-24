@@ -104,7 +104,7 @@ struct FactoryLayout: CustomPrintable {
     }
     
     func isEmptyField(at position: Position) -> Bool {
-        guard let fieldnumber = position.getFieldnumber(in: self) else { fatalError("Position is outside of factory layout") }
+        guard let fieldnumber = position.getFieldnumber(in: self) else { return false }
         return fields[fieldnumber].isEmpty
     }
     

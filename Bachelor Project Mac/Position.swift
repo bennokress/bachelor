@@ -57,6 +57,12 @@ struct Position {
         return abs(self.x - otherPosition.x) + abs(self.y - otherPosition.y)
     }
     
+    func allPositions(inRadius radius: Int) -> [Position] {
+        let delta = (-radius...radius)
+        let coordinates = delta.map { dx in delta.map { dy in (dx, dy) } }.joined().filter { $0.0 != 0 || $0.1 != 0 }
+        return coordinates.map { Position(x: self.x + $0.0, y: self.y + $0.1) }
+    }
+    
     func isInFactory(withLayout factoryLayout: FactoryLayout) -> Bool {
         return isInFactory(withWidth: factoryLayout.width, andLength: factoryLayout.length)
     }
