@@ -21,22 +21,15 @@ struct Crossover: Modificator {
             let factory1 = individuals[i]
             let factory2 = (i-1) < 0 ? individuals[individuals.count - 1] : individuals[i-1]
             
-//            print(factory1)
-//            print(factory2)
-            
             // 2 - Take the workstations from each of the factories separated and sorted by workstation type
             let newWorkstations = factory1.workstations.sorted { $0.type.rawValue <= $1.type.rawValue }
             let crossoverPartnerWorkstations = factory2.workstations.sorted { $0.type.rawValue <= $1.type.rawValue }
-            
-            
             
             // 3 - Generate a factory layout with the workstations from the first factory to work on
             var crossoverFactoryLayout = settings.getEmptyFactoryGrid
             for workstation in newWorkstations {
                 crossoverFactoryLayout.addWorkstation(workstation)
             }
-            
-            
             
             // 4 - Loop through the workstations from the second factory and switch them in for their counterparts of factory 1 randomly
             for (index, workstation) in crossoverPartnerWorkstations.enumerated() {
@@ -54,11 +47,6 @@ struct Crossover: Modificator {
             // 5 - Generate new factory from layout and add to generation
             let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout)
             generation.insert(crossoverFactory)
-            
-//            print(crossoverFactory)
-            
-            
-            print("--- CROSSOVER #\(i+1): Factory #\(factory1.id) + Factory #\(factory2.id) --> Factory #\(crossoverFactory.id) ---")
             
         }
         
