@@ -16,9 +16,6 @@ struct Mutation: Modificator {
         
         for factory in generation {
             
-            print("Original Factory:")
-            print(factory)
-            
             // 1 - Generate a copy of the factory's layout
             var mutatedFactoryLayout = settings.getEmptyFactoryGrid
             for workstation in factory.workstations {
@@ -39,14 +36,10 @@ struct Mutation: Modificator {
                 mutatedFactoryLayout.swap(originalWorkstation, for: mutatedWorkstation)
             }
             
-            // 5 - Generate new factory from layout and add to generation
+            // 3 - Generate new factory from layout and add to generation
             let mutatedFactory = settings.generateFactory(from: &mutatedFactoryLayout)
             generation.insert(mutatedFactory)
             
-            print("Mutated Factory:")
-            print(mutatedFactory)
-            
-            print("-----------------------------------------------------------")
         }
         
     }

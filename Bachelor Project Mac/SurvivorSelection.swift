@@ -21,7 +21,7 @@ struct SurvivorSelection: Modificator {
             let comparisonIndex = sortedIndividuals.count - (index + 1)
             let nextFactory = selectedIndividuals[comparisonIndex]
             if factory.fitness == nextFactory.fitness && factory.layout == nextFactory.layout {
-//                print("Removing factory with ID \(nextFactory.id) ...")
+                print("Removing duplicate factory with ID \(nextFactory.id) ...")
                 selectedIndividuals.remove(at: comparisonIndex)
             }
         }

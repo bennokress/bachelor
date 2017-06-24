@@ -18,11 +18,11 @@ struct Simulator {
     }
     
     private func runSimulation(on generation: inout Set<Factory>) {
-//        printStatistics(for: generation)
+        printStatistics(for: generation)
         settings.generations.times {
-//            print("----------------------------------------------------------------------------------------")
+            print("----------------------------------------------------------------------------------------")
             runSingleRoundOfGeneticAlgorithm(on: &generation)
-//            printStatistics(for: generation)
+            printStatistics(for: generation)
         }
     }
     

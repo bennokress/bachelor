@@ -52,10 +52,6 @@ extension Factory {
     
     var atLeastOneRobotBlocked: Bool {
         let blockedRobots = robots.filter { ($0.state == .blocked) }
-//        if (blockedRobots.count > 0) {
-//            print("One or more robots are blocked")
-//            dump(blockedRobots)
-//        }
         return blockedRobots.count > 0
     }
     
@@ -70,7 +66,6 @@ extension Factory {
         repeat {
             factoryCopy.simulateNextStep()
             stepCounter += 1
-//            print(factoryCopy.layout)
         } while !(factoryCopy.allRobotsFinished || factoryCopy.atLeastOneRobotBlocked)
         return factoryCopy.atLeastOneRobotBlocked ? Int.max : stepCounter
     }
