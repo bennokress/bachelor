@@ -15,12 +15,14 @@ class SimulationSettings {
     
     // MARK: General
     let debugLevel = DebugLevel.off
+    let actionInformationLevel = DebugLevel.extensive
     var nextFactoryID: Int = 1
     let dodgeThreshold = 100 // number of times a robot can move away from next target before being marked as blocked
     
     // MARK: Quantities
     let generationSize = 10
-    let generations = 40
+    let generations = 25
+    func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
     // MARK: Factory Layout
     let factoryWidth = 10

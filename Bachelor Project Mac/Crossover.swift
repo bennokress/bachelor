@@ -14,6 +14,8 @@ struct Crossover: Modificator {
         
         let settings = SimulationSettings.shared
         
+        var results: [(parent1: Factory, parent2: Factory, crossover: Factory)] = []
+        
         let individuals = Array(generation)
         for i in 0..<individuals.count {
             
@@ -48,8 +50,31 @@ struct Crossover: Modificator {
             let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout)
             generation.insert(crossoverFactory)
             
+            // 6 - Save result for action output
+            results.append((parent1: factory1, parent2: factory2, crossover: crossoverFactory))
+            
         }
         
+        actionPrint(short: shortActionDescription(for: results), detailed: detailedActionDescription(for: results))
+        
+    }
+    
+    private func shortActionDescription(for results: [(parent1: Factory, parent2: Factory, crossover: Factory)]) -> String {
+        let children = results.map { $0.crossover }.sorted { $0.fitness < $1.fitness }
+        guard let bestFitness = children.first?.fitness, let worstFitness = children.last?.fitness else { return "--- Error retreiving fitness ---" }
+        return "Crossover produced \(children.count) factories with fitness between \(bestFitness) and \(worstFitness)"
+    }
+    
+    private func detailedActionDescription(for results: [(parent1: Factory, parent2: Factory, crossover: Factory)]) -> [String] {
+        let title = "CROSSOVER"
+        var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
+        for crossover in results.sorted(by: { $0.crossover.fitness < $1.crossover.fitness }) {
+            let parent1 = crossover.parent1
+            let parent2 = crossover.parent2
+            let child = crossover.crossover
+            actionDescriptionLines.append("  · #\(parent1.id) (\(parent1.fitness)) + #\(parent2.id) (\(parent2.fitness)) ==> #\(child.id) (\(child.fitness))")
+        }
+        return actionDescriptionLines
     }
     
 }

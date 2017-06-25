@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Modificator {
+protocol Modificator: ActionPrintable {
     
     func execute(on generation: inout Set<Factory>)
     

@@ -59,22 +59,6 @@ extension Int {
         return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }
     
-    func times(f: () -> ()) {
-        if self > 0 {
-            for _ in 0 ..< self {
-                f()
-            }
-        }
-    }
-    
-//    func times(f: @autoclosure () -> ()) {
-//        if self > 0 {
-//            for _ in 0 ..< self {
-//                f()
-//            }
-//        }
-//    }
-    
     var twoDigitRepresentation: String {
         if self > 99 {
             return "++"
@@ -85,6 +69,41 @@ extension Int {
         } else {
             return "--"
         }
+    }
+    
+    var digits: Int {
+        return self.abs < 10 ? 1 : 1 + (self / 10).digits
+    }
+    
+    func times(f: () -> ()) {
+        if self > 0 {
+            for _ in 0 ..< self {
+                f()
+            }
+        }
+    }
+    
+    //    func times(f: @autoclosure () -> ()) {
+    //        if self > 0 {
+    //            for _ in 0 ..< self {
+    //                f()
+    //            }
+    //        }
+    //    }
+    
+}
+
+extension String {
+    
+    func withAddedDivider(_ divider: Character, totalLength: Int, padding: Int = 1) -> String {
+        let contentLength = self.count + 2 * padding
+        guard contentLength < totalLength else { return self }
+        let dividerLength = totalLength - contentLength
+        let oddLength = (totalLength - contentLength) % 2 > 0
+        let halfDivider = String.init(repeating: divider, count: dividerLength / 2)
+        let spacing = String.init(repeating: " ", count: padding)
+        let oddLengthFix = oddLength ? "\(divider)" : ""
+        return "\(halfDivider)\(spacing)\(self)\(spacing)\(halfDivider)\(oddLengthFix)"
     }
     
 }

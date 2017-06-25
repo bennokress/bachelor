@@ -1,5 +1,5 @@
 //
-//  DebugPrintable.swift
+//  CustomPrintable.swift
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 03.05.17.

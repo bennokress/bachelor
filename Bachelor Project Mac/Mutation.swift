@@ -14,6 +14,8 @@ struct Mutation: Modificator {
         
         let settings = SimulationSettings.shared
         
+        var results: [(original: Factory, mutation: Factory)] = []
+        
         for factory in generation {
             
             // 1 - Generate a copy of the factory's layout
@@ -40,8 +42,29 @@ struct Mutation: Modificator {
             let mutatedFactory = settings.generateFactory(from: &mutatedFactoryLayout)
             generation.insert(mutatedFactory)
             
+            // 4 - Save result for action output
+            results.append((original: factory, mutation: mutatedFactory))
         }
         
+        actionPrint(short: shortActionDescription(for: results), detailed: detailedActionDescription(for: results))
+        
+    }
+    
+    private func shortActionDescription(for results: [(original: Factory, mutation: Factory)]) -> String {
+        let siblings = results.map { $0.mutation }.sorted { $0.fitness < $1.fitness }
+        guard let bestFitness = siblings.first?.fitness, let worstFitness = siblings.last?.fitness else { return "--- Error retreiving fitness ---" }
+        return "Mutation produced \(siblings.count) factories with fitness between \(bestFitness) and \(worstFitness)"
+    }
+    
+    private func detailedActionDescription(for results: [(original: Factory, mutation: Factory)]) -> [String] {
+        let title = "MUTATION"
+        var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
+        for mutation in results.sorted(by: { $0.mutation.fitness < $1.mutation.fitness }) {
+            let original = mutation.original
+            let sibling = mutation.mutation
+            actionDescriptionLines.append("  · #\(original.id) (\(original.fitness)) ==> #\(sibling.id) (\(sibling.fitness))")
+        }
+        return actionDescriptionLines
     }
     
 }
