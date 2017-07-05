@@ -1,5 +1,5 @@
 //
-//  Selection.swift
+//  ParentSelection.swift
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 09.06.17.
@@ -10,10 +10,27 @@ import Foundation
 
 struct ParentSelection: Modificator {
     
+    let mode: ParentSelectionMode
+    
     func execute(on generation: inout Set<Factory>) {
-        let selectedIndividuals = generation.sorted { $0.fitness < $1.fitness }.firstHalf
-        generation = Set(selectedIndividuals)
-        actionPrint(short: shortActionDescription(for: selectedIndividuals), detailed: detailedActionDescription(for: selectedIndividuals))
+        generation = getSelectedIndividuals(from: generation)
+        actionPrint(short: shortActionDescription(for: generation.sorted { $0.fitness < $1.fitness }),
+                    detailed: detailedActionDescription(for: generation.sorted { $0.fitness < $1.fitness }))
+    }
+    
+    private func getSelectedIndividuals(from generation: Set<Factory>) -> Set<Factory> {
+        var selectedIndividuals: [Factory] = []
+        switch mode {
+        case .random:
+            selectedIndividuals = generation.shuffled.firstHalf
+        case .fitness:
+            selectedIndividuals = generation.sorted { $0.fitness < $1.fitness }.firstHalf
+        case .diversity:
+            break // FIXME: Add selection implementation
+        case .fitnessAndDiversity:
+            break // FIXME: Add selection implementation
+        }
+        return Set(selectedIndividuals)
     }
     
     private func shortActionDescription(for generation: [Factory]) -> String {
@@ -28,4 +45,11 @@ struct ParentSelection: Modificator {
         return actionDescriptionLines
     }
     
+}
+
+enum ParentSelectionMode {
+    case random
+    case fitness
+    case diversity
+    case fitnessAndDiversity
 }
