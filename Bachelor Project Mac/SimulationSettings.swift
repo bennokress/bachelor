@@ -16,44 +16,47 @@ class SimulationSettings {
     // MARK: General
     let debugLevel = DebugLevel.off
     let actionInformationLevel = DebugLevel.extensive
+    let isDevelopmentRun = true
     var nextFactoryID: Int = 1
     let dodgeThreshold = 100 // number of times a robot can move away from next target before being marked as blocked
     
     // MARK: Quantities
-    let generationSize = 10
-    let generations = 25
+    var generationSize: Int { return isDevelopmentRun ? 10 : 50 }
+    var generations: Int { return isDevelopmentRun ? 20 : 50 }
     func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
     // MARK: Factory Layout
-    let factoryWidth = 10
-    let factoryLength = 10
-    let distanceFromEntranceAndExitToLayoutCorner = 3
+    var factoryWidth: Int { return isDevelopmentRun ? 15 : 30 }
+    var factoryLength: Int { return isDevelopmentRun ? 15 : 30 }
+    var distanceFromEntranceAndExitToLayoutCorner: Int { return isDevelopmentRun ? 3 : 5 }
     
     // MARK: Products
-    let productAmount: [ProductType : Int] = [
-        .pA: 2,
-        .pB: 1,
-        .pC: 1,
-        .pD: 1,
-        .pE: 1,
-        .pF: 1
-    ]
+    var productAmount: [ProductType : Int] { return [
+        .pA: isDevelopmentRun ? 2 : 4,
+        .pB: isDevelopmentRun ? 1 : 5,
+        .pC: isDevelopmentRun ? 2 : 6,
+        .pD: isDevelopmentRun ? 1 : 7,
+        .pE: isDevelopmentRun ? 2 : 8,
+        .pF: isDevelopmentRun ? 1 : 9
+        ]
+    }
     
     // MARK: Workstations
-    let workstationAmount: [WorkstationType : Int] = [
-        .wsA: 1,
-        .wsB: 2,
-        .wsC: 1,
-        .wsD: 1,
-        .wsE: 1,
-        .wsF: 1
-    ]
+    var workstationAmount: [WorkstationType : Int] { return [
+        .wsA: isDevelopmentRun ? 2 : 3,
+        .wsB: isDevelopmentRun ? 1 : 4,
+        .wsC: isDevelopmentRun ? 1 : 3,
+        .wsD: isDevelopmentRun ? 2 : 3,
+        .wsE: isDevelopmentRun ? 1 : 4,
+        .wsF: isDevelopmentRun ? 1 : 3
+        ]
+    }
     
     // MARK: Genetic Algorithm
-    let modificators: [Modificator] = [ParentSelection(mode: .random), Crossover(), Mutation(), SurvivorSelection()]
+    let modificators: [Modificator] = [ParentSelection(mode: .fitness), Crossover(), Mutation(), SurvivorSelection()]
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
     let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated
-    let mutationDistance = 2 // Radius inside of which a workstation positions radius can mutate
+    var mutationDistance: Int { return isDevelopmentRun ? 2 : 4 } // Radius inside of which a workstation positions radius can mutate
     
 }
 
