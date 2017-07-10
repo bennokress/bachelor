@@ -11,8 +11,17 @@ import Foundation
 struct Factory: Identifiable, CustomPrintable {
     
     let id: Int
-    var layout: FactoryLayout
-    var state: FactoryState // TODO: Is this really neccessary?
+    let layout: FactoryLayout
+    let fitness: Int
+    
+    init(id: Int, layout: FactoryLayout) {
+        self.id = id
+        self.layout = layout
+        
+        // Fitness Calculation
+        let factoryCopy = RunnableFactory(layout: layout)
+        self.fitness = factoryCopy.calculateFitness()
+    }
     
     // MARK: Computed Properties
     
@@ -36,46 +45,23 @@ struct Factory: Identifiable, CustomPrintable {
         return workstations
     }
     
-    var fitness: Int {
-        return run()
-    }
-    
 }
 
 // MARK: Simulation
 extension Factory {
     
-    var allRobotsFinished: Bool {
-        let unfinishedRobots = robots.filter { ($0.state != .finished) }
-        return unfinishedRobots.count == 0
-    }
-    
-    var atLeastOneRobotBlocked: Bool {
-        let blockedRobots = robots.filter { ($0.state == .blocked) }
-        return blockedRobots.count > 0
-    }
+//    var allRobotsFinished: Bool {
+//        let unfinishedRobots = robots.filter { ($0.state != .finished) }
+//        return unfinishedRobots.count == 0
+//    }
+//
+//    var atLeastOneRobotBlocked: Bool {
+//        let blockedRobots = robots.filter { ($0.state == .blocked) }
+//        return blockedRobots.count > 0
+//    }
     
     func hasEqualLayout(as otherFactory: Factory) -> Bool {
         return self.layout == otherFactory.layout
-    }
-    
-    /// Runs the simulation until all robots are either blocked or finished. Returns the rounds needed (fitness).
-    fileprivate func run() -> Int {
-        var factoryCopy = self
-        var stepCounter = 0
-        repeat {
-            factoryCopy.simulateNextStep()
-            stepCounter += 1
-        } while !(factoryCopy.allRobotsFinished || factoryCopy.atLeastOneRobotBlocked)
-        return factoryCopy.atLeastOneRobotBlocked ? Int.max : stepCounter
-    }
-    
-    private mutating func simulateNextStep() {
-        for robot in robots {
-            var modifiableRobot = robot
-            var modifiedRobot = modifiableRobot.performStep(in: layout)
-            layout.modifyRobot(robot, to: &modifiedRobot)
-        }
     }
     
 }
@@ -83,7 +69,7 @@ extension Factory {
 extension Factory: CustomStringConvertible {
     
     var description: String {
-        return "Factory #\(id) with fitness \(fitness):\n\n\(layout.description)\n\n"
+        return "Factory #\(id) with \(fitness):\n\n\(layout.description)\n\n"
     }
     
     func extensivePrint() {

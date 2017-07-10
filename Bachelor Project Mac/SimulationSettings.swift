@@ -135,7 +135,7 @@ extension SimulationSettings {
         }
         
         // 2 - generate factory
-        let factory = Factory(id: nextFactoryID, layout: factoryLayout, state: .running)
+        let factory = Factory(id: nextFactoryID, layout: factoryLayout)
         nextFactoryID += 1
         
         return factory

@@ -13,6 +13,7 @@ struct SurvivorSelection: Modificator {
     func execute(on generation: inout Set<Factory>) {
         
         let targetGenerationSize = SimulationSettings.shared.generationSize
+        let duplicateElimination: Bool
         
         var duplicates: [Factory] = []
         
@@ -22,7 +23,7 @@ struct SurvivorSelection: Modificator {
         for (index, factory) in sortedIndividuals.enumerated() {
             let comparisonIndex = sortedIndividuals.count - (index + 1)
             let nextFactory = selectedIndividuals[comparisonIndex]
-            if factory.fitness == nextFactory.fitness && factory.layout == nextFactory.layout {
+            if factory.fitness == nextFactory.fitness && factory.hasEqualLayout(as: nextFactory) {
                 duplicates.append(nextFactory)
                 selectedIndividuals.remove(at: comparisonIndex)
             }

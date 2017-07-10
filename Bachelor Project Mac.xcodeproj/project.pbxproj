@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D3037FB21EFFBA2F00606C37 /* ActionPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */; };
+		D3325F351F13C9B00025555D /* RunnableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3325F341F13C9B00025555D /* RunnableFactory.swift */; };
 		D334E8BD1EFD3FF5002DF760 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */; };
 		D334E8BF1EFD5115002DF760 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8BE1EFD5115002DF760 /* Mutation.swift */; };
 		D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */; };
@@ -75,6 +76,7 @@
 
 /* Begin PBXFileReference section */
 		D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPrintable.swift; sourceTree = "<group>"; };
+		D3325F341F13C9B00025555D /* RunnableFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnableFactory.swift; sourceTree = "<group>"; };
 		D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/Mac/CryptoSwift.framework; sourceTree = "<group>"; };
 		D334E8BE1EFD5115002DF760 /* Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivorSelection.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				D397345C1EB1EF4100DAAC8A /* Robot.swift */,
 				D397345E1EB1EF5E00DAAC8A /* Workstation.swift */,
 				D39734661EB1FECE00DAAC8A /* Factory.swift */,
+				D3325F341F13C9B00025555D /* RunnableFactory.swift */,
 			);
 			name = "Dynamic Models";
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */,
 				D334E8BF1EFD5115002DF760 /* Mutation.swift in Sources */,
 				D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */,
+				D3325F351F13C9B00025555D /* RunnableFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
