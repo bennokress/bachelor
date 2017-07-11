@@ -22,10 +22,12 @@ struct SurvivorSelection: Modificator {
         if duplicateElimination {
             individuals.filterDuplicates(matching: { $0.layoutHash == $1.layoutHash })
             duplicateCounter = generation.count - individuals.count
-        }
-        
-        guard individuals.count >= targetGenerationSize else {
-            fatalError("Removing all duplicates from the generation caused the next generation to fall short of the desired generation size!")
+            if individuals.count < targetGenerationSize {
+                print("Removing all duplicates from the generation caused the next generation to fall short of the desired generation size!")
+                let neededDuplicateCount = targetGenerationSize - individuals.count
+                let randomElements = individuals.shuffled.prefix(neededDuplicateCount)
+                individuals.append(contentsOf: randomElements)
+            }
         }
         
         generation = reduce(individuals, toSize: targetGenerationSize)

@@ -21,8 +21,8 @@ class SimulationSettings {
     let dodgeThreshold = 100 // number of times a robot can move away from next target before being marked as blocked
     
     // MARK: Quantities
-    var generationSize: Int { return isDevelopmentRun ? 10 : 50 }
-    var generations: Int { return isDevelopmentRun ? 20 : 50 }
+    var generationSize: Int { return isDevelopmentRun ? 15 : 50 }
+    var generations: Int { return isDevelopmentRun ? 40 : 50 }
     func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
     // MARK: Factory Layout
@@ -32,21 +32,21 @@ class SimulationSettings {
     
     // MARK: Products
     var productAmount: [ProductType : Int] { return [
-        .pA: isDevelopmentRun ? 2 : 4,
-        .pB: isDevelopmentRun ? 1 : 5,
-        .pC: isDevelopmentRun ? 2 : 6,
-        .pD: isDevelopmentRun ? 1 : 7,
-        .pE: isDevelopmentRun ? 2 : 8,
-        .pF: isDevelopmentRun ? 1 : 9
+        .pA: isDevelopmentRun ? 1 : 4,
+        .pB: isDevelopmentRun ? 0 : 5,
+        .pC: isDevelopmentRun ? 0 : 6,
+        .pD: isDevelopmentRun ? 0 : 7,
+        .pE: isDevelopmentRun ? 0 : 8,
+        .pF: isDevelopmentRun ? 0 : 9
         ]
     }
     
     // MARK: Workstations
     var workstationAmount: [WorkstationType : Int] { return [
-        .wsA: isDevelopmentRun ? 2 : 3,
+        .wsA: isDevelopmentRun ? 1 : 3,
         .wsB: isDevelopmentRun ? 1 : 4,
         .wsC: isDevelopmentRun ? 1 : 3,
-        .wsD: isDevelopmentRun ? 2 : 3,
+        .wsD: isDevelopmentRun ? 1 : 3,
         .wsE: isDevelopmentRun ? 1 : 4,
         .wsF: isDevelopmentRun ? 1 : 3
         ]
