@@ -16,7 +16,7 @@ struct Crossover: Modificator {
         
         var results: [(parent1: Factory, parent2: Factory, crossover: Factory)] = []
         
-        let individuals = Array(generation)
+        let individuals = generation.shuffled
         for i in 0..<individuals.count {
             
             // 1 - Take two neighboring factories

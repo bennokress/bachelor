@@ -12,11 +12,13 @@ struct Factory: Identifiable, CustomPrintable {
     
     let id: Int
     let layout: FactoryLayout
+    let layoutHash: String // used to recognize identical layouts (duplicate factories)
     let fitness: Int
     
     init(id: Int, layout: FactoryLayout) {
         self.id = id
         self.layout = layout
+        self.layoutHash = layout.hash
         
         // Fitness Calculation
         let factoryCopy = RunnableFactory(layout: layout)
@@ -60,8 +62,8 @@ extension Factory {
 //        return blockedRobots.count > 0
 //    }
     
-    func hasEqualLayout(as otherFactory: Factory) -> Bool {
-        return self.layout == otherFactory.layout
+    func hasIdenticalLayout(as otherFactory: Factory) -> Bool {
+        return self.layoutHash == otherFactory.layoutHash
     }
     
 }
@@ -69,7 +71,7 @@ extension Factory {
 extension Factory: CustomStringConvertible {
     
     var description: String {
-        return "Factory #\(id) with \(fitness):\n\n\(layout.description)\n\n"
+        return "Hash: \(layoutHash)\nFactory #\(id) with \(fitness):\n\n\(layout.description)\n\n"
     }
     
     func extensivePrint() {

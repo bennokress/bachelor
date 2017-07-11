@@ -10,46 +10,56 @@ import Foundation
 
 struct SurvivorSelection: Modificator {
     
+    let mode: SelectionMode
+    let duplicateElimination: Bool
+    
     func execute(on generation: inout Set<Factory>) {
         
         let targetGenerationSize = SimulationSettings.shared.generationSize
-        let duplicateElimination: Bool
         
-        var duplicates: [Factory] = []
-        
-        let sortedIndividuals = generation.sorted { $0.fitness > $1.fitness }.shifted(by: 1)
-        var selectedIndividuals = Array(generation.sorted { $0.fitness > $1.fitness }.reversed())
-        
-        for (index, factory) in sortedIndividuals.enumerated() {
-            let comparisonIndex = sortedIndividuals.count - (index + 1)
-            let nextFactory = selectedIndividuals[comparisonIndex]
-            if factory.fitness == nextFactory.fitness && factory.hasEqualLayout(as: nextFactory) {
-                duplicates.append(nextFactory)
-                selectedIndividuals.remove(at: comparisonIndex)
-            }
+        var individuals = Array(generation)
+        var duplicateCounter = 0
+        if duplicateElimination {
+            individuals.filterDuplicates(matching: { $0.layoutHash == $1.layoutHash })
+            duplicateCounter = generation.count - individuals.count
         }
         
-        guard selectedIndividuals.count >= targetGenerationSize else {
+        guard individuals.count >= targetGenerationSize else {
             fatalError("Removing all duplicates from the generation caused the next generation to fall short of the desired generation size!")
         }
         
-        generation = Set(selectedIndividuals.prefix(targetGenerationSize))
+        generation = reduce(individuals, toSize: targetGenerationSize)
         
         actionPrint(
-            short: shortActionDescription(for: Array(selectedIndividuals.prefix(targetGenerationSize)), and: duplicates),
-            detailed: detailedActionDescription(for: Array(selectedIndividuals.prefix(targetGenerationSize)), and: duplicates)
+            short: shortActionDescription(for: generation.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter),
+            detailed: detailedActionDescription(for: generation.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter)
         )
     }
     
-    private func shortActionDescription(for generation: [Factory], and duplicates: [Factory]) -> String {
-        guard let bestFitness = generation.first?.fitness, let worstFitness = generation.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "Removed \(duplicates.count) duplicates\nSelected \(generation.count) factories (survivors) with fitness between \(bestFitness) and \(worstFitness)"
+    private func reduce(_ individuals: [Factory], toSize targetSize: Int) -> Set<Factory> {
+        var selectedIndividuals: [Factory] = []
+        switch mode {
+        case .random:
+            selectedIndividuals = individuals.shuffled
+        case .fitness:
+            selectedIndividuals = individuals.sorted { $0.fitness < $1.fitness }
+        case .diversity:
+            break // FIXME: Add selection implementation
+        case .fitnessAndDiversity:
+            break // FIXME: Add selection implementation
+        }
+        return Set(selectedIndividuals.prefix(targetSize))
     }
     
-    private func detailedActionDescription(for generation: [Factory], and duplicates: [Factory]) -> [String] {
+    private func shortActionDescription(for generation: [Factory], duplicates: Int) -> String {
+        guard let bestFitness = generation.first?.fitness, let worstFitness = generation.last?.fitness else { return "--- Error retreiving fitness ---" }
+        return "\(duplicateElimination ? "Removed \(duplicates) duplicates\n" : "")Selected \(generation.count) factories (survivors) with fitness between \(bestFitness) and \(worstFitness)"
+    }
+    
+    private func detailedActionDescription(for generation: [Factory], duplicates: Int) -> [String] {
         let title = "SURVIVOR SELECTION"
         var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
-        for factory in duplicates { actionDescriptionLines.append("  · Removed duplicate factory #\(factory.id)") }
+        if duplicateElimination { actionDescriptionLines.append("  · Removed \(duplicates) duplicates") }
         for factory in generation { actionDescriptionLines.append("  · Selected factory #\(factory.id) with fitness \(factory.fitness) as survivor") }
         return actionDescriptionLines
     }

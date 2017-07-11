@@ -10,7 +10,7 @@ import Foundation
 
 struct ParentSelection: Modificator {
     
-    let mode: ParentSelectionMode
+    let mode: SelectionMode
     
     func execute(on generation: inout Set<Factory>) {
         generation = getSelectedIndividuals(from: generation)
@@ -45,11 +45,4 @@ struct ParentSelection: Modificator {
         return actionDescriptionLines
     }
     
-}
-
-enum ParentSelectionMode {
-    case random
-    case fitness
-    case diversity
-    case fitnessAndDiversity
 }

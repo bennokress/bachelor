@@ -30,6 +30,17 @@ extension Array {
         let shift: (Int) -> Int = { return $0 + effectiveShiftAmount >= self.count ? $0 + effectiveShiftAmount - self.count : $0 + effectiveShiftAmount }
         return self.enumerated().sorted(by: { shift($0.offset) < shift($1.offset) }).map { $0.element }
     }
+        
+    mutating func filterDuplicates(matching: (_ lhs: Element, _ rhs: Element) -> Bool) {
+        var results: [Element] = []
+        
+        self.forEach { (element) in
+            let existingElements = results.filter { return matching(element, $0) }
+            if existingElements.count == 0 { results.append(element) }
+        }
+        
+        self = results
+    }
     
 }
 
