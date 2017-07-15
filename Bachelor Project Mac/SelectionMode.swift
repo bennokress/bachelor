@@ -13,4 +13,5 @@ enum SelectionMode {
     case fitness
     case diversity
     case fitnessAndDiversity
+    case diversityAndFitness
 }

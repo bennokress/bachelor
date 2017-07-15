@@ -10,8 +10,6 @@ import Foundation
 
 struct ParentSelection: Modificator {
     
-    let mode: SelectionMode
-    
     func execute(on generation: inout Set<Factory>) {
         generation = getSelectedIndividuals(from: generation)
         actionPrint(short: shortActionDescription(for: generation.sorted { $0.fitness < $1.fitness }),
@@ -20,15 +18,13 @@ struct ParentSelection: Modificator {
     
     private func getSelectedIndividuals(from generation: Set<Factory>) -> Set<Factory> {
         var selectedIndividuals: [Factory] = []
-        switch mode {
+        switch SimulationSettings.shared.selectionMode {
         case .random:
             selectedIndividuals = generation.shuffled.firstHalf
-        case .fitness:
+        case .fitness, .fitnessAndDiversity:
             selectedIndividuals = generation.sorted { $0.fitness < $1.fitness }.firstHalf
-        case .diversity:
+        case .diversity, .diversityAndFitness:
             selectedIndividuals = generation.sorted { $0.diversity > $1.diversity }.firstHalf
-        case .fitnessAndDiversity:
-            break // FIXME: Add selection implementation
         }
         return Set(selectedIndividuals)
     }

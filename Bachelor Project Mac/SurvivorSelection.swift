@@ -10,7 +10,6 @@ import Foundation
 
 struct SurvivorSelection: Modificator {
     
-    let mode: SelectionMode
     let duplicateElimination: Bool
     
     func execute(on generation: inout Set<Factory>) {
@@ -42,15 +41,13 @@ struct SurvivorSelection: Modificator {
     
     private func reduce(_ individuals: [Factory], toSize targetSize: Int) -> Set<Factory> {
         var selectedIndividuals: [Factory] = []
-        switch mode {
+        switch SimulationSettings.shared.selectionMode {
         case .random:
             selectedIndividuals = individuals.shuffled
-        case .fitness:
+        case .fitness, .diversityAndFitness:
             selectedIndividuals = individuals.sorted { $0.fitness < $1.fitness }
-        case .diversity:
+        case .diversity, .fitnessAndDiversity:
             selectedIndividuals = individuals.sorted { $0.diversity > $1.diversity }
-        case .fitnessAndDiversity:
-            break // FIXME: Add selection implementation
         }
         return Set(selectedIndividuals.prefix(targetSize))
     }
