@@ -28,7 +28,7 @@ struct Mutation: Modificator {
             for originalWorkstation in factory.workstations where Bool.random(trueProbability: settings.mutationProbability) {
                 
                 // Determine all possible empty fields for the mutation of the current workstation
-                let possibleNewPositions = originalWorkstation.position.allPositions(inRadius: settings.mutationDistance).filter { mutatedFactoryLayout.isEmptyField(at: $0) }
+                let possibleNewPositions = originalWorkstation.position.allPositions(inRadius: settings.mutationDistance, inside: factory.layout).filter { mutatedFactoryLayout.isEmptyField(at: $0) }
                 
                 // Select a new position randomly (and break if no mutation is possible
                 guard let newPosition = possibleNewPositions.randomElement else { break }

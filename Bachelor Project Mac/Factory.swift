@@ -14,7 +14,7 @@ struct Factory: Identifiable, CustomPrintable {
     let layout: FactoryLayout
     let layoutHash: String // used to recognize identical layouts (duplicate factories)
     let fitness: Int
-    let diversity: Int
+    let diversity: Double
     
     init(id: Int, layout: FactoryLayout) {
         self.id = id
@@ -62,7 +62,7 @@ struct Factory: Identifiable, CustomPrintable {
 extension Factory: CustomStringConvertible {
     
     var description: String {
-        return "Hash: \(layoutHash)\nFactory #\(id) with \(fitness):\n\n\(layout.description)\n\n"
+        return "Factory #\(id) with fitness \(fitness) and diversity \(diversity):\n\n\(layout.description)\n\n"
     }
     
     func extensivePrint() {

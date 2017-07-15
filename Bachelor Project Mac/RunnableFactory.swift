@@ -57,9 +57,9 @@ struct RunnableFactory {
         return factoryCopy.atLeastOneRobotBlocked ? Int.max : stepCounter
     }
     
-    func calculateDiversity() -> Int {
-        // FIXME: Implement this!
-        return 0
+    func calculateDiversity() -> Double {
+        let diversityModel = SimulationSettings.shared.usedDiversityModel
+        return diversityModel.getScore(of: layout)
     }
     
     private mutating func simulateNextStep() {

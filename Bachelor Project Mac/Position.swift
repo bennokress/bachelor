@@ -57,10 +57,11 @@ struct Position {
         return abs(self.x - otherPosition.x) + abs(self.y - otherPosition.y)
     }
     
-    func allPositions(inRadius radius: Int) -> [Position] {
+    func allPositions(inRadius radius: Int, inside layout: FactoryLayout) -> [Position] {
         let delta = (-radius...radius)
         let coordinates = delta.map { dx in delta.map { dy in (dx, dy) } }.joined().filter { $0.0 != 0 || $0.1 != 0 }
-        return coordinates.map { Position(x: self.x + $0.0, y: self.y + $0.1) }
+        let positions = coordinates.map { Position(x: self.x + $0.0, y: self.y + $0.1) }.filter { $0.isInFactory(withLayout: layout) }
+        return positions
     }
     
     func isInFactory(withLayout factoryLayout: FactoryLayout) -> Bool {
@@ -68,8 +69,7 @@ struct Position {
     }
     
     func isInFactory(withWidth width: Int, andLength length: Int) -> Bool {
-        guard x >= 0 && y >= 0 else { return false }
-        return (y * width + x) < (width * length)
+        return x >= 0 && x < width && y >= 0 && y < length
     }
     
     static func randomEmptyField(in factoryLayout: FactoryLayout) -> Position {
