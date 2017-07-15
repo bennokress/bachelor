@@ -21,7 +21,7 @@ class SimulationSettings {
     let dodgeThreshold = 100 // number of times a robot can move away from next target before being marked as blocked
     
     // MARK: Quantities
-    var generationSize: Int { return isDevelopmentRun ? 15 : 50 }
+    var generationSize: Int { return isDevelopmentRun ? 16 : 50 }
     var generations: Int { return isDevelopmentRun ? 200 : 50 }
     func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
@@ -54,7 +54,7 @@ class SimulationSettings {
     
     // MARK: Genetic Algorithm
     let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), SurvivorSelection(duplicateElimination: true)]
-    let selectionMode: SelectionMode = .diversityAndFitness
+    let selectionMode: SelectionMode = .best(order: [.fitness, .diversity(target: .medium), .diversity(target: .low), .diversity(target: .high)])
     let usedDiversityModel: DiversityModel = .averageDistanceToCenter
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
     let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated

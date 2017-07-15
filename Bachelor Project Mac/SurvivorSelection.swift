@@ -40,21 +40,17 @@ struct SurvivorSelection: Modificator {
     }
     
     private func reduce(_ individuals: [Factory], toSize targetSize: Int) -> Set<Factory> {
-        var selectedIndividuals: [Factory] = []
-        switch SimulationSettings.shared.selectionMode {
-        case .random:
-            selectedIndividuals = individuals.shuffled
-        case .fitness, .diversityAndFitness:
-            selectedIndividuals = individuals.sorted { $0.fitness < $1.fitness }
-        case .diversity, .fitnessAndDiversity:
-            selectedIndividuals = individuals.sorted { $0.diversity > $1.diversity }
-        }
-        return Set(selectedIndividuals.prefix(targetSize))
+        let selectedIndividuals = SimulationSettings.shared.selectionMode.basedOrder(of: individuals, targetSize: targetSize)
+        return Set(selectedIndividuals)
     }
     
     private func getRandomDuplicates(from allFactories: Set<Factory>, ignoring alreadySelectedFactories: [Factory], with size: Int) -> [Factory] {
         let duplicateFactoryPool = allFactories.subtracting(alreadySelectedFactories)
         return Array(duplicateFactoryPool.shuffled.prefix(size))
+    }
+    
+    private func bestSelection(from individuals: [Factory], withTargetSize targetSize: Int) -> [Factory] {
+        return []
     }
     
     private func shortActionDescription(for generation: [Factory], duplicates: Int) -> String {

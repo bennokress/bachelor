@@ -17,15 +17,7 @@ struct ParentSelection: Modificator {
     }
     
     private func getSelectedIndividuals(from generation: Set<Factory>) -> Set<Factory> {
-        var selectedIndividuals: [Factory] = []
-        switch SimulationSettings.shared.selectionMode {
-        case .random:
-            selectedIndividuals = generation.shuffled.firstHalf
-        case .fitness, .fitnessAndDiversity:
-            selectedIndividuals = generation.sorted { $0.fitness < $1.fitness }.firstHalf
-        case .diversity, .diversityAndFitness:
-            selectedIndividuals = generation.sorted { $0.diversity > $1.diversity }.firstHalf
-        }
+        let selectedIndividuals = SimulationSettings.shared.selectionMode.basedOrder(of: Array(generation), targetSize: generation.count / 2)
         return Set(selectedIndividuals)
     }
     

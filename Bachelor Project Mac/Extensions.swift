@@ -23,6 +23,14 @@ extension Array {
         return self.count > 0 ? Array(self.prefix(halfLength)) : []
     }
     
+    var middleHalf: [Element] {
+        return firstHalf.lastHalf + lastHalf.firstHalf
+    }
+    
+    var lastHalf: [Element] {
+        return self.count > 0 ? Array(self.suffix(halfLength)) : []
+    }
+    
     func shifted(by shiftAmount: Int) -> Array {
         guard self.count > 0, (shiftAmount % self.count) != 0 else { return self }
         let moduloShiftAmount = shiftAmount % self.count
