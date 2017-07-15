@@ -48,7 +48,7 @@ struct SurvivorSelection: Modificator {
         case .fitness:
             selectedIndividuals = individuals.sorted { $0.fitness < $1.fitness }
         case .diversity:
-            break // FIXME: Add selection implementation
+            selectedIndividuals = individuals.sorted { $0.diversity > $1.diversity }
         case .fitnessAndDiversity:
             break // FIXME: Add selection implementation
         }

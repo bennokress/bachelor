@@ -14,6 +14,7 @@ struct Factory: Identifiable, CustomPrintable {
     let layout: FactoryLayout
     let layoutHash: String // used to recognize identical layouts (duplicate factories)
     let fitness: Int
+    let diversity: Int
     
     init(id: Int, layout: FactoryLayout) {
         self.id = id
@@ -23,6 +24,9 @@ struct Factory: Identifiable, CustomPrintable {
         // Fitness Calculation
         let factoryCopy = RunnableFactory(layout: layout)
         self.fitness = factoryCopy.calculateFitness()
+        
+        // Diversity Claculation
+        self.diversity = factoryCopy.calculateDiversity()
     }
     
     // MARK: Computed Properties
@@ -47,20 +51,7 @@ struct Factory: Identifiable, CustomPrintable {
         return workstations
     }
     
-}
-
-// MARK: Simulation
-extension Factory {
-    
-//    var allRobotsFinished: Bool {
-//        let unfinishedRobots = robots.filter { ($0.state != .finished) }
-//        return unfinishedRobots.count == 0
-//    }
-//
-//    var atLeastOneRobotBlocked: Bool {
-//        let blockedRobots = robots.filter { ($0.state == .blocked) }
-//        return blockedRobots.count > 0
-//    }
+    // MARK: Functions
     
     func hasIdenticalLayout(as otherFactory: Factory) -> Bool {
         return self.layoutHash == otherFactory.layoutHash

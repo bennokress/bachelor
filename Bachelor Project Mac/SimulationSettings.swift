@@ -22,13 +22,13 @@ class SimulationSettings {
     
     // MARK: Quantities
     var generationSize: Int { return isDevelopmentRun ? 15 : 50 }
-    var generations: Int { return isDevelopmentRun ? 150 : 50 }
+    var generations: Int { return isDevelopmentRun ? 200 : 50 }
     func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
     // MARK: Factory Layout
-    var factoryWidth: Int { return isDevelopmentRun ? 15 : 30 }
-    var factoryLength: Int { return isDevelopmentRun ? 15 : 30 }
-    var distanceFromEntranceAndExitToLayoutCorner: Int { return isDevelopmentRun ? 3 : 5 }
+    var factoryWidth: Int { return isDevelopmentRun ? 29 : 30 }
+    var factoryLength: Int { return isDevelopmentRun ? 10 : 30 }
+    var distanceFromEntranceAndExitToLayoutCorner: Int { return isDevelopmentRun ? 15 : 5 }
     
     // MARK: Products
     var productAmount: [ProductType : Int] { return [
@@ -56,7 +56,7 @@ class SimulationSettings {
     let modificators: [Modificator] = [ParentSelection(mode: .fitness), Crossover(), Mutation(), SurvivorSelection(mode: .fitness, duplicateElimination: true)]
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
     let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated
-    var mutationDistance: Int { return isDevelopmentRun ? 6 : 4 } // Radius inside of which a workstation positions radius can mutate
+    var mutationDistance: Int { return isDevelopmentRun ? 5 : 6 } // Radius inside of which a workstation positions radius can mutate
     
 }
 

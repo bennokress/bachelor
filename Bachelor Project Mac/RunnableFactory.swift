@@ -57,6 +57,11 @@ struct RunnableFactory {
         return factoryCopy.atLeastOneRobotBlocked ? Int.max : stepCounter
     }
     
+    func calculateDiversity() -> Int {
+        // FIXME: Implement this!
+        return 0
+    }
+    
     private mutating func simulateNextStep() {
         for robot in robots {
             var modifiableRobot = robot

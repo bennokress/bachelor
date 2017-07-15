@@ -26,7 +26,7 @@ struct ParentSelection: Modificator {
         case .fitness:
             selectedIndividuals = generation.sorted { $0.fitness < $1.fitness }.firstHalf
         case .diversity:
-            break // FIXME: Add selection implementation
+            selectedIndividuals = generation.sorted { $0.diversity > $1.diversity }.firstHalf
         case .fitnessAndDiversity:
             break // FIXME: Add selection implementation
         }
