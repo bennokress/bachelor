@@ -25,40 +25,60 @@ enum DiversityModel {
     }
     
     private func getMaxDistanceToCenter(of layout: FactoryLayout) -> Double {
-        return 0
+        let bounds = WorkstationBounds(from: layout)
+        let centerPosition = bounds.centerPosition
+        let distancesToCenter = layout.workstations.map { $0.position.distance(to: centerPosition) }
+        guard let maxDistance = distancesToCenter.max else { fatalError("No distance could be calculated!") }
+        return Double(maxDistance)
     }
     
     private func getAverageDistanceToCenter(of layout: FactoryLayout) -> Double {
-        return 0
+        let bounds = WorkstationBounds(from: layout)
+        let centerPosition = bounds.centerPosition
+        let distancesToCenter = layout.workstations.map { $0.position.distance(to: centerPosition) }
+        return distancesToCenter.average
     }
     
     private func getSurroundingRectangeScore(for layout: FactoryLayout) -> Double {
-        var minX = Int.max
-        var maxX = Int.min
-        var minY = Int.max
-        var maxY = Int.min
-        for workstation in layout.workstations {
-            let pos = workstation.position
-            if pos.x < minX { minX = pos.x }
-            if pos.x > maxX { maxX = pos.x }
-            if pos.y < minY { minY = pos.y }
-            if pos.y > maxY { maxY = pos.y }
-        }
-        let minPosition = Position(x: minX, y: minY)
-        let maxPosition = Position(x: maxX, y: maxY)
-        return Double(minPosition.distance(to: maxPosition)) / 2
+        let bounds = WorkstationBounds(from: layout)
+        return Double(bounds.minPosition.distance(to: bounds.centerPosition))
     }
     
-//    private func getSurroundingRectangeScore(for layout: FactoryLayout) -> Double {
-//        let xValues = layout.workstations.map { $0.position.x }
-//        let yValues = layout.workstations.map { $0.position.y }
-//
-//        guard let minX = xValues.min(), let maxX = xValues.max(), let minY = yValues.min(), let maxY = yValues.max() else {
-//            fatalError("Minima or Maxima could not be determined!")
-//        }
-//
-//        let minPosition = Position(x: minX, y: minY)
-//        let maxPosition = Position(x: maxX, y: maxY)
-//        return Double(minPosition.distance(to: maxPosition)) / 2
-//    }
+    private struct WorkstationBounds {
+        
+        let minX: Int
+        let maxX: Int
+        let minY: Int
+        let maxY: Int
+        
+        var minPosition: Position { return Position(x: minX, y: minY) }
+        var maxPosition: Position { return Position(x: maxX, y: maxY) }
+        var centerPosition: Position {
+            let centerX = maxX - ((maxX - minX) / 2)
+            let centerY = maxY - ((maxY - minY) / 2)
+            return Position(x: centerX, y: centerY)
+        }
+        
+        init(from layout: FactoryLayout) {
+            var minX = Int.max
+            var maxX = Int.min
+            var minY = Int.max
+            var maxY = Int.min
+            
+            for workstation in layout.workstations {
+                let pos = workstation.position
+                if pos.x < minX { minX = pos.x }
+                if pos.x > maxX { maxX = pos.x }
+                if pos.y < minY { minY = pos.y }
+                if pos.y > maxY { maxY = pos.y }
+            }
+            
+            self.minX = minX
+            self.maxX = maxX
+            self.minY = minY
+            self.maxY = maxY
+        }
+        
+    }
+    
 }

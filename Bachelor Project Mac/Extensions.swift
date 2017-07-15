@@ -44,6 +44,30 @@ extension Array {
     
 }
 
+extension Array where Element == Int {
+    
+    /// Returns the sum of all elements in the array
+    var total: Int {
+        return reduce(0, +)
+    }
+    
+    /// Returns the maximum of all the elements in the array
+    var max: Int? {
+        return self.max()
+    }
+    
+    /// Returns the minimum of all the elements in the array
+    var min: Int? {
+        return self.min()
+    }
+    
+    /// Returns the average of all elements in the array
+    var average: Double {
+        return isEmpty ? 0 : Double(self.total) / Double(self.count)
+    }
+    
+}
+
 extension Bool {
     
     static func random(trueProbability: Int = 50) -> Bool {

@@ -62,7 +62,7 @@ struct Factory: Identifiable, CustomPrintable {
 extension Factory: CustomStringConvertible {
     
     var description: String {
-        return "Factory #\(id) with fitness \(fitness) and diversity \(diversity):\n\n\(layout.description)\n\n"
+        return "Factory #\(id) with fitness \(fitness) and diversity \(Int(diversity)):\n\n\(layout.description)\n\n"
     }
     
     func extensivePrint() {
