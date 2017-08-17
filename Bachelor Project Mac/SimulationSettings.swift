@@ -54,8 +54,9 @@ class SimulationSettings {
     
     // MARK: Genetic Algorithm
     let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), SurvivorSelection(duplicateElimination: true)]
-    let selectionMode: SelectionMode = .best(order: [.fitness, .diversity(target: .medium), .diversity(target: .low), .diversity(target: .high)])
-    let usedDiversityModel: DiversityModel = .averageDistanceToCenter
+//    let selectionMode: SelectionMode = .best(order: [.fitness, .distribution(target: .medium), .distribution(target: .low), .distribution(target: .high)])
+    let selectionMode: SelectionMode = .fitness
+    let usedDistributionModel: DistributionModel = .averageDistanceToCenter
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
     let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated
     var mutationDistance: Int { return isDevelopmentRun ? 5 : 6 } // Radius inside of which a workstation positions radius can mutate

@@ -16,7 +16,7 @@
 		D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */; };
 		D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */; };
 		D34A73081EB9DC5000FBE2F7 /* CustomPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */; };
-		D35A50CE1F1A7C7700000B36 /* DiversityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35A50CD1F1A7C7700000B36 /* DiversityModel.swift */; };
+		D35A50CE1F1A7C7700000B36 /* DistributionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */; };
 		D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734271EB1E6D300DAAC8A /* AppDelegate.swift */; };
 		D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734291EB1E6D300DAAC8A /* ViewController.swift */; };
 		D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */; };
@@ -86,7 +86,7 @@
 		D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryState.swift; sourceTree = "<group>"; };
 		D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLevel.swift; sourceTree = "<group>"; };
 		D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPrintable.swift; sourceTree = "<group>"; };
-		D35A50CD1F1A7C7700000B36 /* DiversityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiversityModel.swift; sourceTree = "<group>"; };
+		D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionModel.swift; sourceTree = "<group>"; };
 		D39734241EB1E6D300DAAC8A /* Bachelor Project Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bachelor Project Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D39734271EB1E6D300DAAC8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D39734291EB1E6D300DAAC8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 				D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */,
 				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
-				D35A50CD1F1A7C7700000B36 /* DiversityModel.swift */,
+				D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */,
 				D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */,
 				D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */,
 				D3E257021EBB8584005949A9 /* Identifiable.swift */,
@@ -522,7 +522,7 @@
 				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
 				D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */,
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
-				D35A50CE1F1A7C7700000B36 /* DiversityModel.swift in Sources */,
+				D35A50CE1F1A7C7700000B36 /* DistributionModel.swift in Sources */,
 				D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */,
 				D3CD5F051EEAB77300CEB83B /* ParentSelection.swift in Sources */,
 				D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */,

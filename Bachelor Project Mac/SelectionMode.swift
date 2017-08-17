@@ -11,25 +11,27 @@ import Foundation
 enum SelectionMode {
     case random
     case fitness
-    case diversity(target: DiversityTarget)
-    case fitnessAndDiversity(target: DiversityTarget)
-    case diversityAndFitness(target: DiversityTarget)
+    case distribution(target: DistributionTarget)
+    case fitnessAndDistribution(target: DistributionTarget)
+    case distributionAndFitness(target: DistributionTarget)
     case best(order: [SelectionMode])
     
     func basedOrder(of generation: [Factory], targetSize: Int? = nil, targetAverage: Double? = nil) -> [Factory] {
         let sortedGeneration: [Factory]
         switch self {
-        case .fitness, .fitnessAndDiversity:
+        case .fitness, .fitnessAndDistribution:
+            // TODO: implement combination
             sortedGeneration = generation.sorted { $0.fitness < $1.fitness }
-        case .diversity(let target), .diversityAndFitness(let target):
+        case .distribution(let target), .distributionAndFitness(let target):
+            // TODO: implement combination
             switch target {
             case .high:
-                sortedGeneration = generation.sorted { $0.diversity > $1.diversity }
+                sortedGeneration = generation.sorted { $0.distribution > $1.distribution }
             case .medium:
-                let averageDiversity = targetAverage ?? generation.map({ $0.diversity }).reduce(0,+) / Double(generation.count)
-                sortedGeneration = generation.sorted { abs($0.diversity - averageDiversity) < abs($1.diversity - averageDiversity) }
+                let averageDistribution = targetAverage ?? generation.map({ $0.distribution }).reduce(0,+) / Double(generation.count)
+                sortedGeneration = generation.sorted { abs($0.distribution - averageDistribution) < abs($1.distribution - averageDistribution) }
             case .low:
-                sortedGeneration = generation.sorted { $0.diversity < $1.diversity }
+                sortedGeneration = generation.sorted { $0.distribution < $1.distribution }
             }
         case .best(let order):
             sortedGeneration = sort(generation, by: order, until: targetSize)
@@ -45,14 +47,14 @@ enum SelectionMode {
     }
     
     private func sort(_ generation: [Factory], by order: [SelectionMode], until targetSize: Int?) -> [Factory] {
-        let averageDiversity = generation.map({ $0.diversity }).reduce(0,+) / Double(generation.count)
+        let averageDistribution = generation.map({ $0.distribution }).reduce(0,+) / Double(generation.count)
         var remainingFactories = generation
         var sortedGeneration: [Factory] = []
         let selectionRounds = targetSize ?? generation.count
         var currentSortingModeIndex = 0
         selectionRounds.times {
             let sortingMode = order[currentSortingModeIndex]
-            remainingFactories = sortingMode.basedOrder(of: remainingFactories, targetAverage: averageDiversity)
+            remainingFactories = sortingMode.basedOrder(of: remainingFactories, targetAverage: averageDistribution)
             sortedGeneration.append(remainingFactories.removeFirst())
             currentSortingModeIndex = (currentSortingModeIndex + 1) % order.count
         }        
@@ -60,7 +62,7 @@ enum SelectionMode {
     }
 }
 
-enum DiversityTarget {
+enum DistributionTarget {
     case high
     case medium
     case low

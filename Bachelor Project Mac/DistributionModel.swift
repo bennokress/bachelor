@@ -1,5 +1,5 @@
 //
-//  DiversityModel.swift
+//  DistributionModel.swift
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 15.07.17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DiversityModel {
+enum DistributionModel {
     case maxDistanceToCenter        // calculates the center position of all workstations and outputs the max. distance
     case averageDistanceToCenter    // calculates the center position of all workstations and outputs the avg. distance
     case surroundingRectangle       // calculates the surrounding rectangle for all workstations and outputs 1/2 length of the diagonal (for comparability)
