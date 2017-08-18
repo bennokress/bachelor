@@ -53,7 +53,7 @@ class SimulationSettings {
     }
     
     // MARK: Genetic Algorithm
-    let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), SurvivorSelection(duplicateElimination: true)]
+    let modificators: [Modificator] = [ParentSelection(), Mutation(), Crossover(), SurvivorSelection(duplicateElimination: true)]
 //    let selectionMode: SelectionMode = .best(order: [.fitness, .distribution(target: .medium), .distribution(target: .low), .distribution(target: .high)])
     let selectionMode: SelectionMode = .fitness
     let usedDistributionModel: DistributionModel = .averageDistanceToCenter

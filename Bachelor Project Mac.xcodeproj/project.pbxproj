@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D3037FB21EFFBA2F00606C37 /* ActionPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */; };
+		D3142C2B1F45D12F0055D46F /* Hypermutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3142C2A1F45D12F0055D46F /* Hypermutation.swift */; };
 		D3325F351F13C9B00025555D /* RunnableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3325F341F13C9B00025555D /* RunnableFactory.swift */; };
 		D3325F371F1425390025555D /* SelectionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3325F361F1425390025555D /* SelectionMode.swift */; };
 		D334E8BD1EFD3FF5002DF760 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */; };
@@ -78,6 +79,7 @@
 
 /* Begin PBXFileReference section */
 		D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPrintable.swift; sourceTree = "<group>"; };
+		D3142C2A1F45D12F0055D46F /* Hypermutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hypermutation.swift; sourceTree = "<group>"; };
 		D3325F341F13C9B00025555D /* RunnableFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnableFactory.swift; sourceTree = "<group>"; };
 		D3325F361F1425390025555D /* SelectionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMode.swift; sourceTree = "<group>"; };
 		D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/Mac/CryptoSwift.framework; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				D3325F361F1425390025555D /* SelectionMode.swift */,
 				D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */,
 				D3CD5F061EEAE63E00CEB83B /* Crossover.swift */,
+				D3142C2A1F45D12F0055D46F /* Hypermutation.swift */,
 				D334E8BE1EFD5115002DF760 /* Mutation.swift */,
 				D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */,
 			);
@@ -505,6 +508,7 @@
 				D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */,
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,
 				D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */,
+				D3142C2B1F45D12F0055D46F /* Hypermutation.swift in Sources */,
 				D34A73081EB9DC5000FBE2F7 /* CustomPrintable.swift in Sources */,
 				D3E257031EBB8584005949A9 /* Identifiable.swift in Sources */,
 				D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */,

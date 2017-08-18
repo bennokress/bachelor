@@ -1,3 +1,3 @@
-    github "omaralbeik/SwifterSwift" "swift4"                   # useful Swift Extensions
+    github "omaralbeik/SwifterSwift" "swift-4"                  # useful Swift Extensions
     github "krzyzanowskim/CryptoSwift" "develop"                # contruction of hashes
 #   github "danielgindi/Charts"                                 # Charts for beautiful statistics
