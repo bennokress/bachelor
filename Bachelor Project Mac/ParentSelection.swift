@@ -10,14 +10,14 @@ import Foundation
 
 struct ParentSelection: Modificator {
     
-    func execute(on generation: inout Set<Factory>) {
-        generation = getSelectedIndividuals(from: generation)
-        actionPrint(short: shortActionDescription(for: generation.sorted { $0.fitness < $1.fitness }),
-                    detailed: detailedActionDescription(for: generation.sorted { $0.fitness < $1.fitness }))
+    func execute(on generation: inout Generation) {
+        generation.factories = getSelectedIndividuals(from: generation)
+        actionPrint(short: shortActionDescription(for: generation.factories.sorted { $0.fitness < $1.fitness }),
+                    detailed: detailedActionDescription(for: generation.factories.sorted { $0.fitness < $1.fitness }))
     }
     
-    private func getSelectedIndividuals(from generation: Set<Factory>) -> Set<Factory> {
-        let selectedIndividuals = SimulationSettings.shared.selectionMode.basedOrder(of: Array(generation), targetSize: generation.count / 2)
+    private func getSelectedIndividuals(from generation: Generation) -> Set<Factory> {
+        let selectedIndividuals = SimulationSettings.shared.selectionMode.basedOrder(of: generation.individuals, targetSize: generation.size / 2)
         return Set(selectedIndividuals)
     }
     

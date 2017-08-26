@@ -10,6 +10,6 @@ import Foundation
 
 protocol Modificator: ActionPrintable {
     
-    func execute(on generation: inout Set<Factory>)
+    func execute(on generation: inout Generation)
     
 }

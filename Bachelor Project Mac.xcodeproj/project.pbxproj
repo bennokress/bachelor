@@ -58,6 +58,7 @@
 		D3D84DE41EB653330038710B /* RoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DE31EB653330038710B /* RoutingTests.swift */; };
 		D3E257011EBB74C6005949A9 /* StandardImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E257001EBB74C6005949A9 /* StandardImplementation.swift */; };
 		D3E257031EBB8584005949A9 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E257021EBB8584005949A9 /* Identifiable.swift */; };
+		D3E80FF51F51A2A90034A800 /* Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E80FF41F51A2A90034A800 /* Generation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		D3D84DE31EB653330038710B /* RoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingTests.swift; sourceTree = "<group>"; };
 		D3E257001EBB74C6005949A9 /* StandardImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardImplementation.swift; sourceTree = "<group>"; };
 		D3E257021EBB8584005949A9 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		D3E80FF41F51A2A90034A800 /* Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,9 +289,9 @@
 				D3CD5F021EEAB68A00CEB83B /* Modificator.swift */,
 				D3325F361F1425390025555D /* SelectionMode.swift */,
 				D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */,
-				D3CD5F061EEAE63E00CEB83B /* Crossover.swift */,
-				D3142C2A1F45D12F0055D46F /* Hypermutation.swift */,
 				D334E8BE1EFD5115002DF760 /* Mutation.swift */,
+				D3142C2A1F45D12F0055D46F /* Hypermutation.swift */,
+				D3CD5F061EEAE63E00CEB83B /* Crossover.swift */,
 				D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */,
 			);
 			name = "Genetic Algorithm";
@@ -326,6 +328,7 @@
 				D397345E1EB1EF5E00DAAC8A /* Workstation.swift */,
 				D39734661EB1FECE00DAAC8A /* Factory.swift */,
 				D3325F341F13C9B00025555D /* RunnableFactory.swift */,
+				D3E80FF41F51A2A90034A800 /* Generation.swift */,
 			);
 			name = "Dynamic Models";
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */,
 				D3CD5F071EEAE63E00CEB83B /* Crossover.swift in Sources */,
 				D3325F371F1425390025555D /* SelectionMode.swift in Sources */,
+				D3E80FF51F51A2A90034A800 /* Generation.swift in Sources */,
 				D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */,
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,
 				D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */,

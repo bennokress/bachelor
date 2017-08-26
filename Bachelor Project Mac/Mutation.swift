@@ -10,13 +10,13 @@ import Foundation
 
 struct Mutation: Modificator {
     
-    func execute(on generation: inout Set<Factory>) {
+    func execute(on generation: inout Generation) {
         
         let settings = SimulationSettings.shared
         
         var results: [(original: Factory, mutation: Factory)] = []
         
-        for factory in generation {
+        for factory in generation.factories {
             
             // 1 - Generate a copy of the factory's layout
             var mutatedFactoryLayout = settings.getEmptyFactoryGrid

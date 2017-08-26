@@ -10,7 +10,7 @@ import Foundation
 
 struct Crossover: Modificator {
     
-    func execute(on generation: inout Set<Factory>) {
+    func execute(on generation: inout Generation) {
         
         let settings = SimulationSettings.shared
         

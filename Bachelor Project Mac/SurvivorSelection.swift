@@ -12,30 +12,30 @@ struct SurvivorSelection: Modificator {
     
     let duplicateElimination: Bool
     
-    func execute(on generation: inout Set<Factory>) {
+    func execute(on generation: inout Generation) {
         
         let targetGenerationSize = SimulationSettings.shared.generationSize
         
-        var individuals = Array(generation)
+        var individuals = generation.individuals
         var duplicateCounter = 0
         if duplicateElimination {
             individuals.filterDuplicates(matching: { $0.layoutHash == $1.layoutHash })
-            duplicateCounter = generation.count - individuals.count
+            duplicateCounter = generation.size - individuals.count
             if individuals.count < targetGenerationSize {
                 let neededDuplicateCount = targetGenerationSize - individuals.count
                 print("Removing all duplicates from the generation would cause the next generation to fall \(neededDuplicateCount) \(neededDuplicateCount == 1 ? "factory" : "factories") short of the desired generation size!")
-                let necessaryDuplicates = getRandomDuplicates(from: generation, ignoring: individuals, with: neededDuplicateCount)
+                let necessaryDuplicates = getRandomDuplicates(from: generation.factories, ignoring: individuals, with: neededDuplicateCount)
                 individuals.append(contentsOf: necessaryDuplicates)
             }
         }
         
-        generation = reduce(individuals, toSize: targetGenerationSize)
+        generation.factories = reduce(individuals, toSize: targetGenerationSize)
         
-        guard generation.count == targetGenerationSize else { fatalError("Generation size is wrong!") }
+        guard generation.size == targetGenerationSize else { fatalError("Generation size is wrong!") }
         
         actionPrint(
-            short: shortActionDescription(for: generation.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter),
-            detailed: detailedActionDescription(for: generation.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter)
+            short: shortActionDescription(for: generation.factories.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter),
+            detailed: detailedActionDescription(for: generation.factories.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter)
         )
     }
     

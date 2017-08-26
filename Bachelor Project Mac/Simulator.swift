@@ -17,7 +17,7 @@ struct Simulator {
         runSimulation(on: &generation)
     }
     
-    private func runSimulation(on generation: inout Set<Factory>) {
+    private func runSimulation(on generation: inout Generation) {
         actionPrint(short: shortInitialDescription(for: generation), detailed: detailedInitialDescription(for: generation))
         var currentRound = 0
         settings.generations.times {
@@ -34,7 +34,7 @@ struct Simulator {
         }
     }
     
-    private func runSingleRoundOfGeneticAlgorithm(on generation: inout Set<Factory>) {
+    private func runSingleRoundOfGeneticAlgorithm(on generation: inout Generation) {
         for modificator in settings.modificators {
             modificator.execute(on: &generation)
         }
@@ -45,14 +45,14 @@ struct Simulator {
 extension Simulator: ActionPrintable {
     
     // MARK: Initial Generation
-    private func shortInitialDescription(for generation: Set<Factory>) -> String {
-        let sortedGeneration = generation.sorted { $0.fitness < $1.fitness }
+    private func shortInitialDescription(for generation: Generation) -> String {
+        let sortedGeneration = generation.factories.sorted { $0.fitness < $1.fitness }
         guard let bestFitness = sortedGeneration.first?.fitness, let worstFitness = sortedGeneration.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "Initial generation of \(generation.count) factories with fitness between \(bestFitness) and \(worstFitness)"
+        return "Initial generation of \(generation.size) factories with fitness between \(bestFitness) and \(worstFitness)"
     }
     
-    private func detailedInitialDescription(for generation: Set<Factory>) -> [String] {
-        let sortedGeneration = generation.sorted { $0.id < $1.id }
+    private func detailedInitialDescription(for generation: Generation) -> [String] {
+        let sortedGeneration = generation.factories.sorted { $0.id < $1.id }
         let title = "INITIAL GENERATION"
         var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
         for factory in sortedGeneration { actionDescriptionLines.append("  · Factory #\(factory.id) with fitness \(factory.fitness)") }
@@ -60,18 +60,18 @@ extension Simulator: ActionPrintable {
     }
     
     // MARK: Round Result
-    private func fastRoundResultDescription(for generation: Set<Factory>, afterRound round: Int) -> String? {
+    private func fastRoundResultDescription(for generation: Generation, afterRound round: Int) -> String? {
         return settings.isLastSimulationRound(round) ? shortRoundResultDescription(for: generation, afterRound: round) : "Finished round \(round) ..."
     }
     
-    private func shortRoundResultDescription(for generation: Set<Factory>, afterRound round: Int) -> String {
-        guard let bestFactory = generation.sorted(by: { $0.fitness < $1.fitness }).first else { return "=== Error retreiving best factory ===" }
+    private func shortRoundResultDescription(for generation: Generation, afterRound round: Int) -> String {
+        guard let bestFactory = generation.factories.sorted(by: { $0.fitness < $1.fitness }).first else { return "=== Error retreiving best factory ===" }
         let title = "BEST FACTORY AFTER ROUND \(round)"
         let description = settings.isLastSimulationRound(round) ? "\n" : "\n\(title.withAddedDivider("-", totalLength: 56))\n"
         return "\(description)\(bestFactory)"
     }
     
-    private func detailedRoundResultDescription(for generation: Set<Factory>, afterRound round: Int) -> [String] {
+    private func detailedRoundResultDescription(for generation: Generation, afterRound round: Int) -> [String] {
         return [shortRoundResultDescription(for: generation, afterRound: round)]
     }
     
