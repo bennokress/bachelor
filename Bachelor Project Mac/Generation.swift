@@ -15,6 +15,7 @@ struct Generation {
     // MARK: Computed Properties - Factory Specific
     var individuals: [Factory] { return Array(factories) }
     var shuffled: [Factory] { return factories.shuffled }
+    var sortedByFitness: [Factory] { return factories.sorted { $0.fitness < $1.fitness } }
     
     // MARK: Computed Properties - Metrics
     var size: Int { return factories.count }

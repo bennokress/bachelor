@@ -16,7 +16,7 @@ class SimulationSettings {
     // MARK: General
     let debugLevel = DebugLevel.off
     let actionInformationLevel = DebugLevel.extensive
-    let isDevelopmentRun = true
+    let isDevelopmentRun = false
     var nextFactoryID: Int = 1
     let dodgeThreshold = 100 // number of times a robot can move away from next target before being marked as blocked
     
