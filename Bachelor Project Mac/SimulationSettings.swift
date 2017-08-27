@@ -53,12 +53,14 @@ class SimulationSettings {
     }
     
     // MARK: Genetic Algorithm
-    let modificators: [Modificator] = [ParentSelection(), Mutation(), Crossover(), SurvivorSelection(duplicateElimination: true)]
+    let modificators: [Modificator] = [ParentSelection(), Mutation(), Hypermutation(), Crossover(), SurvivorSelection(duplicateElimination: true)]
 //    let selectionMode: SelectionMode = .best(order: [.fitness, .distribution(target: .medium), .distribution(target: .low), .distribution(target: .high)])
     let selectionMode: SelectionMode = .fitness
     let usedDistributionModel: DistributionModel = .averageDistanceToCenter
-    let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
+    let usedDiversityModel: DiversityModel = .fitnessSharing
     let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated
+    let hypermutationThreshold = 1 // Max. Level of diversity that triggers hypermutation
+    let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
     var mutationDistance: Int { return isDevelopmentRun ? 5 : 6 } // Radius inside of which a workstation positions radius can mutate
     
 }
@@ -92,28 +94,33 @@ extension SimulationSettings {
         var initialFactories: Set<Factory> = []
         
         generationSize.times {
-            
-            // 1 - create empty factory layout
-            var factoryLayout = getEmptyFactoryGrid
-            
-            // 2 - generate workstations at empty fields in factory layout
-            var nextWorkstationID = 1
-            for (workstationType, n) in workstationAmount {
-                n.times {
-                    let workstation = Workstation(id: nextWorkstationID, type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
-                    factoryLayout.addWorkstation(workstation)
-                    nextWorkstationID += 1
-                }
-            }
-            
-            // 3 - generate factory with robots at the entrance
-            let factory = generateFactory(from: &factoryLayout)
-            
-            // 4 - append factory to initial generation
+            let factory = generateRandomFactory()
             initialFactories.insert(factory)
         }
         
         return Generation(factories: initialFactories)
+        
+    }
+    
+    func generateRandomFactory() -> Factory {
+        
+        // 1 - create empty factory layout
+        var factoryLayout = getEmptyFactoryGrid
+        
+        // 2 - generate workstations at empty fields in factory layout
+        var nextWorkstationID = 1
+        for (workstationType, n) in workstationAmount {
+            n.times {
+                let workstation = Workstation(id: nextWorkstationID, type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
+                factoryLayout.addWorkstation(workstation)
+                nextWorkstationID += 1
+            }
+        }
+        
+        // 3 - generate factory with robots at the entrance
+        let factory = generateFactory(from: &factoryLayout)
+        
+        return factory
         
     }
     
