@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Product: CustomPrintable {
+struct Product: CustomPrintable, Encodable {
     
     let type: ProductType
     

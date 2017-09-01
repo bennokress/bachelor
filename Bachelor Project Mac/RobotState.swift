@@ -46,3 +46,19 @@ extension RobotState: CustomStringConvertible {
     }
     
 }
+
+extension RobotState: Encodable {
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .starting: try container.encode("starting")
+        case .moving: try container.encode("moving")
+        case .blocked: try container.encode("blocked")
+        case .docked: try container.encode("docked")
+        case .finished: try container.encode("finished")
+        case .idle(let rounds): try container.encode("idle since \(rounds) \(rounds == 1 ? "round" : "rounds")")
+        }
+    }
+    
+}

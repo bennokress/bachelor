@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FactoryState: String {
+enum FactoryState: String, Encodable {
     case running
     case finished
 }

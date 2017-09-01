@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Workstation: Identifiable, CustomPrintable {
+struct Workstation: Identifiable, CustomPrintable, Encodable {
     
     let id: Int
     var state: WorkstationState

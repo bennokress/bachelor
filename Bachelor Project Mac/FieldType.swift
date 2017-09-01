@@ -79,3 +79,19 @@ extension FieldType: CustomStringConvertible {
     }
     
 }
+
+extension FieldType: Encodable {
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .wall: try container.encode("wall")
+        case .entrance(let robots): try container.encode(robots)
+        case .exit(let robots): try container.encode(robots)
+        case .workstation(let workstation): try container.encode(workstation)
+        case .robot(let robot): try container.encode(robot)
+        case .empty: try container.encode("empty")
+        }
+    }
+    
+}

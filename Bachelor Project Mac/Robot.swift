@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Robot: Identifiable, CustomPrintable {
+struct Robot: Identifiable, CustomPrintable, Encodable {
     
     let id: Int
     let product: Product

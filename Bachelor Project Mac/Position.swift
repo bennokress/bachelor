@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Position {
+struct Position: Encodable {
     
     let x, y: Int
     

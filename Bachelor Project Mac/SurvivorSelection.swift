@@ -37,6 +37,9 @@ struct SurvivorSelection: Modificator {
             short: shortActionDescription(for: generation.factories.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter),
             detailed: detailedActionDescription(for: generation.factories.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter)
         )
+        
+        
+        
     }
     
     private func reduce(_ individuals: [Factory], toSize targetSize: Int) -> Set<Factory> {

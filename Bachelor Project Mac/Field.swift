@@ -9,7 +9,7 @@
 import Foundation
 //import SwifterSwift
 
-struct Field: CustomPrintable {
+struct Field: CustomPrintable, Encodable {
     
     let position: Position
     var state: FieldType

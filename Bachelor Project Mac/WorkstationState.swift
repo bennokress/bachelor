@@ -31,3 +31,15 @@ extension WorkstationState: CustomStringConvertible {
     }
     
 }
+
+extension WorkstationState: Encodable {
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .busy(let robot): try container.encode(robot)
+        case .idle: try container.encode("idle")
+        }
+    }
+    
+}

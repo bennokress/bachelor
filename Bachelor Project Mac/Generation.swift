@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Generation {
+struct Generation: Encodable {
     
     var factories: Set<Factory>
     

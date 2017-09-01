@@ -9,7 +9,7 @@
 import Foundation
 import CryptoSwift
 
-struct FactoryLayout: CustomPrintable {
+struct FactoryLayout: CustomPrintable, Encodable {
     
     let width: Int
     let length: Int

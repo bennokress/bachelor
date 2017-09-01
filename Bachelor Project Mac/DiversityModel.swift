@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DiversityModel {
+enum DiversityModel: String, Encodable {
     case fitnessSharing
     case entropyBased
     case genealogical

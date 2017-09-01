@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Routing: Codable {
+struct Routing: Encodable {
     
     func getShortestRoute(containing workstationTypes: [WorkstationType], in factoryLayout: FactoryLayout) -> [Position] {
         guard let entrance = factoryLayout.entrancePosition, let exit = factoryLayout.exitPosition else { fatalError("Factory Layout has no entrance or exit!") }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RunnableFactory {
+struct RunnableFactory: Encodable {
     
     var layout: FactoryLayout
     
