@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ProductType: String {
+enum ProductType: String, Codable {
     case pA = "A"
     case pB = "B"
     case pC = "C"

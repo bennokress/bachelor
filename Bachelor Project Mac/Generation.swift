@@ -19,14 +19,12 @@ struct Generation {
     
     // MARK: Computed Properties - Metrics
     var size: Int { return factories.count }
-    var diversity: Int {
-        return 0
-    }
+    var diversityParameter: Double { return SimulationSettings.shared.usedDiversityModel.getParameter(for: self) }
     
     // MARK: Computed Properties - Triggers
     var hypermutationShouldTrigger: Bool {
         let diversityThreshold = SimulationSettings.shared.hypermutationThreshold
-        return diversity <= diversityThreshold
+        return diversityParameter <= diversityThreshold
     }
     
     // MARK: Functions

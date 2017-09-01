@@ -13,10 +13,35 @@ enum DiversityModel {
     case entropyBased
     case genealogical
     
+    // MARK: Generation Measurement
+    func getParameter(for generation: Generation) -> Double {
+        switch self {
+        case .fitnessSharing:
+            return fitnessSharingParameter(for: generation)
+        case .entropyBased:
+            return entropyParameter(for: generation)
+        case .genealogical:
+            return genealogyParameter(for: generation)
+        }
+    }
+    
+    private func fitnessSharingParameter(for generation: Generation) -> Double {
+        return 0
+    }
+    
+    private func entropyParameter(for generation: Generation) -> Double {
+        return 0
+    }
+    
+    private func genealogyParameter(for generation: Generation) -> Double {
+        return 0
+    }
+    
+    // MARK: Individual Measurement
     func getScore(of generation: Generation) -> Int {
         switch self {
         case .fitnessSharing:
-            return method1diversity(of: generation)
+            return fitnessSharingDiversity(of: generation)
         case .entropyBased:
             return method2diversity(of: generation)
         case .genealogical:
@@ -24,7 +49,7 @@ enum DiversityModel {
         }
     }
     
-    private func method1diversity(of generation: Generation) -> Int {
+    private func fitnessSharingDiversity(of generation: Generation) -> Int {
         return 0
     }
     

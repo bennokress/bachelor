@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum WorkstationType: String {
+enum WorkstationType: String, Codable {
     case wsA = "A"
     case wsB = "B"
     case wsC = "C"

@@ -53,6 +53,11 @@ struct Factory: Identifiable, CustomPrintable {
     
     // MARK: Functions
     
+    /// Fitness measure with respect to the selected diversity measure: f'(x,P) = f(x) + lambda * d(x,P)
+    func getAdaptedFitness(inGeneration generation: Generation) -> Double {
+        return 0
+    }
+    
     func hasIdenticalLayout(as otherFactory: Factory) -> Bool {
         return self.layoutHash == otherFactory.layoutHash
     }
