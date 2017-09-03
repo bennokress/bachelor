@@ -32,6 +32,9 @@ struct Workstation: Identifiable, CustomPrintable, Encodable {
         self.state = .idle
     }
     
+    // MARK: Custom JSON Encoding
+    var jsonDetails: JSONDetails { return SimulationSettings.shared.jsonOutput }
+    
 }
 
 extension Workstation: CustomStringConvertible {

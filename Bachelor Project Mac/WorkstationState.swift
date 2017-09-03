@@ -35,10 +35,10 @@ extension WorkstationState: CustomStringConvertible {
 extension WorkstationState: Encodable {
     
     func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
+        var singleContainer = encoder.singleValueContainer()
         switch self {
-        case .busy(let robot): try container.encode(robot)
-        case .idle: try container.encode("idle")
+        case .busy(let robot): try singleContainer.encode("busy with robot (type \(robot.product.type.rawValue))")
+        case .idle: try singleContainer.encode("idle")
         }
     }
     

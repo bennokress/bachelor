@@ -7,7 +7,6 @@
 //
 
 import Foundation
-//import SwifterSwift
 
 struct Field: CustomPrintable, Encodable {
     
@@ -117,6 +116,16 @@ extension Field: CustomStringConvertible {
     
     var description: String {
         return "Field at \(position) is \(state)"
+    }
+    
+}
+
+// Custom Encodable
+extension Field {
+    
+    private enum CodingKeys: String, CodingKey {
+        case position
+        case state = "content"
     }
     
 }

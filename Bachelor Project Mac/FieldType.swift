@@ -86,10 +86,11 @@ extension FieldType: Encodable {
         var container = encoder.singleValueContainer()
         switch self {
         case .wall: try container.encode("wall")
-        case .entrance(let robots): try container.encode(robots)
-        case .exit(let robots): try container.encode(robots)
+        case .entrance(let robots): try container.encode("entrance (\(robots.count) robots)")
+        case .exit(let robots): try container.encode("exit (\(robots.count) robots)")
+//        case .workstation(let workstation): try container.encode("workstation (type \(workstation.type))")
         case .workstation(let workstation): try container.encode(workstation)
-        case .robot(let robot): try container.encode(robot)
+        case .robot(let robot): try container.encode("robot (type \(robot.product.type))")
         case .empty: try container.encode("empty")
         }
     }

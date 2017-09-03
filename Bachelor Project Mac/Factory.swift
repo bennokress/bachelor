@@ -25,7 +25,7 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
         let factoryCopy = RunnableFactory(layout: layout)
         self.fitness = factoryCopy.calculateFitness()
         
-        // Distribution Claculation
+        // Distribution Calculation
         self.distribution = factoryCopy.calculateDistribution()
     }
     
@@ -78,6 +78,25 @@ extension Factory: CustomStringConvertible {
         print("\(workstations.count) Workstations:")
         for workstation in workstations { print(workstation) }
         print("\n\n------------------------------------------------------------------------")
+    }
+    
+}
+
+extension Factory {
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case fitness
+        case distribution
+        case layoutHash
+        case layout = "workstations"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(fitness, forKey: .fitness)
+        try container.encode(layout.workstations.sorted(by: { $0.id < $1.id }), forKey: .layout)
     }
     
 }

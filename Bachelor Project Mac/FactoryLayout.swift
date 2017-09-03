@@ -226,3 +226,20 @@ extension FactoryLayout: CustomStringConvertible {
     }
     
 }
+
+extension FactoryLayout {
+    
+    private enum CodingKeys: String, CodingKey {
+        case width
+        case length
+        case fields = "workstations"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(width, forKey: .width)
+//        try container.encode(length, forKey: .length)
+        try container.encode(workstations.sorted(by: { $0.id < $1.id }), forKey: .fields)
+    }
+    
+}
