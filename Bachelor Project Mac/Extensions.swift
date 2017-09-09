@@ -132,6 +132,13 @@ extension Int {
         return self.abs < 10 ? 1 : 1 + (self / 10).digits
     }
     
+    /// Returns 100 * percentValue divided by self rounded to the next Int
+    func inverseAndExpand(by percentValue: Int) -> Int {
+        let double = Double(self)
+        let inverse = 1 / double
+        return Int(100 * Double(percentValue) * inverse)
+    }
+    
     func times(f: () -> ()) {
         if self > 0 {
             for _ in 0 ..< self {

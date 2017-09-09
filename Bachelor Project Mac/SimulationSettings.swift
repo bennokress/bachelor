@@ -58,6 +58,7 @@ class SimulationSettings {
     let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection(duplicateElimination: true)]
     let usedDistributionModel: DistributionModel = .averageDistanceToCenter
     let usedDiversityModel: DiversityModel = .fitnessSharing
+    let parentSelectionUsesRouletteMode = true
     let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated
     let hypermutationThreshold = 1.0 // Max. Level of diversity that triggers hypermutation
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory

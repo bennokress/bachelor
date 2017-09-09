@@ -11,14 +11,45 @@ import Foundation
 struct ParentSelection: Modificator {
     
     func execute(on generation: inout Generation) {
-        generation.factories = getSelectedIndividuals(from: generation)
+        generation.factories = getSelectedIndividuals(from: generation, usingRouletteMode: SimulationSettings.shared.parentSelectionUsesRouletteMode)
         actionPrint(short: shortActionDescription(for: generation.factories.sorted { $0.fitness < $1.fitness }),
                     detailed: detailedActionDescription(for: generation.factories.sorted { $0.fitness < $1.fitness }))
     }
     
-    private func getSelectedIndividuals(from generation: Generation) -> Set<Factory> {
-        let sortedGeneration = generation.factories.sorted { $0.fitness < $1.fitness }
-        return Set(sortedGeneration.prefix(generation.size / 2))
+    private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
+        if rouletteMode {
+            
+            guard let worstFitnessInGeneration = generation.factories.sorted(by: { $0.fitness > $1.fitness }).first?.fitness else { fatalError("No factories found!") }
+            
+            // 1 - Build "Roulette Wheel" by adding each factory-ID from the generation n times with n being the inversed and expanded factory fitness
+            var rouletteWheel: [Int] = []
+            for individual in generation.individuals {
+                let fitnessFactor = individual.fitness.inverseAndExpand(by: worstFitnessInGeneration)
+                fitnessFactor.times {
+                    rouletteWheel.append(individual.id)
+                }
+            }
+            
+            // 2 - Pick and remove factory IDs randomly from the roulette wheel
+            let neededIndividuals = generation.size / 2
+            var pickedIDs: [Int] = []
+            neededIndividuals.times {
+                guard let selectedFactoryID = rouletteWheel.randomElement else { fatalError("No ID found on Roulette Wheel!") }
+                rouletteWheel.removeAll(selectedFactoryID)
+                pickedIDs.append(selectedFactoryID)
+            }
+            
+            // 3 - Translate the picked IDs to individuals from the generation
+            let selectedIndividuals = generation.factories.filter { pickedIDs.contains($0.id) }
+            
+            return selectedIndividuals
+            
+        } else {
+            
+            let sortedGeneration = generation.factories.sorted { $0.fitness < $1.fitness }
+            return Set(sortedGeneration.prefix(generation.size / 2))
+            
+        }
     }
     
     private func shortActionDescription(for generation: [Factory]) -> String {
