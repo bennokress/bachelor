@@ -51,19 +51,19 @@ struct Crossover: Modificator {
             generation.insert(goodCrossoverFactory3)
             results.append((parent1: factory, parent2: goodFactoryAtInversePosition, crossover: goodCrossoverFactory3))
             
-            // E - ... with factory at the same position in shuffled good group
+            // E - ... with factory at the same position in shuffled worst group
             let worstFactoryAtSamePosition = worstFitnessFactories[i]
             let worstCrossoverFactory1 = crossover(factory, and: worstFactoryAtSamePosition)
             generation.insert(worstCrossoverFactory1)
             results.append((parent1: factory, parent2: worstFactoryAtSamePosition, crossover: worstCrossoverFactory1))
             
-            // F - ... with factory at the shifted position by 10% of the generation size (= best group size) in shuffled good group
+            // F - ... with factory at the shifted position by 10% of the generation size (= best group size) in shuffled worst group
             let worstFactoryAtShiftedPosition = worstFitnessFactories[i + tenPercentOfGenerationSize]
             let worstCrossoverFactory2 = crossover(factory, and: worstFactoryAtShiftedPosition)
             generation.insert(worstCrossoverFactory2)
             results.append((parent1: factory, parent2: worstFactoryAtShiftedPosition, crossover: worstCrossoverFactory2))
             
-            // G - ... with factory at the inverse position in shuffled good group
+            // G - ... with factory at the inverse position in shuffled worst group
             let worstFactoryAtInversePosition = worstFitnessFactories.reversed()[i]
             let worstCrossoverFactory3 = crossover(factory, and: worstFactoryAtInversePosition)
             generation.insert(worstCrossoverFactory3)

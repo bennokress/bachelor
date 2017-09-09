@@ -296,10 +296,10 @@
 				D3CD5F021EEAB68A00CEB83B /* Modificator.swift */,
 				D3325F361F1425390025555D /* SelectionMode.swift */,
 				D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */,
-				D334E8BE1EFD5115002DF760 /* Mutation.swift */,
-				D3142C2A1F45D12F0055D46F /* Hypermutation.swift */,
 				D3A644AE1F53180C00B91145 /* Crossover.swift */,
 				D3CD5F061EEAE63E00CEB83B /* OldCrossover.swift */,
+				D334E8BE1EFD5115002DF760 /* Mutation.swift */,
+				D3142C2A1F45D12F0055D46F /* Hypermutation.swift */,
 				D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */,
 			);
 			name = "Genetic Algorithm";
