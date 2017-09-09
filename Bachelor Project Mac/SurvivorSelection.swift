@@ -43,8 +43,8 @@ struct SurvivorSelection: Modificator {
     }
     
     private func reduce(_ individuals: [Factory], toSize targetSize: Int) -> Set<Factory> {
-        let selectedIndividuals = SimulationSettings.shared.selectionMode.basedOrder(of: individuals, targetSize: targetSize)
-        return Set(selectedIndividuals)
+        let sortedGeneration = individuals.sorted { $0.fitness < $1.fitness }
+        return Set(sortedGeneration.prefix(targetSize))
     }
     
     private func getRandomDuplicates(from allFactories: Set<Factory>, ignoring alreadySelectedFactories: [Factory], with size: Int) -> [Factory] {

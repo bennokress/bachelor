@@ -10,7 +10,6 @@
 		D3037FB21EFFBA2F00606C37 /* ActionPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */; };
 		D3142C2B1F45D12F0055D46F /* Hypermutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3142C2A1F45D12F0055D46F /* Hypermutation.swift */; };
 		D3325F351F13C9B00025555D /* RunnableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3325F341F13C9B00025555D /* RunnableFactory.swift */; };
-		D3325F371F1425390025555D /* SelectionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3325F361F1425390025555D /* SelectionMode.swift */; };
 		D334E8BD1EFD3FF5002DF760 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */; };
 		D334E8BF1EFD5115002DF760 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8BE1EFD5115002DF760 /* Mutation.swift */; };
 		D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */; };
@@ -85,7 +84,6 @@
 		D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPrintable.swift; sourceTree = "<group>"; };
 		D3142C2A1F45D12F0055D46F /* Hypermutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hypermutation.swift; sourceTree = "<group>"; };
 		D3325F341F13C9B00025555D /* RunnableFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnableFactory.swift; sourceTree = "<group>"; };
-		D3325F361F1425390025555D /* SelectionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMode.swift; sourceTree = "<group>"; };
 		D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/Mac/CryptoSwift.framework; sourceTree = "<group>"; };
 		D334E8BE1EFD5115002DF760 /* Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivorSelection.swift; sourceTree = "<group>"; };
@@ -294,7 +292,6 @@
 			children = (
 				D3D84DC11EB479760038710B /* Simulator.swift */,
 				D3CD5F021EEAB68A00CEB83B /* Modificator.swift */,
-				D3325F361F1425390025555D /* SelectionMode.swift */,
 				D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */,
 				D3A644AE1F53180C00B91145 /* Crossover.swift */,
 				D3CD5F061EEAE63E00CEB83B /* OldCrossover.swift */,
@@ -516,7 +513,6 @@
 				D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */,
 				D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */,
 				D3CD5F071EEAE63E00CEB83B /* OldCrossover.swift in Sources */,
-				D3325F371F1425390025555D /* SelectionMode.swift in Sources */,
 				D3E80FF51F51A2A90034A800 /* Generation.swift in Sources */,
 				D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */,
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,

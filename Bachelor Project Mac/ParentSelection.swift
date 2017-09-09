@@ -17,8 +17,8 @@ struct ParentSelection: Modificator {
     }
     
     private func getSelectedIndividuals(from generation: Generation) -> Set<Factory> {
-        let selectedIndividuals = SimulationSettings.shared.selectionMode.basedOrder(of: generation.individuals, targetSize: generation.size / 2)
-        return Set(selectedIndividuals)
+        let sortedGeneration = generation.factories.sorted { $0.fitness < $1.fitness }
+        return Set(sortedGeneration.prefix(generation.size / 2))
     }
     
     private func shortActionDescription(for generation: [Factory]) -> String {
