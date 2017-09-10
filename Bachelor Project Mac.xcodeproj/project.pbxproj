@@ -36,11 +36,11 @@
 		D39734691EB2095700DAAC8A /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734681EB2095700DAAC8A /* PositionTests.swift */; };
 		D397346C1EB3205A00DAAC8A /* FieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346B1EB3205A00DAAC8A /* FieldTests.swift */; };
 		D397346E1EB3208800DAAC8A /* FactoryLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */; };
-		D3A644AF1F53180C00B91145 /* Crossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A644AE1F53180C00B91145 /* Crossover.swift */; };
+		D3A644AF1F53180C00B91145 /* WeighedCrossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A644AE1F53180C00B91145 /* WeighedCrossover.swift */; };
 		D3B08DFF1F5C147000A8E872 /* JSONDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B08DFE1F5C147000A8E872 /* JSONDetails.swift */; };
 		D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F021EEAB68A00CEB83B /* Modificator.swift */; };
 		D3CD5F051EEAB77300CEB83B /* ParentSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */; };
-		D3CD5F071EEAE63E00CEB83B /* OldCrossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F061EEAE63E00CEB83B /* OldCrossover.swift */; };
+		D3CD5F071EEAE63E00CEB83B /* Crossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F061EEAE63E00CEB83B /* Crossover.swift */; };
 		D3D84DBE1EB478130038710B /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DBD1EB478130038710B /* Interpreter.swift */; };
 		D3D84DC01EB4781A0038710B /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DBF1EB4781A0038710B /* Presenter.swift */; };
 		D3D84DC21EB479760038710B /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC11EB479760038710B /* Simulator.swift */; };
@@ -117,11 +117,11 @@
 		D39734681EB2095700DAAC8A /* PositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTests.swift; sourceTree = "<group>"; };
 		D397346B1EB3205A00DAAC8A /* FieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldTests.swift; sourceTree = "<group>"; };
 		D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryLayoutTests.swift; sourceTree = "<group>"; };
-		D3A644AE1F53180C00B91145 /* Crossover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crossover.swift; sourceTree = "<group>"; };
+		D3A644AE1F53180C00B91145 /* WeighedCrossover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeighedCrossover.swift; sourceTree = "<group>"; };
 		D3B08DFE1F5C147000A8E872 /* JSONDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDetails.swift; sourceTree = "<group>"; };
 		D3CD5F021EEAB68A00CEB83B /* Modificator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modificator.swift; sourceTree = "<group>"; };
 		D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentSelection.swift; sourceTree = "<group>"; };
-		D3CD5F061EEAE63E00CEB83B /* OldCrossover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldCrossover.swift; sourceTree = "<group>"; };
+		D3CD5F061EEAE63E00CEB83B /* Crossover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crossover.swift; sourceTree = "<group>"; };
 		D3D84DBD1EB478130038710B /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		D3D84DBF1EB4781A0038710B /* Presenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		D3D84DC11EB479760038710B /* Simulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
@@ -295,8 +295,8 @@
 				D3D84DC11EB479760038710B /* Simulator.swift */,
 				D3CD5F021EEAB68A00CEB83B /* Modificator.swift */,
 				D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */,
-				D3A644AE1F53180C00B91145 /* Crossover.swift */,
-				D3CD5F061EEAE63E00CEB83B /* OldCrossover.swift */,
+				D3CD5F061EEAE63E00CEB83B /* Crossover.swift */,
+				D3A644AE1F53180C00B91145 /* WeighedCrossover.swift */,
 				D334E8BE1EFD5115002DF760 /* Mutation.swift */,
 				D3142C2A1F45D12F0055D46F /* Hypermutation.swift */,
 				D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */,
@@ -515,7 +515,7 @@
 				D3D84DDC1EB5F9390038710B /* FieldType.swift in Sources */,
 				D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */,
 				D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */,
-				D3CD5F071EEAE63E00CEB83B /* OldCrossover.swift in Sources */,
+				D3CD5F071EEAE63E00CEB83B /* Crossover.swift in Sources */,
 				D3E80FF51F51A2A90034A800 /* Generation.swift in Sources */,
 				D39734671EB1FECE00DAAC8A /* Factory.swift in Sources */,
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,
@@ -543,7 +543,7 @@
 				D3E80FF71F51AD9A0034A800 /* DiversityModel.swift in Sources */,
 				D33DF8261F650DAA00B55570 /* Statistics.swift in Sources */,
 				D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */,
-				D3A644AF1F53180C00B91145 /* Crossover.swift in Sources */,
+				D3A644AF1F53180C00B91145 /* WeighedCrossover.swift in Sources */,
 				D3CD5F051EEAB77300CEB83B /* ParentSelection.swift in Sources */,
 				D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */,
 				D334E8BF1EFD5115002DF760 /* Mutation.swift in Sources */,

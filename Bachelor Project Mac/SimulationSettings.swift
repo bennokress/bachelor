@@ -15,7 +15,7 @@ class SimulationSettings {
     
     // MARK: General
     let debugLevel = DebugLevel.off
-    let actionInformationLevel = DebugLevel.off
+    let actionInformationLevel = DebugLevel.extensive
     let jsonOutput = JSONDetails.full
     var jsonOutputActive: Bool { return jsonOutput > JSONDetails.off }
     let isDevelopmentRun = true
