@@ -13,6 +13,7 @@
 		D334E8BD1EFD3FF5002DF760 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */; };
 		D334E8BF1EFD5115002DF760 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8BE1EFD5115002DF760 /* Mutation.swift */; };
 		D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */; };
+		D33DF8261F650DAA00B55570 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33DF8251F650DAA00B55570 /* Statistics.swift */; };
 		D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */; };
 		D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */; };
 		D34A73081EB9DC5000FBE2F7 /* CustomPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */; };
@@ -87,6 +88,7 @@
 		D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/Mac/CryptoSwift.framework; sourceTree = "<group>"; };
 		D334E8BE1EFD5115002DF760 /* Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivorSelection.swift; sourceTree = "<group>"; };
+		D33DF8251F650DAA00B55570 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryState.swift; sourceTree = "<group>"; };
 		D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLevel.swift; sourceTree = "<group>"; };
 		D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPrintable.swift; sourceTree = "<group>"; };
@@ -194,7 +196,7 @@
 		D39734261EB1E6D300DAAC8A /* Bachelor Project Mac */ = {
 			isa = PBXGroup;
 			children = (
-				D3D84DD41EB4EBB20038710B /* Settings */,
+				D3D84DD41EB4EBB20038710B /* Settings & Output */,
 				D39734591EB1EF1000DAAC8A /* Static Models */,
 				D3D84DE11EB62ADE0038710B /* Dynamic Models */,
 				D3D84DCF1EB4DC120038710B /* Genetic Algorithm */,
@@ -311,17 +313,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D3D84DD41EB4EBB20038710B /* Settings */ = {
+		D3D84DD41EB4EBB20038710B /* Settings & Output */ = {
 			isa = PBXGroup;
 			children = (
 				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
+				D33DF8251F650DAA00B55570 /* Statistics.swift */,
 				D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */,
 				D3B08DFE1F5C147000A8E872 /* JSONDetails.swift */,
 				D3D84DD51EB4EBC30038710B /* ProductType.swift */,
 				D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */,
 				D3D84DD91EB4EC590038710B /* Routing.swift */,
 			);
-			name = Settings;
+			name = "Settings & Output";
 			sourceTree = "<group>";
 		};
 		D3D84DE11EB62ADE0038710B /* Dynamic Models */ = {
@@ -538,6 +541,7 @@
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
 				D35A50CE1F1A7C7700000B36 /* DistributionModel.swift in Sources */,
 				D3E80FF71F51AD9A0034A800 /* DiversityModel.swift in Sources */,
+				D33DF8261F650DAA00B55570 /* Statistics.swift in Sources */,
 				D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */,
 				D3A644AF1F53180C00B91145 /* Crossover.swift in Sources */,
 				D3CD5F051EEAB77300CEB83B /* ParentSelection.swift in Sources */,

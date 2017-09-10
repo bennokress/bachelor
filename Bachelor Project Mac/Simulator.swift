@@ -23,9 +23,9 @@ struct Simulator {
         settings.generations.times {
             currentRound += 1
             runSingleRoundOfGeneticAlgorithm(on: &generation)
-            // TODO: Generate an object of type GARound: Encodable -> save it until last round for output
-            if settings.jsonOutputActive { generation.printToConsole() }
+            Statistics.shared.save(generation)
             if settings.isLastSimulationRound(currentRound) {
+                Statistics.shared.createJSON()
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
             }
             actionPrint(
