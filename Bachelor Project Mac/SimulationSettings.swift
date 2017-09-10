@@ -45,7 +45,7 @@ class SimulationSettings {
     
     // MARK: Workstations
     var workstationAmount: [WorkstationType : Int] { return [
-        .wsA: isDevelopmentRun ? 1 : 3,
+        .wsA: isDevelopmentRun ? 2 : 3,
         .wsB: isDevelopmentRun ? 1 : 4,
         .wsC: isDevelopmentRun ? 1 : 3,
         .wsD: isDevelopmentRun ? 1 : 3,
@@ -55,10 +55,14 @@ class SimulationSettings {
     }
     
     // MARK: Genetic Algorithm
-    let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection(duplicateElimination: true)]
+    let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection()]
     let usedDistributionModel: DistributionModel = .averageDistanceToCenter
     let usedDiversityModel: DiversityModel = .fitnessSharing
     let parentSelectionUsesRouletteMode = true
+    let duplicateEliminationActivated = true
+    let simulatedWorkstationBreakdownActivated = true
+    var workstationBreakdownTiming: Int { return generations * (2/3) } // If the Workstation Breakdown is activated, it occurs after 2/3rd of the runtime
+    let brokenWorkstationID = 1
     var mutationProbability: Int { return isDevelopmentRun ? 35 : 15 } // Probability with which each workstation of a factory gets its position mutated
     let hypermutationThreshold = 1.0 // TODO: Max. Level of diversity that triggers hypermutation
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory

@@ -10,7 +10,7 @@ import Foundation
 
 struct SurvivorSelection: Modificator {
     
-    let duplicateElimination: Bool
+    var duplicateEliminationActivated: Bool { return SimulationSettings.shared.duplicateEliminationActivated }
     
     func execute(on generation: inout Generation) {
         
@@ -18,7 +18,7 @@ struct SurvivorSelection: Modificator {
         
         var individuals = generation.individuals
         var duplicateCounter = 0
-        if duplicateElimination {
+        if duplicateEliminationActivated {
             individuals.filterDuplicates(matching: { $0.layoutHash == $1.layoutHash })
             duplicateCounter = generation.size - individuals.count
             if individuals.count < targetGenerationSize {
@@ -58,13 +58,13 @@ struct SurvivorSelection: Modificator {
     
     private func shortActionDescription(for generation: [Factory], duplicates: Int) -> String {
         guard let bestFitness = generation.first?.fitness, let worstFitness = generation.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "\(duplicateElimination ? "Removed \(duplicates) duplicates\n" : "")Selected \(generation.count) factories (survivors) with fitness between \(bestFitness) and \(worstFitness)"
+        return "\(duplicateEliminationActivated ? "Removed \(duplicates) duplicates\n" : "")Selected \(generation.count) factories (survivors) with fitness between \(bestFitness) and \(worstFitness)"
     }
     
     private func detailedActionDescription(for generation: [Factory], duplicates: Int) -> [String] {
         let title = "SURVIVOR SELECTION"
         var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
-        if duplicateElimination { actionDescriptionLines.append("  · Removed \(duplicates) duplicates") }
+        if duplicateEliminationActivated { actionDescriptionLines.append("  · Removed \(duplicates) duplicates") }
         for factory in generation { actionDescriptionLines.append("  · Selected factory #\(factory.id) with fitness \(factory.fitness) as survivor") }
         return actionDescriptionLines
     }
