@@ -23,3 +23,11 @@ extension WorkstationType: IdentifiableEnum {
     var id: Int { return hashValue }
     
 }
+
+extension WorkstationType: Comparable {
+    
+    public static func < (a: WorkstationType, b: WorkstationType) -> Bool {
+        return a.rawValue < b.rawValue
+    }
+    
+}

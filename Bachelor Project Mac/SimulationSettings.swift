@@ -62,7 +62,7 @@ class SimulationSettings {
     let duplicateEliminationActivated = true
     let simulatedWorkstationBreakdownActivated = true
     var workstationBreakdownTiming: Int { return generations * (2/3) } // If the Workstation Breakdown is activated, it occurs after 2/3rd of the runtime
-    let brokenWorkstationID = 1
+    let brokenWorkstationIDs = [1]
     var mutationProbability: Int { return isDevelopmentRun ? 35 : 15 } // Probability with which each workstation of a factory gets its position mutated
     let hypermutationThreshold = 1.0 // TODO: Max. Level of diversity that triggers hypermutation
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
@@ -114,8 +114,11 @@ extension SimulationSettings {
         
         // 2 - generate workstations at empty fields in factory layout
         var nextWorkstationID = 1
-        for (workstationType, n) in workstationAmount {
-            n.times {
+        for workstationType in workstationAmount.keys.sorted(by: { $0 < $1 }) {
+            guard let amountOfCurrentWorkstationType = workstationAmount[workstationType] else {
+                fatalError("No information found on amount for workstations of type \(workstationType.rawValue)")
+            }
+            amountOfCurrentWorkstationType.times {
                 let workstation = Workstation(id: nextWorkstationID, type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
                 factoryLayout.addWorkstation(workstation)
                 nextWorkstationID += 1
@@ -142,8 +145,11 @@ extension SimulationSettings {
         
         // 1 - generate robots for each product and place them at the entrance
         var nextRobotID = 1
-        for (productType, n) in productAmount {
-            n.times {
+        for productType in productAmount.keys.sorted(by: { $0 < $1 }) {
+            guard let amountOfCurrentProductType = productAmount[productType] else {
+                fatalError("No information found on amount for product of type \(productType.rawValue)")
+            }
+            amountOfCurrentProductType.times {
                 let product = Product(type: productType)
                 var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
                 factoryLayout.addRobot(&robot)

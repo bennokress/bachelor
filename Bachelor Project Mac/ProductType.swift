@@ -38,3 +38,11 @@ extension ProductType: IdentifiableEnum {
     var id: Int { return hashValue }
     
 }
+
+extension ProductType: Comparable {
+    
+    public static func < (a: ProductType, b: ProductType) -> Bool {
+        return a.rawValue < b.rawValue
+    }
+    
+}

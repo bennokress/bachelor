@@ -22,6 +22,9 @@ struct Simulator {
         var currentRound = 0
         settings.generations.times {
             currentRound += 1
+            if settings.simulatedWorkstationBreakdownActivated && currentRound == settings.workstationBreakdownTiming {
+                deactivateWorkstations(withIDs: settings.brokenWorkstationIDs, in: &generation)
+            }
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             saveStats(on: generation, inRound: currentRound)
             if settings.isLastSimulationRound(currentRound) {
@@ -36,10 +39,9 @@ struct Simulator {
         }
     }
     
-    private func runMaintenance(on generation: inout Generation, forRound round: Int) {
-        // If workstation breakdown activated and round matches specification in settings
-            // -> let workstation break down
-            // -> produces new factory with new fitness!
+    private func deactivateWorkstations(withIDs workstationIDs: [Int], in generation: inout Generation) {
+        // TODO: replace each individual of the generation with a new individual with the same ID but with less workstations
+        
     }
     
     private func saveStats(on generation: Generation, inRound round: Int) {
