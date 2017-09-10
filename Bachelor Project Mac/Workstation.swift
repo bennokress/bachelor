@@ -3,7 +3,7 @@
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 27.04.17.
-//  Copyright © 2017 it-economics. All rights reserved.
+//  Copyright © 2017 Benno Kress. All rights reserved.
 //
 
 import Foundation
@@ -41,6 +41,24 @@ extension Workstation: CustomStringConvertible {
     
     var description: String {
         return "Workstation #\(id) (\(state)) of type \(type.rawValue) at \(position)"
+    }
+    
+}
+
+// MARK: Custom Encodable
+extension Workstation {
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case type
+        case position
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(type.rawValue, forKey: .type)
+        try container.encode(position, forKey: .position)
     }
     
 }

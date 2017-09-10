@@ -722,7 +722,7 @@
 				);
 				INFOPLIST_FILE = "Bachelor Project Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.bennokress.Bachelor-Project-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -743,7 +743,7 @@
 				);
 				INFOPLIST_FILE = "Bachelor Project Mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "de.it-economics.Bachelor-Project-Mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.bennokress.Bachelor-Project-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;

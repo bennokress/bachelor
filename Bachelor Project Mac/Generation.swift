@@ -3,7 +3,7 @@
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 26.08.17.
-//  Copyright © 2017 it-economics. All rights reserved.
+//  Copyright © 2017 Benno Kress. All rights reserved.
 //
 
 import Foundation
@@ -20,6 +20,9 @@ struct Generation: Encodable {
     
     // MARK: Computed Properties - Metrics
     var size: Int { return factories.count }
+    var averageFitness: Double { return Double(factories.map { $0.fitness }.reduce(0, +)) / Double(factories.count) }
+    var bestFitness: Int? { return factories.map { $0.fitness }.min() }
+    var worstFitness: Int? { return factories.map { $0.fitness }.max() }
     var diversityParameter: Double { return SimulationSettings.shared.usedDiversityModel.getParameter(for: self) }
     
     // MARK: Computed Properties - Triggers

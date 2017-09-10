@@ -3,7 +3,7 @@
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 09.06.17.
-//  Copyright © 2017 it-economics. All rights reserved.
+//  Copyright © 2017 Benno Kress. All rights reserved.
 //
 
 import Foundation

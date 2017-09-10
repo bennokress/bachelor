@@ -3,7 +3,7 @@
 //  PerformanceTests
 //
 //  Created by Benno Kress on 27.04.17.
-//  Copyright © 2017 it-economics. All rights reserved.
+//  Copyright © 2017 Benno Kress. All rights reserved.
 //
 
 import XCTest

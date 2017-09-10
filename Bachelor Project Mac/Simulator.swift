@@ -3,7 +3,7 @@
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 29.04.17.
-//  Copyright © 2017 it-economics. All rights reserved.
+//  Copyright © 2017 Benno Kress. All rights reserved.
 //
 
 import Foundation
@@ -23,7 +23,7 @@ struct Simulator {
         settings.generations.times {
             currentRound += 1
             runSingleRoundOfGeneticAlgorithm(on: &generation)
-            Statistics.shared.save(generation)
+            saveStats(on: generation, inRound: currentRound)
             if settings.isLastSimulationRound(currentRound) {
                 Statistics.shared.createJSON()
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
@@ -34,6 +34,17 @@ struct Simulator {
                 detailed: detailedRoundResultDescription(for: generation, afterRound: currentRound)
             )
         }
+    }
+    
+    private func runMaintenance(on generation: inout Generation, forRound round: Int) {
+        // If workstation breakdown activated and round matches specification in settings
+            // -> let workstation break down
+            // -> produces new factory with new fitness!
+    }
+    
+    private func saveStats(on generation: Generation, inRound round: Int) {
+        // Save to Statistics.shared
+        Statistics.shared.save(generation, forRound: round)
     }
     
     private func runSingleRoundOfGeneticAlgorithm(on generation: inout Generation) {
