@@ -11,6 +11,7 @@ import Foundation
 struct Generation: Encodable {
     
     var factories: Set<Factory>
+    var parents: Set<Factory>
     
     // MARK: Computed Properties - Factory Specific
     var individuals: [Factory] { return Array(factories) }
@@ -27,9 +28,20 @@ struct Generation: Encodable {
         return diversityParameter <= diversityThreshold
     }
     
+    init(factories: Set<Factory>) {
+        self.factories = factories
+        self.parents = []
+    }
+    
     // MARK: Functions
     mutating func insert(_ factory: Factory) {
         factories.insert(factory)
     }
+    
+    mutating func setParents(_ parents: Set<Factory>) {
+        self.parents = parents
+    }
+    
+    // TODO: Adjust JSON Encoding parameters
     
 }

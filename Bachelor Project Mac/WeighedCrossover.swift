@@ -14,14 +14,14 @@ struct WeighedCrossover: Modificator {
         
         var results: [(parent1: Factory, parent2: Factory, crossover: Factory)] = []
 
-        let sortedFactories = generation.sortedByFitness
+        let sortedFactories = generation.parents.sorted { $0.fitness < $1.fitness }
 
-        let tenPercentOfGenerationSize = generation.size / 10
+        let tenPercentOfParentsCount = generation.parents.count / 10
 
         // 0 - Generation grouped by fitness (best: top 10%, good: next 30%, worst: rest)
-        let bestFitnessFactories: [Factory] = Array(sortedFactories[0 ..< tenPercentOfGenerationSize]).shuffled()
-        let goodFitnessFactories: [Factory] = Array(sortedFactories[tenPercentOfGenerationSize ..< (3 * tenPercentOfGenerationSize)]).shuffled()
-        let worstFitnessFactories: [Factory] = Array(sortedFactories[(3 * tenPercentOfGenerationSize) ... (sortedFactories.endIndex - 1)]).shuffled()
+        let bestFitnessFactories: [Factory] = Array(sortedFactories[0 ..< tenPercentOfParentsCount]).shuffled()
+        let goodFitnessFactories: [Factory] = Array(sortedFactories[tenPercentOfParentsCount ..< (3 * tenPercentOfParentsCount)]).shuffled()
+        let worstFitnessFactories: [Factory] = Array(sortedFactories[(3 * tenPercentOfParentsCount) ... (sortedFactories.endIndex - 1)]).shuffled()
         
         // 1 - Crossover from the best group with ...
         for i in 0 ..< bestFitnessFactories.count {
@@ -40,7 +40,7 @@ struct WeighedCrossover: Modificator {
             results.append((parent1: factory, parent2: goodFactoryAtSamePosition, crossover: goodCrossoverFactory1))
             
             // C - ... with factory at the shifted position by 10% of the generation size (= best group size) in shuffled good group
-            let goodFactoryAtShiftedPosition = goodFitnessFactories[i + tenPercentOfGenerationSize]
+            let goodFactoryAtShiftedPosition = goodFitnessFactories[i + tenPercentOfParentsCount]
             let goodCrossoverFactory2 = crossover(factory, and: goodFactoryAtShiftedPosition)
             generation.insert(goodCrossoverFactory2)
             results.append((parent1: factory, parent2: goodFactoryAtShiftedPosition, crossover: goodCrossoverFactory2))
@@ -58,7 +58,7 @@ struct WeighedCrossover: Modificator {
             results.append((parent1: factory, parent2: worstFactoryAtSamePosition, crossover: worstCrossoverFactory1))
             
             // F - ... with factory at the shifted position by 10% of the generation size (= best group size) in shuffled worst group
-            let worstFactoryAtShiftedPosition = worstFitnessFactories[i + tenPercentOfGenerationSize]
+            let worstFactoryAtShiftedPosition = worstFitnessFactories[i + tenPercentOfParentsCount]
             let worstCrossoverFactory2 = crossover(factory, and: worstFactoryAtShiftedPosition)
             generation.insert(worstCrossoverFactory2)
             results.append((parent1: factory, parent2: worstFactoryAtShiftedPosition, crossover: worstCrossoverFactory2))

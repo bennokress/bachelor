@@ -16,10 +16,10 @@ struct Crossover: Modificator {
         
         var results: [(parent1: Factory, parent2: Factory, crossover: Factory)] = []
         
-        let individuals = generation.shuffled
+        let individuals = generation.parents.shuffled
         for i in 0..<individuals.count {
             
-            // 1 - Take two neighboring factories
+            // 1 - Take two neighboring factories from the selected and shuffled parents
             let factory1 = individuals[i]
             let factory2 = (i-1) < 0 ? individuals[individuals.count - 1] : individuals[i-1]
             

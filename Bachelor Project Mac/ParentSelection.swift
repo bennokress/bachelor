@@ -11,15 +11,16 @@ import Foundation
 struct ParentSelection: Modificator {
     
     func execute(on generation: inout Generation) {
-        generation.factories = getSelectedIndividuals(from: generation, usingRouletteMode: SimulationSettings.shared.parentSelectionUsesRouletteMode)
-        actionPrint(short: shortActionDescription(for: generation.factories.sorted { $0.fitness < $1.fitness }),
-                    detailed: detailedActionDescription(for: generation.factories.sorted { $0.fitness < $1.fitness }))
+        let parents = getSelectedIndividuals(from: generation, usingRouletteMode: SimulationSettings.shared.parentSelectionUsesRouletteMode)
+        generation.setParents(parents)
+        actionPrint(short: shortActionDescription(for: parents.sorted { $0.fitness < $1.fitness }),
+                    detailed: detailedActionDescription(for: parents.sorted { $0.fitness < $1.fitness }))
     }
     
     private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
         if rouletteMode {
             
-            guard let worstFitnessInGeneration = generation.factories.sorted(by: { $0.fitness > $1.fitness }).first?.fitness else { fatalError("No factories found!") }
+            guard let worstFitnessInGeneration = generation.sortedByFitness.first?.fitness else { fatalError("No factories found!") }
             
             // 1 - Build "Roulette Wheel" by adding each factory-ID from the generation n times with n being the inversed and expanded factory fitness
             var rouletteWheel: [Int] = []
@@ -46,15 +47,15 @@ struct ParentSelection: Modificator {
             
         } else {
             
-            let sortedGeneration = generation.factories.sorted { $0.fitness < $1.fitness }
+            let sortedGeneration = generation.sortedByFitness
             return Set(sortedGeneration.prefix(generation.size / 2))
             
         }
     }
     
-    private func shortActionDescription(for generation: [Factory]) -> String {
-        guard let bestFitness = generation.first?.fitness, let worstFitness = generation.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "Selected \(generation.count) factories (parents) with fitness between \(bestFitness) and \(worstFitness)"
+    private func shortActionDescription(for sortedGeneration: [Factory]) -> String {
+        guard let bestFitness = sortedGeneration.first?.fitness, let worstFitness = sortedGeneration.last?.fitness else { return "--- Error retreiving fitness ---" }
+        return "Selected \(sortedGeneration.count) factories (parents) with fitness between \(bestFitness) and \(worstFitness)"
     }
     
     private func detailedActionDescription(for generation: [Factory]) -> [String] {

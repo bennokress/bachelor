@@ -59,8 +59,8 @@ class SimulationSettings {
     let usedDistributionModel: DistributionModel = .averageDistanceToCenter
     let usedDiversityModel: DiversityModel = .fitnessSharing
     let parentSelectionUsesRouletteMode = true
-    let mutationProbability = 15 // Probability with which each workstation of a factory gets its position mutated
-    let hypermutationThreshold = 1.0 // Max. Level of diversity that triggers hypermutation
+    var mutationProbability: Int { return isDevelopmentRun ? 35 : 15 } // Probability with which each workstation of a factory gets its position mutated
+    let hypermutationThreshold = 1.0 // TODO: Max. Level of diversity that triggers hypermutation
     let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
     var mutationDistance: Int { return isDevelopmentRun ? 5 : 6 } // Radius inside of which a workstation positions radius can mutate
     
