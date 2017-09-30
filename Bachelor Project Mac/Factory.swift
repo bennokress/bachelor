@@ -51,11 +51,18 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
         return workstations
     }
     
+    var sortedWorkstations: [Workstation] {
+        return workstations.sorted { $0.id < $1.id }
+    }
+    
     // MARK: Functions
     
     /// Fitness measure with respect to the selected diversity measure: f'(x,P) = f(x) + lambda * d(x,P)
-    func getAdaptedFitness(inGeneration generation: Generation) -> Double {
-        return 0
+    func getAdaptedFitness(in generation: Generation) -> Double {
+        let diversityModel = SimulationSettings.shared.usedDiversityModel
+        let lambda = diversityModel.lambda
+        let diversity = diversityModel.diversityScore(of: self, in: generation)
+        return Double(fitness) + lambda * diversity
     }
     
     func hasIdenticalLayout(as otherFactory: Factory) -> Bool {

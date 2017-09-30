@@ -13,18 +13,30 @@ enum DiversityModel: String, Encodable {
     case fitnessSharing
     case genomDistanceBased
     
+    var lambda: Double {
+        // TODO: Set values
+        switch self {
+        case .genealogical:
+            return 0.0
+        case .fitnessSharing:
+            return 0.0
+        case .genomDistanceBased:
+            return 0.0
+        }
+    }
+    
     // MARK: Generation Measurement
     func averageDiversity(for generation: Generation) -> Double {
         var combinedDiversityScore: Double = 0
         for individual in generation.individuals {
-            combinedDiversityScore += score(of: individual, in: generation)
+            combinedDiversityScore += diversityScore(of: individual, in: generation)
         }
         let averageDiversity = combinedDiversityScore / Double(generation.size)
         return averageDiversity
     }
     
     // MARK: Individual Measurement
-    func score(of individual: Factory, in generation: Generation) -> Double {
+    func diversityScore(of individual: Factory, in generation: Generation) -> Double {
         switch self {
         case .genealogical:
             return genealogyDiversity(of: individual, in: generation)
@@ -39,8 +51,21 @@ enum DiversityModel: String, Encodable {
         return 0
     }
     
+    /// Measuring the pairwise distance of all workstations of the individual in its generation.
     private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double {
-        return 0
+        var sumOfAverageWorkstationDistancesPerIndividual: Double = 0
+        for comparisonIndividual in generation.individuals {
+            var sumOfPairwiseWorkstationDistances: Double = 0
+            for (i, workstation) in individual.sortedWorkstations.enumerated() {
+                let comparisonWorkstation = comparisonIndividual.sortedWorkstations[i]
+                sumOfPairwiseWorkstationDistances += Double(workstation.position.distance(to: comparisonWorkstation.position))
+            }
+            let averageWorkstationDistance = sumOfPairwiseWorkstationDistances / Double(individual.workstations.count)
+            sumOfAverageWorkstationDistancesPerIndividual += averageWorkstationDistance
+        }
+        let individualCount = Double(generation.size - 1)
+        let diversity = sumOfAverageWorkstationDistancesPerIndividual / individualCount
+        return diversity
     }
     
     private func genomDistanceBasedDiversity(of individual: Factory, in generation: Generation) -> Double {
