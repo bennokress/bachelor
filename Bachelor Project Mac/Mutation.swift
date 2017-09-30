@@ -25,7 +25,9 @@ struct Mutation: Modificator {
             }
             
             // 2 - Loop over the workstations of the factory
+            var neededDNAFlips = 0
             for originalWorkstation in factory.workstations where Bool.random(trueProbability: settings.mutationProbability) {
+                neededDNAFlips += 1
                 
                 // Determine all possible empty fields for the mutation of the current workstation
                 let possibleNewPositions = originalWorkstation.position.allPositions(inRadius: settings.mutationDistance, inside: factory.layout).filter { mutatedFactoryLayout.isEmptyField(at: $0) }
@@ -38,11 +40,14 @@ struct Mutation: Modificator {
                 mutatedFactoryLayout.swap(originalWorkstation, for: mutatedWorkstation)
             }
             
-            // 3 - Generate new factory from layout and add to generation
-            let mutatedFactory = settings.generateFactory(from: &mutatedFactoryLayout)
+            // 3 - Compute new genealogyDNA
+            let mutationBitstring = Bitstring(from: factory.genealogyDNA, mutatedBitsCount: neededDNAFlips)
+            
+            // 4 - Generate new factory from layout and add to generation
+            let mutatedFactory = settings.generateFactory(from: &mutatedFactoryLayout, genealogyDNA: mutationBitstring)
             generation.insert(mutatedFactory)
             
-            // 4 - Save result for action output
+            // 5 - Save result for action output
             results.append((original: factory, mutation: mutatedFactory))
         }
         
@@ -62,7 +67,8 @@ struct Mutation: Modificator {
         for mutation in results.sorted(by: { $0.mutation.fitness < $1.mutation.fitness }) {
             let original = mutation.original
             let sibling = mutation.mutation
-            actionDescriptionLines.append("  · #\(original.id) (\(original.fitness)) ==> #\(sibling.id) (\(sibling.fitness))")
+            actionDescriptionLines.append("  · #\(original.genealogyDNA) ==> #\(sibling.genealogyDNA)")
+//            actionDescriptionLines.append("  · #\(original.id) (\(original.fitness)) ==> #\(sibling.id) (\(sibling.fitness))")
         }
         return actionDescriptionLines
     }

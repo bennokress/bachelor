@@ -25,6 +25,7 @@ class SimulationSettings {
     // MARK: Quantities
     var generationSize: Int { return isDevelopmentRun ? 30 : 50 }
     var generations: Int { return isDevelopmentRun ? 200 : 50 }
+    var workstationCount: Int { return Array(workstationAmount.values).total }
     func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
     // MARK: Factory Layout
@@ -125,8 +126,8 @@ extension SimulationSettings {
             }
         }
         
-        // 3 - generate factory with robots at the entrance
-        let factory = generateFactory(from: &factoryLayout)
+        // 3 - generate factory with robots at the entrance and a random genealogyDNA
+        let factory = generateFactory(from: &factoryLayout, genealogyDNA: Bitstring(length: workstationCount))
         
         return factory
         
@@ -141,7 +142,7 @@ extension SimulationSettings {
         return FactoryLayout()
     }
     
-    func generateFactory(from factoryLayout: inout FactoryLayout) -> Factory {
+    func generateFactory(from factoryLayout: inout FactoryLayout, genealogyDNA: Bitstring) -> Factory {
         
         // 1 - generate robots for each product and place them at the entrance
         var nextRobotID = 1
@@ -158,7 +159,7 @@ extension SimulationSettings {
         }
         
         // 2 - generate factory
-        let factory = Factory(id: nextFactoryID, layout: factoryLayout)
+        let factory = Factory(id: nextFactoryID, layout: factoryLayout, genealogyDNA: genealogyDNA)
         nextFactoryID += 1
         
         return factory

@@ -16,10 +16,13 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
     let fitness: Int
     let distribution: Double
     
-    init(id: Int, layout: FactoryLayout) {
+    let genealogyDNA: Bitstring
+    
+    init(id: Int, layout: FactoryLayout, genealogyDNA: Bitstring) {
         self.id = id
         self.layout = layout
         self.layoutHash = layout.hash
+        self.genealogyDNA = genealogyDNA
         
         // Fitness Calculation
         let factoryCopy = RunnableFactory(layout: layout)
@@ -74,7 +77,7 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
 extension Factory: CustomStringConvertible {
     
     var description: String {
-        return "Factory #\(id) with fitness \(fitness) and distribution \(Int(distribution)):\n\n\(layout.description)\n\n"
+        return "Factory #\(id) with fitness \(fitness):\n\n\(layout.description)\n\n"
     }
     
     func extensivePrint() {

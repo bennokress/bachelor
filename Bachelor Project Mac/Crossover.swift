@@ -34,8 +34,10 @@ struct Crossover: Modificator {
             }
             
             // 4 - Loop through the workstations from the second factory and switch them in for their counterparts of factory 1 randomly
+            var neededDNAFlips = 0
             for (index, workstation) in crossoverPartnerWorkstations.enumerated() {
                 if Bool.random(trueProbability: settings.crossoverProbability) && crossoverFactoryLayout.isEmptyField(at: workstation.position) {
+                    neededDNAFlips += 1
                     let originalWorkstation = newWorkstations[index]
                     
                     // Copy original workstation ID to new workstation
@@ -46,11 +48,14 @@ struct Crossover: Modificator {
                 }
             }
             
-            // 5 - Generate new factory from layout and add to generation
-            let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout)
+            // 5 - Compute new genealogyDNA
+            let crossoverBitstring = Bitstring(from: factory1.genealogyDNA, and: factory2.genealogyDNA, mergedAfter: neededDNAFlips)
+            
+            // 6 - Generate new factory from layout and add to generation
+            let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout, genealogyDNA: crossoverBitstring)
             generation.insert(crossoverFactory)
             
-            // 6 - Save result for action output
+            // 7 - Save result for action output
             results.append((parent1: factory1, parent2: factory2, crossover: crossoverFactory))
             
         }
@@ -72,7 +77,8 @@ struct Crossover: Modificator {
             let parent1 = crossover.parent1
             let parent2 = crossover.parent2
             let child = crossover.crossover
-            actionDescriptionLines.append("  · #\(parent1.id) (\(parent1.fitness)) + #\(parent2.id) (\(parent2.fitness)) ==> #\(child.id) (\(child.fitness))")
+            actionDescriptionLines.append("  · #\(parent1.genealogyDNA) + #\(parent2.genealogyDNA) ==> #\(child.genealogyDNA)")
+//            actionDescriptionLines.append("  · #\(parent1.id) (\(parent1.fitness)) + #\(parent2.id) (\(parent2.fitness)) ==> #\(child.id) (\(child.fitness))")
         }
         return actionDescriptionLines
     }
