@@ -14,50 +14,36 @@ enum DiversityModel: String, Encodable {
     case genomDistanceBased
     
     // MARK: Generation Measurement
-    func getParameter(for generation: Generation) -> Double {
-        switch self {
-        case .genealogical:
-            return genealogyParameter(for: generation)
-        case .fitnessSharing:
-            return fitnessSharingParameter(for: generation)
-        case .genomDistanceBased:
-            return genomDistanceParameter(for: generation)
+    func averageDiversity(for generation: Generation) -> Double {
+        var combinedDiversityScore: Double = 0
+        for individual in generation.individuals {
+            combinedDiversityScore += score(of: individual, in: generation)
         }
-    }
-    
-    private func genealogyParameter(for generation: Generation) -> Double {
-        return 0
-    }
-    
-    private func fitnessSharingParameter(for generation: Generation) -> Double {
-        return 0
-    }
-    
-    private func genomDistanceParameter(for generation: Generation) -> Double {
-        return 0
+        let averageDiversity = combinedDiversityScore / Double(generation.size)
+        return averageDiversity
     }
     
     // MARK: Individual Measurement
-    func getScore(of generation: Generation) -> Int {
+    func score(of individual: Factory, in generation: Generation) -> Double {
         switch self {
         case .genealogical:
-            return genealogyDiversity(of: generation)
+            return genealogyDiversity(of: individual, in: generation)
         case .fitnessSharing:
-            return fitnessSharingDiversity(of: generation)
+            return fitnessSharingDiversity(of: individual, in: generation)
         case .genomDistanceBased:
-            return genomDistanceBasedDiversity(of: generation)
+            return genomDistanceBasedDiversity(of: individual, in: generation)
         }
     }
     
-    private func genealogyDiversity(of generation: Generation) -> Int {
+    private func genealogyDiversity(of individual: Factory, in generation: Generation) -> Double {
         return 0
     }
     
-    private func fitnessSharingDiversity(of generation: Generation) -> Int {
+    private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double {
         return 0
     }
     
-    private func genomDistanceBasedDiversity(of generation: Generation) -> Int {
+    private func genomDistanceBasedDiversity(of individual: Factory, in generation: Generation) -> Double {
         return 0
     }
     

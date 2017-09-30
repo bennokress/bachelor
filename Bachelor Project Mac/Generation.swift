@@ -23,7 +23,7 @@ struct Generation: Encodable {
     var averageFitness: Double { return Double(factories.map { $0.fitness }.reduce(0, +)) / Double(factories.count) }
     var bestFitness: Int? { return factories.map { $0.fitness }.min() }
     var worstFitness: Int? { return factories.map { $0.fitness }.max() }
-    var diversityParameter: Double { return SimulationSettings.shared.usedDiversityModel.getParameter(for: self) }
+    var diversityParameter: Double { return SimulationSettings.shared.usedDiversityModel.averageDiversity(for: self) }
     
     // MARK: Computed Properties - Triggers
     var hypermutationShouldTrigger: Bool {
