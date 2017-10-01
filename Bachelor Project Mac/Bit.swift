@@ -21,6 +21,10 @@ enum Bit: Int, Equatable, Codable {
         return Bit(rawValue: rawValue)!
     }
     
+    func distance(to otherBit: Bit) -> Int {
+        return self == otherBit ? 0 : 1
+    }
+    
 }
 
 extension Bit: CustomStringConvertible {

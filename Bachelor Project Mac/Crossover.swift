@@ -34,10 +34,10 @@ struct Crossover: Modificator {
             }
             
             // 4 - Loop through the workstations from the second factory and switch them in for their counterparts of factory 1 randomly
-            var neededDNAFlips = 0
+            var neededDNASwitches = 0
             for (index, workstation) in crossoverPartnerWorkstations.enumerated() {
                 if Bool.random(trueProbability: settings.crossoverProbability) && crossoverFactoryLayout.isEmptyField(at: workstation.position) {
-                    neededDNAFlips += 1
+                    neededDNASwitches += 1
                     let originalWorkstation = newWorkstations[index]
                     
                     // Copy original workstation ID to new workstation
@@ -49,7 +49,7 @@ struct Crossover: Modificator {
             }
             
             // 5 - Compute new genealogyDNA
-            let crossoverBitstring = Bitstring(from: factory1.genealogyDNA, and: factory2.genealogyDNA, mergedAfter: neededDNAFlips)
+            let crossoverBitstring = Bitstring(from: factory1.genealogyDNA, and: factory2.genealogyDNA, mergedAfter: neededDNASwitches)
             
             // 6 - Generate new factory from layout and add to generation
             let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout, genealogyDNA: crossoverBitstring)

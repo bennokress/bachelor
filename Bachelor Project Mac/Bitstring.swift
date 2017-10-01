@@ -20,15 +20,16 @@ struct Bitstring: Codable {
         self.bits = bits
     }
     
-    init(from bitstring1: Bitstring, and bitstring2: Bitstring, mergedAfter cutIndex: Int) {
-        guard cutIndex < bitstring1.length else { fatalError("Cut Index is out of range!") }
-        if cutIndex == 0 {
+    init(from bitstring1: Bitstring, and bitstring2: Bitstring, mergedAfter switchBits: Int) {
+        guard switchBits <= bitstring1.length else { fatalError("More bits should be flipped than available!") }
+        if switchBits == 0 {
             self.bits = bitstring1.bits
         } else {
+            let cutIndex = switchBits - 1
             let bitIndices = 0 ... bitstring1.length - 1
             var crossoverBits: [Bit] = []
-            for i in bitIndices {
-                crossoverBits.append(i < cutIndex ? bitstring1.bits[i] : bitstring2.bits[i])
+            for index in bitIndices {
+                crossoverBits.append(index <= cutIndex ? bitstring1.bits[index] : bitstring2.bits[index])
             }
             self.bits = crossoverBits
         }
@@ -50,6 +51,15 @@ struct Bitstring: Codable {
         var bitstring = self.bits
         bitstring[index] = bitstring[index].flipped
         self.bits = bitstring
+    }
+    
+    func distance(to otherBitstring: Bitstring) -> Int? {
+        guard self.length == otherBitstring.length else { return nil }
+        var bitDistance = 0
+        for i in 0 ... length - 1 {
+            bitDistance += bits[i].distance(to: otherBitstring.bits[i])
+        }
+        return bitDistance
     }
     
 }

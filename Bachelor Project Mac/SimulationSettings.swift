@@ -15,7 +15,7 @@ class SimulationSettings {
     
     // MARK: General
     let debugLevel = DebugLevel.off
-    let actionInformationLevel = DebugLevel.extensive
+    let actionInformationLevel = DebugLevel.off // extensive
     let jsonOutput = JSONDetails.full
     var jsonOutputActive: Bool { return jsonOutput > JSONDetails.off }
     let isDevelopmentRun = true
@@ -58,7 +58,7 @@ class SimulationSettings {
     // MARK: Genetic Algorithm
     let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection()]
     let usedDistributionModel: DistributionModel = .averageDistanceToCenter
-    let usedDiversityModel: DiversityModel = .fitnessSharing
+    let usedDiversityModel: DiversityModel = .genealogical
     let parentSelectionUsesRouletteMode = true
     let duplicateEliminationActivated = true
     let simulatedWorkstationBreakdownActivated = true

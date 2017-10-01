@@ -65,7 +65,7 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
         let diversityModel = SimulationSettings.shared.usedDiversityModel
         let lambda = diversityModel.lambda
         let diversity = diversityModel.diversityScore(of: self, in: generation)
-        return Double(fitness) + lambda * diversity
+        return Double(fitness) + lambda * Double(diversity)
     }
     
     func hasIdenticalLayout(as otherFactory: Factory) -> Bool {
