@@ -22,7 +22,8 @@ class Statistics: Encodable {
     
     func createJSON() {
         // TODO: Save to file instead of console
-        self.printToConsole()
+//        self.printToConsole()
+        self.generateCSV()
     }
     
     // MARK: Data Conversion Structure
@@ -41,6 +42,31 @@ class Statistics: Encodable {
             self.averageFitness = generation.averageFitness
             self.individuals = generation.sortedByFitness
         }
+    }
+    
+    private func generateCSV() {
+        var simulationRoundCSV = "Simulation Round;"
+        var averageFitnessCSV = "Average Fitness;"
+        var bestFitnessCSV = "Best Fitness;"
+        var worstFitnessCSV = "Worst Fitness;"
+        var averageDiversityCSV = "Average Diversity;"
+        for round in evolution {
+            simulationRoundCSV += "\(round.simulationRound);"
+            averageFitnessCSV += "\(round.averageFitness);"
+            bestFitnessCSV += "\(round.bestFitness);"
+            worstFitnessCSV += "\(round.worstFitness);"
+            averageDiversityCSV += getDiversityAverageCSV(from: round.individuals)
+        }
+        print(simulationRoundCSV)
+        print(averageFitnessCSV)
+        print(bestFitnessCSV)
+        print(worstFitnessCSV)
+        print(averageDiversityCSV)
+    }
+    
+    private func getDiversityAverageCSV(from individuals: [Factory]) -> String {
+        let generation = Generation(factories: Set(individuals))
+        return "\(generation.averageDiversity);"
     }
 
 }

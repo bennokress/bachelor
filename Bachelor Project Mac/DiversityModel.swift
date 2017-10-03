@@ -30,15 +30,15 @@ enum DiversityModel: String, Encodable {
     func averageDiversity(for generation: Generation) -> Double {
         var combinedDiversity: Double = 0
         let generationSize = Double(generation.size)
-        var csvStats = ""
+//        var csvStats = ""
         for individual in generation.individuals {
             let individualDiversity = Double(diversityScore(of: individual, in: generation))
             combinedDiversity += individualDiversity
-            csvStats += "\(individualDiversity);"
+//            csvStats += "\(individualDiversity);"
         }
         let averageDiversity = combinedDiversity / generationSize
-        csvStats += "\(averageDiversity);"
-        print(csvStats)
+//        csvStats += "\(averageDiversity);"
+//        print(csvStats)
         return averageDiversity
     }
     

@@ -27,6 +27,7 @@ struct Simulator {
             }
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             saveStats(on: generation, inRound: currentRound)
+            print(currentRound)
             if settings.isLastSimulationRound(currentRound) {
                 Statistics.shared.createJSON()
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
