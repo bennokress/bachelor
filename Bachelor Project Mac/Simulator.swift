@@ -40,8 +40,10 @@ struct Simulator {
     }
     
     private func deactivateWorkstations(withIDs workstationIDs: [Int], in generation: inout Generation) {
-        // TODO: replace each individual of the generation with a new individual with the same ID but with less workstations
-        
+        for individual in generation.individuals {
+            let individualWithBrokenWorkstations = SimulationSettings.shared.getFactoryWithDeactivatedWorkstations(withIDs: workstationIDs, from: individual)
+            generation.replace(individual, with: individualWithBrokenWorkstations)
+        }
     }
     
     private func saveStats(on generation: Generation, inRound round: Int) {

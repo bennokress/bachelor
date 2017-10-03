@@ -141,7 +141,7 @@ extension FactoryLayout {
         fields[newFieldnumber].addRobot(modifiedRobot)
     }
     
-    private mutating func deleteWorkstation(_ workstation: Workstation) {
+    mutating func deleteWorkstation(_ workstation: Workstation) {
         guard let fieldnumber = workstation.position.getFieldnumber(in: self), fields[fieldnumber].workstation != nil else {
             fatalError("Workstation not found in factory layout")
         }

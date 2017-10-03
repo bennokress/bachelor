@@ -41,6 +41,11 @@ struct Generation: Encodable {
         factories.insert(factory)
     }
     
+    mutating func replace(_ oldFactory: Factory, with newFactory: Factory) {
+        guard factories.remove(oldFactory) != nil else { fatalError("Old Factory not found!") }
+        insert(newFactory)
+    }
+    
     mutating func setParents(_ parents: Set<Factory>) {
         self.parents = parents
     }

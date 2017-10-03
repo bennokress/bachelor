@@ -16,7 +16,7 @@ class SimulationSettings {
     // MARK: General
     let debugLevel = DebugLevel.off
     let actionInformationLevel = DebugLevel.off // extensive
-    let jsonOutput = JSONDetails.full
+    let jsonOutput = JSONDetails.off
     var jsonOutputActive: Bool { return jsonOutput > JSONDetails.off }
     let isDevelopmentRun = true
     var nextFactoryID: Int = 1
@@ -60,9 +60,9 @@ class SimulationSettings {
     let usedDistributionModel: DistributionModel = .averageDistanceToCenter
     let usedDiversityModel: DiversityModel = .genealogical
     let parentSelectionUsesRouletteMode = true
-    let duplicateEliminationActivated = true
+    let duplicateEliminationActivated = false
     let simulatedWorkstationBreakdownActivated = true
-    var workstationBreakdownTiming: Int { return generations * (2/3) } // If the Workstation Breakdown is activated, it occurs after 2/3rd of the runtime
+    var workstationBreakdownTiming: Int { return generations * 2 / 3 } // If the Workstation Breakdown is activated, it occurs after 2/3rd of the runtime
     let brokenWorkstationIDs = [1]
     var mutationProbability: Int { return isDevelopmentRun ? 35 : 15 } // Probability with which each workstation of a factory gets its position mutated
     let hypermutationThreshold = 1.0 // TODO: Max. Level of diversity that triggers hypermutation
@@ -164,6 +164,17 @@ extension SimulationSettings {
         
         return factory
         
+    }
+    
+    func getFactoryWithDeactivatedWorkstations(withIDs workstationIDs: [Int], from factory: Factory) -> Factory {
+        let factoryID = factory.id
+        let factoryDNA = factory.genealogyDNA
+        var newLayout = factory.layout
+        let brokenWorkstations = factory.workstations.filter { workstationIDs.contains($0.id) }
+        for brokenWorkstation in brokenWorkstations {
+            newLayout.deleteWorkstation(brokenWorkstation)
+        }
+        return Factory(id: factoryID, layout: newLayout, genealogyDNA: factoryDNA)
     }
     
 }
