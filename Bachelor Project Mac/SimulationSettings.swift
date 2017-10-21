@@ -15,64 +15,14 @@ class SimulationSettings {
     
     // MARK: General
     let debugLevel = DebugLevel.off
-    let actionInformationLevel = DebugLevel.off // extensive
+    let actionInformationLevel = DebugLevel.off
     let jsonOutput = JSONDetails.off
-    var jsonOutputActive: Bool { return jsonOutput > JSONDetails.off }
-    let isDevelopmentRun = true
     var nextFactoryID: Int = 1
     let dodgeThreshold = 100 // number of times a robot can move away from next target before being marked as blocked
     
-    // MARK: Quantities
-    var generationSize: Int { return isDevelopmentRun ? 30 : 50 }
-    var generations: Int { return isDevelopmentRun ? 200 : 50 }
+    // MARK: Computed Properties
+    var jsonOutputActive: Bool { return jsonOutput > JSONDetails.off }
     var workstationCount: Int { return Array(workstationAmount.values).total }
-    func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
-    
-    // MARK: Factory Layout
-    var factoryWidth: Int { return isDevelopmentRun ? 29 : 30 }
-    var factoryLength: Int { return isDevelopmentRun ? 10 : 30 }
-    var distanceFromEntranceAndExitToLayoutCorner: Int { return isDevelopmentRun ? 15 : 5 }
-    
-    // MARK: Products
-    var productAmount: [ProductType : Int] { return [
-        .pA: isDevelopmentRun ? 1 : 4,
-        .pB: isDevelopmentRun ? 0 : 5,
-        .pC: isDevelopmentRun ? 0 : 6,
-        .pD: isDevelopmentRun ? 0 : 7,
-        .pE: isDevelopmentRun ? 0 : 8,
-        .pF: isDevelopmentRun ? 0 : 9
-        ]
-    }
-    
-    // MARK: Workstations
-    var workstationAmount: [WorkstationType : Int] { return [
-        .wsA: isDevelopmentRun ? 2 : 3,
-        .wsB: isDevelopmentRun ? 1 : 4,
-        .wsC: isDevelopmentRun ? 1 : 3,
-        .wsD: isDevelopmentRun ? 1 : 3,
-        .wsE: isDevelopmentRun ? 1 : 4,
-        .wsF: isDevelopmentRun ? 1 : 3
-        ]
-    }
-    
-    // MARK: Genetic Algorithm
-    let modificators: [Modificator] = [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection()]
-    let usedDistributionModel: DistributionModel = .averageDistanceToCenter
-    let usedDiversityModel: DiversityModel = .genealogical
-    let parentSelectionUsesRouletteMode = true
-    let duplicateEliminationActivated = false
-    let simulatedWorkstationBreakdownActivated = true
-    var workstationBreakdownTiming: Int { return generations * 2 / 3 } // If the Workstation Breakdown is activated, it occurs after 2/3rd of the runtime
-    let brokenWorkstationIDs = [1]
-    var mutationProbability: Int { return isDevelopmentRun ? 35 : 15 } // Probability with which each workstation of a factory gets its position mutated
-    let hypermutationThreshold = 1.0 // TODO: Max. Level of diversity that triggers hypermutation
-    let crossoverProbability = 50 // Probability with which each workstation of a factory gets replaced by a corresponding one of the crossover partner factory
-    var mutationDistance: Int { return isDevelopmentRun ? 5 : 6 } // Radius inside of which a workstation positions radius can mutate
-    
-}
-
-// MARK: Computed Properties
-extension SimulationSettings {
     
     var entrance: Position {
         let entranceFieldnumber = distanceFromEntranceAndExitToLayoutCorner - 1
@@ -89,6 +39,31 @@ extension SimulationSettings {
         }
         return exitPosition
     }
+    
+    // MARK: Last Round Checker for simulation statistics output
+    func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
+    
+    // MARK: Settings depending on Simulation Mode
+    var simulationMode = SimulationMode.development
+    var generationSize: Int { return simulationMode.generationSize }
+    var generations: Int { return simulationMode.generations }
+    var factoryWidth: Int { return simulationMode.factoryWidth }
+    var factoryLength: Int { return simulationMode.factoryLength }
+    var distanceFromEntranceAndExitToLayoutCorner: Int { return simulationMode.distanceFromEntranceAndExitToLayoutCorner }
+    var productAmount: [ProductType : Int] { return simulationMode.productAmount }
+    var workstationAmount: [WorkstationType : Int] { return simulationMode.workstationAmount }
+    var mutationProbability: Int { return simulationMode.mutationProbability }
+    var mutationDistance: Int { return simulationMode.mutationDistance }
+    var hypermutationThreshold: Double { return simulationMode.hypermutationThreshold }
+    var crossoverProbability: Int { return simulationMode.crossoverProbability }
+    var modificators: [Modificator] { return simulationMode.phases }
+    var usedDistributionModel: DistributionModel { return simulationMode.distributionModel }
+    var usedDiversityModel: DiversityModel { return simulationMode.diversityModel }
+    var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
+    var duplicateEliminationActivated: Bool { return simulationMode.duplicateEliminationActivated }
+    var simulatedWorkstationBreakdownActivated: Bool { return simulationMode.simulatedWorkstationBreakdownActivated }
+    var brokenWorkstationIDs: [Int] { return simulationMode.brokenWorkstationIDs }
+    var workstationBreakdownTiming: Int { return simulationMode.workstationBreakdownTiming }
     
 }
 

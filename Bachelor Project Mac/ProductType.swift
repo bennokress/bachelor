@@ -31,6 +31,10 @@ enum ProductType: String, Encodable {
         }
     }
     
+    static func amountDictionary(a: Int, b: Int, c: Int, d: Int, e: Int, f: Int) -> [ProductType : Int] {
+        return [.pA: a, .pB: b, .pC: c, .pD: d, .pE: e, .pF: f]
+    }
+    
 }
 
 extension ProductType: IdentifiableEnum {

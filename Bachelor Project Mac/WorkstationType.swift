@@ -16,6 +16,11 @@ enum WorkstationType: String, Encodable {
     case wsE = "E"
     case wsF = "F"
     case testWorkstation = "T" // needed in unit tests only
+    
+    static func amountDictionary(a: Int, b: Int, c: Int, d: Int, e: Int, f: Int) -> [WorkstationType : Int] {
+        return [.wsA: a, .wsB: b, .wsC: c, .wsD: d, .wsE: e, .wsF: f]
+    }
+    
 }
 
 extension WorkstationType: IdentifiableEnum {
