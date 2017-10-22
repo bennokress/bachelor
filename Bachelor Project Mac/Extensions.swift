@@ -96,6 +96,16 @@ extension Collection {
     
 }
 
+extension Date {
+    
+    static var now: Date { return Date() }
+    
+    public func secondsSince(_ date: Date) -> Double {
+        return self.timeIntervalSince(date)
+    }
+    
+}
+
 extension Encodable {
     
     func printToConsole() {
@@ -191,6 +201,11 @@ extension String {
         let spacing = String.init(repeating: " ", count: padding)
         let oddLengthFix = oddLength ? "\(divider)" : ""
         return "\(halfDivider)\(spacing)\(self)\(spacing)\(halfDivider)\(oddLengthFix)"
+    }
+    
+    /// String with points replaced by commas
+    var excelFixed: String {
+        return self.replacingOccurrences(of: ".", with: ",")
     }
     
 }

@@ -13,6 +13,14 @@ class Statistics: Encodable {
     private init() { }
     static var shared = Statistics()
     
+    var startTime: Date? = nil
+    var endTime: Date? = nil
+    
+    var runtime: Double {
+        guard let start = startTime, let finish = endTime else { return -1 }
+        return finish.secondsSince(start)
+    }
+    
     private var evolution: [RoundStatistics] = []
     
     func save(_ generation: Generation, forRound round: Int) {
@@ -20,8 +28,9 @@ class Statistics: Encodable {
         evolution.append(roundStatistics)
     }
     
-    func createJSON() {
+    func generateFinalOutput() {
         // TODO: Save to file instead of console
+        endTime = Date.now
 //        self.printToConsole()
         self.generateCSV()
     }
@@ -45,11 +54,13 @@ class Statistics: Encodable {
     }
     
     private func generateCSV() {
+        let runtime = "Runtime in Seconds;\(self.runtime)"
         var simulationRoundCSV = "Simulation Round;"
         var averageFitnessCSV = "Average Fitness;"
         var bestFitnessCSV = "Best Fitness;"
         var worstFitnessCSV = "Worst Fitness;"
         var averageDiversityCSV = "Average Diversity;"
+        
         for round in evolution {
             simulationRoundCSV += "\(round.simulationRound);"
             averageFitnessCSV += "\(round.averageFitness);"
@@ -57,11 +68,17 @@ class Statistics: Encodable {
             worstFitnessCSV += "\(round.worstFitness);"
             averageDiversityCSV += getDiversityAverageCSV(from: round.individuals)
         }
-        print(simulationRoundCSV)
-        print(averageFitnessCSV)
-        print(bestFitnessCSV)
-        print(worstFitnessCSV)
-        print(averageDiversityCSV)
+        
+        let csvOutput = """
+        \(runtime.excelFixed)
+        \(simulationRoundCSV.excelFixed)
+        \(averageFitnessCSV.excelFixed)
+        \(bestFitnessCSV.excelFixed)
+        \(worstFitnessCSV.excelFixed)
+        \(averageDiversityCSV.excelFixed)
+        """
+        
+        print(csvOutput)
     }
     
     private func getDiversityAverageCSV(from individuals: [Factory]) -> String {

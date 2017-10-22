@@ -11,8 +11,10 @@ import Foundation
 struct Simulator {
     
     var settings = SimulationSettings.shared
+    var statistics = Statistics.shared
     
     mutating func start() {
+        statistics.startTime = Date.now
         var generation = settings.getInitialGeneration()
         runSimulation(on: &generation)
     }
@@ -29,7 +31,7 @@ struct Simulator {
             saveStats(on: generation, inRound: currentRound)
             print(currentRound)
             if settings.isLastSimulationRound(currentRound) {
-                Statistics.shared.createJSON()
+                statistics.generateFinalOutput()
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
             }
             actionPrint(
@@ -53,8 +55,8 @@ struct Simulator {
     }
     
     private func runSingleRoundOfGeneticAlgorithm(on generation: inout Generation) {
-        for modificator in settings.modificators {
-            modificator.execute(on: &generation)
+        for phase in settings.phases {
+            phase.execute(on: &generation)
         }
     }
     

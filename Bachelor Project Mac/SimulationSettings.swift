@@ -57,7 +57,7 @@ class SimulationSettings {
     var mutationDistance: Int { return simulationMode.mutationDistance }
     var hypermutationThreshold: Double { return simulationMode.hypermutationThreshold }
     var crossoverProbability: Int { return simulationMode.crossoverProbability }
-    var modificators: [Modificator] { return simulationMode.phases }
+    var phases: [Modificator] { return simulationMode.phases }
     var usedDistributionModel: DistributionModel { return simulationMode.distributionModel }
     var usedDiversityModel: DiversityModel { return simulationMode.diversityModel }
     var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
