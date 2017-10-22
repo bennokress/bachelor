@@ -9,9 +9,14 @@
 import Foundation
 
 enum SimulationMode {
-    case development    // used in development | small and very predictable - good for checking the results of code adjustments
-    case phase1         // used until Oct 20th | still quite small, but has some usable output
-    case phase2         // used until -------- | first version for the final work, no influence on selection by diversity
+    // used in development | small and very predictable - good for checking the results of code adjustments
+    case development(diversityModel: DiversityModel)
+    
+    // used until Oct 20th | still quite small, but has some usable output
+    case phase1(diversityModel: DiversityModel, randomizeProducts: Bool)
+    
+    // used until -------- | first version for the final work, no influence on selection by diversity
+    case phase2(diversityModel: DiversityModel, randomizeProducts: Bool)
 }
 
 extension SimulationMode {
@@ -63,8 +68,11 @@ extension SimulationMode {
     /// Amounts for each product type used in the simulation
     var productAmount: [ProductType : Int] {
         switch self {
-        case .development: return ProductType.amountDictionary(a: 1, b: 0, c: 0, d: 0, e: 0, f: 0)
-        default: return ProductType.amountDictionary(a: 4, b: 5, c: 6, d: 7, e: 8, f: 9)
+        case .development:
+            return ProductType.amountDictionary(a: 1, b: 0, c: 0, d: 0, e: 0, f: 0)
+        case .phase1(_, let randomize),
+             .phase2(_, let randomize):
+            return randomize ? ProductType.randomAmountDictionary(maxAmount: 10) : ProductType.amountDictionary(a: 4, b: 5, c: 6, d: 7, e: 8, f: 9)
         }
     }
     
@@ -128,7 +136,7 @@ extension SimulationMode {
     /// The diversity model used in the Selection phase
     var diversityModel: DiversityModel {
         switch self {
-        case .development: return .genomDistanceBased
+        case .development: return .genealogical
         case .phase1: return .genealogical
         case .phase2: return .genealogical
         }

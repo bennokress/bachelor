@@ -31,6 +31,16 @@ enum ProductType: String, Encodable {
         }
     }
     
+    static func randomAmountDictionary(maxAmount: Int = 10) -> [ProductType : Int] {
+        let a = Int.random(between: 1, and: maxAmount)
+        let b = Int.random(between: 1, and: maxAmount)
+        let c = Int.random(between: 1, and: maxAmount)
+        let d = Int.random(between: 1, and: maxAmount)
+        let e = Int.random(between: 1, and: maxAmount)
+        let f = Int.random(between: 1, and: maxAmount)
+        return amountDictionary(a: a, b: b, c: c, d: d, e: e, f: f)
+    }
+    
     static func amountDictionary(a: Int, b: Int, c: Int, d: Int, e: Int, f: Int) -> [ProductType : Int] {
         return [.pA: a, .pB: b, .pC: c, .pD: d, .pE: e, .pF: f]
     }

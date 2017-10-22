@@ -13,6 +13,8 @@ class SimulationSettings {
     private init() { }
     static var shared = SimulationSettings()
     
+    var simulationMode: SimulationMode = .development(diversityModel: .genealogical)
+    
     // MARK: General
     let debugLevel = DebugLevel.off
     let actionInformationLevel = DebugLevel.off
@@ -44,7 +46,6 @@ class SimulationSettings {
     func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
     // MARK: Settings depending on Simulation Mode
-    var simulationMode = SimulationMode.development
     var generationSize: Int { return simulationMode.generationSize }
     var generations: Int { return simulationMode.generations }
     var factoryWidth: Int { return simulationMode.factoryWidth }
