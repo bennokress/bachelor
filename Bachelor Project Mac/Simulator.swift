@@ -26,6 +26,7 @@ struct Simulator {
             currentRound += 1
             if settings.simulatedWorkstationBreakdownActivated && currentRound == settings.workstationBreakdownTiming {
                 deactivateWorkstations(withIDs: settings.brokenWorkstationIDs, in: &generation)
+                generation.workstationBreakdownHappened = true
             }
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             saveStats(on: generation, inRound: currentRound)

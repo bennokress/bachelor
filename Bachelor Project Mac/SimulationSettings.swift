@@ -13,8 +13,8 @@ class SimulationSettings {
     private init() { }
     static var shared = SimulationSettings()
     
-    var simulationMode: SimulationMode = .development(diversityModel: .fitnessSharing, useDiversity: false)
-    //    var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
+    var simulationMode: SimulationMode = .development(diversityModel: .fitnessSharing, useDiversity: true)
+    // var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
     
     // MARK: General
     let debugLevel = DebugLevel.off
@@ -86,7 +86,7 @@ extension SimulationSettings {
         
     }
     
-    func generateRandomFactory() -> Factory {
+    func generateRandomFactory(withBrokenWorkstation brokenWorkstationEnabled: Bool = false) -> Factory {
         
         // 1 - create empty factory layout
         var factoryLayout = getEmptyFactoryGrid
@@ -107,7 +107,7 @@ extension SimulationSettings {
         // 3 - generate factory with robots at the entrance and a random genealogyDNA
         let factory = generateFactory(from: &factoryLayout, genealogyDNA: Bitstring(length: workstationCount))
         
-        return factory
+        return brokenWorkstationEnabled ? getFactoryWithDeactivatedWorkstations(withIDs: brokenWorkstationIDs, from: factory) : factory
         
     }
     

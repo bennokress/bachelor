@@ -15,6 +15,8 @@ struct Generation: Encodable {
     var factories: Set<Factory>
     var parents: Set<Factory>
     
+    var workstationBreakdownHappened = false
+    
     // MARK: Computed Properties - Factory Specific
     var individuals: [Factory] { return Array(factories) }
     var shuffled: [Factory] { return factories.shuffled }
