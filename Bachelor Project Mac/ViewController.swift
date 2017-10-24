@@ -28,7 +28,7 @@ class ViewController: NSViewController {
 
     @IBAction func startButtonPressed(_ sender: Any) {
         interpreter.startButtonPressed()
-        // TODO: Disable Start Button until simulation is finished
+        // TODO: [IMPROVEMENT] Disable Start Button until simulation is finished
     }
 
 }

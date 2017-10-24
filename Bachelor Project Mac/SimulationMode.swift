@@ -10,13 +10,13 @@ import Foundation
 
 enum SimulationMode {
     // used in development | small and very predictable - good for checking the results of code adjustments
-    case development(diversityModel: DiversityModel)
+    case development(diversityModel: DiversityModel, useDiversity: Bool)
     
     // used until Oct 20th | still quite small, but has some usable output
-    case phase1(diversityModel: DiversityModel, randomizeProducts: Bool)
+    case phase1(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
     
     // used until -------- | first version for the final work, no influence on selection by diversity
-    case phase2(diversityModel: DiversityModel, randomizeProducts: Bool)
+    case phase2(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
 }
 
 extension SimulationMode {
@@ -70,8 +70,8 @@ extension SimulationMode {
         switch self {
         case .development:
             return ProductType.amountDictionary(a: 1, b: 0, c: 0, d: 0, e: 0, f: 0)
-        case .phase1(_, let randomize),
-             .phase2(_, let randomize):
+        case .phase1(_, _, let randomize),
+             .phase2(_, _, let randomize):
             return randomize ? ProductType.randomAmountDictionary(maxAmount: 10) : ProductType.amountDictionary(a: 4, b: 5, c: 6, d: 7, e: 8, f: 9)
         }
     }
@@ -115,7 +115,7 @@ extension SimulationMode {
         case .development: return 1.0
         case .phase1: return 1.0
         case .phase2: return 1.0
-            // TODO: Find a good value!
+            // TODO: [TUNING] Find a good value!
         }
     }
     
@@ -136,17 +136,27 @@ extension SimulationMode {
     /// The diversity model used in the Selection phase
     var diversityModel: DiversityModel {
         switch self {
-        case .development(let diversityModel),
-             .phase1(let diversityModel, _),
-             .phase2(let diversityModel, _):
+        case .development(let diversityModel, _),
+             .phase1(let diversityModel, _, _),
+             .phase2(let diversityModel, _, _):
             return diversityModel
+        }
+    }
+    
+    /// Indication if selection is based on fitness alone or fitness and diversity together
+    var selectionUsesDiversity: Bool {
+        switch self {
+        case .development(_, let useDiversity),
+             .phase1(_, let useDiversity, _),
+             .phase2(_, let useDiversity, _):
+            return useDiversity
         }
     }
     
     /// Indication if the Parent Selection Phase should give all individuals a weighed chance to become parents or if the should be selected by fitness
     var parentSelectionUsesRouletteMode: Bool {
         switch self {
-        case .development: return false
+        case .development: return true
         case .phase1: return true
         case .phase2: return true
         }

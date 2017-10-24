@@ -15,7 +15,7 @@ enum DiversityModel: String, Encodable {
     
     /// Factor in calculating the diversity-influenced fitness f'.
     var lambda: Double {
-        // TODO: Set values
+        // TODO: [TUNING] Set values
         switch self {
         case .genealogical:
             return 0.0
@@ -92,7 +92,7 @@ enum DiversityModel: String, Encodable {
                 sumOfWorkstationDistances += workstation.position.distance(to: comparisonWorkstation.position)
             }
             let averageDistance = Double(sumOfWorkstationDistances) / Double(individual.workstations.count)
-            // TODO: Threshold based on factory layout, but how?
+            // TODO: [TUNING] Threshold based on factory layout, but how?
             let threshold = Double(individual.layout.size) / 100
             return (averageDistance > threshold) ? 1.0 : (averageDistance / threshold)
         }

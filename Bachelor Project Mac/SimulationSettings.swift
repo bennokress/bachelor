@@ -13,7 +13,8 @@ class SimulationSettings {
     private init() { }
     static var shared = SimulationSettings()
     
-    var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, randomizeProducts: false)
+    var simulationMode: SimulationMode = .development(diversityModel: .fitnessSharing, useDiversity: false)
+    //    var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
     
     // MARK: General
     let debugLevel = DebugLevel.off
@@ -24,7 +25,7 @@ class SimulationSettings {
     
     // MARK: Computed Properties
     var jsonOutputActive: Bool { return jsonOutput > JSONDetails.off }
-    var workstationCount: Int { return Array(workstationAmount.values).total }
+    var workstationCount: Int { return workstationAmount.values.reduce(0, +) }
     
     var entrance: Position {
         let entranceFieldnumber = distanceFromEntranceAndExitToLayoutCorner - 1
@@ -60,6 +61,7 @@ class SimulationSettings {
     var phases: [Modificator] { return simulationMode.phases }
     var usedDistributionModel: DistributionModel { return simulationMode.distributionModel }
     var usedDiversityModel: DiversityModel { return simulationMode.diversityModel }
+    var selectionUsesDiversity: Bool { return simulationMode.selectionUsesDiversity }
     var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
     var duplicateEliminationActivated: Bool { return simulationMode.duplicateEliminationActivated }
     var simulatedWorkstationBreakdownActivated: Bool { return simulationMode.simulatedWorkstationBreakdownActivated }

@@ -10,6 +10,8 @@ import Foundation
 
 struct RunnableFactory: Encodable {
     
+    var settings: SimulationSettings { return SimulationSettings.shared }
+    
     var layout: FactoryLayout
     
     // MARK: Computed Properties
@@ -58,7 +60,7 @@ struct RunnableFactory: Encodable {
     }
     
     func calculateDistribution() -> Double {
-        let distributionModel = SimulationSettings.shared.usedDistributionModel
+        let distributionModel = settings.usedDistributionModel
         return distributionModel.getScore(of: layout)
     }
     

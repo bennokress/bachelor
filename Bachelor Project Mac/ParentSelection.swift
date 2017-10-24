@@ -18,9 +18,14 @@ struct ParentSelection: Modificator {
     }
     
     private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
+        
+        let useDiversity = SimulationSettings.shared.selectionUsesDiversity
+        let sortedGeneration = useDiversity ? generation.sortedByFitnessAndDiversity : generation.sortedByFitness
+        
         if rouletteMode {
             
-            guard let worstFitnessInGeneration = generation.sortedByFitness.first?.fitness else { fatalError("No factories found!") }
+            // FIXME: Isn't this the best fitness?
+            guard let worstFitnessInGeneration = sortedGeneration.first?.fitness else { fatalError("No factories found!") }
             
             // 1 - Build "Roulette Wheel" by adding each factory-ID from the generation n times with n being the inversed and expanded factory fitness
             var rouletteWheel: [Int] = []
@@ -46,10 +51,7 @@ struct ParentSelection: Modificator {
             return selectedIndividuals
             
         } else {
-            
-            let sortedGeneration = generation.sortedByFitness
             return Set(sortedGeneration.prefix(generation.size / 2))
-            
         }
     }
     

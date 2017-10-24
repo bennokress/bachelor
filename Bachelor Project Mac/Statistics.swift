@@ -29,7 +29,7 @@ class Statistics: Encodable {
     }
     
     func generateFinalOutput() {
-        // TODO: Save to file instead of console
+        // TODO: [IMPROVEMENT] Save to file instead of console
         endTime = Date.now
 //        self.printToConsole()
         self.generateCSV()

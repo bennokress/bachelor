@@ -17,7 +17,7 @@ class Presenter {
     }
     
     func displayInView(message: String) {
-        // TODO: Add reference to ViewController in order to display something later on ...
+        // TODO: [IMPROVEMENT] Add reference to ViewController in order to display something later on ...
         print("Display this message in View:")
         print(message)
     }

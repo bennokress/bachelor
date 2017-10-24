@@ -10,6 +10,8 @@ import Foundation
 
 struct Factory: Identifiable, CustomPrintable, Encodable {
     
+    var diversityModel: DiversityModel { return SimulationSettings.shared.usedDiversityModel }
+    
     let id: Int
     let layout: FactoryLayout
     let layoutHash: String // used to recognize identical layouts (duplicate factories)
@@ -62,7 +64,6 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
     
     /// Fitness measure with respect to the selected diversity measure: f'(x,P) = f(x) + lambda * d(x,P)
     func getAdaptedFitness(in generation: Generation) -> Double {
-        let diversityModel = SimulationSettings.shared.usedDiversityModel
         let lambda = diversityModel.lambda
         let diversity = diversityModel.diversityScore(of: self, in: generation)
         return Double(fitness) + lambda * Double(diversity)

@@ -15,21 +15,22 @@ struct SurvivorSelection: Modificator {
     func execute(on generation: inout Generation) {
         
         let targetGenerationSize = SimulationSettings.shared.generationSize
+        let useDiversity = SimulationSettings.shared.selectionUsesDiversity
         
-        var individuals = generation.individuals
+        var sortedIndividuals = useDiversity ? generation.sortedByFitnessAndDiversity : generation.sortedByFitness
         var duplicateCounter = 0
         if duplicateEliminationActivated {
-            individuals.filterDuplicates(matching: { $0.layoutHash == $1.layoutHash })
-            duplicateCounter = generation.size - individuals.count
-            if individuals.count < targetGenerationSize {
-                let neededDuplicateCount = targetGenerationSize - individuals.count
+            sortedIndividuals.filterDuplicates(matching: { $0.layoutHash == $1.layoutHash })
+            duplicateCounter = generation.size - sortedIndividuals.count
+            if sortedIndividuals.count < targetGenerationSize {
+                let neededDuplicateCount = targetGenerationSize - sortedIndividuals.count
                 print("Removing all duplicates from the generation would cause the next generation to fall \(neededDuplicateCount) \(neededDuplicateCount == 1 ? "factory" : "factories") short of the desired generation size!")
-                let necessaryDuplicates = getRandomDuplicates(from: generation.factories, ignoring: individuals, with: neededDuplicateCount)
-                individuals.append(contentsOf: necessaryDuplicates)
+                let necessaryDuplicates = getRandomDuplicates(from: generation.factories, ignoring: sortedIndividuals, with: neededDuplicateCount)
+                sortedIndividuals.append(contentsOf: necessaryDuplicates)
             }
         }
         
-        generation.factories = reduce(individuals, toSize: targetGenerationSize)
+        generation.factories = Set(sortedIndividuals.prefix(targetGenerationSize))
         
         guard generation.size == targetGenerationSize else { fatalError("Generation size is wrong!") }
         
@@ -38,13 +39,6 @@ struct SurvivorSelection: Modificator {
             detailed: detailedActionDescription(for: generation.factories.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter)
         )
         
-        
-        
-    }
-    
-    private func reduce(_ individuals: [Factory], toSize targetSize: Int) -> Set<Factory> {
-        let sortedGeneration = individuals.sorted { $0.fitness < $1.fitness }
-        return Set(sortedGeneration.prefix(targetSize))
     }
     
     private func getRandomDuplicates(from allFactories: Set<Factory>, ignoring alreadySelectedFactories: [Factory], with size: Int) -> [Factory] {
