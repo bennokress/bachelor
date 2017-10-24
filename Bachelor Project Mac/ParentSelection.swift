@@ -25,12 +25,12 @@ struct ParentSelection: Modificator {
         if rouletteMode {
             
             // FIXME: Isn't this the best fitness?
-            guard let worstFitnessInGeneration = sortedGeneration.first?.fitness else { fatalError("No factories found!") }
+            guard let bestFitnessInGeneration = sortedGeneration.first?.fitness else { fatalError("No factories found!") }
             
             // 1 - Build "Roulette Wheel" by adding each factory-ID from the generation n times with n being the inversed and expanded factory fitness
             var rouletteWheel: [Int] = []
             for individual in generation.individuals {
-                let fitnessFactor = individual.fitness.inverseAndExpand(by: worstFitnessInGeneration)
+                let fitnessFactor = individual.fitness.inverseAndExpand(by: bestFitnessInGeneration)
                 fitnessFactor.times {
                     rouletteWheel.append(individual.id)
                 }
