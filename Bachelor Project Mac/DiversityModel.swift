@@ -30,10 +30,13 @@ enum DiversityModel: String, Encodable {
     func averageDiversity(for generation: Generation) -> Double {
         var combinedDiversity: Double = 0
         let generationSize = Double(generation.size)
+        var testCounter = 0
         for individual in generation.individuals {
             let individualDiversity = Double(diversityScore(of: individual, in: generation))
+            if individualDiversity == 1.0 { testCounter += 1 }
             combinedDiversity += individualDiversity
         }
+        print("Outside Threshold (or best individual): \(testCounter)")
         let averageDiversity = combinedDiversity / generationSize
         return averageDiversity
     }
@@ -64,11 +67,6 @@ enum DiversityModel: String, Encodable {
     }
     
     /// Measuring the pairwise distance of all workstations of the individual in its generation.
-    private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double {
-        // TODO: Implement this
-        return 0
-    }
-    
     private func genomDistanceBasedDiversity(of individual: Factory, in generation: Generation) -> Double {
         var sumOfWorkstationDistances = 0
         for comparisonIndividual in generation.individuals {
@@ -77,8 +75,27 @@ enum DiversityModel: String, Encodable {
                 sumOfWorkstationDistances += workstation.position.distance(to: comparisonWorkstation.position)
             }
         }
-        let averageDistance = Double(sumOfWorkstationDistances) / Double(generation.size)
+        let averageSumOfDistances = Double(sumOfWorkstationDistances) / Double(generation.size)
+        let averageDistance = averageSumOfDistances / Double(individual.workstations.count)
         return averageDistance
+    }
+    
+    /// Measuring the diversity in respect to the individual with the best fitness in the generation.
+    private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double {
+        guard let comparisonIndividual = generation.sortedByFitness.first else { fatalError("Could not find best individual in generation!") }
+        if individual == comparisonIndividual {
+            return 1.0 // fitness of the best individual will not be modified by the diversity score
+        } else {
+            var sumOfWorkstationDistances = 0
+            for (i, workstation) in individual.sortedWorkstations.enumerated() {
+                let comparisonWorkstation = comparisonIndividual.sortedWorkstations[i]
+                sumOfWorkstationDistances += workstation.position.distance(to: comparisonWorkstation.position)
+            }
+            let averageDistance = Double(sumOfWorkstationDistances) / Double(individual.workstations.count)
+            // TODO: Threshold based on factory layout, but how?
+            let threshold = Double(individual.layout.size) / 100
+            return (averageDistance > threshold) ? 1.0 : (averageDistance / threshold)
+        }
     }
     
 }

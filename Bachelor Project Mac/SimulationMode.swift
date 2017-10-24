@@ -136,9 +136,10 @@ extension SimulationMode {
     /// The diversity model used in the Selection phase
     var diversityModel: DiversityModel {
         switch self {
-        case .development: return .genealogical
-        case .phase1: return .genealogical
-        case .phase2: return .genealogical
+        case .development(let diversityModel),
+             .phase1(let diversityModel, _),
+             .phase2(let diversityModel, _):
+            return diversityModel
         }
     }
     

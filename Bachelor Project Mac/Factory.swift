@@ -74,6 +74,14 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
     
 }
 
+extension Factory: Equatable {
+    
+    static func == (lhs: Factory, rhs: Factory) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+}
+
 extension Factory: CustomStringConvertible {
     
     var description: String {

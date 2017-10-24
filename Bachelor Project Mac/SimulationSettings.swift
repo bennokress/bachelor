@@ -13,7 +13,7 @@ class SimulationSettings {
     private init() { }
     static var shared = SimulationSettings()
     
-    var simulationMode: SimulationMode = .development(diversityModel: .genealogical)
+    var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, randomizeProducts: false)
     
     // MARK: General
     let debugLevel = DebugLevel.off
