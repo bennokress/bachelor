@@ -156,3 +156,21 @@ extension SimulationSettings {
     }
     
 }
+
+// MARK: Statistics Path
+extension SimulationSettings {
+    func composeStatisticsURL(for endTime: Date) -> URL {
+        // Unique File Name Parts
+        let endDateString = "\(endTime.year)\(endTime.month > 9 ? "" : "0")\(endTime.month)\(endTime.day > 9 ? "" : "0")\(endTime.day)"
+        let endTimeString = "\(endTime.hour > 9 ? "" : "0")\(endTime.hour)\(endTime.minute > 9 ? "" : "0")\(endTime.minute)"
+        let simulationModeName = SimulationSettings.shared.simulationMode.name
+        
+        // URL Composition
+        let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
+        let path = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/rawStats/"
+        let fileName = "\(simulationModeName)_\(endDateString)-\(endTimeString)"
+        let fileExtension = ".csv"
+        
+        return homeDirectory.appendingPathComponent(path + fileName + fileExtension)
+    }
+}

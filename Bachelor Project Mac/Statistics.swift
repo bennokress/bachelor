@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwifterSwift
 
 class Statistics: Encodable {
     
@@ -29,10 +30,15 @@ class Statistics: Encodable {
     }
     
     func generateFinalOutput() {
-        // TODO: [IMPROVEMENT] Save to file instead of console
         endTime = Date.now
-//        self.printToConsole()
-        self.generateCSV()
+        let csvData = generateCSV()
+        let csvFileURL = SimulationSettings.shared.composeStatisticsURL(for: Date.now)
+        do {
+            try csvData.write(to: csvFileURL, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            print("File could not be created!")
+            print(csvData)
+        }
     }
     
     // MARK: Data Conversion Structure
@@ -53,7 +59,7 @@ class Statistics: Encodable {
         }
     }
     
-    private func generateCSV() {
+    private func generateCSV() -> String {
         let runtime = "Runtime in Seconds;\(self.runtime)"
         var simulationRoundCSV = "Simulation Round;"
         var averageFitnessCSV = "Average Fitness;"
@@ -78,7 +84,7 @@ class Statistics: Encodable {
         \(averageDiversityCSV.excelFixed)
         """
         
-        print(csvOutput)
+        return csvOutput
     }
     
     private func getDiversityAverageCSV(from individuals: [Factory]) -> String {

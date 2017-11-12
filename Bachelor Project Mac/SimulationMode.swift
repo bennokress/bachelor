@@ -17,6 +17,15 @@ enum SimulationMode {
     
     // used until -------- | first version for the final work, no influence on selection by diversity
     case phase2(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    
+    // Used in Statistics
+    var name: String {
+        switch self {
+        case .development: return "Development"
+        case .phase1: return "phase1"
+        case .phase2: return "phase2"
+        }
+    }
 }
 
 extension SimulationMode {
