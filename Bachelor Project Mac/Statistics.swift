@@ -11,6 +11,8 @@ import SwifterSwift
 
 class Statistics: Encodable {
     
+    typealias Success = (Bool) -> ()
+    
     private init() { }
     static var shared = Statistics()
     
@@ -29,15 +31,17 @@ class Statistics: Encodable {
         evolution.append(roundStatistics)
     }
     
-    func generateFinalOutput() {
+    func generateFinalOutput(completion: Success) {
         endTime = Date.now
         let csvData = generateCSV()
         let csvFileURL = SimulationSettings.shared.composeStatisticsURL(for: Date.now)
         do {
             try csvData.write(to: csvFileURL, atomically: true, encoding: String.Encoding.utf8)
+            completion(true)
         } catch {
             print("File could not be created!")
             print(csvData)
+            completion(false)
         }
     }
     

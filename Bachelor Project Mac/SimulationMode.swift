@@ -33,7 +33,7 @@ extension SimulationMode {
     /// Number of generations (= rounds of the Genetic Algorithm)
     var generations: Int {
         switch self {
-        case .development: return 200
+        case .development: return 20 // FIXME: Back to 200 after testing
         case .phase1: return 50
         case .phase2: return 300
         }

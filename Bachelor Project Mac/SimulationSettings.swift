@@ -75,6 +75,7 @@ extension SimulationSettings {
 
     func getInitialGeneration() -> Generation {
         
+        nextFactoryID = 1
         var initialFactories: Set<Factory> = []
         
         generationSize.times {

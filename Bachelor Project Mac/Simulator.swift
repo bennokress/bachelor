@@ -13,7 +13,7 @@ struct Simulator {
     var settings = SimulationSettings.shared
     var statistics = Statistics.shared
     
-    mutating func start() {
+    func start() {
         statistics.startTime = Date.now
         var generation = settings.getInitialGeneration()
         runSimulation(on: &generation)
@@ -27,13 +27,27 @@ struct Simulator {
             if settings.simulatedWorkstationBreakdownActivated && currentRound == settings.workstationBreakdownTiming {
                 deactivateWorkstations(withIDs: settings.brokenWorkstationIDs, in: &generation)
                 generation.workstationBreakdownHappened = true
+                
+                // DEBUG
+                let uniqueFactoryCount = Set(generation.factories.map({$0.layoutHash})).count
+                print("----------------------------------------------------------------------------")
+                print("\(generation.size - uniqueFactoryCount) Duplicates")
+                print("============================================================================")
+                for (n, factory) in generation.factories.enumerated() {
+                    print("\(n+1) | Factory Information")
+                    print(factory)
+                    print("----------------------------------------------------------------------------")
+                }
             }
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             saveStats(on: generation, inRound: currentRound)
-            print(currentRound)
+            print(currentRound) 
             if settings.isLastSimulationRound(currentRound) {
-                statistics.generateFinalOutput()
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
+                statistics.generateFinalOutput() { successful in
+                    guard successful else { return }
+                    restartSimulation()
+                }
             }
             actionPrint(
                 fast: fastRoundResultDescription(for: generation, afterRound: currentRound),
@@ -41,6 +55,11 @@ struct Simulator {
                 detailed: detailedRoundResultDescription(for: generation, afterRound: currentRound)
             )
         }
+    }
+    
+    private func restartSimulation() {
+        var generation = settings.getInitialGeneration()
+        runSimulation(on: &generation)
     }
     
     private func deactivateWorkstations(withIDs workstationIDs: [Int], in generation: inout Generation) {
