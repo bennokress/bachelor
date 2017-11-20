@@ -145,15 +145,30 @@ extension SimulationSettings {
         
     }
     
-    func getFactoryWithDeactivatedWorkstations(withIDs workstationIDs: [Int], from factory: Factory) -> Factory {
-        let factoryID = factory.id
-        let factoryDNA = factory.genealogyDNA
-        var newLayout = factory.layout
-        let brokenWorkstations = factory.workstations.filter { workstationIDs.contains($0.id) }
-        for brokenWorkstation in brokenWorkstations {
-            newLayout.deleteWorkstation(brokenWorkstation)
+    func getFactoryWithDeactivatedWorkstations(withIDs brokenWorkstationIDs: [Int], from oldFactory: Factory) -> Factory {
+        // 1 - Save important values from old Factory
+        let oldFactoryID = oldFactory.id
+        let oldFactoryDNA = oldFactory.genealogyDNA
+        let oldLayout = oldFactory.layout
+        guard let entrance = oldLayout.entrancePosition, let exit = oldLayout.exitPosition else { fatalError("Could not find Entrance or Exit!") }
+        
+        // 2 - Get Empty Layout with equal dimensions, entrance and exit positions
+        var newLayout = FactoryLayout(width: oldLayout.width, length: oldLayout.length, entrance: entrance, exit: exit)
+        
+        // 3 - Insert all but the deactivated workstations
+        let healthyWorkstations = oldFactory.workstations.filter { !(brokenWorkstationIDs.contains($0.id)) }
+        for workstation in healthyWorkstations {
+            newLayout.addWorkstation(workstation)
         }
-        return Factory(id: factoryID, layout: newLayout, genealogyDNA: factoryDNA)
+        
+        // 4 - Get updated Robots for new Layout
+        for robot in oldFactory.robots {
+            var updatedRobot = Robot(id: robot.id, product: robot.product, in: newLayout)
+            newLayout.addRobot(&updatedRobot)
+        }
+        
+        // 5 - Generate Factory with updated Layout and Robots
+        return Factory(id: oldFactoryID, layout: newLayout, genealogyDNA: oldFactoryDNA)
     }
     
 }
