@@ -13,13 +13,16 @@ struct Simulator {
     var settings = SimulationSettings.shared
     var statistics = Statistics.shared
     
-    func start() {
+    var simulationNumber = 1
+    
+    mutating func start() {
         statistics.startTime = Date.now
         var generation = settings.getInitialGeneration()
+        printSimulationNumber()
         runSimulation(on: &generation)
     }
     
-    private func runSimulation(on generation: inout Generation) {
+    private mutating func runSimulation(on generation: inout Generation) {
         actionPrint(short: shortInitialDescription(for: generation), detailed: detailedInitialDescription(for: generation))
         var currentRound = 0
         settings.generations.times {
@@ -27,21 +30,10 @@ struct Simulator {
             if settings.simulatedWorkstationBreakdownActivated && currentRound == settings.workstationBreakdownTiming {
                 deactivateWorkstations(withIDs: settings.brokenWorkstationIDs, in: &generation)
                 generation.workstationBreakdownHappened = true
-                
-                // DEBUG
-                let uniqueFactoryCount = Set(generation.factories.map({$0.layoutHash})).count
-                print("----------------------------------------------------------------------------")
-                print("\(generation.size - uniqueFactoryCount) Duplicates")
-                print("============================================================================")
-                for (n, factory) in generation.factories.enumerated() {
-                    print("\(n+1) | Factory Information")
-                    print(factory)
-                    print("----------------------------------------------------------------------------")
-                }
             }
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             saveStats(on: generation, inRound: currentRound)
-            print(currentRound) 
+            printProgressAndStats(for: generation, in: currentRound)
             if settings.isLastSimulationRound(currentRound) {
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
                 statistics.generateFinalOutput() { successful in
@@ -57,7 +49,9 @@ struct Simulator {
         }
     }
     
-    private func restartSimulation() {
+    private mutating func restartSimulation() {
+        simulationNumber += 1
+        printSimulationNumber()
         var generation = settings.getInitialGeneration()
         runSimulation(on: &generation)
     }
@@ -70,8 +64,28 @@ struct Simulator {
     }
     
     private func saveStats(on generation: Generation, inRound round: Int) {
-        // Save to Statistics.shared
         Statistics.shared.save(generation, forRound: round)
+    }
+    
+    private func printProgressAndStats(for generation: Generation, in round: Int) {
+        let progressInPercent = (round * 100) / SimulationSettings.shared.generations
+        let progressString = "\(progressInPercent.toString(length: 3))%"
+        let progressBar = "[\(String.init(repeating: "=", count: (progressInPercent / 2)))\(String.init(repeating: " ", count: 50 - (progressInPercent / 2)))]"
+        let roundString = "Round \(round.toString(length: 3))"
+        if let bestFitness = generation.bestFitness, let worstFitness = generation.worstFitness {
+            let bestFitnessString = "Best Fitness: \(bestFitness.toString(length: 3))"
+            let worstFitnessString = "Worst Fitness: \(worstFitness.toString(length: 3))"
+            print("\(roundString) | \(progressBar) | \(progressString) | \(bestFitnessString) | \(worstFitnessString)")
+        } else {
+            print("\(roundString) | \(progressBar) | \(progressString)")
+        }
+    }
+    
+    private func printSimulationNumber() {
+        print("")
+        print(String.init(repeating: "=", count: 112))
+        print("Simulation # \(simulationNumber)")
+        print(String.init(repeating: "-", count: 112))
     }
     
     private func runSingleRoundOfGeneticAlgorithm(on generation: inout Generation) {

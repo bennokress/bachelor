@@ -13,8 +13,8 @@ class SimulationSettings {
     private init() { }
     static var shared = SimulationSettings()
     
-    var simulationMode: SimulationMode = .development(diversityModel: .fitnessSharing, useDiversity: true)
-    // var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
+//    var simulationMode: SimulationMode = .development(diversityModel: .fitnessSharing, useDiversity: true)
+     var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
     
     // MARK: General
     let debugLevel = DebugLevel.off

@@ -149,6 +149,20 @@ extension Int {
         return Int(100 * Double(percentValue) * inverse)
     }
     
+    /// Returns a String of the desired length with leading spaces or zeros or a string of #'s in the desired length, if activated.
+    func toString(length: Int, withLeadingZeros hasLeadingZeros: Bool = false, eliminatingLongerInt: Bool = false) -> String {
+        let intLength = self.digits.count
+        if intLength == length {
+            return "\(self)"
+        } else if intLength > length {
+            return eliminatingLongerInt ? String.init(repeating: "#", count: length) : "\(self)"
+        } else {
+            let fillCount = length - intLength
+            let fillString = String.init(repeating: "\(hasLeadingZeros ? "0" : " ")", count: fillCount)
+            return "\(fillString)\(self)"
+        }
+    }
+    
     func times(f: () -> ()) {
         if self > 0 {
             for _ in 0 ..< self {
