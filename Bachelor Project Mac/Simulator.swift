@@ -13,13 +13,16 @@ struct Simulator {
     var settings = SimulationSettings.shared
     var statistics = Statistics.shared
     
+    var simulationNumber = 1
+    
     mutating func start() {
         statistics.startTime = Date.now
         var generation = settings.getInitialGeneration()
+        printSimulationNumber()
         runSimulation(on: &generation)
     }
     
-    private func runSimulation(on generation: inout Generation) {
+    private mutating func runSimulation(on generation: inout Generation) {
         actionPrint(short: shortInitialDescription(for: generation), detailed: detailedInitialDescription(for: generation))
         var currentRound = 0
         settings.generations.times {
@@ -30,10 +33,13 @@ struct Simulator {
             }
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             saveStats(on: generation, inRound: currentRound)
-            print(currentRound)
+            printProgressAndStats(for: generation, in: currentRound)
             if settings.isLastSimulationRound(currentRound) {
-                statistics.generateFinalOutput()
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
+                statistics.generateFinalOutput() { successful in
+                    guard successful else { return }
+                    restartSimulation()
+                }
             }
             actionPrint(
                 fast: fastRoundResultDescription(for: generation, afterRound: currentRound),
@@ -41,6 +47,13 @@ struct Simulator {
                 detailed: detailedRoundResultDescription(for: generation, afterRound: currentRound)
             )
         }
+    }
+    
+    private mutating func restartSimulation() {
+        simulationNumber += 1
+        printSimulationNumber()
+        var generation = settings.getInitialGeneration()
+        runSimulation(on: &generation)
     }
     
     private func deactivateWorkstations(withIDs workstationIDs: [Int], in generation: inout Generation) {
@@ -51,8 +64,28 @@ struct Simulator {
     }
     
     private func saveStats(on generation: Generation, inRound round: Int) {
-        // Save to Statistics.shared
         Statistics.shared.save(generation, forRound: round)
+    }
+    
+    private func printProgressAndStats(for generation: Generation, in round: Int) {
+        let progressInPercent = (round * 100) / SimulationSettings.shared.generations
+        let progressString = "\(progressInPercent.toString(length: 3))%"
+        let progressBar = "[\(String.init(repeating: "=", count: (progressInPercent / 2)))\(String.init(repeating: " ", count: 50 - (progressInPercent / 2)))]"
+        let roundString = "Round \(round.toString(length: 3))"
+        if let bestFitness = generation.bestFitness, let worstFitness = generation.worstFitness {
+            let bestFitnessString = "Best Fitness: \(bestFitness.toString(length: 3))"
+            let worstFitnessString = "Worst Fitness: \(worstFitness.toString(length: 3))"
+            print("\(roundString) | \(progressBar) | \(progressString) | \(bestFitnessString) | \(worstFitnessString)")
+        } else {
+            print("\(roundString) | \(progressBar) | \(progressString)")
+        }
+    }
+    
+    private func printSimulationNumber() {
+        print("")
+        print(String.init(repeating: "=", count: 112))
+        print("Simulation # \(simulationNumber)")
+        print(String.init(repeating: "-", count: 112))
     }
     
     private func runSingleRoundOfGeneticAlgorithm(on generation: inout Generation) {

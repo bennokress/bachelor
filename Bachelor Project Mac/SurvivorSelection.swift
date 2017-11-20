@@ -20,7 +20,7 @@ struct SurvivorSelection: Modificator {
         var sortedIndividuals = useDiversity ? generation.sortedByFitnessAndDiversity : generation.sortedByFitness
         var duplicateCounter = 0
         if duplicateEliminationActivated {
-            sortedIndividuals.filterDuplicates(matching: { $0.layoutHash == $1.layoutHash })
+            sortedIndividuals.filterDuplicates(matching: { $0.hasIdenticalLayout(as: $1) })
             duplicateCounter = generation.size - sortedIndividuals.count
             if sortedIndividuals.count < targetGenerationSize {
                 let neededDuplicateCount = targetGenerationSize - sortedIndividuals.count

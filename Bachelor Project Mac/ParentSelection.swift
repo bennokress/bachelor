@@ -28,7 +28,7 @@ struct ParentSelection: Modificator {
             
             // 1 - Build "Roulette Wheel" by adding each factory-ID from the generation n times with n being the inversed and expanded factory fitness
             var rouletteWheel: [Int] = []
-            for individual in generation.individuals {
+            for individual in generation.individuals.sorted(by: { $0.id < $1.id }) {
                 let fitnessFactor = individual.fitness.inverseAndExpand(by: bestFitnessInGeneration)
                 fitnessFactor.times {
                     rouletteWheel.append(individual.id)

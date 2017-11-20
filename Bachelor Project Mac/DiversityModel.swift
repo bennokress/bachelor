@@ -36,7 +36,6 @@ enum DiversityModel: String, Encodable {
             if individualDiversity == 1.0 { testCounter += 1 }
             combinedDiversity += individualDiversity
         }
-        print("Outside Threshold (or best individual): \(testCounter)")
         let averageDiversity = combinedDiversity / generationSize
         return averageDiversity
     }
