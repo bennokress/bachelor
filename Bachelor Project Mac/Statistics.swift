@@ -31,6 +31,12 @@ class Statistics: Encodable {
         evolution.append(roundStatistics)
     }
     
+    func reset() {
+        startTime = nil
+        endTime = nil
+        evolution.removeAll()
+    }
+    
     func generateFinalOutput(completion: Success) {
         endTime = Date.now
         let csvData = generateCSV()

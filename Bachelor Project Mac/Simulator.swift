@@ -51,9 +51,8 @@ struct Simulator {
     
     private mutating func restartSimulation() {
         simulationNumber += 1
-        printSimulationNumber()
-        var generation = settings.getInitialGeneration()
-        runSimulation(on: &generation)
+        Statistics.shared.reset()
+        start()
     }
     
     private func deactivateWorkstations(withIDs workstationIDs: [Int], in generation: inout Generation) {
