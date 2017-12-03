@@ -18,8 +18,11 @@ enum SimulationMode {
     // used until Nov 26th | first version for the final work, no influence on selection by diversity
     case phase2(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
     
-    // used until -------- | still no influence on selection by diversity, but hypermutation in every round
+    // used until Dec 03rd | still no influence on selection by diversity, but hypermutation in every round
     case phase3(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    
+    // used until -------- | diversity now used in selection
+    case phase4(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
     
     // Used in Statistics
     var name: String {
@@ -28,6 +31,7 @@ enum SimulationMode {
         case .phase1: return "phase1"
         case .phase2: return "phase2"
         case .phase3: return "phase3"
+        case .phase4: return "phase4"
         }
     }
 }
@@ -40,7 +44,8 @@ extension SimulationMode {
         case .development: return 200
         case .phase1: return 50
         case .phase2,
-             .phase3: return 300
+             .phase3,
+             .phase4: return 300
         }
     }
     
@@ -50,7 +55,8 @@ extension SimulationMode {
         case .development: return 30
         case .phase1,
              .phase2,
-             .phase3: return 50
+             .phase3,
+             .phase4: return 50
         }
     }
     
@@ -60,7 +66,8 @@ extension SimulationMode {
         case .development: return 29
         case .phase1: return 30
         case .phase2,
-             .phase3: return 40
+             .phase3,
+             .phase4: return 40
         }
     }
     
@@ -70,7 +77,8 @@ extension SimulationMode {
         case .development: return 10
         case .phase1: return 30
         case .phase2,
-             .phase3: return 40
+             .phase3,
+             .phase4: return 40
         }
     }
     
@@ -80,7 +88,8 @@ extension SimulationMode {
         case .development: return 15
         case .phase1,
              .phase2,
-             .phase3: return 5
+             .phase3,
+             .phase4: return 5
         }
     }
     
@@ -91,7 +100,8 @@ extension SimulationMode {
             return ProductType.amountDictionary(a: 1, b: 0, c: 0, d: 0, e: 0, f: 0)
         case .phase1(_, _, let randomize),
              .phase2(_, _, let randomize),
-             .phase3(_, _, let randomize):
+             .phase3(_, _, let randomize),
+             .phase4(_, _, let randomize):
             return randomize ? ProductType.randomAmountDictionary(maxAmount: 10) : ProductType.amountDictionary(a: 4, b: 5, c: 6, d: 7, e: 8, f: 9)
         }
     }
@@ -102,7 +112,8 @@ extension SimulationMode {
         case .development: return WorkstationType.amountDictionary(a: 2, b: 1, c: 1, d: 1, e: 1, f: 1)
         case .phase1,
              .phase2,
-             .phase3: return WorkstationType.amountDictionary(a: 3, b: 4, c: 3, d: 3, e: 4, f: 3)
+             .phase3,
+             .phase4: return WorkstationType.amountDictionary(a: 3, b: 4, c: 3, d: 3, e: 4, f: 3)
         }
     }
     
@@ -112,7 +123,8 @@ extension SimulationMode {
         case .development: return 35
         case .phase1,
              .phase2,
-             .phase3: return 15
+             .phase3,
+             .phase4: return 15
         }
     }
     
@@ -122,7 +134,8 @@ extension SimulationMode {
         case .development: return 5
         case .phase1,
              .phase2,
-             .phase3: return 6
+             .phase3,
+             .phase4: return 6
         }
     }
     
@@ -132,7 +145,8 @@ extension SimulationMode {
         case .development,
              .phase1,
              .phase2,
-             .phase3: return 50
+             .phase3,
+             .phase4: return 50
         }
     }
     
@@ -142,7 +156,8 @@ extension SimulationMode {
         case .development,
              .phase1,
              .phase2: return 1.0 // = never
-        case .phase3: return Double.infinity // = always
+        case .phase3,
+             .phase4: return Double.infinity // = always
             // TODO: [TUNING] Find a good value!
         }
     }
@@ -153,7 +168,8 @@ extension SimulationMode {
         case .development,
              .phase1,
              .phase2,
-             .phase3: return [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection()]
+             .phase3,
+             .phase4: return [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection()]
         }
     }
     
@@ -163,7 +179,8 @@ extension SimulationMode {
         case .development,
              .phase1,
              .phase2,
-             .phase3: return .averageDistanceToCenter
+             .phase3,
+             .phase4: return .averageDistanceToCenter
         }
     }
     
@@ -173,7 +190,8 @@ extension SimulationMode {
         case .development(let diversityModel, _),
              .phase1(let diversityModel, _, _),
              .phase2(let diversityModel, _, _),
-             .phase3(let diversityModel, _, _): return diversityModel
+             .phase3(let diversityModel, _, _),
+             .phase4(let diversityModel, _, _): return diversityModel
         }
     }
     
@@ -183,7 +201,8 @@ extension SimulationMode {
         case .development(_, let useDiversity),
              .phase1(_, let useDiversity, _),
              .phase2(_, let useDiversity, _),
-             .phase3(_, let useDiversity, _): return useDiversity
+             .phase3(_, let useDiversity, _),
+             .phase4(_, let useDiversity, _): return useDiversity
         }
     }
     
@@ -193,7 +212,8 @@ extension SimulationMode {
         case .development,
              .phase1,
              .phase2,
-             .phase3: return true
+             .phase3,
+             .phase4: return true
         }
     }
     
@@ -203,7 +223,8 @@ extension SimulationMode {
         case .development: return true
         case .phase1: return true
         case .phase2,
-             .phase3: return false
+             .phase3,
+             .phase4: return false
         }
     }
     
@@ -213,7 +234,8 @@ extension SimulationMode {
         case .development: return true
         case .phase1: return false
         case .phase2,
-             .phase3: return true
+             .phase3,
+             .phase4: return true
         }
     }
     
@@ -223,7 +245,8 @@ extension SimulationMode {
         case .development: return [1]
         case .phase1: return []
         case .phase2,
-             .phase3: return [1]
+             .phase3,
+             .phase4: return [1]
         }
     }
     
@@ -233,7 +256,8 @@ extension SimulationMode {
         case .development,
              .phase1,
              .phase2,
-             .phase3: return generations * 2 / 3 // at 2/3rd of the runtime
+             .phase3,
+             .phase4: return generations * 2 / 3 // at 2/3rd of the runtime
         }
     }
     

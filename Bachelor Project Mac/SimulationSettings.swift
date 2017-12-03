@@ -15,8 +15,9 @@ class SimulationSettings {
     
 //  var simulationMode: SimulationMode = .development(diversityModel: .fitnessSharing, useDiversity: true)
 //  var simulationMode: SimulationMode = .phase1(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
-//  var simulationMode: SimulationMode = .phase2    (diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
-    var simulationMode: SimulationMode = .phase3(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
+//  var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
+//  var simulationMode: SimulationMode = .phase3(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
+    var simulationMode: SimulationMode = .phase4(diversityModel: .fitnessSharing, useDiversity: true, randomizeProducts: false)
     
     // MARK: General
     let debugLevel = DebugLevel.off
