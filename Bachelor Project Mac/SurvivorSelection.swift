@@ -14,6 +14,7 @@ struct SurvivorSelection: Modificator {
     
     func execute(on generation: inout Generation) {
         
+        generation.recalculateMeasures()
         let targetGenerationSize = SimulationSettings.shared.generationSize
         let useDiversity = SimulationSettings.shared.selectionUsesDiversity
         

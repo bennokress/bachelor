@@ -26,8 +26,8 @@ class Statistics: Encodable {
     
     private var evolution: [RoundStatistics] = []
     
-    func save(_ generation: Generation, forRound round: Int) {
-        let roundStatistics = RoundStatistics(from: generation, inRound: round)
+    func save(_ generation: inout Generation, forRound round: Int) {
+        let roundStatistics = RoundStatistics(from: &generation, inRound: round)
         evolution.append(roundStatistics)
     }
     
@@ -59,12 +59,14 @@ class Statistics: Encodable {
         let averageFitness: Double
         let individuals: [Factory]
         
-        init(from generation: Generation, inRound round: Int) {
+        init(from generation: inout Generation, inRound round: Int) {
+            generation.recalculateMeasures()
             guard let bestFitness = generation.bestFitness, let worstFitness = generation.worstFitness else { fatalError("Could not compute fitness metrics!") }
+            guard let averageFitnessOfGeneration = generation.averageFitness else { fatalError("Average Fitness was never measured!") }
             self.simulationRound = round
             self.bestFitness = bestFitness
             self.worstFitness = worstFitness
-            self.averageFitness = generation.averageFitness
+            self.averageFitness = averageFitnessOfGeneration
             self.individuals = generation.sortedByFitness
         }
     }
@@ -99,7 +101,8 @@ class Statistics: Encodable {
     
     private func getDiversityAverageCSV(from individuals: [Factory]) -> String {
         let generation = Generation(factories: Set(individuals))
-        return "\(generation.averageDiversity);"
+        guard let averageDiversityOfGeneration = generation.averageDiversity else { fatalError("Average Diversity was never measured!") }
+        return "\(averageDiversityOfGeneration);"
     }
 
 }

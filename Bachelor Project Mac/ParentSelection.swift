@@ -11,6 +11,7 @@ import Foundation
 struct ParentSelection: Modificator {
     
     func execute(on generation: inout Generation) {
+        generation.recalculateMeasures()
         let parents = getSelectedIndividuals(from: generation, usingRouletteMode: SimulationSettings.shared.parentSelectionUsesRouletteMode)
         generation.setParents(parents)
         actionPrint(short: shortActionDescription(for: parents.sorted { $0.fitness < $1.fitness }),
@@ -29,7 +30,7 @@ struct ParentSelection: Modificator {
             // 1 - Build "Roulette Wheel" by adding each factory-ID from the generation n times with n being the inversed and expanded factory fitness
             var rouletteWheel: [Int] = []
             for individual in generation.individuals.sorted(by: { $0.id < $1.id }) {
-                let fitnessFactor = individual.fitness.inverseAndExpand(by: bestFitnessInGeneration)
+                let fitnessFactor = individual.fitness.inverseAndExpand(by: bestFitnessInGeneration) // FIXME: Use adapted Fitness, if useDiversity is true!
                 fitnessFactor.times {
                     rouletteWheel.append(individual.id)
                 }

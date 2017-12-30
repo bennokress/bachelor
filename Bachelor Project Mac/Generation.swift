@@ -16,6 +16,8 @@ struct Generation: Encodable {
     var parents: Set<Factory>
     
     var workstationBreakdownHappened = false
+    var averageFitness: Double?
+    var averageDiversity: Double?
     
     // MARK: Computed Properties - Factory Specific
     var individuals: [Factory] { return Array(factories) }
@@ -25,13 +27,12 @@ struct Generation: Encodable {
     
     // MARK: Computed Properties - Metrics
     var size: Int { return factories.count }
-    var averageFitness: Double { return Double(factories.map { $0.fitness }.reduce(0, +)) / Double(factories.count) }
     var bestFitness: Int? { return factories.map { $0.fitness }.min() }
     var worstFitness: Int? { return factories.map { $0.fitness }.max() }
-    var averageDiversity: Double { return settings.usedDiversityModel.averageDiversity(for: self) }
     
     // MARK: Computed Properties - Triggers
     var hypermutationShouldTrigger: Bool {
+        guard let averageDiversity = averageDiversity else { fatalError("Average Diversity was never measured!") }
         let diversityThreshold = settings.hypermutationThreshold
         return averageDiversity <= diversityThreshold
     }
@@ -39,6 +40,8 @@ struct Generation: Encodable {
     init(factories: Set<Factory>) {
         self.factories = factories
         self.parents = []
+        self.averageFitness = calculateAverageFitness()
+        self.averageDiversity = calculateAverageDiversity()
     }
     
     // MARK: Functions
@@ -53,6 +56,19 @@ struct Generation: Encodable {
     
     mutating func setParents(_ parents: Set<Factory>) {
         self.parents = parents
+    }
+    
+    mutating func recalculateMeasures() {
+        averageFitness = calculateAverageFitness()
+        averageDiversity = calculateAverageDiversity()
+    }
+    
+    private func calculateAverageFitness() -> Double {
+        return Double(factories.map { $0.fitness }.reduce(0, +)) / Double(factories.count)
+    }
+    
+    private func calculateAverageDiversity() -> Double {
+        return settings.usedDiversityModel.averageDiversity(for: self)
     }
     
     // TODO: [IMPROVEMENT] Adjust JSON Encoding parameters

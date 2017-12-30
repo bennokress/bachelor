@@ -32,7 +32,7 @@ struct Simulator {
                 generation.workstationBreakdownHappened = true
             }
             runSingleRoundOfGeneticAlgorithm(on: &generation)
-            saveStats(on: generation, inRound: currentRound)
+            saveStats(on: &generation, inRound: currentRound)
             printProgressAndStats(for: generation, in: currentRound)
             if settings.isLastSimulationRound(currentRound) {
                 actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
@@ -62,8 +62,8 @@ struct Simulator {
         }
     }
     
-    private func saveStats(on generation: Generation, inRound round: Int) {
-        Statistics.shared.save(generation, forRound: round)
+    private func saveStats(on generation: inout Generation, inRound round: Int) {
+        Statistics.shared.save(&generation, forRound: round)
     }
     
     private func printProgressAndStats(for generation: Generation, in round: Int) {

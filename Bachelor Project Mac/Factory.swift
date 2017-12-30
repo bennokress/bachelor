@@ -62,11 +62,14 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
     
     // MARK: Functions
     
-    /// Fitness measure with respect to the selected diversity measure: f'(x,P) = f(x) + lambda * d(x,P)
+    /// Fitness measure with respect to the selected diversity measure: f'(x,P) = f(x) + λ * d(x,P)
     func getAdaptedFitness(in generation: Generation) -> Double {
-        let lambda = diversityModel.lambda
-        let diversity = diversityModel.diversityScore(of: self, in: generation)
-        return Double(fitness) + lambda * Double(diversity)
+        guard let averageFitnessOfGeneration = generation.averageFitness else { fatalError("Average Fitness was never measured!") }
+        guard let averageDiversityOfGeneration = generation.averageDiversity else { fatalError("Average Diversity was never measured!") }
+        let f_x = Double(fitness)
+        let λ = diversityModel.lambda(basedOn: averageFitnessOfGeneration, and: averageDiversityOfGeneration)
+        let d_xP = diversityModel.diversityScore(of: self, in: generation)
+        return f_x + λ * d_xP
     }
     
     func hasIdenticalLayout(as otherFactory: Factory) -> Bool {

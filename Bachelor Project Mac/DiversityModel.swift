@@ -14,15 +14,15 @@ enum DiversityModel: String, Encodable {
     case genomDistanceBased
     
     /// Factor in calculating the diversity-influenced fitness f'.
-    var lambda: Double {
-        // TODO: [TUNING] Set values
+    func lambda(basedOn averageFitnessOfGeneration: Double, and averageDiversityOfGeneration: Double) -> Double {
+        // TODO: [TUNING] Better diversity model sensitive values or no switch!
         switch self {
         case .genealogical:
-            return 0.0
+            return averageFitnessOfGeneration / averageDiversityOfGeneration
         case .fitnessSharing:
-            return 0.0
+            return averageFitnessOfGeneration / averageDiversityOfGeneration
         case .genomDistanceBased:
-            return 0.0
+            return averageFitnessOfGeneration / averageDiversityOfGeneration
         }
     }
     
