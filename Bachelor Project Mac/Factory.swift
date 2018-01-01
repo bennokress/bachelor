@@ -66,6 +66,7 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
     func getAdaptedFitness(in generation: Generation) -> Double {
         guard let averageFitnessOfGeneration = generation.averageFitness else { fatalError("Average Fitness was never measured!") }
         guard let averageDiversityOfGeneration = generation.averageDiversity else { fatalError("Average Diversity was never measured!") }
+        guard averageDiversityOfGeneration != 0 else { fatalError("Diversity dropped to 0!") }
         let f_x = Double(fitness)
         let λ = diversityModel.lambda(basedOn: averageFitnessOfGeneration, and: averageDiversityOfGeneration)
         let d_xP = diversityModel.diversityScore(of: self, in: generation)

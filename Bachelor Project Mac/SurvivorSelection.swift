@@ -16,9 +16,8 @@ struct SurvivorSelection: Modificator {
         
         generation.recalculateMeasures()
         let targetGenerationSize = SimulationSettings.shared.generationSize
-        let useDiversity = SimulationSettings.shared.selectionUsesDiversity
         
-        var sortedIndividuals = useDiversity ? generation.sortedByFitnessAndDiversity : generation.sortedByFitness
+        var sortedIndividuals = generation.sortedByFitness
         var duplicateCounter = 0
         if duplicateEliminationActivated {
             sortedIndividuals.filterDuplicates(matching: { $0.hasIdenticalLayout(as: $1) })
@@ -39,6 +38,8 @@ struct SurvivorSelection: Modificator {
             short: shortActionDescription(for: generation.factories.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter),
             detailed: detailedActionDescription(for: generation.factories.sorted { $0.fitness > $1.fitness }, duplicates: duplicateCounter)
         )
+        
+//        debug(generation: generation)
         
     }
     
@@ -62,6 +63,31 @@ struct SurvivorSelection: Modificator {
         if duplicateEliminationActivated { actionDescriptionLines.append("  · Removed \(duplicates) duplicates") }
         for factory in generation { actionDescriptionLines.append("  · Selected factory #\(factory.id) with fitness \(factory.fitness) as survivor") }
         return actionDescriptionLines
+    }
+    
+    private func debug(generation: Generation) {
+        
+        let sortedIndividuals = generation.sortedByFitness
+        
+        print("-------------------------------------------------------------------------------------")
+        print("Generation Statistics")
+        print("-------------------------------------------------------------------------------------")
+        print("Øf: \(generation.averageFitness ?? -1)")
+        print("Ød: \(generation.averageDiversity ?? -1)")
+        print("\n\n")
+        
+        for factory in sortedIndividuals {
+            print("-------------------------------------------------------------------------------------")
+            print("Factory \(factory.id)")
+            print("-------------------------------------------------------------------------------------")
+            print("f : \(factory.fitness)")
+            print("f': \(factory.getAdaptedFitness(in: generation))")
+            print("bs: \(factory.genealogyDNA.description)")
+            print("rw: \(Double(factory.fitness).rouletteWheelFrequency(relativeTo: generation.sortedByFitnessAndDiversity.first!.getAdaptedFitness(in: generation)))")
+            print("-------------------------------------------------------------------------------------")
+            print(factory.layout.description)
+            print("\n\n")
+        }
     }
     
 }

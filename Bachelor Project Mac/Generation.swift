@@ -21,6 +21,7 @@ struct Generation: Encodable {
     
     // MARK: Computed Properties - Factory Specific
     var individuals: [Factory] { return Array(factories) }
+    var deterministicIndividuals: Set<Factory> { return factories.filter { $0.fitness < Int.max } }
     var shuffled: [Factory] { return factories.shuffled }
     var sortedByFitness: [Factory] { return factories.sorted { $0.fitness < $1.fitness } }
     var sortedByFitnessAndDiversity: [Factory] { return factories.sorted { $0.getAdaptedFitness(in: self) < $1.getAdaptedFitness(in: self) } }
@@ -64,7 +65,7 @@ struct Generation: Encodable {
     }
     
     private func calculateAverageFitness() -> Double {
-        return Double(factories.map { $0.fitness }.reduce(0, +)) / Double(factories.count)
+        return Double(deterministicIndividuals.map { $0.fitness }.reduce(0, +)) / Double(deterministicIndividuals.count)
     }
     
     private func calculateAverageDiversity() -> Double {

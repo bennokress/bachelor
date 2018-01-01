@@ -220,7 +220,7 @@ extension SimulationMode {
     /// Indication if duplicate individuals should be eliminated in Survivor Selection Phase (only neccessary if diversity is not factored in to the selection process)
     var duplicateEliminationActivated: Bool {
         switch self {
-        case .development: return true
+        case .development: return false
         case .phase1: return true
         case .phase2,
              .phase3,

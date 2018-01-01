@@ -117,7 +117,7 @@ struct WeighedCrossover: Modificator {
         }
         
         // 4 - Compute new genealogyDNA
-        let crossoverBitstring = Bitstring(from: factory1.genealogyDNA, and: factory2.genealogyDNA, mergedAfter: neededDNAFlips)
+        let crossoverBitstring = Bitstring(from: factory1.genealogyDNA, and: factory2.genealogyDNA, mergedWith: neededDNAFlips)
         
         // 5 - Generate new factory from layout and add to generation
         let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout, genealogyDNA: crossoverBitstring)

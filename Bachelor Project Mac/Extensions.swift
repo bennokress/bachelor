@@ -106,6 +106,19 @@ extension Date {
     
 }
 
+extension Double {
+    
+    /// Returns 100 * percentValue divided by self rounded to the next Int
+    func rouletteWheelFrequency(relativeTo percentValue: Double) -> Int {
+        guard self != 0 else {
+            fatalError("Trying to divide by zero!")
+        }
+        let inverse = 1 / self
+        return Int(100 * percentValue * inverse)
+    }
+    
+}
+
 extension Encodable {
     
     func printToConsole() {
@@ -140,13 +153,6 @@ extension Int {
     
     var digits: Int {
         return self.abs < 10 ? 1 : 1 + (self / 10).digits
-    }
-    
-    /// Returns 100 * percentValue divided by self rounded to the next Int
-    func inverseAndExpand(by percentValue: Int) -> Int {
-        let double = Double(self)
-        let inverse = 1 / double
-        return Int(100 * Double(percentValue) * inverse)
     }
     
     /// Returns a String of the desired length with leading spaces or zeros or a string of #'s in the desired length, if activated.

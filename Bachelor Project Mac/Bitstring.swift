@@ -14,22 +14,26 @@ struct Bitstring: Codable {
     
     var length: Int { return bits.count }
     
+    private init(from bits: [Bit]) {
+        self.bits = bits
+    }
+    
     init(length: Int) {
         var bits: [Bit] = []
         length.times { bits.append(Bit.random) }
         self.bits = bits
     }
     
-    init(from bitstring1: Bitstring, and bitstring2: Bitstring, mergedAfter switchBits: Int) {
+    init(from bitstring1: Bitstring, and bitstring2: Bitstring, mergedWith switchBits: Int) {
         guard switchBits <= bitstring1.length else { fatalError("More bits should be flipped than available!") }
         if switchBits == 0 {
             self.bits = bitstring1.bits
         } else {
-            let cutIndex = switchBits - 1
+            let cutIndex = bitstring1.length - switchBits
             let bitIndices = 0 ... bitstring1.length - 1
             var crossoverBits: [Bit] = []
             for index in bitIndices {
-                crossoverBits.append(index <= cutIndex ? bitstring1.bits[index] : bitstring2.bits[index])
+                crossoverBits.append(index < cutIndex ? bitstring1.bits[index] : bitstring2.bits[index])
             }
             self.bits = crossoverBits
         }
@@ -51,6 +55,19 @@ struct Bitstring: Codable {
         var bitstring = self.bits
         bitstring[index] = bitstring[index].flipped
         self.bits = bitstring
+    }
+    
+    func removing(numberOfBits removableBitsCount: Int) -> Bitstring {
+        guard removableBitsCount <= self.length else { fatalError("More Bits to be removed than available!") }
+        if removableBitsCount == 0 {
+            return Bitstring(from: self.bits)
+        } else {
+            var minimizedBitstring: [Bit] = []
+            let maxIndex = self.length - 1
+            let keepIndices = Array(0 ... maxIndex).shuffled[0 ... maxIndex - removableBitsCount].sorted()
+            for i in keepIndices { minimizedBitstring.append(self.bits[i]) }
+            return Bitstring(from: minimizedBitstring)
+        }
     }
     
     func distance(to otherBitstring: Bitstring) -> Int? {

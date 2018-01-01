@@ -29,14 +29,14 @@ enum DiversityModel: String, Encodable {
     // MARK: Generation Measurement
     func averageDiversity(for generation: Generation) -> Double {
         var combinedDiversity: Double = 0
-        let generationSize = Double(generation.size)
+        let individualsCount = Double(generation.deterministicIndividuals.count)
         var testCounter = 0
-        for individual in generation.individuals {
+        for individual in generation.deterministicIndividuals {
             let individualDiversity = Double(diversityScore(of: individual, in: generation))
             if individualDiversity == 1.0 { testCounter += 1 }
             combinedDiversity += individualDiversity
         }
-        let averageDiversity = combinedDiversity / generationSize
+        let averageDiversity = combinedDiversity / individualsCount
         return averageDiversity
     }
     
@@ -55,26 +55,26 @@ enum DiversityModel: String, Encodable {
     // Measuring the distance of an individuals genealogyDNA to all other DNAs of its generation.
     private func genealogyDiversity(of individual: Factory, in generation: Generation) -> Double {
         var sumOfDNADistances = 0
-        for comparisonIndividual in generation.individuals {
+        for comparisonIndividual in generation.deterministicIndividuals {
             guard let bitstringDistance = individual.genealogyDNA.distance(to: comparisonIndividual.genealogyDNA) else {
                 fatalError("Lengths of the genealogyDNAs don't match!")
             }
             sumOfDNADistances += bitstringDistance
         }
-        let averageDistance = Double(sumOfDNADistances) / Double(generation.size)
+        let averageDistance = Double(sumOfDNADistances) / Double(generation.deterministicIndividuals.count)
         return averageDistance
     }
     
     /// Measuring the pairwise distance of all workstations of the individual in its generation.
     private func genomDistanceBasedDiversity(of individual: Factory, in generation: Generation) -> Double {
         var sumOfWorkstationDistances = 0
-        for comparisonIndividual in generation.individuals {
+        for comparisonIndividual in generation.deterministicIndividuals {
             for (i, workstation) in individual.sortedWorkstations.enumerated() {
                 let comparisonWorkstation = comparisonIndividual.sortedWorkstations[i]
                 sumOfWorkstationDistances += workstation.position.distance(to: comparisonWorkstation.position)
             }
         }
-        let averageSumOfDistances = Double(sumOfWorkstationDistances) / Double(generation.size)
+        let averageSumOfDistances = Double(sumOfWorkstationDistances) / Double(generation.deterministicIndividuals.count)
         let averageDistance = averageSumOfDistances / Double(individual.workstations.count)
         return averageDistance
     }

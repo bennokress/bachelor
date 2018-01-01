@@ -32,8 +32,11 @@ struct Mutation: Modificator {
                 // Determine all possible empty fields for the mutation of the current workstation
                 let possibleNewPositions = originalWorkstation.position.allPositions(inRadius: settings.mutationDistance, inside: factory.layout).filter { mutatedFactoryLayout.isEmptyField(at: $0) }
                 
-                // Select a new position randomly (and break if no mutation is possible
-                guard let newPosition = possibleNewPositions.randomElement else { break }
+                // Select a new position randomly (and break if no mutation is possible)
+                guard let newPosition = possibleNewPositions.randomElement else {
+                    neededDNAFlips -= 1
+                    break
+                }
                 
                 // Swap the original workstation for the mutated one
                 let mutatedWorkstation = Workstation(id: originalWorkstation.id, type: originalWorkstation.type, at: newPosition)
@@ -42,6 +45,7 @@ struct Mutation: Modificator {
             
             // 3 - Compute new genealogyDNA
             let mutationBitstring = Bitstring(from: factory.genealogyDNA, mutatedBitsCount: neededDNAFlips)
+//            print("Mutation produced \(mutationBitstring) with \(neededDNAFlips) flips from \(factory.genealogyDNA).")
             
             // 4 - Generate new factory from layout and add to generation
             let mutatedFactory = settings.generateFactory(from: &mutatedFactoryLayout, genealogyDNA: mutationBitstring)

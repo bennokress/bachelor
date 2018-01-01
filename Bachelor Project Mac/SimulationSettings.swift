@@ -13,11 +13,11 @@ class SimulationSettings {
     private init() { }
     static var shared = SimulationSettings()
     
-    var simulationMode: SimulationMode = .development(diversityModel: .genealogical, useDiversity: true)
+    //  var simulationMode: SimulationMode = .development(diversityModel: .genealogical, useDiversity: true)
     //  var simulationMode: SimulationMode = .phase1(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
     //  var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
     //  var simulationMode: SimulationMode = .phase3(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
-    //  var simulationMode: SimulationMode = .phase4(diversityModel: .fitnessSharing, useDiversity: true, randomizeProducts: false)
+    var simulationMode: SimulationMode = .phase4(diversityModel: .genealogical, useDiversity: true, randomizeProducts: false)
     
     // MARK: General
     let debugLevel = DebugLevel.off
@@ -151,7 +151,7 @@ extension SimulationSettings {
     func getFactoryWithDeactivatedWorkstations(withIDs brokenWorkstationIDs: [Int], from oldFactory: Factory) -> Factory {
         // 1 - Save important values from old Factory
         let oldFactoryID = oldFactory.id
-        let oldFactoryDNA = oldFactory.genealogyDNA
+        let oldFactoryDNA = oldFactory.genealogyDNA.removing(numberOfBits: brokenWorkstationIDs.count)
         let oldLayout = oldFactory.layout
         guard let entrance = oldLayout.entrancePosition, let exit = oldLayout.exitPosition else { fatalError("Could not find Entrance or Exit!") }
         

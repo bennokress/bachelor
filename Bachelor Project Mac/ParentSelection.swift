@@ -25,15 +25,18 @@ struct ParentSelection: Modificator {
         
         if rouletteMode {
             
-            guard let bestFitnessInGeneration = sortedGeneration.first?.fitness else { fatalError("No factories found!") }
+            guard let bestIndividualInGeneration = sortedGeneration.first else { fatalError("No factories found!") }
+            let bestFitnessInGeneration = useDiversity ? bestIndividualInGeneration.getAdaptedFitness(in: generation) : Double(bestIndividualInGeneration.fitness)
             
             // 1 - Build "Roulette Wheel" by adding each factory-ID from the generation n times with n being the inversed and expanded factory fitness
             var rouletteWheel: [Int] = []
             for individual in generation.individuals.sorted(by: { $0.id < $1.id }) {
-                let fitnessFactor = individual.fitness.inverseAndExpand(by: bestFitnessInGeneration) // FIXME: Use adapted Fitness, if useDiversity is true!
-                fitnessFactor.times {
+                let fitness = useDiversity ? individual.getAdaptedFitness(in: generation) : Double(individual.fitness)
+                let rouletteWheelFrequency = fitness.rouletteWheelFrequency(relativeTo: bestFitnessInGeneration)
+                rouletteWheelFrequency.times {
                     rouletteWheel.append(individual.id)
                 }
+//                print("\(fitness) | \(individual.fitness) | Factory #\(individual.id) added \(fitnessFactor) times to the roulette wheel.")
             }
             
             // 2 - Pick and remove factory IDs randomly from the roulette wheel
