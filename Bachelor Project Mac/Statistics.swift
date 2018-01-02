@@ -77,14 +77,18 @@ class Statistics: Encodable {
         var averageFitnessCSV = "Average Fitness;"
         var bestFitnessCSV = "Best Fitness;"
         var worstFitnessCSV = "Worst Fitness;"
-        var averageDiversityCSV = "Average Diversity;"
+        var averageFitnessSharingDiversityCSV = "Average Diversity (Fitness Sharing);"
+        var averageGenomDistanceBasedDiversityCSV = "Average Diversity (Genom Distance Based);"
+        var averageGenealogicalDiversityCSV = "Average Diversity (Genealogical);"
         
         for round in evolution {
             simulationRoundCSV += "\(round.simulationRound);"
             averageFitnessCSV += "\(round.averageFitness);"
             bestFitnessCSV += "\(round.bestFitness);"
             worstFitnessCSV += "\(round.worstFitness);"
-            averageDiversityCSV += getDiversityAverageCSV(from: round.individuals)
+            averageFitnessSharingDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .fitnessSharing)
+            averageGenomDistanceBasedDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genomDistanceBased)
+            averageGenealogicalDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genealogical)
         }
         
         let csvOutput = """
@@ -93,15 +97,17 @@ class Statistics: Encodable {
         \(averageFitnessCSV.excelFixed)
         \(bestFitnessCSV.excelFixed)
         \(worstFitnessCSV.excelFixed)
-        \(averageDiversityCSV.excelFixed)
+        \(averageFitnessSharingDiversityCSV.excelFixed)
+        \(averageGenomDistanceBasedDiversityCSV.excelFixed)
+        \(averageGenealogicalDiversityCSV.excelFixed)
         """
         
         return csvOutput
     }
     
-    private func getDiversityAverageCSV(from individuals: [Factory]) -> String {
+    private func getDiversityAverageCSV(from individuals: [Factory], diversityModel: DiversityModel) -> String {
         let generation = Generation(factories: Set(individuals))
-        guard let averageDiversityOfGeneration = generation.averageDiversity else { fatalError("Average Diversity was never measured!") }
+        let averageDiversityOfGeneration = diversityModel.averageDiversity(for: generation, with: diversityModel)
         return "\(averageDiversityOfGeneration);"
     }
 

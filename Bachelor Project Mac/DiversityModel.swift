@@ -27,12 +27,12 @@ enum DiversityModel: String, Encodable {
     }
     
     // MARK: Generation Measurement
-    func averageDiversity(for generation: Generation) -> Double {
+    func averageDiversity(for generation: Generation, with diversityModel: DiversityModel? = nil) -> Double {
         var combinedDiversity: Double = 0
         let individualsCount = Double(generation.deterministicIndividuals.count)
         var testCounter = 0
         for individual in generation.deterministicIndividuals {
-            let individualDiversity = Double(diversityScore(of: individual, in: generation))
+            let individualDiversity = Double(diversityScore(of: individual, in: generation, with: diversityModel))
             if individualDiversity == 1.0 { testCounter += 1 }
             combinedDiversity += individualDiversity
         }
@@ -41,8 +41,9 @@ enum DiversityModel: String, Encodable {
     }
     
     // MARK: Individual Measurement
-    func diversityScore(of individual: Factory, in generation: Generation) -> Double {
-        switch self {
+    func diversityScore(of individual: Factory, in generation: Generation, with diversityModel: DiversityModel? = nil) -> Double {
+        let neededDiversityModel = diversityModel ?? self // This normally calls self. Only exception: Statistics need all diversity scores!
+        switch neededDiversityModel {
         case .genealogical:
             return genealogyDiversity(of: individual, in: generation)
         case .fitnessSharing:
