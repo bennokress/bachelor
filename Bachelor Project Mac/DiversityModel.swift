@@ -84,6 +84,7 @@ enum DiversityModel: String, Encodable {
     private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double {
         guard let comparisonIndividual = generation.sortedByFitness.first else { fatalError("Could not find best individual in generation!") }
         if individual == comparisonIndividual {
+            // TODO: [LOGIC] Is this really correct or should it be 0.0?
             return 1.0 // fitness of the best individual will not be modified by the diversity score
         } else {
             var sumOfWorkstationDistances = 0
@@ -96,6 +97,7 @@ enum DiversityModel: String, Encodable {
             let threshold = Double(individual.layout.size) / 100
             return (averageDistance > threshold) ? 1.0 : (averageDistance / threshold)
         }
+        // TODO: [LOGIC] Adjust this score to be 10x higher for easier comparison?
     }
     
 }

@@ -81,6 +81,8 @@ class Statistics: Encodable {
         var averageGenomDistanceBasedDiversityCSV = "Average Diversity (Genom Distance Based);"
         var averageGenealogicalDiversityCSV = "Average Diversity (Genealogical);"
         
+        printHeader()
+        
         for round in evolution {
             simulationRoundCSV += "\(round.simulationRound);"
             averageFitnessCSV += "\(round.averageFitness);"
@@ -89,6 +91,7 @@ class Statistics: Encodable {
             averageFitnessSharingDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .fitnessSharing)
             averageGenomDistanceBasedDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genomDistanceBased)
             averageGenealogicalDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genealogical)
+            printProgress(for: round.simulationRound)
         }
         
         let csvOutput = """
@@ -109,6 +112,21 @@ class Statistics: Encodable {
         let generation = Generation(factories: Set(individuals))
         let averageDiversityOfGeneration = diversityModel.averageDiversity(for: generation, with: diversityModel)
         return "\(averageDiversityOfGeneration);"
+    }
+    
+    private func printHeader() {
+        print("")
+        print(String.init(repeating: "=", count: 71))
+        print("Gathering Detailed Statistics for all Rounds")
+        print(String.init(repeating: "-", count: 71))
+    }
+    
+    private func printProgress(for round: Int) {
+        let progressInPercent = (round * 100) / SimulationSettings.shared.generations
+        let progressString = "\(progressInPercent.toString(length: 3))%"
+        let progressBar = "[\(String.init(repeating: "=", count: (progressInPercent / 2)))\(String.init(repeating: " ", count: 50 - (progressInPercent / 2)))]"
+        let roundString = "Round \(round.toString(length: 3))"
+        print("\(roundString) | \(progressBar) | \(progressString)")
     }
 
 }
