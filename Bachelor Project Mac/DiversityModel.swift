@@ -13,18 +13,38 @@ enum DiversityModel: String, Encodable {
     case fitnessSharing
     case genomDistanceBased
     
-    /// Factor in calculating the diversity-influenced fitness f'.
-    func lambda(basedOn averageFitnessOfGeneration: Double, and averageDiversityOfGeneration: Double) -> Double {
-        // TODO: [TUNING] Better diversity model sensitive values or no switch!
+    var observationBasedAverageFitnessOfGeneration: Double {
+        return 157.00
+    }
+    
+    var observationBasedAverageDiversityOfGeneration: Double {
         switch self {
         case .genealogical:
-            return averageFitnessOfGeneration / averageDiversityOfGeneration
+            return 2.51934118
         case .fitnessSharing:
-            return averageFitnessOfGeneration / averageDiversityOfGeneration
+            return 0.06017415
         case .genomDistanceBased:
-            return averageFitnessOfGeneration / averageDiversityOfGeneration
+            return 0.61034056
         }
     }
+    
+    /// Factor in calculating the diversity-influenced fitness f'.
+    var lambda: Double {
+        return observationBasedAverageFitnessOfGeneration / observationBasedAverageDiversityOfGeneration
+    }
+    
+    /// NOTE: Exact computation based on current generation (takes more time)
+    // func lambda(basedOn averageFitnessOfGeneration: Double, and averageDiversityOfGeneration: Double) -> Double {
+    //     TODO: [TUNING] Better diversity model sensitive values or no switch!
+    //     switch self {
+    //     case .genealogical:
+    //         return averageFitnessOfGeneration / averageDiversityOfGeneration
+    //     case .fitnessSharing:
+    //         return averageFitnessOfGeneration / averageDiversityOfGeneration
+    //     case .genomDistanceBased:
+    //         return averageFitnessOfGeneration / averageDiversityOfGeneration
+    //     }
+    // }
     
     // MARK: Generation Measurement
     func averageDiversity(for generation: Generation, with diversityModel: DiversityModel? = nil) -> Double {
