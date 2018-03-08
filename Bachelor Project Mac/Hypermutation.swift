@@ -23,7 +23,7 @@ struct Hypermutation: Modificator {
                 
                 // 1 - Generate new random factory
                 let workstationBrakedownNeeded = generation.workstationBreakdownHappened
-                let randomFactory = Factory(withBrokenWorkstation: workstationBrakedownNeeded)
+                let randomFactory = Factory(withBrokenWorkstations: workstationBrakedownNeeded)
                 
                 // 2 - Insert factory into generation
                 generation.insert(randomFactory)

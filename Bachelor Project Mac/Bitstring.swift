@@ -10,6 +10,10 @@ import Foundation
 
 struct Bitstring: Codable {
     
+    static var random: Bitstring {
+        return Bitstring()
+    }
+    
     var bits: [Bit]
     
     var length: Int { return bits.count }
@@ -18,7 +22,7 @@ struct Bitstring: Codable {
         self.bits = bits
     }
     
-    init(length: Int) {
+    init(length: Int = SimulationSettings.shared.workstationCount) {
         var bits: [Bit] = []
         length.times { bits.append(Bit.random) }
         self.bits = bits

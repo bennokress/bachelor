@@ -10,7 +10,48 @@ import Foundation
 
 struct Factory: Identifiable {
     
-    init(withBrokenWorkstation brokenWorkstationEnabled: Bool = false) {
+    private init(id: Int, layout: FactoryLayout, genealogyDNA: Bitstring) {
+        
+        self.id = id
+        self.layout = layout
+        self.layoutHash = layout.hash
+        self.genealogyDNA = genealogyDNA
+        
+        // Performing fitness calculations
+        let factoryCopy = RunnableFactory(layout: layout)
+        self.fitness = factoryCopy.calculateFitness()
+        
+    }
+    
+    /// Generates a new factory from a given layout and genealogy DNA
+    init(from factoryLayout: inout FactoryLayout, withGenealogyDNA: Bitstring) {
+        
+        let settings = SimulationSettings.shared
+        
+        // 1 - generate robots for each product and place them at the entrance
+        var nextRobotID = 1
+        for productType in settings.productAmount.keys.sorted(by: { $0 < $1 }) {
+            guard let amountOfCurrentProductType = settings.productAmount[productType] else {
+                fatalError("No information found on amount for product of type \(productType.rawValue)")
+            }
+            amountOfCurrentProductType.times {
+                let product = Product(type: productType)
+                var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
+                factoryLayout.addRobot(&robot)
+                nextRobotID += 1
+            }
+        }
+        
+        // 2 - generate factory
+        let factory = Factory(id: settings.nextFactoryID, layout: factoryLayout, genealogyDNA: withGenealogyDNA)
+        settings.nextFactoryID += 1
+        
+        self = factory
+        
+    }
+    
+    /// Generates a new random factory with workstations already broken down, if specified
+    init(withBrokenWorkstations brokenWorkstationsNeeded: Bool = false) {
         
         let settings = SimulationSettings.shared
         
@@ -31,38 +72,14 @@ struct Factory: Identifiable {
         }
         
         // 3 - generate factory with robots at the entrance and a random genealogyDNA
-        let factory = Factory(from: &factoryLayout, genealogyDNA: Bitstring(length: settings.workstationCount))
+        let factory = Factory(from: &factoryLayout, withGenealogyDNA: Bitstring.random)
         
-        self = brokenWorkstationEnabled ? Factory(from: factory, with: settings.brokenWorkstationIDs) : factory
-        
-    }
-    
-    init(from factoryLayout: inout FactoryLayout, genealogyDNA: Bitstring) {
-        
-        let settings = SimulationSettings.shared
-        
-        // 1 - generate robots for each product and place them at the entrance
-        var nextRobotID = 1
-        for productType in settings.productAmount.keys.sorted(by: { $0 < $1 }) {
-            guard let amountOfCurrentProductType = settings.productAmount[productType] else {
-                fatalError("No information found on amount for product of type \(productType.rawValue)")
-            }
-            amountOfCurrentProductType.times {
-                let product = Product(type: productType)
-                var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
-                factoryLayout.addRobot(&robot)
-                nextRobotID += 1
-            }
-        }
-        
-        // 2 - generate factory
-        let factory = Factory(id: settings.nextFactoryID, layout: factoryLayout, genealogyDNA: genealogyDNA)
-        settings.nextFactoryID += 1
-        
-        self = factory
+        // 4 - Let workstations break down if needed
+        self = brokenWorkstationsNeeded ? Factory(from: factory, with: settings.brokenWorkstationIDs) : factory
         
     }
     
+    /// Copies the given oldFactory and removes the specified broken workstations (triggers a recalculation of the fitness)
     init(from oldFactory: Factory, with brokenWorkstationIDs: [Int]) {
         
         // 1 - Save important values from old Factory
@@ -91,28 +108,24 @@ struct Factory: Identifiable {
         
     }
     
-    var diversityModel: DiversityModel { return SimulationSettings.shared.usedDiversityModel }
+    // MARK: - 🔨 Static Properties
+    
+    /// A random factory
+    static var random: Factory {
+        return Factory()
+    }
+    
+    // MARK: - 🔧 Properties
     
     let id: Int
     let layout: FactoryLayout
     let layoutHash: String // used to recognize identical layouts (duplicate factories)
     let fitness: Int
-    
     let genealogyDNA: Bitstring
     
-    init(id: Int, layout: FactoryLayout, genealogyDNA: Bitstring) {
-        self.id = id
-        self.layout = layout
-        self.layoutHash = layout.hash
-        self.genealogyDNA = genealogyDNA
-        
-        // Fitness Calculation
-        let factoryCopy = RunnableFactory(layout: layout)
-        self.fitness = factoryCopy.calculateFitness()
-    }
+    // MARK: - ⚙️ Computed Properties
     
-    // MARK: Computed Properties
-    
+    /// The robots moving in the factory
     var robots: Set<Robot> {
         var robots: Set<Robot> = []
         for field in layout.fields {
@@ -123,6 +136,7 @@ struct Factory: Identifiable {
         return robots
     }
     
+    /// The workstations of the factory
     var workstations: Set<Workstation> {
         var workstations: Set<Workstation> = []
         for field in layout.fields {
@@ -133,13 +147,21 @@ struct Factory: Identifiable {
         return workstations
     }
     
+    /// The workstations of the factory sorted by ID
     var sortedWorkstations: [Workstation] {
         return workstations.sorted { $0.id < $1.id }
     }
     
-    // MARK: Functions
+    // MARK: 🗝 Private Computed Properties
     
-    /// Fitness measure with respect to the selected diversity measure: f'(x,P) = f(x) + λ * d(x,P)
+    /// The used diversity model as specified in the SimulationSettings
+    private var diversityModel: DiversityModel {
+        return SimulationSettings.shared.usedDiversityModel
+    }
+    
+    // MARK: - 📗 Functions
+    
+    /// Returns the adapted fitness measure influenced by diversity: f'(x,P) = f(x) + λ * d(x,P)
     func getAdaptedFitness(in generation: Generation) -> Double {
         let λ = diversityModel.lambda
         let f_x = Double(fitness)
@@ -147,6 +169,7 @@ struct Factory: Identifiable {
         return f_x + λ * d_xP
     }
     
+    /// Returns true if the layout is identical to the layout of the given factory
     func hasIdenticalLayout(as otherFactory: Factory) -> Bool {
         return self.layoutHash == otherFactory.layoutHash
     }

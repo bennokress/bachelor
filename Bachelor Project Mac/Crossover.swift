@@ -52,7 +52,7 @@ struct Crossover: Modificator {
             let crossoverBitstring = Bitstring(from: factory1.genealogyDNA, and: factory2.genealogyDNA, mergedWith: neededDNASwitches)
             
             // 6 - Generate new factory from layout and add to generation
-            let crossoverFactory = Factory(from: &crossoverFactoryLayout, genealogyDNA: crossoverBitstring)
+            let crossoverFactory = Factory(from: &crossoverFactoryLayout, withGenealogyDNA: crossoverBitstring)
             generation.insert(crossoverFactory)
             
             // 7 - Save result for action output

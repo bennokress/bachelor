@@ -46,7 +46,7 @@ struct Mutation: Modificator {
             let mutationBitstring = Bitstring(from: factory.genealogyDNA, mutatedBitsCount: neededDNAFlips)
             
             // 4 - Generate new factory from layout and add to generation
-            let mutatedFactory = Factory(from: &mutatedFactoryLayout, genealogyDNA: mutationBitstring)
+            let mutatedFactory = Factory(from: &mutatedFactoryLayout, withGenealogyDNA: mutationBitstring)
             generation.insert(mutatedFactory)
             
             // 5 - Save result for action output
