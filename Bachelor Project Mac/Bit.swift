@@ -8,18 +8,25 @@
 
 import Foundation
 
-enum Bit: Int, Equatable, Codable {
+enum Bit: Int, Equatable {
+    
     case zero = 0
     case one = 1
     
-    var flipped: Bit {
-        return self == .zero ? .one : .zero
-    }
+    // MARK: - 🔨 Static Properties
     
     static var random: Bit {
         let rawValue = Int.random(between: 0, and: 1)
         return Bit(rawValue: rawValue)!
     }
+    
+    // MARK: - ⚙️ Computed Properties
+    
+    var flipped: Bit {
+        return self == .zero ? .one : .zero
+    }
+    
+    // MARK: - 📗 Functions
     
     func distance(to otherBit: Bit) -> Int {
         return self == otherBit ? 0 : 1

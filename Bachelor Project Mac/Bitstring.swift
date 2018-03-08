@@ -8,32 +8,27 @@
 
 import Foundation
 
-struct Bitstring: Codable {
+struct Bitstring {
     
-    static var random: Bitstring {
-        return Bitstring()
-    }
-    
-    var bits: [Bit]
-    
-    var length: Int { return bits.count }
-    
+    /// Initializes a Bitstring from the given Bit array
     private init(from bits: [Bit]) {
         self.bits = bits
     }
     
+    /// Inititalizes a random Bitstring with the given length
     init(length: Int = SimulationSettings.shared.workstationCount) {
         var bits: [Bit] = []
         length.times { bits.append(Bit.random) }
         self.bits = bits
     }
     
-    init(from bitstring1: Bitstring, and bitstring2: Bitstring, mergedWith switchBits: Int) {
-        guard switchBits <= bitstring1.length else { fatalError("More bits should be flipped than available!") }
-        if switchBits == 0 {
+    /// Initializes a Bitstring by merging the provided Bitstrings with the given "mergeBitCount" indicating the number of Bits from factory 2
+    init(from bitstring1: Bitstring, byMerging mergeBitCount: Int, from bitstring2: Bitstring) {
+        guard mergeBitCount <= bitstring1.length else { fatalError("More bits should be flipped than available!") }
+        if mergeBitCount == 0 {
             self.bits = bitstring1.bits
         } else {
-            let cutIndex = bitstring1.length - switchBits
+            let cutIndex = bitstring1.length - mergeBitCount
             let bitIndices = 0 ... bitstring1.length - 1
             var crossoverBits: [Bit] = []
             for index in bitIndices {
@@ -43,6 +38,7 @@ struct Bitstring: Codable {
         }
     }
     
+    /// Initializes a Bitstring by flipping the given number of mutated Bits in the specified Bitstring
     init(from bitstring: Bitstring, mutatedBitsCount: Int) {
         guard mutatedBitsCount <= bitstring.length else { fatalError("More Bits to be flipped than available!") }
         if mutatedBitsCount == 0 {
@@ -55,12 +51,26 @@ struct Bitstring: Codable {
         }
     }
     
-    mutating func flip(at index: Int) {
-        var bitstring = self.bits
-        bitstring[index] = bitstring[index].flipped
-        self.bits = bitstring
+    // MARK: - 🔨 Static Properties
+    
+    /// A random Bitstring with the length specified in the SimulationSettings
+    static var random: Bitstring {
+        return Bitstring()
     }
     
+    // MARK: - 🔧 Properties
+    
+    /// The array representation of the Bitstring
+    var bits: [Bit]
+    
+    // MARK: - ⚙️ Computed Properties
+    
+    /// The length of the Bitstring
+    var length: Int { return bits.count }
+    
+    // MARK: - 📗 Functions
+    
+    /// Returns the Bitstring with the specified amount of Bits cut from the back
     func removing(numberOfBits removableBitsCount: Int) -> Bitstring {
         guard removableBitsCount <= self.length else { fatalError("More Bits to be removed than available!") }
         if removableBitsCount == 0 {
@@ -74,6 +84,7 @@ struct Bitstring: Codable {
         }
     }
     
+    /// Returns the pairwise distance of the Bitstring to the specified Bitstring. Returns nil if the length doesn't match
     func distance(to otherBitstring: Bitstring) -> Int? {
         guard self.length == otherBitstring.length else { return nil }
         var bitDistance = 0
@@ -83,13 +94,23 @@ struct Bitstring: Codable {
         return bitDistance
     }
     
+    // MARK: - 📕 Mutating Functions
+    
+    /// Flips the Bit at the given index
+    mutating func flip(at index: Int) {
+        var bitstring = self.bits
+        bitstring[index] = bitstring[index].flipped
+        self.bits = bitstring
+    }
+    
 }
 
 // MARK: - 🔖 Equatable Conformance
 extension Bitstring: Equatable {
     
+    /// Two Bitstrings are considered equal if their pairwise Bit distance is zero
     static func == (lhs: Bitstring, rhs: Bitstring) -> Bool {
-        return lhs.bits == rhs.bits
+        return lhs.distance(to: rhs) == 0
     }
     
 }
