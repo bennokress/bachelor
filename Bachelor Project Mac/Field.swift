@@ -10,24 +10,26 @@ import Foundation
 
 struct Field {
     
+    init(at position: Position, type: FieldType = .empty) {
+        self.position = position
+        self.state = type
+    }
+    
+    // MARK: - 🔧 Properties
+    
     let position: Position
     var state: FieldType
     
-    var isEmpty: Bool { return state == .empty }
-    var hasRemainingCapacity: Bool { return remainingCapacity > 0 }
+    // MARK: - ⚙️ Computed Properties
     
-    /// Returns the remaining roboter-capacity of the field
-    private var remainingCapacity: Int {
-        switch state {
-        case .entrance, .exit:
-            return Int.max
-        case .wall, .robot:
-            return 0
-        case .workstation(let workstation):
-            return workstation.state == .idle ? 1 : 0
-        case .empty:
-            return 1
-        }
+    /// Returns true, if the field's state is empty
+    var isEmpty: Bool {
+        return state == .empty
+    }
+    
+    /// Returns true, if the field is able to accomodate another robot
+    var hasRemainingCapacity: Bool {
+        return remainingCapacity > 0
     }
     
     /// Returns a single robot sitting on the field or nil in all other cases. See var robots for fields with multiple robots!
@@ -65,10 +67,23 @@ struct Field {
         }
     }
     
-    init(at position: Position, type: FieldType = .empty) {
-        self.position = position
-        self.state = type
+    // MARK: 🗝 Private Computed Properties
+    
+    /// Returns the remaining roboter-capacity of the field
+    private var remainingCapacity: Int {
+        switch state {
+        case .entrance, .exit:
+            return Int.max
+        case .wall, .robot:
+            return 0
+        case .workstation(let workstation):
+            return workstation.state == .idle ? 1 : 0
+        case .empty:
+            return 1
+        }
     }
+    
+    // MARK: - 📕 Mutating Functions
     
     /// Removes workstations and robots from the field
     mutating func clear() {
