@@ -10,25 +10,31 @@ import Cocoa
 
 class ViewController: NSViewController {
     
+    // MARK: - 🏀 Outlets
+    
     @IBOutlet weak var startButton: NSButton!
     
-    var interpreter = Interpreter.shared
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    // MARK: - ⚙️ Computed Properties
+    // MARK: 🗝 Private Computed Properties
+    
+    private var interpreter: Interpreter {
+        return Interpreter.shared
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
+    
+    // MARK: - ⛹🏼‍♂️ Actions
+    
     @IBAction func startButtonPressed(_ sender: Any) {
         interpreter.startButtonPressed()
         // TODO: [IMPROVEMENT] Disable Start Button until simulation is finished
+    }
+    
+    // MARK: - 📗 Functions
+    // MARK: 📱 View Functions (Override)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
     }
 
 }
