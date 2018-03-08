@@ -8,7 +8,8 @@
 
 import Foundation
 
-enum WorkstationType: String, Encodable {
+enum WorkstationType: String {
+    
     case wsA = "A"
     case wsB = "B"
     case wsC = "C"
@@ -17,6 +18,9 @@ enum WorkstationType: String, Encodable {
     case wsF = "F"
     case testWorkstation = "T" // needed in unit tests only
     
+    // MARK: - 📘 Static Functions
+    
+    /// Returns a dictionary containing the provided workstation amount per workstation type
     static func amountDictionary(a: Int, b: Int, c: Int, d: Int, e: Int, f: Int) -> [WorkstationType : Int] {
         return [.wsA: a, .wsB: b, .wsC: c, .wsD: d, .wsE: e, .wsF: f]
     }
