@@ -10,15 +10,15 @@ import Foundation
 
 struct Field {
     
-    init(at position: Position, type: FieldType = .empty) {
+    init(at position: Position, state: FieldState = .empty) {
         self.position = position
-        self.state = type
+        self.state = state
     }
     
     // MARK: - 🔧 Properties
     
     let position: Position
-    var state: FieldType
+    var state: FieldState
     
     // MARK: - ⚙️ Computed Properties
     

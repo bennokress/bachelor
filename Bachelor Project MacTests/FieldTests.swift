@@ -36,7 +36,7 @@ class FieldTests: XCTestCase {
         
         var testField = standard.field2
         testField.addWorkstation(testWorkstation)
-        XCTAssert(testField.workstation == testWorkstation, "The field should have a workstation. It also has the wrong type if this test fails!")
+        XCTAssert(testField.workstation == testWorkstation, "The field should have a workstation. It also has the wrong state if this test fails!")
     }
     
     func testAddsAndRemovesRobot() {
@@ -44,13 +44,13 @@ class FieldTests: XCTestCase {
         
         var testField = standard.field1
         testField.addRobot(testRobot)
-        XCTAssert(testField.robot == testRobot, "The field should have a robot. It also has the wrong type if this test fails!")
+        XCTAssert(testField.robot == testRobot, "The field should have a robot. It also has the wrong state if this test fails!")
         
         testField.removeRobot(testRobot)
         XCTAssert(testField.isEmpty)
     }
     
-    func testFieldTypeCapacity() {
+    func testFieldStateCapacity() {
         var testField = standard.field1
         
         XCTAssert(testField.hasRemainingCapacity, "An empty field should always have remaining capacity!")

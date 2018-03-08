@@ -13,18 +13,6 @@ class RoutingTests: XCTestCase {
     
     let standard = StandardImplementation()
     
-    // MARK: General Functions
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     // MARK: Tests
     
     func testRobotOfProductWithNoWorkstationsGetsRouteDirectlyToExit() {
@@ -48,7 +36,7 @@ class RoutingTests: XCTestCase {
         }
         
         let robot = Robot(id: 0, product: Product(type: .testProduct), in: factoryLayout)
-        XCTAssert(robot.remainingRoute == [factoryLayout.workstations[0].position, exit])
+        XCTAssert(robot.remainingRoute == [factoryLayout.workstations.first!.position, exit])
     }
     
     func testShortestRouteIsChosen() {

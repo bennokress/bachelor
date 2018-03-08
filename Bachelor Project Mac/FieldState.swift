@@ -1,5 +1,5 @@
 //
-//  FieldType.swift
+//  FieldState.swift
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 30.04.17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FieldType {
+enum FieldState {
     
     case wall
     case entrance(robots: Set<Robot>)
@@ -20,10 +20,10 @@ enum FieldType {
 }
 
 // MARK: - 🔖 Equatable Conformance
-extension FieldType: Equatable {
+extension FieldState: Equatable {
     
-    /// Field Types are considered equal, if their types and (if applicable) the contained objects match
-    static func == (lhs: FieldType, rhs: FieldType) -> Bool {
+    /// Field States are considered equal, if their types and (if applicable) the contained objects match
+    static func == (lhs: FieldState, rhs: FieldState) -> Bool {
         switch (lhs, rhs) {
         case (.wall, .wall), (.entrance, .entrance), (.exit, .exit), (.empty, .empty):
             return true
@@ -39,7 +39,7 @@ extension FieldType: Equatable {
 }
 
 // MARK: - 🔖 CustomStringConvertible Conformance
-extension FieldType: CustomStringConvertible {
+extension FieldState: CustomStringConvertible {
     
     var description: String {
         switch self {

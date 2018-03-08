@@ -193,7 +193,7 @@ struct FactoryLayout {
         guard let fieldnumber = workstation.position.getFieldNumber(in: self), fields[fieldnumber].workstation != nil else {
             fatalError("Workstation not found in factory layout")
         }
-        replaceField(at: fieldnumber, with: Field(at: workstation.position, type: .empty))
+        replaceField(at: fieldnumber, with: Field(at: workstation.position, state: .empty))
     }
     
     // MARK: 🔒 Private Mutating Functions

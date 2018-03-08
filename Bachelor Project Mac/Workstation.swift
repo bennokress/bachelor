@@ -11,9 +11,9 @@ import Foundation
 struct Workstation: Identifiable {
     
     let id: Int
-    var state: WorkstationState
     let type: WorkstationType
     let position: Position
+    var state: WorkstationState
     
     var isIdle: Bool { return state == .idle }
     

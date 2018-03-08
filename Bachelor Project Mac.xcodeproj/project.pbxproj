@@ -51,7 +51,7 @@
 		D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD51EB4EBC30038710B /* ProductType.swift */; };
 		D3D84DD81EB4EBEC0038710B /* WorkstationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */; };
 		D3D84DDA1EB4EC590038710B /* RobotRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD91EB4EC590038710B /* RobotRouting.swift */; };
-		D3D84DDC1EB5F9390038710B /* FieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDB1EB5F9390038710B /* FieldType.swift */; };
+		D3D84DDC1EB5F9390038710B /* FieldState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDB1EB5F9390038710B /* FieldState.swift */; };
 		D3D84DDE1EB629050038710B /* RobotState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDD1EB629050038710B /* RobotState.swift */; };
 		D3D84DE01EB6291A0038710B /* WorkstationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DDF1EB6291A0038710B /* WorkstationState.swift */; };
 		D3D84DE41EB653330038710B /* RoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DE31EB653330038710B /* RoutingTests.swift */; };
@@ -129,7 +129,7 @@
 		D3D84DD51EB4EBC30038710B /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationType.swift; sourceTree = "<group>"; };
 		D3D84DD91EB4EC590038710B /* RobotRouting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotRouting.swift; sourceTree = "<group>"; };
-		D3D84DDB1EB5F9390038710B /* FieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldType.swift; sourceTree = "<group>"; };
+		D3D84DDB1EB5F9390038710B /* FieldState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldState.swift; sourceTree = "<group>"; };
 		D3D84DDD1EB629050038710B /* RobotState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotState.swift; sourceTree = "<group>"; };
 		D3D84DDF1EB6291A0038710B /* WorkstationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationState.swift; sourceTree = "<group>"; };
 		D3D84DE31EB653330038710B /* RoutingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutingTests.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 			children = (
 				D3E257021EBB8584005949A9 /* Identifiable.swift */,
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
-				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
+				D3D84DDB1EB5F9390038710B /* FieldState.swift */,
 				D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */,
 				D3D84DD51EB4EBC30038710B /* ProductType.swift */,
 				D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */,
@@ -503,7 +503,7 @@
 			files = (
 				D3D84DBE1EB478130038710B /* Interpreter.swift in Sources */,
 				D397342A1EB1E6D300DAAC8A /* ViewController.swift in Sources */,
-				D3D84DDC1EB5F9390038710B /* FieldType.swift in Sources */,
+				D3D84DDC1EB5F9390038710B /* FieldState.swift in Sources */,
 				D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */,
 				D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */,
 				D3CD5F071EEAE63E00CEB83B /* Crossover.swift in Sources */,
