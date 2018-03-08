@@ -9,6 +9,7 @@
 import Foundation
 
 enum SimulationMode {
+    
     // used in development | small and very predictable - good for checking the results of code adjustments
     case development(diversityModel: DiversityModel, useDiversity: Bool)
     
@@ -24,8 +25,10 @@ enum SimulationMode {
     // used until Jan 28th | diversity now used in selection
     case phase4(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
     
-    // used until -------- | Lambda in adapted fitness now with observation based value, workstation breakdown at 50% of simulation
+    // used until Mar 12th | Lambda in adapted fitness now with observation based value
     case phase5(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    
+    // MARK: - Manually entered settings per mode
     
     // Used in Statistics
     var name: String {
@@ -38,9 +41,6 @@ enum SimulationMode {
         case .phase5: return "phase5"
         }
     }
-}
-
-extension SimulationMode {
     
     /// Number of generations (= rounds of the Genetic Algorithm)
     var generations: Int {
@@ -173,7 +173,18 @@ extension SimulationMode {
         case .phase3,
              .phase4,
              .phase5: return Double.infinity // = always
-            // TODO: [TUNING] Find a good value!
+        }
+    }
+    
+    // The number of times a robot can move away from his next target before being marked as blocked
+    var dodgeThreshold: Int {
+        switch self {
+        case .development,
+             .phase1,
+             .phase2,
+             .phase3,
+             .phase4,
+             .phase5: return 100
         }
     }
     
@@ -280,9 +291,29 @@ extension SimulationMode {
              .phase1,
              .phase2,
              .phase3,
-             .phase4: return generations * 2 / 3 // at 2/3rd of the runtime
-        case .phase5: return generations * 1 / 2 // at 50% of the runtime
+             .phase4,
+             .phase5: return generations * 2 / 3 // at 2/3rd of the runtime
         }
     }
+    
+    // MARK: - Automatically determined variables from the values above
+    
+    var entrancePosition: Position {
+        let entranceFieldnumber = distanceFromEntranceAndExitToLayoutCorner - 1
+        guard let entrancePosition = Position(fromFieldnumber: entranceFieldnumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
+            fatalError("Entrance is outside of Factory Layout!")
+        }
+        return entrancePosition
+    }
+    
+    var exitPosition: Position {
+        let exitFieldnumber = factoryWidth * factoryLength - distanceFromEntranceAndExitToLayoutCorner
+        guard let exitPosition = Position(fromFieldnumber: exitFieldnumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
+            fatalError("Exit is outside of Factory Layout!")
+        }
+        return exitPosition
+    }
+    
+    var workstationCount: Int { return workstationAmount.values.reduce(0, +) }
     
 }

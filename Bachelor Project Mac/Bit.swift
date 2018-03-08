@@ -27,6 +27,7 @@ enum Bit: Int, Equatable, Codable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Bit: CustomStringConvertible {
     
     var description: String {

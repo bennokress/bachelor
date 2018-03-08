@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Factory: Identifiable, CustomPrintable, Encodable {
+struct Factory: Identifiable {
     
     var diversityModel: DiversityModel { return SimulationSettings.shared.usedDiversityModel }
     
@@ -64,14 +64,9 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
     
     /// Fitness measure with respect to the selected diversity measure: f'(x,P) = f(x) + λ * d(x,P)
     func getAdaptedFitness(in generation: Generation) -> Double {
-        // NOTE: Exact computation based on current generation (takes more time)
-        // guard let averageFitnessOfGeneration = generation.averageFitness else { fatalError("Average Fitness was never measured!") }
-        // guard let averageDiversityOfGeneration = generation.averageDiversity else { fatalError("Average Diversity was never measured!") }
-        // guard averageDiversityOfGeneration != 0 else { fatalError("Diversity dropped to 0!") }
-        // let λ = diversityModel.lambda(basedOn: averageFitnessOfGeneration, and: averageDiversityOfGeneration)
         let λ = diversityModel.lambda
         let f_x = Double(fitness)
-        let d_xP = diversityModel.diversityScore(of: self, in: generation)
+        let d_xP = diversityModel.diversityScore(of: self, in: generation) == nil ? 0.0 : (1 / diversityModel.diversityScore(of: self, in: generation)!)
         return f_x + λ * d_xP
     }
     
@@ -81,6 +76,7 @@ struct Factory: Identifiable, CustomPrintable, Encodable {
     
 }
 
+// MARK: - 🔖 Equatable Conformance
 extension Factory: Equatable {
     
     static func == (lhs: Factory, rhs: Factory) -> Bool {
@@ -89,39 +85,11 @@ extension Factory: Equatable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Factory: CustomStringConvertible {
     
     var description: String {
         return "Factory #\(id) with fitness \(fitness):\n\n\(layout.description)\n\n"
-    }
-    
-    func extensivePrint() {
-        print(self)
-        print("\(robots.count) Robots:")
-        for robot in robots { print(robot) }
-        print("\n\n")
-        print("\(workstations.count) Workstations:")
-        for workstation in workstations { print(workstation) }
-        print("\n\n------------------------------------------------------------------------")
-    }
-    
-}
-
-extension Factory {
-    
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case fitness
-        case distribution
-        case layoutHash
-        case layout = "workstations"
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(fitness, forKey: .fitness)
-        try container.encode(layout.workstations.sorted(by: { $0.id < $1.id }), forKey: .layout)
     }
     
 }

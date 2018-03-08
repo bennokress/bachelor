@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Robot: Identifiable, CustomPrintable, Encodable {
+struct Robot: Identifiable {
     
     let id: Int
     let product: Product
@@ -116,6 +116,7 @@ struct Robot: Identifiable, CustomPrintable, Encodable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Robot: CustomStringConvertible {
     
     var description: String {

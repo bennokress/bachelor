@@ -23,7 +23,6 @@ struct Simulator {
     }
     
     private mutating func runSimulation(on generation: inout Generation) {
-        actionPrint(short: shortInitialDescription(for: generation), detailed: detailedInitialDescription(for: generation))
         var currentRound = 0
         settings.generations.times {
             currentRound += 1
@@ -35,17 +34,11 @@ struct Simulator {
             saveStats(on: &generation, inRound: currentRound)
             printProgressAndStats(for: generation, in: currentRound)
             if settings.isLastSimulationRound(currentRound) {
-                actionPrint(fast: finishedNotification(), short: finishedNotification(), detailed: [finishedNotification()])
                 statistics.generateFinalOutput() { successful in
                     guard successful else { return }
                     restartSimulation()
                 }
             }
-            actionPrint(
-                fast: fastRoundResultDescription(for: generation, afterRound: currentRound),
-                short: shortRoundResultDescription(for: generation, afterRound: currentRound),
-                detailed: detailedRoundResultDescription(for: generation, afterRound: currentRound)
-            )
         }
     }
     
@@ -91,47 +84,6 @@ struct Simulator {
         for phase in settings.phases {
             phase.execute(on: &generation)
         }
-    }
-    
-}
-
-extension Simulator: ActionPrintable {
-    
-    // MARK: Initial Generation
-    private func shortInitialDescription(for generation: Generation) -> String {
-        let sortedGeneration = generation.factories.sorted { $0.fitness < $1.fitness }
-        guard let bestFitness = sortedGeneration.first?.fitness, let worstFitness = sortedGeneration.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "Initial generation of \(generation.size) factories with fitness between \(bestFitness) and \(worstFitness)"
-    }
-    
-    private func detailedInitialDescription(for generation: Generation) -> [String] {
-        let sortedGeneration = generation.factories.sorted { $0.id < $1.id }
-        let title = "INITIAL GENERATION"
-        var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
-        for factory in sortedGeneration { actionDescriptionLines.append("  · Factory #\(factory.id) with fitness \(factory.fitness)") }
-        return actionDescriptionLines
-    }
-    
-    // MARK: Round Result
-    private func fastRoundResultDescription(for generation: Generation, afterRound round: Int) -> String? {
-        return settings.isLastSimulationRound(round) ? shortRoundResultDescription(for: generation, afterRound: round) : "Finished round \(round) ..."
-    }
-    
-    private func shortRoundResultDescription(for generation: Generation, afterRound round: Int) -> String {
-        guard let bestFactory = generation.factories.sorted(by: { $0.fitness < $1.fitness }).first else { return "=== Error retreiving best factory ===" }
-        let title = "BEST FACTORY AFTER ROUND \(round)"
-        let description = settings.isLastSimulationRound(round) ? "\n" : "\n\(title.withAddedDivider("-", totalLength: 56))\n"
-        return "\(description)\(bestFactory)"
-    }
-    
-    private func detailedRoundResultDescription(for generation: Generation, afterRound round: Int) -> [String] {
-        return [shortRoundResultDescription(for: generation, afterRound: round)]
-    }
-    
-    // MARK: Simulation finished
-    private func finishedNotification() -> String {
-        let endTitle = "SIMULATION FINISHED"
-        return "\n\(endTitle.withAddedDivider("=", totalLength: 56))"
     }
     
 }

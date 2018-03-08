@@ -9,6 +9,7 @@
 import Foundation
 
 enum FieldType {
+    
     case wall
     case entrance(robots: Set<Robot>)
     case exit(robots: Set<Robot>)
@@ -16,20 +17,9 @@ enum FieldType {
     case robot(object: Robot)
     case empty
     
-    var remainingCapacity: Int {
-        switch self {
-        case .entrance, .exit:
-            return Int.max
-        case .wall, .robot:
-            return 0
-        case .workstation(let workstation):
-            return workstation.state == .idle ? 1 : 0
-        case .empty:
-            return 1
-        }
-    }
 }
 
+// MARK: - 🔖 Equatable Conformance
 extension FieldType: Equatable {
     
     /// Field Types are considered equal, if their types and eventual objects match
@@ -48,6 +38,7 @@ extension FieldType: Equatable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension FieldType: CustomStringConvertible {
     
     var description: String {
@@ -60,38 +51,6 @@ extension FieldType: CustomStringConvertible {
         case .workstation: return "a workstation"
         case .robot: return "a robot"
         case .empty: return "empty"
-        }
-    }
-    
-    var shortInfo: String {
-        switch self {
-        case .wall:
-            return "  X  "
-        case .entrance(let robots), .exit(let robots):
-            return " E\(robots.count.twoDigitRepresentation) "
-        case .workstation(let workstation):
-            return workstation.isIdle ? " \(workstation.type.rawValue)-0 " : " \(workstation.type.rawValue)-1 "
-        case .robot:
-            return "  R  "
-        case .empty:
-            return "     "
-        }
-    }
-    
-}
-
-extension FieldType: Encodable {
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .wall: try container.encode("wall")
-        case .entrance(let robots): try container.encode("entrance (\(robots.count) robots)")
-        case .exit(let robots): try container.encode("exit (\(robots.count) robots)")
-//        case .workstation(let workstation): try container.encode("workstation (type \(workstation.type))")
-        case .workstation(let workstation): try container.encode(workstation)
-        case .robot(let robot): try container.encode("robot (type \(robot.product.type))")
-        case .empty: try container.encode("empty")
         }
     }
     

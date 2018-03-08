@@ -8,14 +8,29 @@
 
 import Foundation
 
-struct Field: CustomPrintable, Encodable {
+struct Field {
     
     let position: Position
     var state: FieldType
     
     var isEmpty: Bool { return state == .empty }
-    var hasRemainingCapacity: Bool { return state.remainingCapacity > 0 }
+    var hasRemainingCapacity: Bool { return remainingCapacity > 0 }
     
+    /// Returns the remaining roboter-capacity of the field
+    private var remainingCapacity: Int {
+        switch state {
+        case .entrance, .exit:
+            return Int.max
+        case .wall, .robot:
+            return 0
+        case .workstation(let workstation):
+            return workstation.state == .idle ? 1 : 0
+        case .empty:
+            return 1
+        }
+    }
+    
+    /// Returns a single robot sitting on the field or nil in all other cases. See var robots for fields with multiple robots!
     var robot: Robot? {
         if case .robot(let robot) = state {
             return robot
@@ -30,6 +45,7 @@ struct Field: CustomPrintable, Encodable {
         }
     }
     
+    /// Returns multiple robots sitting in the entrance and exit or nil on all other fields
     var robots: Set<Robot>? {
         if case .entrance(let robots) = state {
             return robots
@@ -40,6 +56,7 @@ struct Field: CustomPrintable, Encodable {
         }
     }
     
+    /// Returns the workstation sitting on the field or nil if none present
     var workstation: Workstation? {
         if case .workstation(let object) = state {
             return object
@@ -53,10 +70,12 @@ struct Field: CustomPrintable, Encodable {
         self.state = type
     }
     
+    /// Removes workstations and robots from the field
     mutating func clear() {
         self.state = .empty
     }
     
+    /// Adds the specified workstation to the field
     mutating func addWorkstation(_ workstation: Workstation) {
         if case .empty = state {
             state = .workstation(object: workstation)
@@ -65,6 +84,7 @@ struct Field: CustomPrintable, Encodable {
         }
     }
     
+    /// Adds the specified robot to the field
     mutating func addRobot(_ robot: Robot) {
         if case .entrance(var robots) = state {
             robots.insert(robot)
@@ -82,6 +102,7 @@ struct Field: CustomPrintable, Encodable {
         }
     }
     
+    /// Removes the specified robot from the field
     mutating func removeRobot(_ robot: Robot) {
         if case .entrance(var robots) = state {
             guard let index = robots.index(where: { $0 == robot }) else { fatalError("Desired robot not found at entrance!") }
@@ -103,6 +124,7 @@ struct Field: CustomPrintable, Encodable {
     
 }
 
+// MARK: - 🔖 Equatable Conformance
 extension Field: Equatable {
     
     /// Fields are considered equal, if their position and state are equal
@@ -112,20 +134,11 @@ extension Field: Equatable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Field: CustomStringConvertible {
     
     var description: String {
         return "Field at \(position) is \(state)"
-    }
-    
-}
-
-// Custom Encodable
-extension Field {
-    
-    private enum CodingKeys: String, CodingKey {
-        case position
-        case state = "content"
     }
     
 }

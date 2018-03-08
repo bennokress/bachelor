@@ -23,12 +23,14 @@ enum WorkstationType: String, Encodable {
     
 }
 
-extension WorkstationType: IdentifiableEnum {
+// MARK: - 🔖 Identifiable Conformance
+extension WorkstationType: Identifiable {
     
     var id: Int { return hashValue }
     
 }
 
+// MARK: - 🔖 Comparable Conformance
 extension WorkstationType: Comparable {
     
     public static func < (a: WorkstationType, b: WorkstationType) -> Bool {

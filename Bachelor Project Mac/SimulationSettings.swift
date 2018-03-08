@@ -13,68 +13,41 @@ class SimulationSettings {
     private init() { }
     static var shared = SimulationSettings()
     
-    //  var simulationMode: SimulationMode = .development(diversityModel: .genealogical, useDiversity: true)
-    //  var simulationMode: SimulationMode = .phase1(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
-    //  var simulationMode: SimulationMode = .phase2(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
-    //  var simulationMode: SimulationMode = .phase3(diversityModel: .fitnessSharing, useDiversity: false, randomizeProducts: false)
-    var simulationMode: SimulationMode = .phase4(diversityModel: .genomDistanceBased, useDiversity: true, randomizeProducts: false)
+    // MARK: Base Setting - see SimulationMode for details and customization
+    var simulationMode: SimulationMode = .phase4(diversityModel: .genomeDistanceBased, useDiversity: true, randomizeProducts: false)
     
     // MARK: General
-    let debugLevel = DebugLevel.off
-    let actionInformationLevel = DebugLevel.off
-    let jsonOutput = JSONDetails.off
-    var nextFactoryID: Int = 1
-    let dodgeThreshold = 100 // number of times a robot can move away from next target before being marked as blocked
-    
-    // MARK: Computed Properties
-    var jsonOutputActive: Bool { return jsonOutput > JSONDetails.off }
-    var workstationCount: Int { return workstationAmount.values.reduce(0, +) }
-    
-    var entrance: Position {
-        let entranceFieldnumber = distanceFromEntranceAndExitToLayoutCorner - 1
-        guard let entrancePosition = Position(fromFieldnumber: entranceFieldnumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
-            fatalError("Entrance is outside of Factory Layout!")
-        }
-        return entrancePosition
-    }
-    
-    var exit: Position {
-        let exitFieldnumber = factoryWidth * factoryLength - distanceFromEntranceAndExitToLayoutCorner
-        guard let exitPosition = Position(fromFieldnumber: exitFieldnumber, withFactoryWidth: factoryWidth, andFactoryLength: factoryLength) else {
-            fatalError("Exit is outside of Factory Layout!")
-        }
-        return exitPosition
-    }
-    
-    // MARK: Last Round Checker for simulation statistics output
+    let statisticsOutputPath = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/rawStats/"
+    var nextFactoryID = 1 // used and updated when building a new individual (factory)
     func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
     
-    // MARK: Settings depending on Simulation Mode
+    // MARK: Settings depending on Simulation Mode (automatically updated)
+    var brokenWorkstationIDs: [Int] { return simulationMode.brokenWorkstationIDs }
+    var crossoverProbability: Int { return simulationMode.crossoverProbability }
+    var distanceFromEntranceAndExitToLayoutCorner: Int { return simulationMode.distanceFromEntranceAndExitToLayoutCorner }
+    var dodgeThreshold: Int { return simulationMode.dodgeThreshold }
+    var duplicateEliminationActivated: Bool { return simulationMode.duplicateEliminationActivated }
+    var entrance: Position { return simulationMode.entrancePosition }
+    var exit: Position { return simulationMode.exitPosition }
+    var factoryLength: Int { return simulationMode.factoryLength }
+    var factoryWidth: Int { return simulationMode.factoryWidth }
     var generationSize: Int { return simulationMode.generationSize }
     var generations: Int { return simulationMode.generations }
-    var factoryWidth: Int { return simulationMode.factoryWidth }
-    var factoryLength: Int { return simulationMode.factoryLength }
-    var distanceFromEntranceAndExitToLayoutCorner: Int { return simulationMode.distanceFromEntranceAndExitToLayoutCorner }
-    var productAmount: [ProductType : Int] { return simulationMode.productAmount }
-    var workstationAmount: [WorkstationType : Int] { return simulationMode.workstationAmount }
-    var mutationProbability: Int { return simulationMode.mutationProbability }
-    var mutationDistance: Int { return simulationMode.mutationDistance }
     var hypermutationThreshold: Double { return simulationMode.hypermutationThreshold }
-    var crossoverProbability: Int { return simulationMode.crossoverProbability }
+    var mutationDistance: Int { return simulationMode.mutationDistance }
+    var mutationProbability: Int { return simulationMode.mutationProbability }
+    var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
     var phases: [Modificator] { return simulationMode.phases }
+    var productAmount: [ProductType : Int] { return simulationMode.productAmount }
+    var selectionUsesDiversity: Bool { return simulationMode.selectionUsesDiversity }
+    var simulatedWorkstationBreakdownActivated: Bool { return simulationMode.simulatedWorkstationBreakdownActivated }
     var usedDistributionModel: DistributionModel { return simulationMode.distributionModel }
     var usedDiversityModel: DiversityModel { return simulationMode.diversityModel }
-    var selectionUsesDiversity: Bool { return simulationMode.selectionUsesDiversity }
-    var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
-    var duplicateEliminationActivated: Bool { return simulationMode.duplicateEliminationActivated }
-    var simulatedWorkstationBreakdownActivated: Bool { return simulationMode.simulatedWorkstationBreakdownActivated }
-    var brokenWorkstationIDs: [Int] { return simulationMode.brokenWorkstationIDs }
+    var workstationAmount: [WorkstationType : Int] { return simulationMode.workstationAmount }
     var workstationBreakdownTiming: Int { return simulationMode.workstationBreakdownTiming }
-    
-}
+    var workstationCount: Int { return simulationMode.workstationCount }
 
-// MARK: Initial Generation Calculation
-extension SimulationSettings {
+    // MARK: - Initial Generation Calculation
 
     func getInitialGeneration() -> Generation {
         
@@ -114,11 +87,8 @@ extension SimulationSettings {
         return brokenWorkstationEnabled ? getFactoryWithDeactivatedWorkstations(withIDs: brokenWorkstationIDs, from: factory) : factory
         
     }
-    
-}
 
-// MARK: Simulation Steps
-extension SimulationSettings {
+    // MARK: - Simulation Steps
     
     var getEmptyFactoryGrid: FactoryLayout {
         return FactoryLayout()
@@ -149,6 +119,7 @@ extension SimulationSettings {
     }
     
     func getFactoryWithDeactivatedWorkstations(withIDs brokenWorkstationIDs: [Int], from oldFactory: Factory) -> Factory {
+        
         // 1 - Save important values from old Factory
         let oldFactoryID = oldFactory.id
         let oldFactoryDNA = oldFactory.genealogyDNA.removing(numberOfBits: brokenWorkstationIDs.count)
@@ -172,12 +143,11 @@ extension SimulationSettings {
         
         // 5 - Generate Factory with updated Layout and Robots
         return Factory(id: oldFactoryID, layout: newLayout, genealogyDNA: oldFactoryDNA)
+        
     }
-    
-}
 
-// MARK: Statistics Path
-extension SimulationSettings {
+    // MARK: - Statistics
+    
     func composeStatisticsURL(for endTime: Date) -> URL {
         // Unique File Name Parts
         let endDateString = "\(endTime.year)\(endTime.month > 9 ? "" : "0")\(endTime.month)\(endTime.day > 9 ? "" : "0")\(endTime.day)"
@@ -186,10 +156,11 @@ extension SimulationSettings {
         
         // URL Composition
         let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
-        let path = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/rawStats/"
+        let path = statisticsOutputPath
         let fileName = "\(simulationModeName)_\(endDateString)-\(endTimeString)"
         let fileExtension = ".csv"
         
         return homeDirectory.appendingPathComponent(path + fileName + fileExtension)
     }
+    
 }

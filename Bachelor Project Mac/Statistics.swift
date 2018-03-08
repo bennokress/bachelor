@@ -9,7 +9,7 @@
 import Foundation
 import SwifterSwift
 
-class Statistics: Encodable {
+class Statistics {
     
     typealias Success = (Bool) -> ()
     
@@ -52,7 +52,7 @@ class Statistics: Encodable {
     }
     
     // MARK: Data Conversion Structure
-    private struct RoundStatistics: Encodable {
+    private struct RoundStatistics {
         let simulationRound: Int
         let bestFitness: Int
         let worstFitness: Int
@@ -78,7 +78,7 @@ class Statistics: Encodable {
         var bestFitnessCSV = "Best Fitness;"
         var worstFitnessCSV = "Worst Fitness;"
         var averageFitnessSharingDiversityCSV = "Average Diversity (Fitness Sharing);"
-        var averageGenomDistanceBasedDiversityCSV = "Average Diversity (Genom Distance Based);"
+        var averagegenomeDistanceBasedDiversityCSV = "Average Diversity (Genom Distance Based);"
         var averageGenealogicalDiversityCSV = "Average Diversity (Genealogical);"
         
         printHeader()
@@ -89,7 +89,7 @@ class Statistics: Encodable {
             bestFitnessCSV += "\(round.bestFitness);"
             worstFitnessCSV += "\(round.worstFitness);"
             averageFitnessSharingDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .fitnessSharing)
-            averageGenomDistanceBasedDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genomDistanceBased)
+            averagegenomeDistanceBasedDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genomeDistanceBased)
             averageGenealogicalDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genealogical)
             printProgress(for: round.simulationRound)
         }
@@ -101,7 +101,7 @@ class Statistics: Encodable {
         \(bestFitnessCSV.excelFixed)
         \(worstFitnessCSV.excelFixed)
         \(averageFitnessSharingDiversityCSV.excelFixed)
-        \(averageGenomDistanceBasedDiversityCSV.excelFixed)
+        \(averagegenomeDistanceBasedDiversityCSV.excelFixed)
         \(averageGenealogicalDiversityCSV.excelFixed)
         """
         

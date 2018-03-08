@@ -9,14 +9,17 @@
 import Foundation
 
 enum RobotState {
+    
     case starting           // when waiting at the entrance
     case moving             // when moving towards the next position on the route
-    case blocked            // after being idle since 4 rounds and still stuck
+    case blocked            // after reaching the dodgeThreshold set in SimulationMode
     case docked             // when sitting in a workstation
     case finished           // when all waypoints of the route have been visited
     case idle(since: Int)   // when waiting for the next field to be cleared
+    
 }
 
+// MARK: - 🔖 Identifiable Conformance
 extension RobotState: Identifiable {
     
     var id: Int {
@@ -32,6 +35,7 @@ extension RobotState: Identifiable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension RobotState: CustomStringConvertible {
     
     var description: String {
@@ -42,22 +46,6 @@ extension RobotState: CustomStringConvertible {
         case .docked: return "docked"
         case .finished: return "finished"
         case .idle(let rounds): return "idle since \(rounds) \(rounds == 1 ? "round" : "rounds")"
-        }
-    }
-    
-}
-
-extension RobotState: Encodable {
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .starting: try container.encode("starting")
-        case .moving: try container.encode("moving")
-        case .blocked: try container.encode("blocked")
-        case .docked: try container.encode("docked")
-        case .finished: try container.encode("finished")
-        case .idle(let rounds): try container.encode("idle since \(rounds) \(rounds == 1 ? "round" : "rounds")")
         }
     }
     

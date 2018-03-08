@@ -47,12 +47,14 @@ enum ProductType: String, Encodable {
     
 }
 
-extension ProductType: IdentifiableEnum {
+// MARK: - 🔖 Identifiable Conformance
+extension ProductType: Identifiable {
     
     var id: Int { return hashValue }
     
 }
 
+// MARK: - 🔖 Comparable Conformance
 extension ProductType: Comparable {
     
     public static func < (a: ProductType, b: ProductType) -> Bool {

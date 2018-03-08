@@ -9,11 +9,14 @@
 import Foundation
 
 enum FactoryState: String, Encodable {
+    
     case running
     case finished
+    
 }
 
-extension FactoryState: IdentifiableEnum {
+// MARK: - 🔖 Identifiable Conformance
+extension FactoryState: Identifiable {
     
     var id: Int { return hashValue }
     

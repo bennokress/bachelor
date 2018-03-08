@@ -11,7 +11,7 @@ import Foundation
 enum DiversityModel: String, Encodable {
     case genealogical
     case fitnessSharing
-    case genomDistanceBased
+    case genomeDistanceBased
     
     var observationBasedAverageFitnessOfGeneration: Double {
         return 157.00
@@ -23,28 +23,15 @@ enum DiversityModel: String, Encodable {
             return 2.51934118
         case .fitnessSharing:
             return 0.06017415
-        case .genomDistanceBased:
+        case .genomeDistanceBased:
             return 0.61034056
         }
     }
     
     /// Factor in calculating the diversity-influenced fitness f'.
     var lambda: Double {
-        return observationBasedAverageFitnessOfGeneration / observationBasedAverageDiversityOfGeneration
+        return observationBasedAverageFitnessOfGeneration / (1 / observationBasedAverageDiversityOfGeneration)
     }
-    
-    /// NOTE: Exact computation based on current generation (takes more time)
-    // func lambda(basedOn averageFitnessOfGeneration: Double, and averageDiversityOfGeneration: Double) -> Double {
-    //     TODO: [TUNING] Better diversity model sensitive values or no switch!
-    //     switch self {
-    //     case .genealogical:
-    //         return averageFitnessOfGeneration / averageDiversityOfGeneration
-    //     case .fitnessSharing:
-    //         return averageFitnessOfGeneration / averageDiversityOfGeneration
-    //     case .genomDistanceBased:
-    //         return averageFitnessOfGeneration / averageDiversityOfGeneration
-    //     }
-    // }
     
     // MARK: Generation Measurement
     func averageDiversity(for generation: Generation, with diversityModel: DiversityModel? = nil) -> Double {
@@ -52,7 +39,7 @@ enum DiversityModel: String, Encodable {
         let individualsCount = Double(generation.deterministicIndividuals.count)
         var testCounter = 0
         for individual in generation.deterministicIndividuals {
-            let individualDiversity = Double(diversityScore(of: individual, in: generation, with: diversityModel))
+            let individualDiversity = Double(diversityScore(of: individual, in: generation, with: diversityModel) ?? lambda)
             if individualDiversity == 1.0 { testCounter += 1 }
             combinedDiversity += individualDiversity
         }
@@ -61,15 +48,15 @@ enum DiversityModel: String, Encodable {
     }
     
     // MARK: Individual Measurement
-    func diversityScore(of individual: Factory, in generation: Generation, with diversityModel: DiversityModel? = nil) -> Double {
+    func diversityScore(of individual: Factory, in generation: Generation, with diversityModel: DiversityModel? = nil) -> Double? {
         let neededDiversityModel = diversityModel ?? self // This normally calls self. Only exception: Statistics need all diversity scores!
         switch neededDiversityModel {
         case .genealogical:
             return genealogyDiversity(of: individual, in: generation)
         case .fitnessSharing:
             return fitnessSharingDiversity(of: individual, in: generation)
-        case .genomDistanceBased:
-            return genomDistanceBasedDiversity(of: individual, in: generation)
+        case .genomeDistanceBased:
+            return genomeDistanceBasedDiversity(of: individual, in: generation)
         }
     }
     
@@ -87,7 +74,7 @@ enum DiversityModel: String, Encodable {
     }
     
     /// Measuring the pairwise distance of all workstations of the individual in its generation.
-    private func genomDistanceBasedDiversity(of individual: Factory, in generation: Generation) -> Double {
+    private func genomeDistanceBasedDiversity(of individual: Factory, in generation: Generation) -> Double {
         var sumOfWorkstationDistances = 0
         for comparisonIndividual in generation.deterministicIndividuals {
             for (i, workstation) in individual.sortedWorkstations.enumerated() {
@@ -101,11 +88,10 @@ enum DiversityModel: String, Encodable {
     }
     
     /// Measuring the diversity in respect to the individual with the best fitness in the generation.
-    private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double {
+    private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double? {
         guard let comparisonIndividual = generation.sortedByFitness.first else { fatalError("Could not find best individual in generation!") }
         if individual == comparisonIndividual {
-            // TODO: [LOGIC] Is this really correct or should it be 0.0?
-            return 1.0 // fitness of the best individual will not be modified by the diversity score
+            return nil
         } else {
             var sumOfWorkstationDistances = 0
             for (i, workstation) in individual.sortedWorkstations.enumerated() {
@@ -113,11 +99,9 @@ enum DiversityModel: String, Encodable {
                 sumOfWorkstationDistances += workstation.position.distance(to: comparisonWorkstation.position)
             }
             let averageDistance = Double(sumOfWorkstationDistances) / Double(individual.workstations.count)
-            // TODO: [TUNING] Threshold based on factory layout, but how?
             let threshold = Double(individual.layout.size) / 100
-            return (averageDistance > threshold) ? 1.0 : (averageDistance / threshold)
+            return (averageDistance > threshold) ? nil : (averageDistance / threshold)
         }
-        // TODO: [LOGIC] Adjust this score to be 10x higher for easier comparison?
     }
     
 }

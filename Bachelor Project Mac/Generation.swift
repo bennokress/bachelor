@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Generation: Encodable {
+struct Generation {
     
     var settings: SimulationSettings { return SimulationSettings.shared }
     

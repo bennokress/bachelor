@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RunnableFactory: Encodable {
+struct RunnableFactory {
     
     var settings: SimulationSettings { return SimulationSettings.shared }
     
@@ -68,7 +68,7 @@ struct RunnableFactory: Encodable {
         for robot in robots {
             var modifiableRobot = robot
             var modifiedRobot = modifiableRobot.performStep(in: layout)
-            layout.modifyRobot(robot, to: &modifiedRobot)
+            layout.swap(robot, for: &modifiedRobot)
         }
     }
     

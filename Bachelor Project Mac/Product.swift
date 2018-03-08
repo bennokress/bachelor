@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Product: CustomPrintable, Encodable {
+struct Product {
     
     let type: ProductType
     
@@ -20,6 +20,7 @@ struct Product: CustomPrintable, Encodable {
     
 }
 
+// MARK: - 🔖 Equatable Conformance
 extension Product: Equatable {
     
     /// Products are considered equal, if their types are equal
@@ -29,6 +30,7 @@ extension Product: Equatable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Product: CustomStringConvertible {
     
     var description: String {

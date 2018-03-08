@@ -29,25 +29,8 @@ struct Hypermutation: Modificator {
                 hypermutationResults.append(randomFactory)
             }
             
-            actionPrint(short: shortActionDescription(for: hypermutationResults), detailed: detailedActionDescription(for: hypermutationResults))
-            
         }
 
-    }
-
-    private func shortActionDescription(for results: [Factory]) -> String {
-        let sortedFactories = results.sorted { $0.fitness < $1.fitness }
-        guard let bestFitness = sortedFactories.first?.fitness, let worstFitness = sortedFactories.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "Hypermutation produced \(sortedFactories.count) factories with fitness between \(bestFitness) and \(worstFitness)"
-    }
-
-    private func detailedActionDescription(for results: [Factory]) -> [String] {
-        let title = "HYPERMUTATION"
-        var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
-        for factory in results.sorted(by: { $0.fitness < $1.fitness }) {
-            actionDescriptionLines.append("  · #\(factory.id) (\(factory.fitness))")
-        }
-        return actionDescriptionLines
     }
 
 }

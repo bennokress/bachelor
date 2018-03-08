@@ -14,29 +14,15 @@ protocol Identifiable: Hashable {
     
 }
 
+// MARK: - Default Implementations
 extension Identifiable {
     
-    // Default Implementation for Hashable Conformance
+    // Default Implementation for Hashable Conformance only considering var id
     var hashValue: Int {
         return id
     }
     
-    // Default Implementation for Equatable Conformance
-    static func ==(lhs: Self, rhs: Self) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-}
-
-protocol IdentifiableEnum: Hashable {
-    
-    var id: Int { get }
-    
-}
-
-extension IdentifiableEnum {
-    
-    // Default Implementation for Equatable Conformance
+    // Default Implementation for Equatable Conformance only considering var id
     static func ==(lhs: Self, rhs: Self) -> Bool {
         return lhs.id == rhs.id
     }

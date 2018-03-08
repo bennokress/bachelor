@@ -14,8 +14,6 @@ struct ParentSelection: Modificator {
         generation.recalculateMeasures()
         let parents = getSelectedIndividuals(from: generation, usingRouletteMode: SimulationSettings.shared.parentSelectionUsesRouletteMode)
         generation.setParents(parents)
-        actionPrint(short: shortActionDescription(for: parents.sorted { $0.fitness < $1.fitness }),
-                    detailed: detailedActionDescription(for: parents.sorted { $0.fitness < $1.fitness }))
     }
     
     private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
@@ -56,18 +54,6 @@ struct ParentSelection: Modificator {
         } else {
             return Set(sortedGeneration.prefix(generation.size / 2))
         }
-    }
-    
-    private func shortActionDescription(for sortedGeneration: [Factory]) -> String {
-        guard let bestFitness = sortedGeneration.first?.fitness, let worstFitness = sortedGeneration.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "Selected \(sortedGeneration.count) factories (parents) with fitness between \(bestFitness) and \(worstFitness)"
-    }
-    
-    private func detailedActionDescription(for generation: [Factory]) -> [String] {
-        let title = "PARENT SELECTION"
-        var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
-        for factory in generation { actionDescriptionLines.append("  · Factory #\(factory.id) with fitness \(factory.fitness)") }
-        return actionDescriptionLines
     }
     
 }

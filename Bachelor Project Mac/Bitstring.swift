@@ -81,6 +81,7 @@ struct Bitstring: Codable {
     
 }
 
+// MARK: - 🔖 Equatable Conformance
 extension Bitstring: Equatable {
     
     static func == (lhs: Bitstring, rhs: Bitstring) -> Bool {
@@ -89,6 +90,7 @@ extension Bitstring: Equatable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Bitstring: CustomStringConvertible {
     
     var description: String {

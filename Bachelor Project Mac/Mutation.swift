@@ -27,25 +27,23 @@ struct Mutation: Modificator {
             // 2 - Loop over the workstations of the factory
             var neededDNAFlips = 0
             for originalWorkstation in factory.workstations where Bool.random(trueProbability: settings.mutationProbability) {
-                neededDNAFlips += 1
                 
                 // Determine all possible empty fields for the mutation of the current workstation
                 let possibleNewPositions = originalWorkstation.position.allPositions(inRadius: settings.mutationDistance, inside: factory.layout).filter { mutatedFactoryLayout.isEmptyField(at: $0) }
                 
                 // Select a new position randomly (and break if no mutation is possible)
                 guard let newPosition = possibleNewPositions.randomElement else {
-                    neededDNAFlips -= 1
                     break
                 }
                 
                 // Swap the original workstation for the mutated one
                 let mutatedWorkstation = Workstation(id: originalWorkstation.id, type: originalWorkstation.type, at: newPosition)
                 mutatedFactoryLayout.swap(originalWorkstation, for: mutatedWorkstation)
+                neededDNAFlips += 1
             }
             
             // 3 - Compute new genealogyDNA
             let mutationBitstring = Bitstring(from: factory.genealogyDNA, mutatedBitsCount: neededDNAFlips)
-//            print("Mutation produced \(mutationBitstring) with \(neededDNAFlips) flips from \(factory.genealogyDNA).")
             
             // 4 - Generate new factory from layout and add to generation
             let mutatedFactory = settings.generateFactory(from: &mutatedFactoryLayout, genealogyDNA: mutationBitstring)
@@ -55,26 +53,6 @@ struct Mutation: Modificator {
             results.append((original: factory, mutation: mutatedFactory))
         }
         
-        actionPrint(short: shortActionDescription(for: results), detailed: detailedActionDescription(for: results))
-        
-    }
-    
-    private func shortActionDescription(for results: [(original: Factory, mutation: Factory)]) -> String {
-        let siblings = results.map { $0.mutation }.sorted { $0.fitness < $1.fitness }
-        guard let bestFitness = siblings.first?.fitness, let worstFitness = siblings.last?.fitness else { return "--- Error retreiving fitness ---" }
-        return "Mutation produced \(siblings.count) factories with fitness between \(bestFitness) and \(worstFitness)"
-    }
-    
-    private func detailedActionDescription(for results: [(original: Factory, mutation: Factory)]) -> [String] {
-        let title = "MUTATION"
-        var actionDescriptionLines = ["\n\(title.withAddedDivider("-", totalLength: 56))"]
-        for mutation in results.sorted(by: { $0.mutation.fitness < $1.mutation.fitness }) {
-            let original = mutation.original
-            let sibling = mutation.mutation
-            actionDescriptionLines.append("  · #\(original.genealogyDNA) ==> #\(sibling.genealogyDNA)")
-//            actionDescriptionLines.append("  · #\(original.id) (\(original.fitness)) ==> #\(sibling.id) (\(sibling.fitness))")
-        }
-        return actionDescriptionLines
     }
     
 }

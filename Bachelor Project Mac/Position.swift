@@ -79,6 +79,7 @@ struct Position: Encodable {
     
 }
 
+// MARK: - 🔖 Equatable Conformance
 extension Position: Equatable {
     
     /// Positions are considered equal, if their x and y coordinates are equal
@@ -88,6 +89,7 @@ extension Position: Equatable {
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Position: CustomStringConvertible {
     
     var description: String {

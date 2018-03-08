@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D3037FB21EFFBA2F00606C37 /* ActionPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */; };
 		D3142C2B1F45D12F0055D46F /* Hypermutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3142C2A1F45D12F0055D46F /* Hypermutation.swift */; };
 		D3325F351F13C9B00025555D /* RunnableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3325F341F13C9B00025555D /* RunnableFactory.swift */; };
 		D334E8BD1EFD3FF5002DF760 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */; };
@@ -15,8 +14,6 @@
 		D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */; };
 		D33DF8261F650DAA00B55570 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33DF8251F650DAA00B55570 /* Statistics.swift */; };
 		D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */; };
-		D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */; };
-		D34A73081EB9DC5000FBE2F7 /* CustomPrintable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */; };
 		D35A50CE1F1A7C7700000B36 /* DistributionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */; };
 		D37AF1B91F7FCDD6000C7681 /* Bitstring.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37AF1B81F7FCDD6000C7681 /* Bitstring.swift */; };
 		D37AF1BB1F7FCDE2000C7681 /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37AF1BA1F7FCDE2000C7681 /* Bit.swift */; };
@@ -38,9 +35,7 @@
 		D39734691EB2095700DAAC8A /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734681EB2095700DAAC8A /* PositionTests.swift */; };
 		D397346C1EB3205A00DAAC8A /* FieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346B1EB3205A00DAAC8A /* FieldTests.swift */; };
 		D397346E1EB3208800DAAC8A /* FactoryLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */; };
-		D3A644AF1F53180C00B91145 /* WeighedCrossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A644AE1F53180C00B91145 /* WeighedCrossover.swift */; };
 		D3AE450E1F9BBEBB00894ACD /* SimulationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AE450D1F9BBEBB00894ACD /* SimulationMode.swift */; };
-		D3B08DFF1F5C147000A8E872 /* JSONDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B08DFE1F5C147000A8E872 /* JSONDetails.swift */; };
 		D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F021EEAB68A00CEB83B /* Modificator.swift */; };
 		D3CD5F051EEAB77300CEB83B /* ParentSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */; };
 		D3CD5F071EEAE63E00CEB83B /* Crossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD5F061EEAE63E00CEB83B /* Crossover.swift */; };
@@ -85,7 +80,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPrintable.swift; sourceTree = "<group>"; };
 		D3142C2A1F45D12F0055D46F /* Hypermutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hypermutation.swift; sourceTree = "<group>"; };
 		D3325F341F13C9B00025555D /* RunnableFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnableFactory.swift; sourceTree = "<group>"; };
 		D334E8BC1EFD3EE9002DF760 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/Mac/CryptoSwift.framework; sourceTree = "<group>"; };
@@ -93,8 +87,6 @@
 		D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivorSelection.swift; sourceTree = "<group>"; };
 		D33DF8251F650DAA00B55570 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryState.swift; sourceTree = "<group>"; };
-		D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLevel.swift; sourceTree = "<group>"; };
-		D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPrintable.swift; sourceTree = "<group>"; };
 		D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionModel.swift; sourceTree = "<group>"; };
 		D37AF1B81F7FCDD6000C7681 /* Bitstring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitstring.swift; sourceTree = "<group>"; };
 		D37AF1BA1F7FCDE2000C7681 /* Bit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
@@ -122,9 +114,7 @@
 		D39734681EB2095700DAAC8A /* PositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTests.swift; sourceTree = "<group>"; };
 		D397346B1EB3205A00DAAC8A /* FieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldTests.swift; sourceTree = "<group>"; };
 		D397346D1EB3208800DAAC8A /* FactoryLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryLayoutTests.swift; sourceTree = "<group>"; };
-		D3A644AE1F53180C00B91145 /* WeighedCrossover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeighedCrossover.swift; sourceTree = "<group>"; };
 		D3AE450D1F9BBEBB00894ACD /* SimulationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationMode.swift; sourceTree = "<group>"; };
-		D3B08DFE1F5C147000A8E872 /* JSONDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDetails.swift; sourceTree = "<group>"; };
 		D3CD5F021EEAB68A00CEB83B /* Modificator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modificator.swift; sourceTree = "<group>"; };
 		D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentSelection.swift; sourceTree = "<group>"; };
 		D3CD5F061EEAE63E00CEB83B /* Crossover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crossover.swift; sourceTree = "<group>"; };
@@ -267,8 +257,6 @@
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
 				D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */,
 				D3E80FF61F51AD9A0034A800 /* DiversityModel.swift */,
-				D34A73071EB9DC5000FBE2F7 /* CustomPrintable.swift */,
-				D3037FB11EFFBA2F00606C37 /* ActionPrintable.swift */,
 				D3E257021EBB8584005949A9 /* Identifiable.swift */,
 			);
 			name = "Static Models";
@@ -304,7 +292,6 @@
 				D3CD5F021EEAB68A00CEB83B /* Modificator.swift */,
 				D3CD5F041EEAB77300CEB83B /* ParentSelection.swift */,
 				D3CD5F061EEAE63E00CEB83B /* Crossover.swift */,
-				D3A644AE1F53180C00B91145 /* WeighedCrossover.swift */,
 				D334E8BE1EFD5115002DF760 /* Mutation.swift */,
 				D3142C2A1F45D12F0055D46F /* Hypermutation.swift */,
 				D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */,
@@ -327,8 +314,6 @@
 				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
 				D3AE450D1F9BBEBB00894ACD /* SimulationMode.swift */,
 				D33DF8251F650DAA00B55570 /* Statistics.swift */,
-				D34A73051EB9DBF000FBE2F7 /* DebugLevel.swift */,
-				D3B08DFE1F5C147000A8E872 /* JSONDetails.swift */,
 				D3D84DD51EB4EBC30038710B /* ProductType.swift */,
 				D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */,
 				D3D84DD91EB4EC590038710B /* Routing.swift */,
@@ -531,7 +516,6 @@
 				D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */,
 				D39734611EB1EF6B00DAAC8A /* Field.swift in Sources */,
 				D3142C2B1F45D12F0055D46F /* Hypermutation.swift in Sources */,
-				D34A73081EB9DC5000FBE2F7 /* CustomPrintable.swift in Sources */,
 				D3E257031EBB8584005949A9 /* Identifiable.swift in Sources */,
 				D39734631EB1EF7600DAAC8A /* FactoryLayout.swift in Sources */,
 				D37AF1BB1F7FCDE2000C7681 /* Bit.swift in Sources */,
@@ -541,21 +525,17 @@
 				D3AE450E1F9BBEBB00894ACD /* SimulationMode.swift in Sources */,
 				D3D84DD81EB4EBEC0038710B /* WorkstationType.swift in Sources */,
 				D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */,
-				D3B08DFF1F5C147000A8E872 /* JSONDetails.swift in Sources */,
 				D397345D1EB1EF4100DAAC8A /* Robot.swift in Sources */,
 				D397345F1EB1EF5E00DAAC8A /* Workstation.swift in Sources */,
 				D3D84DDE1EB629050038710B /* RobotState.swift in Sources */,
 				D3D84DC01EB4781A0038710B /* Presenter.swift in Sources */,
-				D3037FB21EFFBA2F00606C37 /* ActionPrintable.swift in Sources */,
 				D3D84DDA1EB4EC590038710B /* Routing.swift in Sources */,
 				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
-				D34A73061EB9DBF000FBE2F7 /* DebugLevel.swift in Sources */,
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
 				D35A50CE1F1A7C7700000B36 /* DistributionModel.swift in Sources */,
 				D3E80FF71F51AD9A0034A800 /* DiversityModel.swift in Sources */,
 				D33DF8261F650DAA00B55570 /* Statistics.swift in Sources */,
 				D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */,
-				D3A644AF1F53180C00B91145 /* WeighedCrossover.swift in Sources */,
 				D3CD5F051EEAB77300CEB83B /* ParentSelection.swift in Sources */,
 				D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */,
 				D334E8BF1EFD5115002DF760 /* Mutation.swift in Sources */,

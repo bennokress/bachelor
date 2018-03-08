@@ -9,19 +9,29 @@
 import Foundation
 import CryptoSwift
 
-struct FactoryLayout: CustomPrintable, Encodable {
+struct FactoryLayout {
     
+    /// The width in fields
     let width: Int
+    
+    /// The length in fields
     let length: Int
     
+    /// The fields present in the layout
     var fields: [Field]
     
-    // MARK: Computed Properties
+    // MARK: - Computed Properties
     
+    /// The maximum x-coordinate present in the layout grid
     var xMax: Int { return width - 1 }
+    
+    /// The maximum y-coordinate present in the layout grid
     var yMax: Int { return length - 1 }
+    
+    /// The amount of fields in the layout grid
     var size: Int { return width * length }
     
+    /// The entrance field. Returns nil if not yet declared
     var entranceField: Field? {
         for field in self.fields {
             if case .entrance = field.state {
@@ -31,6 +41,7 @@ struct FactoryLayout: CustomPrintable, Encodable {
         return nil
     }
     
+    /// The exit field. Returns nil if not yet declared
     var exitField: Field? {
         for field in self.fields {
             if case .exit = field.state {
@@ -40,14 +51,17 @@ struct FactoryLayout: CustomPrintable, Encodable {
         return nil
     }
     
+    /// The position of the entrance field. Returns nil if not yet declared
     var entrancePosition: Position? {
         return entranceField?.position
     }
     
+    /// The position of the exit field. Returns nil if not yet declared
     var exitPosition: Position? {
         return exitField?.position
     }
     
+    /// The set containing all workstations present on the factory grid
     var workstations: Set<Workstation> {
         var workstationObjects: Set<Workstation> = []
         for field in self.fields {
@@ -61,21 +75,7 @@ struct FactoryLayout: CustomPrintable, Encodable {
         return workstationObjects
     }
     
-    var sortedWorkstations: [Workstation] {
-        return workstations.sorted(by: { (ws1, ws2) -> Bool in
-            if ws1.type.hashValue < ws2.type.hashValue {
-                return true
-            } else if ws1.position.x < ws2.position.x {
-                return true
-            } else if ws1.position.y < ws2.position.y {
-                return true
-            } else {
-                return false
-            }
-        })
-    }
-    
-    // MARK: Initializer
+    // MARK: - Initializers
     
     init(width: Int = SimulationSettings.shared.factoryWidth,
         length: Int = SimulationSettings.shared.factoryLength,
@@ -92,6 +92,8 @@ struct FactoryLayout: CustomPrintable, Encodable {
         
     }
     
+    // MARK: - Functions
+    
     func potentialTargetFields(around position: Position) -> [Field] {
         guard position.x >= 0, position.x <= xMax, position.y >= 0, position.y <= yMax else { return [] }
         var targetFields: [Field] = []
@@ -103,16 +105,15 @@ struct FactoryLayout: CustomPrintable, Encodable {
         return targetFields
     }
     
+    /// Returns true, if the specified field is empty
     func isEmptyField(at position: Position) -> Bool {
         guard let fieldnumber = position.getFieldnumber(in: self) else { return false }
         return fields[fieldnumber].isEmpty
     }
     
-}
-
-// MARK: Mutating functions
-extension FactoryLayout {
+    // MARK: - Mutating functions
     
+    /// Adds the specified workstation at the position embedded in it
     mutating func addWorkstation(_ workstation: Workstation) {
         guard let fieldnumber = workstation.position.getFieldnumber(in: self) else {
             fatalError("Workstation position is outside of factory layout")
@@ -120,6 +121,7 @@ extension FactoryLayout {
         fields[fieldnumber].addWorkstation(workstation)
     }
     
+    /// Removes the specified oldWorkstation and replaces it with the specified newWorkstation
     mutating func swap(_ oldWorkstation: Workstation, for newWorkstation: Workstation) {
         deleteWorkstation(oldWorkstation)
         addWorkstation(newWorkstation)
@@ -132,15 +134,16 @@ extension FactoryLayout {
         updateField(at: entranceFieldnumber, to: entrance)
     }
     
-    /// Modifies an existing robot in place - to move it use moveRobot()
-    mutating func modifyRobot(_ robot: Robot, to modifiedRobot: inout Robot) {
-        guard let oldFieldnumber = robot.position.getFieldnumber(in: self) else { fatalError("Robot was already outside factory layout!") }
-        fields[oldFieldnumber].removeRobot(robot)
+    /// Removes the specified oldRobot and replaces it with the specified newRobot
+    mutating func swap(_ oldRobot: Robot, for newRobot: inout Robot) {
+        guard let oldFieldnumber = oldRobot.position.getFieldnumber(in: self) else { fatalError("Robot was already outside factory layout!") }
+        fields[oldFieldnumber].removeRobot(oldRobot)
         
-        guard let newFieldnumber = modifiedRobot.position.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
-        fields[newFieldnumber].addRobot(modifiedRobot)
+        guard let newFieldnumber = newRobot.position.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
+        fields[newFieldnumber].addRobot(newRobot)
     }
     
+    /// Removes the specified workstation from the layout
     mutating func deleteWorkstation(_ workstation: Workstation) {
         guard let fieldnumber = workstation.position.getFieldnumber(in: self), fields[fieldnumber].workstation != nil else {
             fatalError("Workstation not found in factory layout")
@@ -148,15 +151,14 @@ extension FactoryLayout {
         updateField(at: fieldnumber, to: Field(at: workstation.position, type: .empty))
     }
     
+    // MARK: Private Functions
+    
     private mutating func updateField(at fieldnumber: Int, to newField: Field) {
         guard fields.contains(index: fieldnumber) else { fatalError("Fieldnumber is outside factory layout!") }
         fields[fieldnumber] = newField
     }
-    
-}
 
-// MARK: Static functions
-extension FactoryLayout {
+    // MARK: - Static functions
     
     /// Returns an array of fields with FieldType "Empty" surrounded by a wall
     static fileprivate func getBasicLayout(
@@ -195,51 +197,52 @@ extension FactoryLayout {
     
 }
 
+// MARK: - 🔖 Equatable Conformance
 extension FactoryLayout: Equatable {
     
+    /// A hash value based on the empty layout (dimension, entrance and exit position) and the workstations added to it (type and position)
     var hash: String {
         var workstationLayoutDescription: String {
-            var wsLayout = "workstations"
-            for ws in sortedWorkstations { wsLayout.append(" |\(ws.type.rawValue):\(ws.position.x),\(ws.position.y)") }
-            return wsLayout
+            var workstationLayout = "workstations"
+            for workstation in workstations { workstationLayout.append(" |\(workstation.type.rawValue):\(workstation.position.x),\(workstation.position.y)") }
+            return workstationLayout
         }
         let layoutString = "\(width),\(length),\(workstationLayoutDescription)"
         return layoutString.md5()
     }
     
-    /// Factory Layouts are considered equal, if their empty layouts are equal (dimensions, entrance and exit position) and the workstations are positioned equally
+    /// Factory Layouts are considered equal, if their hash values are equal. See var hash for more information about the encoded values.
     static func == (lhs: FactoryLayout, rhs: FactoryLayout) -> Bool {
         return lhs.hash == rhs.hash
     }
     
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension FactoryLayout: CustomStringConvertible {
     
     var description: String {
         var layout: String = "\n"
         for field in fields {
-            layout.append(field.state.shortInfo)
+            layout.append(shortInfo(for: field))
             if field.position.x == xMax { layout.append("\n\n") }
         }
         return layout
     }
     
-}
-
-extension FactoryLayout {
-    
-    private enum CodingKeys: String, CodingKey {
-        case width
-        case length
-        case fields = "workstations"
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(width, forKey: .width)
-//        try container.encode(length, forKey: .length)
-        try container.encode(workstations.sorted(by: { $0.id < $1.id }), forKey: .fields)
+    private func shortInfo(for field: Field) -> String {
+        switch field.state {
+        case .wall:
+            return "  X  "
+        case .entrance(let robots), .exit(let robots):
+            return " E\(robots.count.twoDigitRepresentation) "
+        case .workstation(let workstation):
+            return workstation.isIdle ? " \(workstation.type.rawValue)-0 " : " \(workstation.type.rawValue)-1 "
+        case .robot:
+            return "  R  "
+        case .empty:
+            return "     "
+        }
     }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Workstation: Identifiable, CustomPrintable, Encodable {
+struct Workstation: Identifiable {
     
     let id: Int
     var state: WorkstationState
@@ -32,33 +32,13 @@ struct Workstation: Identifiable, CustomPrintable, Encodable {
         self.state = .idle
     }
     
-    // MARK: Custom JSON Encoding
-    var jsonDetails: JSONDetails { return SimulationSettings.shared.jsonOutput }
-    
 }
 
+// MARK: - 🔖 CustomStringConvertible Conformance
 extension Workstation: CustomStringConvertible {
     
     var description: String {
         return "Workstation #\(id) (\(state)) of type \(type.rawValue) at \(position)"
-    }
-    
-}
-
-// MARK: Custom Encodable
-extension Workstation {
-    
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case type
-        case position
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(type.rawValue, forKey: .type)
-        try container.encode(position, forKey: .position)
     }
     
 }
