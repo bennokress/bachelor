@@ -10,11 +10,25 @@ import Foundation
 
 class Interpreter {
     
-    var presenter = Presenter.shared
-    var simulator = Simulator()
+    private init() { }
+    
+    // MARK: - 🔨 Static Properties
     
     static var shared = Interpreter()
-    private init() { }
+    
+    // MARK: - 🔧 Properties
+    // MARK: 🗝 Private Properties
+    
+    private var simulator = Simulator.shared
+    
+    // MARK: - ⚙️ Computed Properties
+    // MARK: 🗝 Private Computed Properties
+    
+    private var presenter: Presenter {
+        return Presenter.shared
+    }
+    
+    // MARK: - 📗 Functions
     
     func startButtonPressed() {
         simulator.start()

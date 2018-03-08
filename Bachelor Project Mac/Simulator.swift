@@ -10,6 +10,12 @@ import Foundation
 
 struct Simulator {
     
+    private init() { }
+    
+    // MARK: - 🔨 Static Properties
+    
+    static var shared = Simulator()
+    
     // MARK: - ⚙️ Computed Properties
     // MARK: 🗝 Private Computed Properties
     
