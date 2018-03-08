@@ -22,7 +22,7 @@ enum FieldType {
 // MARK: - 🔖 Equatable Conformance
 extension FieldType: Equatable {
     
-    /// Field Types are considered equal, if their types and eventual objects match
+    /// Field Types are considered equal, if their types and (if applicable) the contained objects match
     static func == (lhs: FieldType, rhs: FieldType) -> Bool {
         switch (lhs, rhs) {
         case (.wall, .wall), (.entrance, .entrance), (.exit, .exit), (.empty, .empty):
