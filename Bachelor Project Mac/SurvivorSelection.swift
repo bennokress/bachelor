@@ -10,72 +10,57 @@ import Foundation
 
 struct SurvivorSelection: Modificator {
     
+    // MARK: - ⚙️ Computed Properties
+    
+    /// Returns true if duplicates should be eliminated in the selection process as indicated in SimulationSettings
+    var duplicateEliminationActivated: Bool {
+        return settings.duplicateEliminationActivated
+    }
+    
     // MARK: 🗝 Private Computed Properties
     
     private var settings: SimulationSettings {
         return SimulationSettings.shared
     }
     
-    var duplicateEliminationActivated: Bool {
-        return settings.duplicateEliminationActivated
-    }
+    // MARK: - 📗 Functions
     
+    /// Runs the Survivor Selection Phase on the given generation
     func execute(on generation: inout Generation) {
         
         generation.recalculateMeasures()
-        let targetGenerationSize = settings.populationSize
+        let targetPopulationSize = settings.populationSize
         
         var sortedIndividuals = generation.sortedByFitness
         if duplicateEliminationActivated {
-            sortedIndividuals.filterDuplicates(matching: { $0.hasIdenticalLayout(as: $1) })
-            if sortedIndividuals.count < targetGenerationSize {
-                let neededDuplicateCount = targetGenerationSize - sortedIndividuals.count
-                print("Removing all duplicates from the generation would cause the next generation to fall \(neededDuplicateCount) \(neededDuplicateCount == 1 ? "factory" : "factories") short of the desired generation size!")
-                let necessaryDuplicates = getRandomDuplicates(from: generation.factories, ignoring: sortedIndividuals, with: neededDuplicateCount)
-                sortedIndividuals.append(contentsOf: necessaryDuplicates)
-            }
+            eliminateDuplicates(in: &sortedIndividuals)
         }
         
-        generation.factories = Set(sortedIndividuals.prefix(targetGenerationSize))
+        generation.factories = Set(sortedIndividuals.prefix(targetPopulationSize))
         
-        guard generation.size == targetGenerationSize else { fatalError("Generation size is wrong!") }
+        guard generation.size == targetPopulationSize else { fatalError("Generation size is wrong!") }
         
     }
     
-    private func getRandomDuplicates(from allFactories: Set<Factory>, ignoring alreadySelectedFactories: [Factory], with size: Int) -> [Factory] {
+    // MARK: 🔒 Private Functions
+    
+    /// Removes all factories with identical layouts except one unless falling short of required population size
+    private func eliminateDuplicates(in population: inout [Factory]) {
+        let populationWithoutFiltering = Set(population)
+        let targetPopulationSize = settings.populationSize
+        population.filterDuplicates(matching: { $0.hasIdenticalLayout(as: $1) })
+        if population.count < targetPopulationSize {
+            let necessaryDuplicateCount = targetPopulationSize - population.count
+            print("Removing all duplicates from the generation would cause the next generation to fall \(necessaryDuplicateCount) \(necessaryDuplicateCount == 1 ? "factory" : "factories") short of the desired generation size!")
+            let necessaryDuplicates = getRandomDuplicates(from: populationWithoutFiltering, ignoring: population, with: necessaryDuplicateCount)
+            population.append(contentsOf: necessaryDuplicates)
+        }
+    }
+    
+    /// Returns random factories with an identical layout to factories already present in the selection
+    private func getRandomDuplicates(from allFactories: Set<Factory>, ignoring alreadySelectedFactories: [Factory], with count: Int) -> [Factory] {
         let duplicateFactoryPool = allFactories.subtracting(alreadySelectedFactories)
-        return Array(duplicateFactoryPool.shuffled.prefix(size))
-    }
-    
-    private func bestSelection(from individuals: [Factory], withTargetSize targetSize: Int) -> [Factory] {
-        return []
-    }
-    
-    // MARK: - Debug Tools
-    
-    private func debug(generation: Generation) {
-        
-        let sortedIndividuals = generation.sortedByFitness
-        
-        print("-------------------------------------------------------------------------------------")
-        print("Generation Statistics")
-        print("-------------------------------------------------------------------------------------")
-        print("Øf: \(generation.averageFitness ?? -1)")
-        print("Ød: \(generation.averageDiversity ?? -1)")
-        print("\n\n")
-        
-        for factory in sortedIndividuals {
-            print("-------------------------------------------------------------------------------------")
-            print("Factory \(factory.id)")
-            print("-------------------------------------------------------------------------------------")
-            print("f : \(factory.fitness)")
-            print("f': \(factory.getAdaptedFitness(in: generation))")
-            print("bs: \(factory.genealogyDNA.description)")
-            print("rw: \(Double(factory.fitness).rouletteWheelFrequency(relativeTo: generation.sortedByFitnessAndDiversity.first!.getAdaptedFitness(in: generation)))")
-            print("-------------------------------------------------------------------------------------")
-            print(factory.layout.description)
-            print("\n\n")
-        }
+        return Array(duplicateFactoryPool.shuffled.prefix(count))
     }
     
 }
