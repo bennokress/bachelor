@@ -103,7 +103,7 @@ struct FactoryLayout {
         guard position.x >= 0, position.x <= xMax, position.y >= 0, position.y <= yMax else { return [] }
         var targetFields: [Field] = []
         for position in position.surroundingPositions {
-            if let fieldnumber = position.getFieldnumber(in: self), fields[fieldnumber].hasRemainingCapacity {
+            if let fieldnumber = position.getFieldNumber(in: self), fields[fieldnumber].hasRemainingCapacity {
                 targetFields.append(fields[fieldnumber])
             }
         }
@@ -112,7 +112,7 @@ struct FactoryLayout {
     
     /// Returns true, if the specified field is empty
     func isEmptyField(at position: Position) -> Bool {
-        guard let fieldnumber = position.getFieldnumber(in: self) else { return false }
+        guard let fieldnumber = position.getFieldNumber(in: self) else { return false }
         return fields[fieldnumber].isEmpty
     }
     
@@ -120,7 +120,7 @@ struct FactoryLayout {
     
     /// Adds the specified workstation at the position embedded in it
     mutating func addWorkstation(_ workstation: Workstation) {
-        guard let fieldnumber = workstation.position.getFieldnumber(in: self) else {
+        guard let fieldnumber = workstation.position.getFieldNumber(in: self) else {
             fatalError("Workstation position is outside of factory layout")
         }
         fields[fieldnumber].addWorkstation(workstation)
@@ -134,23 +134,23 @@ struct FactoryLayout {
     
     /// Adds a new robot to the entrance of the factory layout
     mutating func addRobot(_ robot: inout Robot) {
-        guard var entrance = entranceField, let entranceFieldnumber = entrance.position.getFieldnumber(in: self) else { fatalError("No entrance found!") }
+        guard var entrance = entranceField, let entranceFieldnumber = entrance.position.getFieldNumber(in: self) else { fatalError("No entrance found!") }
         entrance.addRobot(robot)
         updateField(at: entranceFieldnumber, to: entrance)
     }
     
     /// Removes the specified oldRobot and replaces it with the specified newRobot
     mutating func swap(_ oldRobot: Robot, for newRobot: inout Robot) {
-        guard let oldFieldnumber = oldRobot.position.getFieldnumber(in: self) else { fatalError("Robot was already outside factory layout!") }
+        guard let oldFieldnumber = oldRobot.position.getFieldNumber(in: self) else { fatalError("Robot was already outside factory layout!") }
         fields[oldFieldnumber].removeRobot(oldRobot)
         
-        guard let newFieldnumber = newRobot.position.getFieldnumber(in: self) else { fatalError("Target position is outside factory layout!") }
+        guard let newFieldnumber = newRobot.position.getFieldNumber(in: self) else { fatalError("Target position is outside factory layout!") }
         fields[newFieldnumber].addRobot(newRobot)
     }
     
     /// Removes the specified workstation from the layout
     mutating func deleteWorkstation(_ workstation: Workstation) {
-        guard let fieldnumber = workstation.position.getFieldnumber(in: self), fields[fieldnumber].workstation != nil else {
+        guard let fieldnumber = workstation.position.getFieldNumber(in: self), fields[fieldnumber].workstation != nil else {
             fatalError("Workstation not found in factory layout")
         }
         updateField(at: fieldnumber, to: Field(at: workstation.position, type: .empty))

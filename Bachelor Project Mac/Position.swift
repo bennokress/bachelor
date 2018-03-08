@@ -10,8 +10,6 @@ import Foundation
 
 struct Position: Encodable {
     
-    let x, y: Int
-    
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
@@ -36,26 +34,52 @@ struct Position: Encodable {
         self.init(fromFieldnumber: fieldnumber, withFactoryWidth: factorylayout.width, andFactoryLength: factorylayout.length)
     }
     
+    // MARK: - 🔧 Properties
+    
+    let x: Int
+    let y: Int
+    
+    // MARK: - ⚙️ Computed Properties
+    
+    /// Returns all positions in the valid moving directions (up, down, left, right)
     var surroundingPositions: [Position] {
+        
         let up = Position(x: self.x, y: self.y - 1)
         let down = Position(x: self.x, y: self.y + 1)
         let left = Position(x: self.x - 1, y: self.y)
         let right = Position(x: self.x + 1, y: self.y)
+        
         return [up, down, left, right]
+        
     }
     
-    func getFieldnumber(in factorylayout: FactoryLayout) -> Int? {
+    // MARK: - 📘 Static Functions
+    
+    /// Returns the position of a randomly retrieved empty field in the given Factory Layout
+    static func ofRandomEmptyField(in factoryLayout: FactoryLayout) -> Position {
+        let emptyFields = factoryLayout.fields.filter { $0.isEmpty }
+        guard let randomField = emptyFields.randomElement else { fatalError("No more empty field in factory layout found!") }
+        return randomField.position
+    }
+    
+    // MARK: - 📗 Functions
+    
+    /// Returns the convertion to a field number for the given factory layout
+    func getFieldNumber(in factorylayout: FactoryLayout) -> Int? {
         return getFieldNumberInFactory(withWidth: factorylayout.width, andLength: factorylayout.length)
     }
     
+    /// Returns the convertion to a field number for the given factory
     func getFieldNumberInFactory(withWidth width: Int, andLength length: Int) -> Int? {
         return self.isInFactory(withWidth: width, andLength: length) ? (y * width + x) : nil
     }
     
+    /// Returns the valid moving distance in fields to the given position
     func distance(to otherPosition: Position) -> Int {
         return abs(self.x - otherPosition.x) + abs(self.y - otherPosition.y)
     }
     
+    /// Returns all positions inside a given field radius in the specified factory layout
     func allPositions(inRadius radius: Int, inside layout: FactoryLayout) -> [Position] {
         let delta = (-radius...radius)
         let coordinates = delta.map { dx in delta.map { dy in (dx, dy) } }.joined().filter { $0.0 != 0 || $0.1 != 0 }
@@ -63,18 +87,14 @@ struct Position: Encodable {
         return positions
     }
     
+    /// Returns true if the position is inside the given factory layout
     func isInFactory(withLayout factoryLayout: FactoryLayout) -> Bool {
         return isInFactory(withWidth: factoryLayout.width, andLength: factoryLayout.length)
     }
     
+    /// Returns true if the position is inside any factory layout with the given measurements
     func isInFactory(withWidth width: Int, andLength length: Int) -> Bool {
         return x >= 0 && x < width && y >= 0 && y < length
-    }
-    
-    static func randomEmptyField(in factoryLayout: FactoryLayout) -> Position {
-        let emptyFields = factoryLayout.fields.filter { $0.isEmpty }
-        guard let randomField = emptyFields.randomElement else { fatalError("No more empty field in factory layout found!") }
-        return randomField.position
     }
     
 }

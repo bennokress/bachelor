@@ -24,7 +24,7 @@ struct Factory: Identifiable {
                 fatalError("No information found on amount for workstations of type \(workstationType.rawValue)")
             }
             amountOfCurrentWorkstationType.times {
-                let workstation = Workstation(id: nextWorkstationID, type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
+                let workstation = Workstation(id: nextWorkstationID, type: workstationType, at: Position.ofRandomEmptyField(in: factoryLayout))
                 factoryLayout.addWorkstation(workstation)
                 nextWorkstationID += 1
             }

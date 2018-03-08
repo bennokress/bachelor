@@ -248,13 +248,16 @@
 		D39734591EB1EF1000DAAC8A /* Static Models */ = {
 			isa = PBXGroup;
 			children = (
-				D3D84DDD1EB629050038710B /* RobotState.swift */,
-				D3D84DDF1EB6291A0038710B /* WorkstationState.swift */,
-				D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */,
-				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
-				D39734641EB1FEBF00DAAC8A /* Position.swift */,
-				D3E80FF61F51AD9A0034A800 /* DiversityModel.swift */,
 				D3E257021EBB8584005949A9 /* Identifiable.swift */,
+				D39734641EB1FEBF00DAAC8A /* Position.swift */,
+				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
+				D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */,
+				D3D84DD51EB4EBC30038710B /* ProductType.swift */,
+				D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */,
+				D3D84DDF1EB6291A0038710B /* WorkstationState.swift */,
+				D3D84DDD1EB629050038710B /* RobotState.swift */,
+				D3D84DD91EB4EC590038710B /* RobotRouting.swift */,
+				D3E80FF61F51AD9A0034A800 /* DiversityModel.swift */,
 			);
 			name = "Static Models";
 			sourceTree = "<group>";
@@ -311,9 +314,6 @@
 				D3D84DCB1EB486800038710B /* SimulationSettings.swift */,
 				D3AE450D1F9BBEBB00894ACD /* SimulationMode.swift */,
 				D33DF8251F650DAA00B55570 /* Statistics.swift */,
-				D3D84DD51EB4EBC30038710B /* ProductType.swift */,
-				D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */,
-				D3D84DD91EB4EC590038710B /* RobotRouting.swift */,
 			);
 			name = "Settings & Output";
 			sourceTree = "<group>";

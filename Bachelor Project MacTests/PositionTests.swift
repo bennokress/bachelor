@@ -60,7 +60,7 @@ class PositionTests: XCTestCase {
     }
     
     func testPositionConvertionToFieldnumber() {
-        guard let fieldnumber = standard.position1.getFieldnumber(in: standard.factoryLayout) else {
+        guard let fieldnumber = standard.position1.getFieldNumber(in: standard.factoryLayout) else {
             XCTFail("Fieldnumber was not computed!")
             return
         }
@@ -70,7 +70,7 @@ class PositionTests: XCTestCase {
     func testPositionFieldnumberConversionInInvalidFactoryLayoutFails() {
         // Invalid FactoryLayout for Position(x: 6, y: 4)
         let tooSmallFactoryLayout = FactoryLayout(width: 2, length: 2, entrance: Position(x: 1, y: 0), exit: Position(x: 0, y: 1))
-        let invalidFieldnumber = standard.position1.getFieldnumber(in: tooSmallFactoryLayout)
+        let invalidFieldnumber = standard.position1.getFieldNumber(in: tooSmallFactoryLayout)
         XCTAssert(invalidFieldnumber == nil)
     }
     
@@ -96,7 +96,7 @@ class PositionTests: XCTestCase {
     
     func testRandomEmptyFieldIsIndeedEmpty() {
         let factoryLayout = standard.factoryLayout
-        let randomEmptyFieldPosition = Position.randomEmptyField(in: factoryLayout)
+        let randomEmptyFieldPosition = Position.ofRandomEmptyField(in: factoryLayout)
         
         guard let fieldnumber = randomEmptyFieldPosition.getFieldnumber(in: factoryLayout) else {
             XCTFail("Random position was outside of factory!")
