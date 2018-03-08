@@ -21,7 +21,6 @@
 		D397342D1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D397342B1EB1E6D300DAAC8A /* Bachelor_Project_Mac.xcdatamodeld */; };
 		D397342F1EB1E6D300DAAC8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D397342E1EB1E6D300DAAC8A /* Assets.xcassets */; };
 		D39734321EB1E6D400DAAC8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D39734301EB1E6D400DAAC8A /* Main.storyboard */; };
-		D397343D1EB1E6D400DAAC8A /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397343C1EB1E6D400DAAC8A /* PerformanceTests.swift */; };
 		D39734481EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734471EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift */; };
 		D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734571EB1EEFF00DAAC8A /* Extensions.swift */; };
 		D397345B1EB1EF2E00DAAC8A /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D397345A1EB1EF2E00DAAC8A /* Product.swift */; };
@@ -44,9 +43,7 @@
 		D3D84DC41EB4861A0038710B /* ProductTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC31EB4861A0038710B /* ProductTests.swift */; };
 		D3D84DC61EB4863B0038710B /* RobotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC51EB4863B0038710B /* RobotTests.swift */; };
 		D3D84DC81EB486490038710B /* WorkstationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC71EB486490038710B /* WorkstationTests.swift */; };
-		D3D84DCA1EB486560038710B /* FactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DC91EB486560038710B /* FactoryTests.swift */; };
 		D3D84DCC1EB486800038710B /* SimulationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DCB1EB486800038710B /* SimulationSettings.swift */; };
-		D3D84DCE1EB4902E0038710B /* SimulationSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DCD1EB4902E0038710B /* SimulationSettingsTests.swift */; };
 		D3D84DD21EB4E1BE0038710B /* SwifterSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3D84DD11EB4E1BE0038710B /* SwifterSwift.framework */; };
 		D3D84DD61EB4EBC30038710B /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD51EB4EBC30038710B /* ProductType.swift */; };
 		D3D84DD81EB4EBEC0038710B /* WorkstationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */; };
@@ -96,7 +93,6 @@
 		D39734311EB1E6D400DAAC8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D39734331EB1E6D400DAAC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D39734381EB1E6D400DAAC8A /* Bachelor Project MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bachelor Project MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D397343C1EB1E6D400DAAC8A /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		D397343E1EB1E6D400DAAC8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D39734431EB1E6D400DAAC8A /* Bachelor Project MacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bachelor Project MacUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D39734471EB1E6D400DAAC8A /* Bachelor_Project_MacUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bachelor_Project_MacUITests.swift; sourceTree = "<group>"; };
@@ -122,9 +118,7 @@
 		D3D84DC31EB4861A0038710B /* ProductTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTests.swift; sourceTree = "<group>"; };
 		D3D84DC51EB4863B0038710B /* RobotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotTests.swift; sourceTree = "<group>"; };
 		D3D84DC71EB486490038710B /* WorkstationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationTests.swift; sourceTree = "<group>"; };
-		D3D84DC91EB486560038710B /* FactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryTests.swift; sourceTree = "<group>"; };
 		D3D84DCB1EB486800038710B /* SimulationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulationSettings.swift; sourceTree = "<group>"; };
-		D3D84DCD1EB4902E0038710B /* SimulationSettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulationSettingsTests.swift; sourceTree = "<group>"; };
 		D3D84DD11EB4E1BE0038710B /* SwifterSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwifterSwift.framework; path = Carthage/Build/Mac/SwifterSwift.framework; sourceTree = "<group>"; };
 		D3D84DD51EB4EBC30038710B /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		D3D84DD71EB4EBEC0038710B /* WorkstationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkstationType.swift; sourceTree = "<group>"; };
@@ -207,7 +201,6 @@
 				D3E257001EBB74C6005949A9 /* StandardImplementation.swift */,
 				D3D84DE21EB653210038710B /* Settings Tests */,
 				D397346A1EB3202500DAAC8A /* Model Tests */,
-				D397343C1EB1E6D400DAAC8A /* PerformanceTests.swift */,
 				D397343E1EB1E6D400DAAC8A /* Info.plist */,
 			);
 			path = "Bachelor Project MacTests";
@@ -271,7 +264,6 @@
 				D3D84DC31EB4861A0038710B /* ProductTests.swift */,
 				D3D84DC51EB4863B0038710B /* RobotTests.swift */,
 				D3D84DC71EB486490038710B /* WorkstationTests.swift */,
-				D3D84DC91EB486560038710B /* FactoryTests.swift */,
 			);
 			name = "Model Tests";
 			sourceTree = "<group>";
@@ -336,7 +328,6 @@
 		D3D84DE21EB653210038710B /* Settings Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D3D84DCD1EB4902E0038710B /* SimulationSettingsTests.swift */,
 				D3D84DE31EB653330038710B /* RoutingTests.swift */,
 			);
 			name = "Settings Tests";
@@ -544,16 +535,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3D84DCA1EB486560038710B /* FactoryTests.swift in Sources */,
 				D397346E1EB3208800DAAC8A /* FactoryLayoutTests.swift in Sources */,
 				D3E257011EBB74C6005949A9 /* StandardImplementation.swift in Sources */,
 				D39734691EB2095700DAAC8A /* PositionTests.swift in Sources */,
 				D3D84DC81EB486490038710B /* WorkstationTests.swift in Sources */,
-				D397343D1EB1E6D400DAAC8A /* PerformanceTests.swift in Sources */,
 				D397346C1EB3205A00DAAC8A /* FieldTests.swift in Sources */,
 				D3D84DE41EB653330038710B /* RoutingTests.swift in Sources */,
 				D3D84DC61EB4863B0038710B /* RobotTests.swift in Sources */,
-				D3D84DCE1EB4902E0038710B /* SimulationSettingsTests.swift in Sources */,
 				D3D84DC41EB4861A0038710B /* ProductTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

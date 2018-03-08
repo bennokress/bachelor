@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FactoryState: String, Encodable {
+enum FactoryState: String {
     
     case running
     case finished
@@ -18,6 +18,11 @@ enum FactoryState: String, Encodable {
 // MARK: - 🔖 Identifiable Conformance
 extension FactoryState: Identifiable {
     
-    var id: Int { return hashValue }
+    var id: Int {
+        switch self {
+        case .running: return 1
+        case .finished: return 2
+        }
+    }
     
 }

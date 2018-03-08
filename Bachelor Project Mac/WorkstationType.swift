@@ -30,7 +30,17 @@ enum WorkstationType: String {
 // MARK: - 🔖 Identifiable Conformance
 extension WorkstationType: Identifiable {
     
-    var id: Int { return hashValue }
+    var id: Int {
+        switch self {
+        case .wsA: return 1
+        case .wsB: return 2
+        case .wsC: return 3
+        case .wsD: return 4
+        case .wsE: return 5
+        case .wsF: return 6
+        case .testWorkstation: return Int.max
+        }
+    }
     
 }
 

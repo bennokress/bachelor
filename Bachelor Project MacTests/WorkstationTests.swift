@@ -13,33 +13,36 @@ class WorkstationTests: XCTestCase {
     
     let standard = StandardImplementation()
     
-    // MARK: General Functions
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    // MARK: Tests
-    
     func testWorkstationKnowsIfIdle() {
+        
+        // MARK: 🌦 Given
         var workstation = standard.workstation
         
+        // MARK: 🌬 When
         workstation.work(on: standard.robot)
+        
+        // MARK: ☀️ Then
         XCTAssert(!(workstation.isIdle))
         
+        // MARK: 🌬 When
         workstation.finishWorking()
+        
+        // MARK: ☀️ Then
         XCTAssert(workstation.isIdle)
+        
     }
     
     func testWorkstationStartsIdle() {
+        
+        // MARK: 🌦 Given
         let workstation = standard.workstation
+        
+        // MARK: 🌬 When
+        // No action taken
+        
+        // MARK: ☀️ Then
         XCTAssert(workstation.isIdle)
+        
     }
 
 }

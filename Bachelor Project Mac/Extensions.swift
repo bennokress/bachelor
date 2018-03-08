@@ -119,20 +119,6 @@ extension Double {
     
 }
 
-extension Encodable {
-    
-    func printToConsole() {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        do {
-            let data = try encoder.encode(self)
-            guard let json = String.init(data: data, encoding: .utf8) else { return }
-            print(json)
-        } catch { }
-    }
-    
-}
-
 extension Int {
     
     static func random(between min: Int, and max: Int) -> Int {

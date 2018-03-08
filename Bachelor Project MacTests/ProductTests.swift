@@ -12,32 +12,32 @@ import XCTest
 class ProductTests: XCTestCase {
     
     let standard = StandardImplementation()
-    
-    // MARK: General Functions
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    // MARK: Tests
 
     func testTwoProductsWithIdenticalTypeAreEqual() {
+        
+        // MARK: 🌦 Given
         let product1 = Product(type: .testProduct)
         let product2 = Product(type: .testProduct)
         
+        // MARK: 🌬 When
+        // No action taken
+        
+        // MARK: ☀️ Then
         XCTAssert(product1 == product2)
+        
     }
     
     func testProductKnowsCorrectRoute() {
+        
+        // MARK: 🌦 Given
         let product = standard.product
         
+        // MARK: 🌬 When
+        // No action taken
+        
+        // MARK: ☀️ Then
         XCTAssert(product.neededWorkstations == [.testWorkstation])
+        
     }
 
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Position: Encodable {
+struct Position {
     
     init(x: Int, y: Int) {
         self.x = x

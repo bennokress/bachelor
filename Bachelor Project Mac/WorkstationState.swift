@@ -19,7 +19,10 @@ enum WorkstationState {
 extension WorkstationState: Identifiable {
     
     var id: Int {
-        if case .busy = self { return 1 } else { return 2 }
+        switch self {
+        case .busy: return 1
+        case .idle: return 2
+        }
     }
     
 }

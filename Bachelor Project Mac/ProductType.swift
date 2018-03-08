@@ -58,7 +58,18 @@ enum ProductType: String {
 // MARK: - 🔖 Identifiable Conformance
 extension ProductType: Identifiable {
     
-    var id: Int { return hashValue }
+    var id: Int {
+        switch self {
+        case .emptyProduct: return 0
+        case .pA: return 1
+        case .pB: return 2
+        case .pC: return 3
+        case .pD: return 4
+        case .pE: return 5
+        case .pF: return 6
+        case .testProduct: return Int.max
+        }
+    }
     
 }
 
