@@ -40,7 +40,7 @@ class Statistics {
     func generateFinalOutput(completion: Success) {
         endTime = Date.now
         let csvData = generateCSV()
-        let csvFileURL = SimulationSettings.shared.composeStatisticsURL(for: Date.now)
+        let csvFileURL = composeStatisticsURL(for: Date.now)
         do {
             try csvData.write(to: csvFileURL, atomically: true, encoding: String.Encoding.utf8)
             completion(true)
@@ -49,6 +49,21 @@ class Statistics {
             print(csvData)
             completion(false)
         }
+    }
+    
+    private func composeStatisticsURL(for endTime: Date) -> URL {
+        // Unique File Name Parts
+        let endDateString = "\(endTime.year)\(endTime.month > 9 ? "" : "0")\(endTime.month)\(endTime.day > 9 ? "" : "0")\(endTime.day)"
+        let endTimeString = "\(endTime.hour > 9 ? "" : "0")\(endTime.hour)\(endTime.minute > 9 ? "" : "0")\(endTime.minute)"
+        let simulationModeName = SimulationSettings.shared.simulationMode.name
+        
+        // URL Composition
+        let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
+        let path = SimulationSettings.shared.statisticsOutputPath
+        let fileName = "\(simulationModeName)_\(endDateString)-\(endTimeString)"
+        let fileExtension = ".csv"
+        
+        return homeDirectory.appendingPathComponent(path + fileName + fileExtension)
     }
     
     // MARK: Data Conversion Structure

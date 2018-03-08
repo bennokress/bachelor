@@ -11,6 +11,11 @@ import CryptoSwift
 
 struct FactoryLayout {
     
+    // MARK: - 🔨 Static Properties
+    
+    /// Returns an empty factory layout
+    static var empty: FactoryLayout { return FactoryLayout() }
+    
     /// The width in fields
     let width: Int
     

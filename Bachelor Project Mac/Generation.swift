@@ -10,6 +10,22 @@ import Foundation
 
 struct Generation {
     
+    static var initial: Generation {
+        
+        let settings = SimulationSettings.shared
+        
+        settings.nextFactoryID = 1
+        var initialFactories: Set<Factory> = []
+        
+        settings.generationSize.times {
+            let factory = Factory()
+            initialFactories.insert(factory)
+        }
+        
+        return Generation(factories: initialFactories)
+        
+    }
+    
     var settings: SimulationSettings { return SimulationSettings.shared }
     
     var factories: Set<Factory>

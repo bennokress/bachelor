@@ -17,7 +17,7 @@ struct Simulator {
     
     mutating func start() {
         statistics.startTime = Date.now
-        var generation = settings.getInitialGeneration()
+        var generation = Generation.initial
         printSimulationNumber()
         runSimulation(on: &generation)
     }
@@ -33,7 +33,9 @@ struct Simulator {
             runSingleRoundOfGeneticAlgorithm(on: &generation)
             saveStats(on: &generation, inRound: currentRound)
             printProgressAndStats(for: generation, in: currentRound)
-            if settings.isLastSimulationRound(currentRound) {
+            
+            // Only when last generation was just simulated ...
+            if currentRound == settings.generations {
                 statistics.generateFinalOutput() { successful in
                     guard successful else { return }
                     restartSimulation()
@@ -50,7 +52,7 @@ struct Simulator {
     
     private func deactivateWorkstations(withIDs workstationIDs: [Int], in generation: inout Generation) {
         for individual in generation.individuals {
-            let individualWithBrokenWorkstations = SimulationSettings.shared.getFactoryWithDeactivatedWorkstations(withIDs: workstationIDs, from: individual)
+            let individualWithBrokenWorkstations = Factory(from: individual, with: workstationIDs)
             generation.replace(individual, with: individualWithBrokenWorkstations)
         }
     }

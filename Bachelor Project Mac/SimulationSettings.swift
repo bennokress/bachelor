@@ -11,17 +11,19 @@ import Foundation
 class SimulationSettings {
     
     private init() { }
+    
+    // MARK: - 🔨 Static Properties
+    
     static var shared = SimulationSettings()
     
-    // MARK: Base Setting - see SimulationMode for details and customization
+    // MARK: - 🔧 Properties
+    
     var simulationMode: SimulationMode = .phase4(diversityModel: .genomeDistanceBased, useDiversity: true, randomizeProducts: false)
-    
-    // MARK: General
     let statisticsOutputPath = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/rawStats/"
-    var nextFactoryID = 1 // used and updated when building a new individual (factory)
-    func isLastSimulationRound(_ currentRound: Int) -> Bool { return currentRound == generations }
+    var nextFactoryID = 1 // used and updated when building a new individual (factory) or restarting the simulation
     
-    // MARK: Settings depending on Simulation Mode (automatically updated)
+    // MARK: - ⚙️ Computed Properties
+    
     var brokenWorkstationIDs: [Int] { return simulationMode.brokenWorkstationIDs }
     var crossoverProbability: Int { return simulationMode.crossoverProbability }
     var distanceFromEntranceAndExitToLayoutCorner: Int { return simulationMode.distanceFromEntranceAndExitToLayoutCorner }
@@ -46,121 +48,5 @@ class SimulationSettings {
     var workstationAmount: [WorkstationType : Int] { return simulationMode.workstationAmount }
     var workstationBreakdownTiming: Int { return simulationMode.workstationBreakdownTiming }
     var workstationCount: Int { return simulationMode.workstationCount }
-
-    // MARK: - Initial Generation Calculation
-
-    func getInitialGeneration() -> Generation {
-        
-        nextFactoryID = 1
-        var initialFactories: Set<Factory> = []
-        
-        generationSize.times {
-            let factory = generateRandomFactory()
-            initialFactories.insert(factory)
-        }
-        
-        return Generation(factories: initialFactories)
-        
-    }
-    
-    func generateRandomFactory(withBrokenWorkstation brokenWorkstationEnabled: Bool = false) -> Factory {
-        
-        // 1 - create empty factory layout
-        var factoryLayout = getEmptyFactoryGrid
-        
-        // 2 - generate workstations at empty fields in factory layout
-        var nextWorkstationID = 1
-        for workstationType in workstationAmount.keys.sorted(by: { $0 < $1 }) {
-            guard let amountOfCurrentWorkstationType = workstationAmount[workstationType] else {
-                fatalError("No information found on amount for workstations of type \(workstationType.rawValue)")
-            }
-            amountOfCurrentWorkstationType.times {
-                let workstation = Workstation(id: nextWorkstationID, type: workstationType, at: Position.randomEmptyField(in: factoryLayout))
-                factoryLayout.addWorkstation(workstation)
-                nextWorkstationID += 1
-            }
-        }
-        
-        // 3 - generate factory with robots at the entrance and a random genealogyDNA
-        let factory = generateFactory(from: &factoryLayout, genealogyDNA: Bitstring(length: workstationCount))
-        
-        return brokenWorkstationEnabled ? getFactoryWithDeactivatedWorkstations(withIDs: brokenWorkstationIDs, from: factory) : factory
-        
-    }
-
-    // MARK: - Simulation Steps
-    
-    var getEmptyFactoryGrid: FactoryLayout {
-        return FactoryLayout()
-    }
-    
-    func generateFactory(from factoryLayout: inout FactoryLayout, genealogyDNA: Bitstring) -> Factory {
-        
-        // 1 - generate robots for each product and place them at the entrance
-        var nextRobotID = 1
-        for productType in productAmount.keys.sorted(by: { $0 < $1 }) {
-            guard let amountOfCurrentProductType = productAmount[productType] else {
-                fatalError("No information found on amount for product of type \(productType.rawValue)")
-            }
-            amountOfCurrentProductType.times {
-                let product = Product(type: productType)
-                var robot = Robot(id: nextRobotID, product: product, in: factoryLayout)
-                factoryLayout.addRobot(&robot)
-                nextRobotID += 1
-            }
-        }
-        
-        // 2 - generate factory
-        let factory = Factory(id: nextFactoryID, layout: factoryLayout, genealogyDNA: genealogyDNA)
-        nextFactoryID += 1
-        
-        return factory
-        
-    }
-    
-    func getFactoryWithDeactivatedWorkstations(withIDs brokenWorkstationIDs: [Int], from oldFactory: Factory) -> Factory {
-        
-        // 1 - Save important values from old Factory
-        let oldFactoryID = oldFactory.id
-        let oldFactoryDNA = oldFactory.genealogyDNA.removing(numberOfBits: brokenWorkstationIDs.count)
-        let oldLayout = oldFactory.layout
-        guard let entrance = oldLayout.entrancePosition, let exit = oldLayout.exitPosition else { fatalError("Could not find Entrance or Exit!") }
-        
-        // 2 - Get Empty Layout with equal dimensions, entrance and exit positions
-        var newLayout = FactoryLayout(width: oldLayout.width, length: oldLayout.length, entrance: entrance, exit: exit)
-        
-        // 3 - Insert all but the deactivated workstations
-        let healthyWorkstations = oldFactory.workstations.filter { !(brokenWorkstationIDs.contains($0.id)) }
-        for workstation in healthyWorkstations {
-            newLayout.addWorkstation(workstation)
-        }
-        
-        // 4 - Get updated Robots for new Layout
-        for robot in oldFactory.robots {
-            var updatedRobot = Robot(id: robot.id, product: robot.product, in: newLayout)
-            newLayout.addRobot(&updatedRobot)
-        }
-        
-        // 5 - Generate Factory with updated Layout and Robots
-        return Factory(id: oldFactoryID, layout: newLayout, genealogyDNA: oldFactoryDNA)
-        
-    }
-
-    // MARK: - Statistics
-    
-    func composeStatisticsURL(for endTime: Date) -> URL {
-        // Unique File Name Parts
-        let endDateString = "\(endTime.year)\(endTime.month > 9 ? "" : "0")\(endTime.month)\(endTime.day > 9 ? "" : "0")\(endTime.day)"
-        let endTimeString = "\(endTime.hour > 9 ? "" : "0")\(endTime.hour)\(endTime.minute > 9 ? "" : "0")\(endTime.minute)"
-        let simulationModeName = SimulationSettings.shared.simulationMode.name
-        
-        // URL Composition
-        let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
-        let path = statisticsOutputPath
-        let fileName = "\(simulationModeName)_\(endDateString)-\(endTimeString)"
-        let fileExtension = ".csv"
-        
-        return homeDirectory.appendingPathComponent(path + fileName + fileExtension)
-    }
     
 }

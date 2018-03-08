@@ -28,7 +28,7 @@ struct Crossover: Modificator {
             let crossoverPartnerWorkstations = factory2.workstations.sorted { $0.type.rawValue <= $1.type.rawValue }
             
             // 3 - Generate a factory layout with the workstations from the first factory to work on
-            var crossoverFactoryLayout = settings.getEmptyFactoryGrid
+            var crossoverFactoryLayout = FactoryLayout.empty
             for workstation in newWorkstations {
                 crossoverFactoryLayout.addWorkstation(workstation)
             }
@@ -52,7 +52,7 @@ struct Crossover: Modificator {
             let crossoverBitstring = Bitstring(from: factory1.genealogyDNA, and: factory2.genealogyDNA, mergedWith: neededDNASwitches)
             
             // 6 - Generate new factory from layout and add to generation
-            let crossoverFactory = settings.generateFactory(from: &crossoverFactoryLayout, genealogyDNA: crossoverBitstring)
+            let crossoverFactory = Factory(from: &crossoverFactoryLayout, genealogyDNA: crossoverBitstring)
             generation.insert(crossoverFactory)
             
             // 7 - Save result for action output

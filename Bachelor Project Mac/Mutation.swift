@@ -19,7 +19,7 @@ struct Mutation: Modificator {
         for factory in generation.factories {
             
             // 1 - Generate a copy of the factory's layout
-            var mutatedFactoryLayout = settings.getEmptyFactoryGrid
+            var mutatedFactoryLayout = FactoryLayout.empty
             for workstation in factory.workstations {
                 mutatedFactoryLayout.addWorkstation(workstation)
             }
@@ -46,7 +46,7 @@ struct Mutation: Modificator {
             let mutationBitstring = Bitstring(from: factory.genealogyDNA, mutatedBitsCount: neededDNAFlips)
             
             // 4 - Generate new factory from layout and add to generation
-            let mutatedFactory = settings.generateFactory(from: &mutatedFactoryLayout, genealogyDNA: mutationBitstring)
+            let mutatedFactory = Factory(from: &mutatedFactoryLayout, genealogyDNA: mutationBitstring)
             generation.insert(mutatedFactory)
             
             // 5 - Save result for action output

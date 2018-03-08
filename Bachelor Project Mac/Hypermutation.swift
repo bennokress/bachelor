@@ -20,13 +20,17 @@ struct Hypermutation: Modificator {
             var hypermutationResults: [Factory] = []
             
             tenPercentOfTargetGenerationSize.times {
+                
                 // 1 - Generate new random factory
                 let workstationBrakedownNeeded = generation.workstationBreakdownHappened
-                let randomFactory = settings.generateRandomFactory(withBrokenWorkstation: workstationBrakedownNeeded)
+                let randomFactory = Factory(withBrokenWorkstation: workstationBrakedownNeeded)
+                
                 // 2 - Insert factory into generation
                 generation.insert(randomFactory)
+                
                 // 3 - Save the factory for the console output
                 hypermutationResults.append(randomFactory)
+                
             }
             
         }
