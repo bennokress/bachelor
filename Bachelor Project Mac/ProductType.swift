@@ -8,16 +8,20 @@
 
 import Foundation
 
-enum ProductType: String, Encodable {
+enum ProductType: String {
+    
     case pA = "A"
     case pB = "B"
     case pC = "C"
     case pD = "D"
     case pE = "E"
     case pF = "F"
-    case testProduct = "T"    // needed in unit tests only
+    case testProduct = "T"   // needed in unit tests only
     case emptyProduct = ""   // needed in unit tests only
     
+    // MARK: - ⚙️ Computed Properties
+    
+    /// The order of workstation types needed to produce the product
     var route: [WorkstationType] {
         switch self {
         case .pA: return [.wsA, .wsB, .wsC, .wsD, .wsE, .wsF]
@@ -31,6 +35,9 @@ enum ProductType: String, Encodable {
         }
     }
     
+    // MARK: - 📘 Static Functions
+    
+    /// Returns a dictionary containing the randomly generated production amount per product type
     static func randomAmountDictionary(maxAmount: Int = 10) -> [ProductType : Int] {
         let a = Int.random(between: 1, and: maxAmount)
         let b = Int.random(between: 1, and: maxAmount)
@@ -41,6 +48,7 @@ enum ProductType: String, Encodable {
         return amountDictionary(a: a, b: b, c: c, d: d, e: e, f: f)
     }
     
+    /// Returns a dictionary containing the provided production amount per product type
     static func amountDictionary(a: Int, b: Int, c: Int, d: Int, e: Int, f: Int) -> [ProductType : Int] {
         return [.pA: a, .pB: b, .pC: c, .pD: d, .pE: e, .pF: f]
     }
