@@ -6,6 +6,23 @@
 //  Copyright © 2017 Benno Kress. All rights reserved.
 //
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                                   //
+// There are two options when customizing the simulation:                                                                            //
+//                                                                                                                                   //
+//     1. Creating a new mode in SimulationMode                                                                                      //
+//        --> Xcode will give you warnings until every parameter is configured                                                       //
+//     2. Using one of the present modes by setting simulationMode below                                                             //
+//        --> diversity model can be one of: .genealogical, .genomeDistanceBased, .fitnessSharing, .none                             //
+//        --> useDiversity indicates if diversity influences the genetic algorithm, it also manages enables / disables Hypermutation //
+//        --> plotDiversity indicates if the Statistics output should include diversity measurements                                 //
+//                                                                                                                                   //
+// Please also set the statisticsOutputPath to get a csv-File with Statistics for each simulation!                                   //
+//                                                                                                                                   //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 import Foundation
 
 class SimulationSettings {
@@ -18,8 +35,8 @@ class SimulationSettings {
     
     // MARK: - 🔧 Properties
     
-    var simulationMode: SimulationMode = .phase4(diversityModel: .genomeDistanceBased, useDiversity: true, randomizeProducts: false)
-    let statisticsOutputPath = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/rawStats/"
+    var simulationMode: SimulationMode = .development(diversityModel: .genealogical, useDiversity: true, plotDiversity: true)
+    let statisticsOutputPath = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/testStatsFinalVersion/"
     var nextFactoryID = 1 // used and updated when building a new individual (factory) or restarting the simulation
     
     // MARK: - ⚙️ Computed Properties
@@ -35,14 +52,15 @@ class SimulationSettings {
     var factoryWidth: Int { return simulationMode.factoryWidth }
     var generations: Int { return simulationMode.generations }
     var hypermutationThreshold: Double { return simulationMode.hypermutationThreshold }
+    var isDiversityEnabled: Bool { return simulationMode.isDiversityEnabled }
     var mutationDistance: Int { return simulationMode.mutationDistance }
     var mutationProbability: Int { return simulationMode.mutationProbability }
-    var parentSelectionUsesDiversity: Bool { return simulationMode.parentSelectionUsesDiversity }
     var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
     var phases: [Modificator] { return simulationMode.phases }
     var populationSize: Int { return simulationMode.populationSize }
     var productAmount: [ProductType : Int] { return simulationMode.productAmount }
     var simulatedWorkstationBreakdownActivated: Bool { return simulationMode.simulatedWorkstationBreakdownActivated }
+    var statisticsShouldPlotDiversity: Bool { return simulationMode.statisticsShouldPlotDiversity }
     var usedDiversityModel: DiversityModel { return simulationMode.diversityModel }
     var workstationAmount: [WorkstationType : Int] { return simulationMode.workstationAmount }
     var workstationBreakdownTiming: Int { return simulationMode.workstationBreakdownTiming }

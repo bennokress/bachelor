@@ -65,6 +65,11 @@ class Statistics {
         return SimulationSettings.shared
     }
     
+    /// Returns true if diversity should be plotted according to SimulationSettings
+    private var includeDiversityMeasures: Bool {
+        return settings.statisticsShouldPlotDiversity
+    }
+    
     // MARK: - 📗 Functions
     
     /// Saves the statistics on the given generation to var evolution
@@ -133,13 +138,15 @@ class Statistics {
             averageFitnessCSV += "\(round.averageFitness);"
             bestFitnessCSV += "\(round.bestFitness);"
             worstFitnessCSV += "\(round.worstFitness);"
-            averageFitnessSharingDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .fitnessSharing)
-            averagegenomeDistanceBasedDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genomeDistanceBased)
-            averageGenealogicalDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genealogical)
+            if includeDiversityMeasures {
+                averageFitnessSharingDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .fitnessSharing)
+                averagegenomeDistanceBasedDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genomeDistanceBased)
+                averageGenealogicalDiversityCSV += getDiversityAverageCSV(from: round.individuals, diversityModel: .genealogical)
+            }
             printProgress(for: round.simulationRound)
         }
         
-        let csvOutput = """
+        var csvOutputWithDiversity: String { return """
         \(runtime.excelFixed)
         \(simulationRoundCSV.excelFixed)
         \(averageFitnessCSV.excelFixed)
@@ -149,8 +156,18 @@ class Statistics {
         \(averagegenomeDistanceBasedDiversityCSV.excelFixed)
         \(averageGenealogicalDiversityCSV.excelFixed)
         """
+        }
         
-        return csvOutput
+        var csvOutputWithOutDiversity: String { return """
+            \(runtime.excelFixed)
+            \(simulationRoundCSV.excelFixed)
+            \(averageFitnessCSV.excelFixed)
+            \(bestFitnessCSV.excelFixed)
+            \(worstFitnessCSV.excelFixed)
+            """
+        }
+        
+        return includeDiversityMeasures ? csvOutputWithDiversity : csvOutputWithOutDiversity
         
     }
     

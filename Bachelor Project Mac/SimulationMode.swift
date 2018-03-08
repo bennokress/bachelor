@@ -11,22 +11,22 @@ import Foundation
 enum SimulationMode {
     
     // used in development | small and very predictable - good for checking the results of code adjustments
-    case development(diversityModel: DiversityModel, useDiversity: Bool)
+    case development(diversityModel: DiversityModel, useDiversity: Bool, plotDiversity: Bool)
     
     // used until Oct 20th | still quite small, but has some usable output
-    case phase1(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    case phase1(diversityModel: DiversityModel, useDiversity: Bool, plotDiversity: Bool)
     
     // used until Nov 26th | first version for the final work, no influence on selection by diversity
-    case phase2(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    case phase2(diversityModel: DiversityModel, useDiversity: Bool, plotDiversity: Bool)
     
     // used until Dec 03rd | still no influence on selection by diversity, but hypermutation in every round
-    case phase3(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    case phase3(diversityModel: DiversityModel, useDiversity: Bool, plotDiversity: Bool)
     
     // used until Jan 28th | diversity now used in selection
-    case phase4(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    case phase4(diversityModel: DiversityModel, useDiversity: Bool, plotDiversity: Bool)
     
     // used until Mar 12th | Lambda in adapted fitness now with observation based value
-    case phase5(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
+    case phase5(diversityModel: DiversityModel, useDiversity: Bool, plotDiversity: Bool)
     
     // MARK: - ⚙️ Computed Properties
     
@@ -109,12 +109,12 @@ enum SimulationMode {
         switch self {
         case .development:
             return ProductType.amountDictionary(a: 1, b: 0, c: 0, d: 0, e: 0, f: 0)
-        case .phase1(_, _, let randomize),
-             .phase2(_, _, let randomize),
-             .phase3(_, _, let randomize),
-             .phase4(_, _, let randomize),
-             .phase5(_, _, let randomize):
-            return randomize ? ProductType.randomAmountDictionary(maxAmount: 10) : ProductType.amountDictionary(a: 4, b: 5, c: 6, d: 7, e: 8, f: 9)
+        case .phase1,
+             .phase2,
+             .phase3,
+             .phase4,
+             .phase5:
+            return ProductType.amountDictionary(a: 4, b: 5, c: 6, d: 7, e: 8, f: 9)
         }
     }
     
@@ -192,20 +192,24 @@ enum SimulationMode {
     
     /// Returns the sequence of all phases used in the genetic algorithm
     var phases: [Modificator] {
+        let phasesWithHypermutation: [Modificator] = [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection()]
+        let phasesWithoutHypermutation: [Modificator] = [ParentSelection(), Crossover(), Mutation(), SurvivorSelection()]
+        
         switch self {
-        case .development,
-             .phase1,
-             .phase2,
-             .phase3,
-             .phase4,
-             .phase5: return [ParentSelection(), Crossover(), Mutation(), Hypermutation(), SurvivorSelection()]
+        case .development(_, let useDiversity, _),
+             .phase1(_, let useDiversity, _),
+             .phase2(_, let useDiversity, _),
+             .phase3(_, let useDiversity, _),
+             .phase4(_, let useDiversity, _),
+             .phase5(_, let useDiversity, _):
+            return useDiversity ? phasesWithHypermutation : phasesWithoutHypermutation
         }
     }
     
     /// Returns the diversity model used in the Selection phase
     var diversityModel: DiversityModel {
         switch self {
-        case .development(let diversityModel, _),
+        case .development(let diversityModel, _, _),
              .phase1(let diversityModel, _, _),
              .phase2(let diversityModel, _, _),
              .phase3(let diversityModel, _, _),
@@ -214,10 +218,10 @@ enum SimulationMode {
         }
     }
     
-    /// Returns true if diversity influences the parent selection
-    var parentSelectionUsesDiversity: Bool {
+    /// Returns true if diversity influences the genetic algorithm
+    var isDiversityEnabled: Bool {
         switch self {
-        case .development(_, let useDiversity),
+        case .development(_, let useDiversity, _),
              .phase1(_, let useDiversity, _),
              .phase2(_, let useDiversity, _),
              .phase3(_, let useDiversity, _),
@@ -274,7 +278,7 @@ enum SimulationMode {
         }
     }
     
-    // Returns the timing of the workstation breakdown (as indicated by simulatedWorkstationBreakdownActivated)
+    /// Returns the timing of the workstation breakdown (as indicated by simulatedWorkstationBreakdownActivated)
     var workstationBreakdownTiming: Int {
         switch self {
         case .development,
@@ -283,6 +287,18 @@ enum SimulationMode {
              .phase3,
              .phase4,
              .phase5: return generations * 2 / 3
+        }
+    }
+    
+    /// Returns true if Statistics should show diversity measures
+    var statisticsShouldPlotDiversity: Bool {
+        switch self {
+        case .development(_, _, let plotDiversity),
+             .phase1(_, _, let plotDiversity),
+             .phase2(_, _, let plotDiversity),
+             .phase3(_, _, let plotDiversity),
+             .phase4(_, _, let plotDiversity),
+             .phase5(_, _, let plotDiversity): return plotDiversity
         }
     }
     

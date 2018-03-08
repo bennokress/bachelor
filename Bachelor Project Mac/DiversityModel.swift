@@ -13,6 +13,7 @@ enum DiversityModel: String {
     case genealogical
     case fitnessSharing
     case genomeDistanceBased
+    case none
     
     // MARK: - ⚙️ Computed Properties
     
@@ -30,12 +31,17 @@ enum DiversityModel: String {
             return 0.06017415
         case .genomeDistanceBased:
             return 0.61034056
+        case .none:
+            return 0
         }
     }
     
     /// Factor in calculating the diversity-influenced adapted fitness f'
     var lambda: Double {
-        return observationBasedAverageFitnessOfGeneration / (1 / observationBasedAverageDiversityOfGeneration)
+        switch self {
+        case .none: return 0
+        default: return observationBasedAverageFitnessOfGeneration / (1 / observationBasedAverageDiversityOfGeneration)
+        }
     }
     
     // MARK: - 📗 Functions
@@ -64,6 +70,8 @@ enum DiversityModel: String {
             return fitnessSharingDiversity(of: individual, in: generation)
         case .genomeDistanceBased:
             return genomeDistanceBasedDiversity(of: individual, in: generation)
+        case .none:
+            return nil
         }
     }
     

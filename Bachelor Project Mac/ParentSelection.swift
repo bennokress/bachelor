@@ -31,7 +31,7 @@ struct ParentSelection: Modificator {
     /// Executes the selection process proportional to the individual's fitness or strictly by fitness as indicated by "usingRouletteMode"
     private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
         
-        let useDiversity = settings.parentSelectionUsesDiversity
+        let useDiversity = settings.isDiversityEnabled
         let sortedGeneration = useDiversity ? generation.sortedByFitnessAndDiversity : generation.sortedByFitness
         
         if rouletteMode {
