@@ -178,7 +178,7 @@ enum SimulationMode {
         }
     }
     
-    // Returns the number of times a robot can move away from his next target or stand still before being marked as blocked
+    // Returns the number of times a robot can move away from his next target before being marked as blocked
     var dodgeThreshold: Int {
         switch self {
         case .development,

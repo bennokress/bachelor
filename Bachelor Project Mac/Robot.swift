@@ -10,13 +10,30 @@ import Foundation
 
 struct Robot: Identifiable {
     
+    init(id: Int, product: Product, in factoryLayout: FactoryLayout) {
+        guard let entrance = factoryLayout.entrancePosition else { fatalError("No entrance found in factory layout!") }
+        
+        self.id = id
+        self.product = product
+        self.state = .starting
+        self.position = entrance
+        self.remainingRoute = routing.getShortestRoute(containing: product.neededWorkstations, in: factoryLayout)
+    }
+    
+    // MARK: - 🔧 Properties
+    
     let id: Int
     let product: Product
+    let routing = RobotRouting()
+    
     var position: Position
     var remainingRoute: [Position]
     var state: RobotState
     
     var dodgeCounter = 0 // counts every step away from target
+    
+    // MARK: - ⚙️ Computed Properties
+    
     var distanceToTarget: Int {
         if let target = remainingRoute.first {
             return position.distance(to: target)
@@ -29,36 +46,35 @@ struct Robot: Identifiable {
     var isBlocked: Bool { return state == .blocked }
     var isDocked: Bool { return state == .docked }
     
-    let routing = RobotRouting()
+    // MARK: - 📗 Functions
+    // MARK: 🔒 Private Functions
     
-    init(id: Int, product: Product, in factoryLayout: FactoryLayout) {
-        guard let entrance = factoryLayout.entrancePosition else { fatalError("No entrance found in factory layout!") }
-        
-        self.id = id
-        self.product = product
-        self.state = .starting
-        self.position = entrance
-        self.remainingRoute = routing.getShortestRoute(containing: product.neededWorkstations, in: factoryLayout)
+    private func getClosestField(to targetPosition: Position, from fields: [Field]) -> Field? {
+        return fields.sorted(by: { $0.position.distance(to: targetPosition) < $1.position.distance(to: targetPosition) }).first
     }
     
+    // MARK: - 📕 Mutating Functions
+    
     mutating func performStep(in factoryLayout: FactoryLayout) -> Robot {
+        
         let potentialTargetFields = factoryLayout.potentialTargetFields(around: self.position)
         
-        // finished and blocked robots don't do anything
+        // 1a - finished and blocked robots don't do anything
         if self.isFinished || self.isBlocked {
             return self
         }
         
-        // docked robots always change their state to moving and stay in position
+        // 1b - docked robots always change their state to moving and stay in position
         else if self.isDocked {
             self.state = .moving
             return self
         }
         
-        // all others try to move first, if they have a field they can move to
+        // 1c - all others try to move first, if they have a field they can move to
         else if potentialTargetFields.count > 0 {
-            guard let nextTargetPosition = remainingRoute.first,
-                let targetField = potentialTargetFields.sorted(by: { $0.position.distance(to: nextTargetPosition) < $1.position.distance(to: nextTargetPosition) }).first  else {
+            
+            // Get position of field for next move
+            guard let nextTargetPosition = remainingRoute.first, let targetField = getClosestField(to: nextTargetPosition, from: potentialTargetFields)  else {
                     return self
             }
             
@@ -71,47 +87,58 @@ struct Robot: Identifiable {
                 }
             }
             
+            // 2 - Move to the next field
             position = targetField.position
-            switch targetField.state {
-            // moving into a workstation
-            case .workstation:
-                if targetField.position == remainingRoute.first {
-                    remainingRoute.remove(at: 0)
-                    state = .docked
-                } else {
-                    state = .moving
-                }
-            // moving into the exit
-            case .exit:
-                if targetField.position == remainingRoute.first {
-                    remainingRoute.remove(at: 0)
-                    state = .finished
-                } else {
-                    state = .moving
-                }
-            // moving to an empty field or into the entrance
-            default:
-                state = .moving
-            }
+            setStateAndRemainingRoute(accordingToStateOf: targetField)
+            
         }
             
-        // ... otherwise they stay and adjust only the state they are in
+        // 1d - otherwise they stay and adjust only the state they are in
         else {
-            // moving not possible
-            switch state {
-            // if still starting, then do nothing
-            case .starting:
-                break
-            // if already idle, then increase idle rounds counter or switch to blocked state if counter already at 4
-            case .idle(let idleRounds):
-                state = idleRounds <= 3 ? .idle(since: idleRounds + 1) : .blocked
-            // else change state to idle
-            default:
-                state = .idle(since: 1)
-            }
+            updateStateAfterNotBeingAbleToMove()
         }
         
         return self
+    }
+    
+    // MARK: 🔒 Private Mutating Functions
+    
+    private mutating func updateStateAfterNotBeingAbleToMove() {
+        switch state {
+        // if still starting, then do nothing
+        case .starting:
+            break
+        // if already idle, then increase idle rounds counter or switch to blocked state if counter already at 4
+        case .idle(let idleRounds):
+            state = idleRounds <= 3 ? .idle(since: idleRounds + 1) : .blocked
+        // else change state to idle
+        default:
+            state = .idle(since: 1)
+        }
+    }
+    
+    private mutating func setStateAndRemainingRoute(accordingToStateOf targetField: Field) {
+        switch targetField.state {
+        // moving into a workstation
+        case .workstation:
+            if targetField.position == remainingRoute.first {
+                remainingRoute.remove(at: 0)
+                state = .docked
+            } else {
+                state = .moving
+            }
+        // moving into the exit
+        case .exit:
+            if targetField.position == remainingRoute.first {
+                remainingRoute.remove(at: 0)
+                state = .finished
+            } else {
+                state = .moving
+            }
+        // moving to an empty field or into the entrance
+        default:
+            state = .moving
+        }
     }
     
 }
