@@ -7,37 +7,72 @@
 //
 
 import Foundation
-import SwifterSwift
+
+fileprivate struct RoundStatistics {
+    
+    init(from generation: inout Generation, inRound round: Int) {
+        generation.recalculateMeasures()
+        guard let bestFitness = generation.bestFitness, let worstFitness = generation.worstFitness else { fatalError("Could not compute fitness metrics!") }
+        guard let averageFitnessOfGeneration = generation.averageFitness else { fatalError("Average Fitness was never measured!") }
+        self.simulationRound = round
+        self.bestFitness = bestFitness
+        self.worstFitness = worstFitness
+        self.averageFitness = averageFitnessOfGeneration
+        self.individuals = generation.sortedByFitness
+    }
+    
+    // MARK: - 🔧 Properties
+    let simulationRound: Int
+    let bestFitness: Int
+    let worstFitness: Int
+    let averageFitness: Double
+    let individuals: [Factory]
+    
+}
 
 class Statistics {
     
-    typealias Success = (Bool) -> ()
-    
     private init() { }
+    
+    // MARK: - 🔨 Static Properties
+    
     static var shared = Statistics()
+    
+    // MARK: - 🔧 Properties
     
     var startTime: Date? = nil
     var endTime: Date? = nil
     
+    // MARK: 🗝 Private Properties
+    
+    /// Growing array of statistics on each generation of a simulation
+    private var evolution: [RoundStatistics] = []
+    
+    // MARK: - ⚙️ Computed Properties
+    
+    // Returns the runtime of the simulation in seconds
     var runtime: Double {
         guard let start = startTime, let finish = endTime else { return -1 }
         return finish.secondsSince(start)
     }
     
-    private var evolution: [RoundStatistics] = []
+    // MARK: - 📗 Functions
     
+    /// Saves the statistics on the given generation to var evolution
     func save(_ generation: inout Generation, forRound round: Int) {
         let roundStatistics = RoundStatistics(from: &generation, inRound: round)
         evolution.append(roundStatistics)
     }
     
+    /// Resets all gathered data
     func reset() {
         startTime = nil
         endTime = nil
         evolution.removeAll()
     }
     
-    func generateFinalOutput(completion: Success) {
+    /// Writes all gathered data to a *.csv file in the folder specified in SimulationSettings
+    func generateFinalOutput(completion: (Bool) -> ()) {
         endTime = Date.now
         let csvData = generateCSV()
         let csvFileURL = composeStatisticsURL(for: Date.now)
@@ -50,6 +85,8 @@ class Statistics {
             completion(false)
         }
     }
+    
+    // MARK: 🔒 Private Functions
     
     private func composeStatisticsURL(for endTime: Date) -> URL {
         // Unique File Name Parts
@@ -64,26 +101,6 @@ class Statistics {
         let fileExtension = ".csv"
         
         return homeDirectory.appendingPathComponent(path + fileName + fileExtension)
-    }
-    
-    // MARK: Data Conversion Structure
-    private struct RoundStatistics {
-        let simulationRound: Int
-        let bestFitness: Int
-        let worstFitness: Int
-        let averageFitness: Double
-        let individuals: [Factory]
-        
-        init(from generation: inout Generation, inRound round: Int) {
-            generation.recalculateMeasures()
-            guard let bestFitness = generation.bestFitness, let worstFitness = generation.worstFitness else { fatalError("Could not compute fitness metrics!") }
-            guard let averageFitnessOfGeneration = generation.averageFitness else { fatalError("Average Fitness was never measured!") }
-            self.simulationRound = round
-            self.bestFitness = bestFitness
-            self.worstFitness = worstFitness
-            self.averageFitness = averageFitnessOfGeneration
-            self.individuals = generation.sortedByFitness
-        }
     }
     
     private func generateCSV() -> String {
