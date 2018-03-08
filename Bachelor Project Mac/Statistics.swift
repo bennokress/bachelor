@@ -50,6 +50,9 @@ class Statistics {
     
     // MARK: - ⚙️ Computed Properties
     
+    /// Simulation counter
+    var simulationNumber = 1
+    
     // Returns the runtime of the simulation in seconds
     var runtime: Double {
         guard let start = startTime, let finish = endTime else { return -1 }
@@ -75,6 +78,7 @@ class Statistics {
         startTime = nil
         endTime = nil
         evolution.removeAll()
+        simulationNumber += 1
     }
     
     /// Writes all gathered data to a *.csv file in the folder specified in SimulationSettings
