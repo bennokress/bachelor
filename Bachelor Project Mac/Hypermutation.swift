@@ -10,12 +10,16 @@ import Foundation
 
 struct Hypermutation: Modificator {
     
+    // MARK: - ⚙️ Computed Properties
     // MARK: 🗝 Private Computed Properties
     
     private var settings: SimulationSettings {
         return SimulationSettings.shared
     }
-
+    
+    // MARK: - 📗 Functions
+    
+    /// Runs the Hypermutation Phase on the given generation
     func execute(on generation: inout Generation) {
         
         if generation.hypermutationShouldTrigger {
