@@ -10,16 +10,10 @@ import Foundation
 
 class Presenter {
     
+    private init() { }
+    
+    // MARK: - 🔨 Static Properties
+    
     static var shared = Presenter()
-    
-    private init() {
-        
-    }
-    
-    func displayInView(message: String) {
-        // TODO: [IMPROVEMENT] Add reference to ViewController in order to display something later on ...
-        print("Display this message in View:")
-        print(message)
-    }
     
 }
