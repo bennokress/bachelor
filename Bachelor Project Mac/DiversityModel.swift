@@ -8,15 +8,20 @@
 
 import Foundation
 
-enum DiversityModel: String, Encodable {
+enum DiversityModel: String {
+    
     case genealogical
     case fitnessSharing
     case genomeDistanceBased
     
+    // MARK: - ⚙️ Computed Properties
+    
+    /// Average fitness observed at the end of all test simulations
     var observationBasedAverageFitnessOfGeneration: Double {
         return 157.00
     }
     
+    /// Average diversity observed at the end of all test simulations
     var observationBasedAverageDiversityOfGeneration: Double {
         switch self {
         case .genealogical:
@@ -28,12 +33,14 @@ enum DiversityModel: String, Encodable {
         }
     }
     
-    /// Factor in calculating the diversity-influenced fitness f'.
+    /// Factor in calculating the diversity-influenced adapted fitness f'
     var lambda: Double {
         return observationBasedAverageFitnessOfGeneration / (1 / observationBasedAverageDiversityOfGeneration)
     }
     
-    // MARK: Generation Measurement
+    // MARK: - 📗 Functions
+    
+    /// Returns the average diversity measured in the given generation. Uses the diversity model specified in settings, if none is provided at call site
     func averageDiversity(for generation: Generation, with diversityModel: DiversityModel? = nil) -> Double {
         var combinedDiversity: Double = 0
         let individualsCount = Double(generation.deterministicIndividuals.count)
@@ -47,7 +54,7 @@ enum DiversityModel: String, Encodable {
         return averageDiversity
     }
     
-    // MARK: Individual Measurement
+    /// Returns an individual's measured diversity in the given generation. Uses the diversity model specified in settings, if none is provided at call site
     func diversityScore(of individual: Factory, in generation: Generation, with diversityModel: DiversityModel? = nil) -> Double? {
         let neededDiversityModel = diversityModel ?? self // This normally calls self. Only exception: Statistics need all diversity scores!
         switch neededDiversityModel {
@@ -60,7 +67,9 @@ enum DiversityModel: String, Encodable {
         }
     }
     
-    // Measuring the distance of an individuals genealogyDNA to all other DNAs of its generation.
+    // MARK: 🔒 Private Functions
+    
+    /// Returns an individual's measured genealogical diversity in the given generation
     private func genealogyDiversity(of individual: Factory, in generation: Generation) -> Double {
         var sumOfDNADistances = 0
         for comparisonIndividual in generation.deterministicIndividuals {
@@ -73,7 +82,7 @@ enum DiversityModel: String, Encodable {
         return averageDistance
     }
     
-    /// Measuring the pairwise distance of all workstations of the individual in its generation.
+    /// Returns an individual's measured genome-distance based diversity in the given generation
     private func genomeDistanceBasedDiversity(of individual: Factory, in generation: Generation) -> Double {
         var sumOfWorkstationDistances = 0
         for comparisonIndividual in generation.deterministicIndividuals {
@@ -87,7 +96,7 @@ enum DiversityModel: String, Encodable {
         return averageDistance
     }
     
-    /// Measuring the diversity in respect to the individual with the best fitness in the generation.
+    /// Returns an individual's measured fitness sharing diversity in the given generation
     private func fitnessSharingDiversity(of individual: Factory, in generation: Generation) -> Double? {
         guard let comparisonIndividual = generation.sortedByFitness.first else { fatalError("Could not find best individual in generation!") }
         if individual == comparisonIndividual {
