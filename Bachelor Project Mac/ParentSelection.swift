@@ -10,15 +10,21 @@ import Foundation
 
 struct ParentSelection: Modificator {
     
+    // MARK: 🗝 Private Computed Properties
+    
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
     func execute(on generation: inout Generation) {
         generation.recalculateMeasures()
-        let parents = getSelectedIndividuals(from: generation, usingRouletteMode: SimulationSettings.shared.parentSelectionUsesRouletteMode)
+        let parents = getSelectedIndividuals(from: generation, usingRouletteMode: settings.parentSelectionUsesRouletteMode)
         generation.setParents(parents)
     }
     
     private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
         
-        let useDiversity = SimulationSettings.shared.parentSelectionUsesDiversity
+        let useDiversity = settings.parentSelectionUsesDiversity
         let sortedGeneration = useDiversity ? generation.sortedByFitnessAndDiversity : generation.sortedByFitness
         
         if rouletteMode {

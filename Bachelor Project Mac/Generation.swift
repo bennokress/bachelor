@@ -26,7 +26,9 @@ struct Generation {
         
     }
     
-    var settings: SimulationSettings { return SimulationSettings.shared }
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
     
     var factories: Set<Factory>
     var parents: Set<Factory>

@@ -56,6 +56,12 @@ class Statistics {
         return finish.secondsSince(start)
     }
     
+    // MARK: 🗝 Private Computed Properties
+    
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
     // MARK: - 📗 Functions
     
     /// Saves the statistics on the given generation to var evolution
@@ -89,21 +95,24 @@ class Statistics {
     // MARK: 🔒 Private Functions
     
     private func composeStatisticsURL(for endTime: Date) -> URL {
+        
         // Unique File Name Parts
         let endDateString = "\(endTime.year)\(endTime.month > 9 ? "" : "0")\(endTime.month)\(endTime.day > 9 ? "" : "0")\(endTime.day)"
         let endTimeString = "\(endTime.hour > 9 ? "" : "0")\(endTime.hour)\(endTime.minute > 9 ? "" : "0")\(endTime.minute)"
-        let simulationModeName = SimulationSettings.shared.simulationMode.name
+        let simulationModeName = settings.simulationMode.name
         
         // URL Composition
         let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
-        let path = SimulationSettings.shared.statisticsOutputPath
+        let path = settings.statisticsOutputPath
         let fileName = "\(simulationModeName)_\(endDateString)-\(endTimeString)"
         let fileExtension = ".csv"
         
         return homeDirectory.appendingPathComponent(path + fileName + fileExtension)
+        
     }
     
     private func generateCSV() -> String {
+        
         let runtime = "Runtime in Seconds;\(self.runtime)"
         var simulationRoundCSV = "Simulation Round;"
         var averageFitnessCSV = "Average Fitness;"
@@ -138,27 +147,34 @@ class Statistics {
         """
         
         return csvOutput
+        
     }
     
     private func getDiversityAverageCSV(from individuals: [Factory], diversityModel: DiversityModel) -> String {
+        
         let generation = Generation(factories: Set(individuals))
         let averageDiversityOfGeneration = diversityModel.averageDiversity(for: generation, with: diversityModel)
         return "\(averageDiversityOfGeneration);"
+        
     }
     
     private func printHeader() {
+        
         print("")
         print(String.init(repeating: "=", count: 71))
         print("Gathering Detailed Statistics for all Rounds")
         print(String.init(repeating: "-", count: 71))
+        
     }
     
     private func printProgress(for round: Int) {
-        let progressInPercent = (round * 100) / SimulationSettings.shared.generations
+        
+        let progressInPercent = (round * 100) / settings.generations
         let progressString = "\(progressInPercent.toString(length: 3))%"
         let progressBar = "[\(String.init(repeating: "=", count: (progressInPercent / 2)))\(String.init(repeating: " ", count: 50 - (progressInPercent / 2)))]"
         let roundString = "Round \(round.toString(length: 3))"
         print("\(roundString) | \(progressBar) | \(progressString)")
+        
     }
 
 }

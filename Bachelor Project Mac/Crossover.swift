@@ -10,9 +10,13 @@ import Foundation
 
 struct Crossover: Modificator {
     
+    // MARK: 🗝 Private Computed Properties
+    
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
     func execute(on generation: inout Generation) {
-        
-        let settings = SimulationSettings.shared
         
         var results: [(parent1: Factory, parent2: Factory, crossover: Factory)] = []
         

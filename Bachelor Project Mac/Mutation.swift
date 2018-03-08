@@ -10,9 +10,13 @@ import Foundation
 
 struct Mutation: Modificator {
     
+    // MARK: 🗝 Private Computed Properties
+    
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
     func execute(on generation: inout Generation) {
-        
-        let settings = SimulationSettings.shared
         
         var results: [(original: Factory, mutation: Factory)] = []
         

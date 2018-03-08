@@ -10,12 +10,20 @@ import Foundation
 
 struct SurvivorSelection: Modificator {
     
-    var duplicateEliminationActivated: Bool { return SimulationSettings.shared.duplicateEliminationActivated }
+    // MARK: 🗝 Private Computed Properties
+    
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
+    var duplicateEliminationActivated: Bool {
+        return settings.duplicateEliminationActivated
+    }
     
     func execute(on generation: inout Generation) {
         
         generation.recalculateMeasures()
-        let targetGenerationSize = SimulationSettings.shared.populationSize
+        let targetGenerationSize = settings.populationSize
         
         var sortedIndividuals = generation.sortedByFitness
         if duplicateEliminationActivated {

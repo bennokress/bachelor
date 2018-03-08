@@ -46,6 +46,12 @@ struct Robot: Identifiable {
     var isBlocked: Bool { return state == .blocked }
     var isDocked: Bool { return state == .docked }
     
+    // MARK: 🗝 Private Computed Properties
+    
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
     // MARK: - 📗 Functions
     // MARK: 🔒 Private Functions
     
@@ -81,7 +87,7 @@ struct Robot: Identifiable {
             // Check if moving away from target and set state to blocked, if threshold is reached
             if targetField.position.distance(to: nextTargetPosition) > distanceToTarget {
                 dodgeCounter += 1
-                if dodgeCounter >= SimulationSettings.shared.dodgeThreshold {
+                if dodgeCounter >= settings.dodgeThreshold {
                     state = .blocked
                     return self
                 }

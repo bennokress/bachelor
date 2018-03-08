@@ -154,9 +154,13 @@ struct Factory: Identifiable {
     
     // MARK: 🗝 Private Computed Properties
     
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
     /// The used diversity model as specified in the SimulationSettings
     private var diversityModel: DiversityModel {
-        return SimulationSettings.shared.usedDiversityModel
+        return settings.usedDiversityModel
     }
     
     // MARK: - 📗 Functions

@@ -10,8 +10,13 @@ import Foundation
 
 struct Simulator {
     
-    var settings = SimulationSettings.shared
-    var statistics = Statistics.shared
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
+    
+    private var statistics: Statistics {
+        return Statistics.shared
+    }
     
     var simulationNumber = 1
     
@@ -46,7 +51,7 @@ struct Simulator {
     
     private mutating func restartSimulation() {
         simulationNumber += 1
-        Statistics.shared.reset()
+        statistics.reset()
         start()
     }
     
@@ -58,11 +63,11 @@ struct Simulator {
     }
     
     private func saveStats(on generation: inout Generation, inRound round: Int) {
-        Statistics.shared.save(&generation, forRound: round)
+        statistics.save(&generation, forRound: round)
     }
     
     private func printProgressAndStats(for generation: Generation, in round: Int) {
-        let progressInPercent = (round * 100) / SimulationSettings.shared.generations
+        let progressInPercent = (round * 100) / settings.generations
         let progressString = "\(progressInPercent.toString(length: 3))%"
         let progressBar = "[\(String.init(repeating: "=", count: (progressInPercent / 2)))\(String.init(repeating: " ", count: 50 - (progressInPercent / 2)))]"
         let roundString = "Round \(round.toString(length: 3))"

@@ -10,11 +10,11 @@ import Foundation
 
 struct RunnableFactory {
     
-    var settings: SimulationSettings { return SimulationSettings.shared }
+    private var settings: SimulationSettings {
+        return SimulationSettings.shared
+    }
     
     var layout: FactoryLayout
-    
-    // MARK: Computed Properties
     
     private var robots: Set<Robot> {
         var robots: Set<Robot> = []
@@ -35,8 +35,6 @@ struct RunnableFactory {
         }
         return workstations
     }
-
-    // MARK: Simulation
     
     private var allRobotsFinished: Bool {
         let unfinishedRobots = robots.filter { ($0.state != .finished) }
