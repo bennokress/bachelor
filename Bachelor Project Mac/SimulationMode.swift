@@ -28,9 +28,11 @@ enum SimulationMode {
     // used until Mar 12th | Lambda in adapted fitness now with observation based value
     case phase5(diversityModel: DiversityModel, useDiversity: Bool, randomizeProducts: Bool)
     
-    // MARK: - Manually entered settings per mode
+    // MARK: - ⚙️ Computed Properties
     
-    // Used in Statistics
+    // ⚠️ THE FOLLOWING PROPERTIES HAVE TO BE UPDATED FOR NEW MODES AS INDICATED BY XCODE!
+    
+    // Returns the String representation for the mode in use - used in Statistics output
     var name: String {
         switch self {
         case .development: return "Development"
@@ -42,7 +44,7 @@ enum SimulationMode {
         }
     }
     
-    /// Number of generations (= rounds of the Genetic Algorithm)
+    /// Returns the number of generations (= rounds of the genetic algorithm)
     var generations: Int {
         switch self {
         case .development: return 200
@@ -54,8 +56,8 @@ enum SimulationMode {
         }
     }
     
-    /// The amount of individuals in each generation
-    var generationSize: Int {
+    /// Returns the amount of individuals in each generation
+    var populationSize: Int {
         switch self {
         case .development: return 30
         case .phase1,
@@ -66,7 +68,7 @@ enum SimulationMode {
         }
     }
     
-    /// The width of each factory (x)
+    /// Returns the width of each factory in fields (x-axis)
     var factoryWidth: Int {
         switch self {
         case .development: return 29
@@ -78,7 +80,7 @@ enum SimulationMode {
         }
     }
     
-    /// The length of each factory (y)
+    /// Returns the length of each factory in fields (y-axis)
     var factoryLength: Int {
         switch self {
         case .development: return 10
@@ -90,7 +92,7 @@ enum SimulationMode {
         }
     }
     
-    /// The number of fields from the side wall to the entrance and exit respectively
+    /// Returns the number of fields from the side wall to the entrance and exit respectively
     var distanceFromEntranceAndExitToLayoutCorner: Int {
         switch self {
         case .development: return 15
@@ -102,7 +104,7 @@ enum SimulationMode {
         }
     }
     
-    /// Amounts for each product type used in the simulation
+    /// Returns the amounts for each product type used in the simulation
     var productAmount: [ProductType : Int] {
         switch self {
         case .development:
@@ -116,7 +118,7 @@ enum SimulationMode {
         }
     }
     
-    /// Amounts for each workstation type used in the simulation
+    /// Returns the amounts for each workstation type used in the simulation
     var workstationAmount: [WorkstationType : Int] {
         switch self {
         case .development: return WorkstationType.amountDictionary(a: 2, b: 1, c: 1, d: 1, e: 1, f: 1)
@@ -128,7 +130,7 @@ enum SimulationMode {
         }
     }
     
-    /// The probability in percent with which each of an individuals workstations mutate in the Mutation phase
+    /// Returns the probability in percent for workstations (genes) to mutate in the Mutation phase
     var mutationProbability: Int {
         switch self {
         case .development: return 35
@@ -140,7 +142,7 @@ enum SimulationMode {
         }
     }
     
-    /// The radius inside of which a workstation can get mutated in the Mutation phase
+    /// Returns the radius inside of which a workstation (gene) can mutate in the Mutation phase
     var mutationDistance: Int {
         switch self {
         case .development: return 5
@@ -152,7 +154,7 @@ enum SimulationMode {
         }
     }
     
-    /// The probability in percent with which a workstation of the first individual of a pair gets chosen in the Crossover phase
+    /// Returns the probability in percent for a workstation (gene) of parent 1 gets chosen over one of parent 2 in the Crossover phase
     var crossoverProbability: Int {
         switch self {
         case .development,
@@ -164,19 +166,19 @@ enum SimulationMode {
         }
     }
     
-    /// The minimal average diversity below which Hypermutation will trigger (1.0 is equal to unused)
+    /// Returns the minimal average diversity below which Hypermutation will trigger (0.0 is equal to unused)
     var hypermutationThreshold: Double {
         switch self {
+        case .phase1,
+             .phase2: return 0.0 // = never
         case .development,
-             .phase1,
-             .phase2: return 1.0 // = never
-        case .phase3,
+             .phase3,
              .phase4,
              .phase5: return Double.infinity // = always
         }
     }
     
-    // The number of times a robot can move away from his next target before being marked as blocked
+    // Returns the number of times a robot can move away from his next target or stand still before being marked as blocked
     var dodgeThreshold: Int {
         switch self {
         case .development,
@@ -188,7 +190,7 @@ enum SimulationMode {
         }
     }
     
-    /// Sequence of all the phases of the Genetic Algorithm
+    /// Returns the sequence of all phases used in the genetic algorithm
     var phases: [Modificator] {
         switch self {
         case .development,
@@ -200,19 +202,7 @@ enum SimulationMode {
         }
     }
     
-    /// The distribution model used for calculating how distributed the workstation are in each factory
-    var distributionModel: DistributionModel {
-        switch self {
-        case .development,
-             .phase1,
-             .phase2,
-             .phase3,
-             .phase4,
-             .phase5: return .averageDistanceToCenter
-        }
-    }
-    
-    /// The diversity model used in the Selection phase
+    /// Returns the diversity model used in the Selection phase
     var diversityModel: DiversityModel {
         switch self {
         case .development(let diversityModel, _),
@@ -224,8 +214,8 @@ enum SimulationMode {
         }
     }
     
-    /// Indication if selection is based on fitness alone or fitness and diversity together
-    var selectionUsesDiversity: Bool {
+    /// Returns true if diversity influences the parent selection
+    var parentSelectionUsesDiversity: Bool {
         switch self {
         case .development(_, let useDiversity),
              .phase1(_, let useDiversity, _),
@@ -236,7 +226,7 @@ enum SimulationMode {
         }
     }
     
-    /// Indication if the Parent Selection Phase should give all individuals a weighed chance to become parents or if the should be selected by fitness
+    /// Returns true parent selection is fitness-proportional (using "Roulette Mode")
     var parentSelectionUsesRouletteMode: Bool {
         switch self {
         case .development,
@@ -248,7 +238,7 @@ enum SimulationMode {
         }
     }
     
-    /// Indication if duplicate individuals should be eliminated in Survivor Selection Phase (only neccessary if diversity is not factored in to the selection process)
+    /// Returns true if duplicate individuals are eliminated in Survivor Selection Phase
     var duplicateEliminationActivated: Bool {
         switch self {
         case .development: return false
@@ -260,7 +250,7 @@ enum SimulationMode {
         }
     }
     
-    /// Indication if a workstation should be deactivated after a while
+    /// Returns true if a workstation should be deactivated after a given time
     var simulatedWorkstationBreakdownActivated: Bool {
         switch self {
         case .development: return true
@@ -272,7 +262,7 @@ enum SimulationMode {
         }
     }
     
-    /// IDs of all the workstations that should be deactivated after a while (as indicated by simulatedWorkstationBreakdownActivated)
+    /// Returns the IDs of all workstations that should be deactivated in a simulated breakdown (as indicated by simulatedWorkstationBreakdownActivated)
     var brokenWorkstationIDs: [Int] {
         switch self {
         case .development: return [1]
@@ -284,7 +274,7 @@ enum SimulationMode {
         }
     }
     
-    // Timing of the workstation breakdown (as indicated by simulatedWorkstationBreakdownActivated)
+    // Returns the timing of the workstation breakdown (as indicated by simulatedWorkstationBreakdownActivated)
     var workstationBreakdownTiming: Int {
         switch self {
         case .development,
@@ -292,11 +282,11 @@ enum SimulationMode {
              .phase2,
              .phase3,
              .phase4,
-             .phase5: return generations * 2 / 3 // at 2/3rd of the runtime
+             .phase5: return generations * 2 / 3
         }
     }
     
-    // MARK: - Automatically determined variables from the values above
+    // ⚠️ THE FOLLOWING PROPERTIES DO NOT NEED ANY UPDATE FOR NEW MODES (-> NO ERROR INDICATED BY XCODE!)
     
     var entrancePosition: Position {
         let entranceFieldnumber = distanceFromEntranceAndExitToLayoutCorner - 1

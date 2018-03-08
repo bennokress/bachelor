@@ -33,17 +33,16 @@ class SimulationSettings {
     var exit: Position { return simulationMode.exitPosition }
     var factoryLength: Int { return simulationMode.factoryLength }
     var factoryWidth: Int { return simulationMode.factoryWidth }
-    var generationSize: Int { return simulationMode.generationSize }
     var generations: Int { return simulationMode.generations }
     var hypermutationThreshold: Double { return simulationMode.hypermutationThreshold }
     var mutationDistance: Int { return simulationMode.mutationDistance }
     var mutationProbability: Int { return simulationMode.mutationProbability }
+    var parentSelectionUsesDiversity: Bool { return simulationMode.parentSelectionUsesDiversity }
     var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
     var phases: [Modificator] { return simulationMode.phases }
+    var populationSize: Int { return simulationMode.populationSize }
     var productAmount: [ProductType : Int] { return simulationMode.productAmount }
-    var selectionUsesDiversity: Bool { return simulationMode.selectionUsesDiversity }
     var simulatedWorkstationBreakdownActivated: Bool { return simulationMode.simulatedWorkstationBreakdownActivated }
-    var usedDistributionModel: DistributionModel { return simulationMode.distributionModel }
     var usedDiversityModel: DiversityModel { return simulationMode.diversityModel }
     var workstationAmount: [WorkstationType : Int] { return simulationMode.workstationAmount }
     var workstationBreakdownTiming: Int { return simulationMode.workstationBreakdownTiming }

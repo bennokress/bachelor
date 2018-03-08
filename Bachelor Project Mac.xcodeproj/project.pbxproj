@@ -14,7 +14,6 @@
 		D334E8C11EFD519E002DF760 /* SurvivorSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */; };
 		D33DF8261F650DAA00B55570 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33DF8251F650DAA00B55570 /* Statistics.swift */; };
 		D34A73041EB9CF6100FBE2F7 /* FactoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */; };
-		D35A50CE1F1A7C7700000B36 /* DistributionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */; };
 		D37AF1B91F7FCDD6000C7681 /* Bitstring.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37AF1B81F7FCDD6000C7681 /* Bitstring.swift */; };
 		D37AF1BB1F7FCDE2000C7681 /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37AF1BA1F7FCDE2000C7681 /* Bit.swift */; };
 		D39734281EB1E6D300DAAC8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39734271EB1E6D300DAAC8A /* AppDelegate.swift */; };
@@ -87,7 +86,6 @@
 		D334E8C01EFD519E002DF760 /* SurvivorSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurvivorSelection.swift; sourceTree = "<group>"; };
 		D33DF8251F650DAA00B55570 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FactoryState.swift; sourceTree = "<group>"; };
-		D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionModel.swift; sourceTree = "<group>"; };
 		D37AF1B81F7FCDD6000C7681 /* Bitstring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitstring.swift; sourceTree = "<group>"; };
 		D37AF1BA1F7FCDE2000C7681 /* Bit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
 		D39734241EB1E6D300DAAC8A /* Bachelor Project Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bachelor Project Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,7 +253,6 @@
 				D34A73031EB9CF6100FBE2F7 /* FactoryState.swift */,
 				D3D84DDB1EB5F9390038710B /* FieldType.swift */,
 				D39734641EB1FEBF00DAAC8A /* Position.swift */,
-				D35A50CD1F1A7C7700000B36 /* DistributionModel.swift */,
 				D3E80FF61F51AD9A0034A800 /* DiversityModel.swift */,
 				D3E257021EBB8584005949A9 /* Identifiable.swift */,
 			);
@@ -532,7 +529,6 @@
 				D3D84DDA1EB4EC590038710B /* Routing.swift in Sources */,
 				D39734651EB1FEBF00DAAC8A /* Position.swift in Sources */,
 				D39734581EB1EEFF00DAAC8A /* Extensions.swift in Sources */,
-				D35A50CE1F1A7C7700000B36 /* DistributionModel.swift in Sources */,
 				D3E80FF71F51AD9A0034A800 /* DiversityModel.swift in Sources */,
 				D33DF8261F650DAA00B55570 /* Statistics.swift in Sources */,
 				D3CD5F031EEAB68A00CEB83B /* Modificator.swift in Sources */,

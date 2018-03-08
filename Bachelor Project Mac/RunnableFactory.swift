@@ -59,11 +59,6 @@ struct RunnableFactory {
         return factoryCopy.atLeastOneRobotBlocked ? Int.max : stepCounter
     }
     
-    func calculateDistribution() -> Double {
-        let distributionModel = settings.usedDistributionModel
-        return distributionModel.getScore(of: layout)
-    }
-    
     private mutating func simulateNextStep() {
         for robot in robots {
             var modifiableRobot = robot

@@ -18,7 +18,7 @@ struct ParentSelection: Modificator {
     
     private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
         
-        let useDiversity = SimulationSettings.shared.selectionUsesDiversity
+        let useDiversity = SimulationSettings.shared.parentSelectionUsesDiversity
         let sortedGeneration = useDiversity ? generation.sortedByFitnessAndDiversity : generation.sortedByFitness
         
         if rouletteMode {

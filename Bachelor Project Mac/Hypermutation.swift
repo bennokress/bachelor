@@ -16,7 +16,7 @@ struct Hypermutation: Modificator {
         
         if generation.hypermutationShouldTrigger {
             
-            let tenPercentOfTargetGenerationSize = settings.generationSize / 10
+            let tenPercentOfTargetGenerationSize = settings.populationSize / 10
             var hypermutationResults: [Factory] = []
             
             tenPercentOfTargetGenerationSize.times {

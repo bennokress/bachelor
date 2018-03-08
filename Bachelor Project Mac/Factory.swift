@@ -97,7 +97,6 @@ struct Factory: Identifiable {
     let layout: FactoryLayout
     let layoutHash: String // used to recognize identical layouts (duplicate factories)
     let fitness: Int
-    let distribution: Double
     
     let genealogyDNA: Bitstring
     
@@ -110,9 +109,6 @@ struct Factory: Identifiable {
         // Fitness Calculation
         let factoryCopy = RunnableFactory(layout: layout)
         self.fitness = factoryCopy.calculateFitness()
-        
-        // Distribution Calculation
-        self.distribution = factoryCopy.calculateDistribution()
     }
     
     // MARK: Computed Properties

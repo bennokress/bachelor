@@ -15,7 +15,7 @@ struct SurvivorSelection: Modificator {
     func execute(on generation: inout Generation) {
         
         generation.recalculateMeasures()
-        let targetGenerationSize = SimulationSettings.shared.generationSize
+        let targetGenerationSize = SimulationSettings.shared.populationSize
         
         var sortedIndividuals = generation.sortedByFitness
         if duplicateEliminationActivated {

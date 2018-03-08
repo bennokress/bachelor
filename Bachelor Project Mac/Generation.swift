@@ -17,7 +17,7 @@ struct Generation {
         settings.nextFactoryID = 1
         var initialFactories: Set<Factory> = []
         
-        settings.generationSize.times {
+        settings.populationSize.times {
             let factory = Factory()
             initialFactories.insert(factory)
         }
