@@ -10,13 +10,6 @@ import Foundation
 
 struct Workstation: Identifiable {
     
-    let id: Int
-    let type: WorkstationType
-    let position: Position
-    var state: WorkstationState
-    
-    var isIdle: Bool { return state == .idle }
-    
     init(id: Int, type: WorkstationType, at position: Position) {
         self.id = id
         self.state = .idle
@@ -24,10 +17,28 @@ struct Workstation: Identifiable {
         self.position = position
     }
     
+    // MARK: - 🔧 Properties
+    
+    let id: Int
+    let type: WorkstationType
+    let position: Position
+    var state: WorkstationState
+    
+    // MARK: - ⚙️ Computed Properties
+    
+    /// Returns true if the workstation is not assembling a product at the moment
+    var isIdle: Bool {
+        return state == .idle
+    }
+    
+    // MARK: - 📕 Mutating Functions
+    
+    /// Sets the state of the workstation to busy with the given robot attached
     mutating func work(on robot: Robot) {
         self.state = .busy(robot: robot)
     }
     
+    /// Sets the state of the workstation to idle
     mutating func finishWorking() {
         self.state = .idle
     }
