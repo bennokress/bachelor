@@ -10,12 +10,18 @@ import Foundation
 
 struct Product {
     
-    let type: ProductType
-    
-    var neededWorkstations: [WorkstationType] { return self.type.route }
-    
     init(type: ProductType) {
         self.type = type
+    }
+    
+    // MARK: - 🔧 Properties
+    
+    let type: ProductType
+    
+    // MARK: - ⚙️ Computed Properties
+    
+    var neededWorkstations: [WorkstationType] {
+        return self.type.route
     }
     
 }
