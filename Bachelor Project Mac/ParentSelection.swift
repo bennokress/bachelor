@@ -10,18 +10,25 @@ import Foundation
 
 struct ParentSelection: Modificator {
     
+    // MARK: - ⚙️ Computed Properties
     // MARK: 🗝 Private Computed Properties
     
     private var settings: SimulationSettings {
         return SimulationSettings.shared
     }
     
+    // MARK: - 📗 Functions
+    
+    /// Runs the Parent Selection Phase on the given generation
     func execute(on generation: inout Generation) {
         generation.recalculateMeasures()
         let parents = getSelectedIndividuals(from: generation, usingRouletteMode: settings.parentSelectionUsesRouletteMode)
         generation.setParents(parents)
     }
     
+    // MARK: 🔒 Private Functions
+    
+    /// Executes the selection process proportional to the individual's fitness or strictly by fitness as indicated by "usingRouletteMode"
     private func getSelectedIndividuals(from generation: Generation, usingRouletteMode rouletteMode: Bool) -> Set<Factory> {
         
         let useDiversity = settings.parentSelectionUsesDiversity
@@ -40,7 +47,6 @@ struct ParentSelection: Modificator {
                 rouletteWheelFrequency.times {
                     rouletteWheel.append(individual.id)
                 }
-//                print("\(fitness) | \(individual.fitness) | Factory #\(individual.id) added \(fitnessFactor) times to the roulette wheel.")
             }
             
             // 2 - Pick and remove factory IDs randomly from the roulette wheel
