@@ -8,8 +8,11 @@
 
 import Foundation
 
-struct Routing: Encodable {
+struct RobotRouting {
     
+    // MARK: - 📗 Functions
+    
+    /// Returns an array of positions for a robot to visit in order to finish the product by looking for the nearest needed workstation at any time
     func getShortestRoute(containing workstationTypes: [WorkstationType], in factoryLayout: FactoryLayout) -> [Position] {
         guard let entrance = factoryLayout.entrancePosition, let exit = factoryLayout.exitPosition else { fatalError("Factory Layout has no entrance or exit!") }
         

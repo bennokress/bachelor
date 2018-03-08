@@ -29,7 +29,7 @@ struct Robot: Identifiable {
     var isBlocked: Bool { return state == .blocked }
     var isDocked: Bool { return state == .docked }
     
-    let routing = Routing()
+    let routing = RobotRouting()
     
     init(id: Int, product: Product, in factoryLayout: FactoryLayout) {
         guard let entrance = factoryLayout.entrancePosition else { fatalError("No entrance found in factory layout!") }
