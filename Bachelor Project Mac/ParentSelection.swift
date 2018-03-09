@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ParentSelection: Modificator {
+struct ParentSelection: GAPhase {
     
     // MARK: - ⚙️ Computed Properties
     // MARK: 🗝 Private Computed Properties

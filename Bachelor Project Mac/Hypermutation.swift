@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Hypermutation: Modificator {
+struct Hypermutation: GAPhase {
     
     // MARK: - ⚙️ Computed Properties
     // MARK: 🗝 Private Computed Properties
