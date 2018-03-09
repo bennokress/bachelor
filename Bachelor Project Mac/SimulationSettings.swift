@@ -35,7 +35,7 @@ class SimulationSettings {
     
     // MARK: - 🔧 Properties
     
-    var simulationMode: SimulationMode = .development(diversityModel: .genealogical, useDiversity: true, plotDiversity: true)
+    var simulationMode: SimulationMode = .production(diversityModel: .genealogical, useDiversity: true, plotDiversity: true)
     let statisticsOutputPath = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/testStatsFinalVersion/"
     var nextFactoryID = 1 // used and updated when building a new individual (factory) or restarting the simulation
     
