@@ -35,7 +35,7 @@ class SimulationSettings {
     
     // MARK: - 🔧 Properties
     
-    var simulationMode: SimulationMode = .development(diversityModel: .genealogical, useDiversity: true, plotDiversity: true)
+    var simulationMode: SimulationMode = .production(diversityModel: .genealogical, useDiversity: true, plotDiversity: true)
     let statisticsOutputPath = "Library/Mobile Documents/com~apple~CloudDocs/iCloud Dropbox/Universität/Bachelorarbeit/Stats/testStatsFinalVersion/"
     var nextFactoryID = 1 // used and updated when building a new individual (factory) or restarting the simulation
     
@@ -56,7 +56,7 @@ class SimulationSettings {
     var mutationDistance: Int { return simulationMode.mutationDistance }
     var mutationProbability: Int { return simulationMode.mutationProbability }
     var parentSelectionUsesRouletteMode: Bool { return simulationMode.parentSelectionUsesRouletteMode }
-    var phases: [Modificator] { return simulationMode.phases }
+    var phases: [GAPhase] { return simulationMode.phases }
     var populationSize: Int { return simulationMode.populationSize }
     var productAmount: [ProductType : Int] { return simulationMode.productAmount }
     var simulatedWorkstationBreakdownActivated: Bool { return simulationMode.simulatedWorkstationBreakdownActivated }

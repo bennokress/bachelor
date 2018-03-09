@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Crossover: Modificator {
+struct Crossover: GAPhase {
     
     // MARK: - ⚙️ Computed Properties
     // MARK: 🗝 Private Computed Properties

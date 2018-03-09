@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SurvivorSelection: Modificator {
+struct SurvivorSelection: GAPhase {
     
     // MARK: - ⚙️ Computed Properties
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Mutation: Modificator {
+struct Mutation: GAPhase {
     
     // MARK: - ⚙️ Computed Properties
     // MARK: 🗝 Private Computed Properties

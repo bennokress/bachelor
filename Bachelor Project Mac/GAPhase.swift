@@ -1,5 +1,5 @@
 //
-//  Modificator.swift
+//  GAPhase
 //  Bachelor Project Mac
 //
 //  Created by Benno Kress on 09.06.17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Modificator {
+protocol GAPhase {
     
     func execute(on generation: inout Generation)
     
