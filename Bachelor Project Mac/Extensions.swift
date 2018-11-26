@@ -143,13 +143,12 @@ extension Int {
     
     /// Returns a String of the desired length with leading spaces or zeros or a string of #'s in the desired length, if activated.
     func toString(length: Int, withLeadingZeros hasLeadingZeros: Bool = false, eliminatingLongerInt: Bool = false) -> String {
-        let intLength = self.digits.count
-        if intLength == length {
+        if self.digits == length {
             return "\(self)"
-        } else if intLength > length {
+        } else if self.digits > length {
             return eliminatingLongerInt ? String.init(repeating: "#", count: length) : "\(self)"
         } else {
-            let fillCount = length - intLength
+            let fillCount = length - self.digits
             let fillString = String.init(repeating: "\(hasLeadingZeros ? "0" : " ")", count: fillCount)
             return "\(fillString)\(self)"
         }
@@ -182,9 +181,9 @@ extension MutableCollection {
         }
         
         for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: elementsCount, to: 1, by: -1)) {
-            let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
-            let i = index(firstUnshuffled, offsetBy: d)
-            swapAt(firstUnshuffled, i)
+            let indexDistance: Int = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
+            let itemIndex = index(firstUnshuffled, offsetBy: indexDistance)
+            swapAt(firstUnshuffled, itemIndex)
         }
     }
 }
