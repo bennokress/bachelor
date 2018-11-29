@@ -7,20 +7,20 @@
 //
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                                   //
-// There are two options when customizing the simulation:                                                                            //
-//                                                                                                                                   //
-//     1. Creating a new mode in SimulationMode                                                                                      //
-//        --> Xcode will give you warnings until every parameter is configured                                                       //
-//     2. Using one of the present modes by setting simulationMode below                                                             //
-//        --> diversity model can be one of: .genealogical, .genomeDistanceBased, .fitnessSharing, .none                             //
-//        --> useDiversity indicates if diversity influences the genetic algorithm, it also manages enables / disables Hypermutation //
-//        --> plotDiversity indicates if the Statistics output should include diversity measurements                                 //
-//                                                                                                                                   //
-// Please also set the statisticsOutputPath to get a csv-File with Statistics for each simulation!                                   //
-//                                                                                                                                   //
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                           //
+// There are two options when customizing the simulation:                                                                    //
+//                                                                                                                           //
+//     1. Creating a new mode in SimulationMode                                                                              //
+//        --> Xcode will give you warnings until every parameter is configured                                               //
+//     2. Using one of the present modes by setting simulationMode below                                                     //
+//        --> diversity model can be one of: .genealogical, .genomeDistanceBased, .fitnessSharing, .none                     //
+//        --> useDiversity indicates if diversity influences the genetic algorithm, it also enables / disables Hypermutation //
+//        --> plotDiversity indicates if the Statistics output should include diversity measurements                         //
+//                                                                                                                           //
+// Please also set the statisticsOutputPath to get a csv-File with Statistics for each simulation!                           //
+//                                                                                                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 import Foundation
